@@ -39,7 +39,6 @@ class MyContents  {
         // Create a Cube Mesh with basic material
         let box = new THREE.BoxGeometry(  this.boxMeshSize,  this.boxMeshSize,  this.boxMeshSize );
         this.boxMesh = new THREE.Mesh( box, boxMaterial );
-        this.boxMesh.scale.z = 2
 
     }
 
@@ -68,16 +67,41 @@ class MyContents  {
         // add an ambient light
         const ambientLight = new THREE.AmbientLight( 0x555555 );
         this.app.scene.add( ambientLight );
+        
+        let floor = new THREE.PlaneGeometry( 10, 10 );
+        this.floorMesh = new THREE.Mesh( floor, this.planeMaterial );
+        this.floorMesh.rotation.x = -Math.PI / 2;
+        this.floorMesh.position.y = -0;
+        this.app.scene.add( this.floorMesh );
 
-        this.buildBox()
-        
-        // Create a Plane Mesh with basic material
-        
-        let plane = new THREE.PlaneGeometry( 10, 10 );
-        this.planeMesh = new THREE.Mesh( plane, this.planeMaterial );
-        this.planeMesh.rotation.x = -Math.PI / 2;
-        this.planeMesh.position.y = -0;
-        this.app.scene.add( this.planeMesh );
+        for (let i = 0; i < 4; i++) {
+            let wall = new THREE.PlaneGeometry( 10, 10 );
+            let wallMesh = new THREE.Mesh( wall, this.planeMaterial );
+            wallMesh.position.x = 0;
+            wallMesh.position.y = 5;
+            wallMesh.position.z = 0;
+            wallMesh.rotation.y = Math.PI / 2 * i;
+            wallMesh.translateZ(-5);
+            this.app.scene.add( wallMesh );
+        }
+
+        // build a table centered in the scene with a paralelipiped on top and a cylinder on each side
+        let table = new THREE.BoxGeometry( 6, 0.5, 4 );
+        let tableMesh = new THREE.Mesh( table, this.planeMaterial );
+        tableMesh.position.x = 0;
+        tableMesh.position.y = 2;
+        tableMesh.position.z = 0;
+        this.app.scene.add( tableMesh );
+
+        let cylinder = new THREE.CylinderGeometry( 0.3, 0.3, 2.5, 32 );
+
+        for (let i = 0; i < 4; i++) {
+            let cylinderMesh = new THREE.Mesh( cylinder, this.planeMaterial );
+            cylinderMesh.position.set(i % 2 === 0 ? -2.5 : 2.5, 1, i < 2 ? -1.5 : 1.5);
+            this.app.scene.add(cylinderMesh);
+          }
+
+
     }
     
     /**
@@ -141,13 +165,6 @@ class MyContents  {
      * 
      */
     update() {
-        // check if box mesh needs to be updated
-        this.updateBoxIfRequired()
-
-        // sets the box mesh position based on the displacement vector
-        this.boxMesh.position.x = this.boxDisplacement.x
-        this.boxMesh.position.y = this.boxDisplacement.y
-        this.boxMesh.position.z = this.boxDisplacement.z
         
     }
 
