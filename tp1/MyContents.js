@@ -85,7 +85,6 @@ class MyContents  {
             this.app.scene.add( wallMesh );
         }
 
-        // build a table centered in the scene with a paralelipiped on top and a cylinder on each side
         let table = new THREE.BoxGeometry( 6, 0.5, 4 );
         let tableMesh = new THREE.Mesh( table, this.planeMaterial );
         tableMesh.position.x = 0;
@@ -100,6 +99,45 @@ class MyContents  {
             cylinderMesh.position.set(i % 2 === 0 ? -2.5 : 2.5, 1, i < 2 ? -1.5 : 1.5);
             this.app.scene.add(cylinderMesh);
           }
+
+
+        this.plateMaterial = new THREE.MeshPhongMaterial({ color: "#ffffff",
+        specular: "#000000", emissive: "#000000", shininess: 90 })
+
+        let plate = new THREE.CylinderGeometry( 0.9, 0.6, 0.2, 32 );
+        let plateMesh = new THREE.Mesh( plate, this.plateMaterial );
+        plateMesh.position.x = 0;
+        plateMesh.position.y = 2.3;
+        plateMesh.position.z = 0;
+        this.app.scene.add( plateMesh );
+
+        this.cakeMaterial = new THREE.MeshPhongMaterial({ color: "#964b00",
+        specular: "#000000", emissive: "#000000", shininess: 90 })
+
+        const cake = new THREE.CylinderGeometry(0.6, 0.6, 0.4, 32, 1, false, 0, Math.PI * 2 * 0.90);
+        let cakeMesh = new THREE.Mesh( cake, this.cakeMaterial );
+        cakeMesh.position.x = 0;
+        cakeMesh.position.y = 2.5;
+        cakeMesh.position.z = 0;
+        this.app.scene.add( cakeMesh );
+
+        const candle = new THREE.CylinderGeometry(0.035, 0.035, 0.2, 32);
+        let candleMesh = new THREE.Mesh( candle, this.plateMaterial );
+        candleMesh.position.x = 0.2;
+        candleMesh.position.y = 2.8;
+        candleMesh.position.z = -0.2;
+        this.app.scene.add( candleMesh );
+
+        
+        this.flameMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000",
+        specular: "#000000", emissive: "#000000", shininess: 90 })
+
+        const flame = new THREE.ConeGeometry(0.035, 0.07, 32);
+        let flameMesh = new THREE.Mesh( flame, this.flameMaterial );
+        flameMesh.position.x = 0.2;
+        flameMesh.position.y = 2.935;
+        flameMesh.position.z = -0.2;
+        this.app.scene.add( flameMesh );
 
 
     }
