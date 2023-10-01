@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export class MyTable {
+export class MyTable{
   constructor(app, tableWidth, tableDepth, tableThickness, tableColor, legHeight, legRadius, position) {
     this.app = app;
     this.tableColor = tableColor || '#8B4513'
@@ -11,10 +11,9 @@ export class MyTable {
     this.tableDepth = tableDepth || 4; // Default table width is 4
     this.tableThickness = tableThickness || 0.5; // Default table thickness is 0.5
 
-    this.createTable();
   }
 
-  createTable() {
+  display() {
     // Create the table top
     let table = new THREE.BoxGeometry(this.tableWidth, this.tableThickness, this.tableDepth);
     let tableMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });

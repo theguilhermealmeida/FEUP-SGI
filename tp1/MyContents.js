@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyTable } from './MyTable.js';
+import { MyCake} from './MyCake.js';
+import { MyPlate} from './MyPlate.js';
+import { MyCandle} from './MyCandle.js';
 
 /**
  *  This class contains the contents of out application
@@ -14,6 +17,11 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+
+        // floor related attributes
+        this.floorHeight = 30
+        this.floorWidth = 30
+
 
         // box related attributes
         this.boxMesh = null
@@ -37,6 +45,25 @@ class MyContents  {
         this.legRadius = 0.3
         this.tableColor = '#8B4513'
         this.tablePosition = new THREE.Vector3(0, 2, 0)
+
+        // plate related attributes
+        this.plateHeight = 0.2
+        this.platePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight/2, this.tablePosition.z)
+        this.plateRadius = 0.9
+        this.plateColor = '#ffffff'
+
+        // cake related attributes
+        this.cakeHeight = 0.4
+        this.cakePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight/2, this.tablePosition.z)
+        this.cakeRadius = 0.6
+        this.cakeColor = '#964b00'
+
+        // candle related attributes
+        this.candleHeight = 0.25 
+        this.candlePosition = new THREE.Vector3(this.cakePosition.x + 0.2, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight + this.candleHeight/2, this.cakePosition.z - 0.2)
+        this.candleRadius = 0.01
+        this.candleColor = '#ffffff'
+
     }
 
     /**
@@ -78,81 +105,34 @@ class MyContents  {
         const ambientLight = new THREE.AmbientLight( 0x555555 );
         this.app.scene.add( ambientLight );
         
-        let floor = new THREE.PlaneGeometry( 10, 10 );
+        let floor = new THREE.PlaneGeometry(this.floorHeight,this.floorWidth);
         this.floorMesh = new THREE.Mesh( floor, this.planeMaterial );
         this.floorMesh.rotation.x = -Math.PI / 2;
         this.floorMesh.position.y = -0;
-        this.app.scene.add( this.floorMesh );
+        this.app.scene.add( this.floorMesh);
 
         for (let i = 0; i < 4; i++) {
-            let wall = new THREE.PlaneGeometry( 10, 10 );
+            let wall = new THREE.PlaneGeometry(this.floorHeight, this.floorWidth);
             let wallMesh = new THREE.Mesh( wall, this.planeMaterial );
             wallMesh.position.x = 0;
-            wallMesh.position.y = 5;
+            wallMesh.position.y = this.floorHeight/2;
             wallMesh.position.z = 0;
             wallMesh.rotation.y = Math.PI / 2 * i;
-            wallMesh.translateZ(-5);
+            wallMesh.translateZ(-this.floorHeight/2);
             this.app.scene.add( wallMesh );
         }
 
         let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableColor, this.legHeight, this.legRadius, this.tablePosition);
-        this.app.scene.add(table);
+        table.display();
 
-        // let table = new THREE.BoxGeometry( 6, 0.5, 4 );
-        // let tableMesh = new THREE.Mesh( table, this.planeMaterial );
-        // tableMesh.position.x = 0;
-        // tableMesh.position.y = 2;
-        // tableMesh.position.z = 0;
-        // this.app.scene.add( tableMesh );
+        let plate = new MyPlate(this.app, this.platePosition, this.plateRadius, this.plateHeight, this.plateColor);
+        plate.display();
 
-        // let cylinder = new THREE.CylinderGeometry( 0.3, 0.3, 2.5, 32 );
+        let cake = new MyCake(this.app, this.cakePosition, this.cakeRadius, this.cakeHeight, this.cakeColor);
+        cake.display();
 
-        // for (let i = 0; i < 4; i++) {
-        //     let cylinderMesh = new THREE.Mesh( cylinder, this.planeMaterial );
-        //     cylinderMesh.position.set(i % 2 === 0 ? -2.5 : 2.5, 1, i < 2 ? -1.5 : 1.5);
-        //     this.app.scene.add(cylinderMesh);
-        //   }
-
-
-        this.plateMaterial = new THREE.MeshPhongMaterial({ color: "#ffffff",
-        specular: "#000000", emissive: "#000000", shininess: 90 })
-
-        let plate = new THREE.CylinderGeometry( 0.9, 0.6, 0.2, 32 );
-        let plateMesh = new THREE.Mesh( plate, this.plateMaterial );
-        plateMesh.position.x = 0;
-        plateMesh.position.y = 2.3;
-        plateMesh.position.z = 0;
-        this.app.scene.add( plateMesh );
-
-        this.cakeMaterial = new THREE.MeshPhongMaterial({ color: "#964b00",
-        specular: "#000000", emissive: "#000000", shininess: 90 })
-
-        const cake = new THREE.CylinderGeometry(0.6, 0.6, 0.4, 32, 1, false, 0, Math.PI * 2 * 0.90);
-        let cakeMesh = new THREE.Mesh( cake, this.cakeMaterial );
-        cakeMesh.position.x = 0;
-        cakeMesh.position.y = 2.5;
-        cakeMesh.position.z = 0;
-        this.app.scene.add( cakeMesh );
-
-        const candle = new THREE.CylinderGeometry(0.035, 0.035, 0.2, 32);
-        let candleMesh = new THREE.Mesh( candle, this.plateMaterial );
-        candleMesh.position.x = 0.2;
-        candleMesh.position.y = 2.8;
-        candleMesh.position.z = -0.2;
-        this.app.scene.add( candleMesh );
-
-        
-        this.flameMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000",
-        specular: "#000000", emissive: "#000000", shininess: 90 })
-
-        const flame = new THREE.ConeGeometry(0.035, 0.07, 32);
-        let flameMesh = new THREE.Mesh( flame, this.flameMaterial );
-        flameMesh.position.x = 0.2;
-        flameMesh.position.y = 2.935;
-        flameMesh.position.z = -0.2;
-        this.app.scene.add( flameMesh );
-
-
+        let candle = new MyCandle(this.app, this.candlePosition, this.candleRadius, this.candleHeight, this.candleColor);
+        candle.display()
     }
     
     /**
