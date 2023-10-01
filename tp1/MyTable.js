@@ -28,9 +28,9 @@ export class MyTable {
       let cylinderMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
       let cylinderMesh = new THREE.Mesh(cylinder, cylinderMaterial);
       let legPosition = new THREE.Vector3(
-        i % 2 === 0 ? -2.5 : 2.5,
-        this.legHeight / 2,
-        i < 2 ? -1.5 : 1.5
+        i % 2 === 0 ? this.position.x - (this.tableWidth/2 - this.legRadius) : this.position.x + (this.tableWidth/2 - this.legRadius),
+        this.position.y - this.legHeight / 2,
+        i < 2 ? this.position.z - (this.tableDepth/2 - this.legRadius) : this.position.z + (this.tableDepth/2 - this.legRadius)
       );
       cylinderMesh.position.copy(legPosition);
       this.app.scene.add(cylinderMesh);

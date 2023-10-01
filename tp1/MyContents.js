@@ -36,7 +36,7 @@ class MyContents  {
         this.legHeight = 2
         this.legRadius = 0.3
         this.tableColor = '#8B4513'
-        this.tablePosition = new THREE.Vector3(0, this.legHeight, 0)
+        this.tablePosition = new THREE.Vector3(0, 2, 0)
     }
 
     /**
@@ -101,7 +101,7 @@ class MyContents  {
         // let table = new THREE.BoxGeometry( 6, 0.5, 4 );
         // let tableMesh = new THREE.Mesh( table, this.planeMaterial );
         // tableMesh.position.x = 0;
-        // bleMesh.position.y = 2;
+        // tableMesh.position.y = 2;
         // tableMesh.position.z = 0;
         // this.app.scene.add( tableMesh );
 
