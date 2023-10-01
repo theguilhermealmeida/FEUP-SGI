@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
+import { MyTable } from './MyTable.js';
 
 /**
  *  This class contains the contents of out application
@@ -27,6 +28,15 @@ class MyContents  {
         this.planeShininess = 30
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
+
+        // table related attributes
+        this.tableWidth = 6
+        this.tableDepth = 4
+        this.tableThickness = 0.5
+        this.legHeight = 2
+        this.legRadius = 0.3
+        this.tableColor = '#8B4513'
+        this.tablePosition = new THREE.Vector3(0, this.legHeight, 0)
     }
 
     /**
@@ -85,20 +95,23 @@ class MyContents  {
             this.app.scene.add( wallMesh );
         }
 
-        let table = new THREE.BoxGeometry( 6, 0.5, 4 );
-        let tableMesh = new THREE.Mesh( table, this.planeMaterial );
-        tableMesh.position.x = 0;
-        tableMesh.position.y = 2;
-        tableMesh.position.z = 0;
-        this.app.scene.add( tableMesh );
+        let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableColor, this.legHeight, this.legRadius, this.tablePosition);
+        this.app.scene.add(table);
 
-        let cylinder = new THREE.CylinderGeometry( 0.3, 0.3, 2.5, 32 );
+        // let table = new THREE.BoxGeometry( 6, 0.5, 4 );
+        // let tableMesh = new THREE.Mesh( table, this.planeMaterial );
+        // tableMesh.position.x = 0;
+        // bleMesh.position.y = 2;
+        // tableMesh.position.z = 0;
+        // this.app.scene.add( tableMesh );
 
-        for (let i = 0; i < 4; i++) {
-            let cylinderMesh = new THREE.Mesh( cylinder, this.planeMaterial );
-            cylinderMesh.position.set(i % 2 === 0 ? -2.5 : 2.5, 1, i < 2 ? -1.5 : 1.5);
-            this.app.scene.add(cylinderMesh);
-          }
+        // let cylinder = new THREE.CylinderGeometry( 0.3, 0.3, 2.5, 32 );
+
+        // for (let i = 0; i < 4; i++) {
+        //     let cylinderMesh = new THREE.Mesh( cylinder, this.planeMaterial );
+        //     cylinderMesh.position.set(i % 2 === 0 ? -2.5 : 2.5, 1, i < 2 ? -1.5 : 1.5);
+        //     this.app.scene.add(cylinderMesh);
+        //   }
 
 
         this.plateMaterial = new THREE.MeshPhongMaterial({ color: "#ffffff",
