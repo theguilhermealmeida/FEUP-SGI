@@ -4,6 +4,8 @@ import { MyTable } from './MyTable.js';
 import { MyCake} from './MyCake.js';
 import { MyPlate} from './MyPlate.js';
 import { MyCandle} from './MyCandle.js';
+import { MyHat} from './MyHat.js';
+import {MyChair} from './MyChair.js'
 
 /**
  *  This class contains the contents of out application
@@ -42,8 +44,8 @@ class MyContents  {
         this.tableDepth = 4
         this.tableThickness = 0.5
         this.legHeight = 2
-        this.legRadius = 0.3
-        this.tableColor = '#8B4513'
+        this.legRadius = 0.2
+        this.tableColor = '#5C4033'
         this.tablePosition = new THREE.Vector3(0, 2, 0)
 
         // plate related attributes
@@ -54,7 +56,7 @@ class MyContents  {
 
         // cake related attributes
         this.cakeHeight = 0.4
-        this.cakePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight/2, this.tablePosition.z)
+        this.cakePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight/2+0.001, this.tablePosition.z)
         this.cakeRadius = 0.6
         this.cakeColor = '#964b00'
 
@@ -64,6 +66,19 @@ class MyContents  {
         this.candleRadius = 0.01
         this.candleColor = '#ffffff'
 
+        // hat related attributes
+        this.hatHeight = 0.5 
+        this.hatPosition = new THREE.Vector3(this.tablePosition.x+0.3*this.tableWidth, this.tablePosition.y + this.tableThickness/2 + this.hatHeight/2, this.tablePosition.z+0.2*this.tableDepth)        
+        this.hatRadius = 0.2 
+        this.hatColor = '#FF69B4'
+
+        // chair related attributes
+        this.position = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y * 0.65, this.tablePosition.z - 0.5*this.tableDepth);
+        this.seatSize = { width: 1, depth: 1 };
+        this.backSize = { width: 1, height: 1 };
+        this.chairLegHeight = this.position.y;
+        this.chariLegRadius = 0.1;
+        this.chairColor = 0x808080; 
     }
 
     /**
@@ -133,6 +148,12 @@ class MyContents  {
 
         let candle = new MyCandle(this.app, this.candlePosition, this.candleRadius, this.candleHeight, this.candleColor);
         candle.display()
+
+        let hat = new MyHat(this.app, this.hatPosition, this.hatRadius, this.hatHeight, this.hatColor);
+        hat.display()
+
+        let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
+        chair.display()
     }
     
     /**

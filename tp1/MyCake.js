@@ -11,7 +11,7 @@ export class MyCake {
   }
 
   display() {
-        this.cakeMaterial = new THREE.MeshPhongMaterial({ color: this.color})
+        this.cakeMaterial = new THREE.MeshPhongMaterial({ color: this.color, side: THREE.DoubleSide})
 
         const cake = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 32, 1, false, 0, Math.PI * 2 * 0.90);
         let cakeMesh = new THREE.Mesh( cake, this.cakeMaterial );
