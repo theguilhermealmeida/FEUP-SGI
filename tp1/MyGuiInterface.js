@@ -1,6 +1,7 @@
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { MyApp } from './MyApp.js';
 import { MyContents } from './MyContents.js';
+import * as THREE from 'three';
 
 /**
     This class customizes the gui interface for the app
@@ -48,6 +49,18 @@ class MyGuiInterface  {
         // note that we are using a property from the app 
         cameraFolder.add(this.app.activeCamera.position, 'x', 0, 10).name("x coord")
         cameraFolder.open()
+
+
+        // adds a folder to the gui interface for the plane texture
+        const planeTextureFolder = this.datgui.addFolder('Plane Texture')
+        planeTextureFolder.add(this.contents, 'planeWrappingModeU', { 'ClampToEdgeWrapping': THREE.ClampToEdgeWrapping, 'RepeatWrapping': THREE.RepeatWrapping, 'MirroredRepeatWrapping': THREE.MirroredRepeatWrapping }).name("wrapping mode U").onChange( (value) => { this.contents.updateWrappingModeU(value) } );
+        planeTextureFolder.add(this.contents, 'planeWrappingModeV', { 'ClampToEdgeWrapping': THREE.ClampToEdgeWrapping, 'RepeatWrapping': THREE.RepeatWrapping, 'MirroredRepeatWrapping': THREE.MirroredRepeatWrapping }).name("wrapping mode V").onChange( (value) => { this.contents.updateWrappingModeV(value) } );
+        planeTextureFolder.add(this.contents, 'planeRepeatU', 0, 10).name("repeat U").onChange( (value) => { this.contents.updateRepeatU(value) } );
+        planeTextureFolder.add(this.contents, 'planeRepeatV', 0, 10).name("repeat V").onChange( (value) => { this.contents.updateRepeatV(value) } );
+        planeTextureFolder.add(this.contents, 'planeOffsetU', 0, 1).name("offset U").onChange( (value) => { this.contents.updateOffsetU(value) } );
+        planeTextureFolder.add(this.contents, 'planeOffsetV', 0, 1).name("offset V").onChange( (value) => { this.contents.updateOffsetV(value) } );
+        planeTextureFolder.add(this.contents, 'planeRotation', 0, 360).name("rotation").onChange( (value) => { this.contents.updateRotation(value) } );
+        planeTextureFolder.open()
     }
 }
 
