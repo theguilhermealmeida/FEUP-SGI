@@ -22,15 +22,26 @@ class MyContents {
         this.boxDisplacement = new THREE.Vector3(0, 2, 0)
 
         // plane related attributes
+        this.planeSizeU = 10;
+        this.planeSizeV = 7;
+        let planeUVRate = this.planeSizeV / this.planeSizeU;
+        let planeTextureUVRate = 3354 / 2385; // image dimensions
+
+        this.planeWrappingModeU = THREE.RepeatWrapping
+        this.planeWrappingModeV = THREE.RepeatWrapping
+        this.planeRepeatU = 1
+        this.planeRepeatV = this.planeRepeatU * planeUVRate * planeTextureUVRate; 
+        this.planeOffsetU = 0
+        this.planeOffsetV = 0
+        this.planeRotation = 0
+
 
         //texture
         this.planeTexture = new THREE.TextureLoader().load('textures/feup_b.jpg');
         this.cubeTexture = new THREE.TextureLoader().load('textures/feup_entry.jpg');
 
-        this.planeTexture.wrapS = THREE.RepeatWrapping;
         this.cubeTexture.wrapS = THREE.RepeatWrapping;
 
-        this.planeTexture.wrapT = THREE.RepeatWrapping;
         this.cubeTexture.wrapT = THREE.RepeatWrapping;
 
         // material
@@ -79,7 +90,7 @@ class MyContents {
     buildBox() {
         let boxMaterial = new THREE.MeshPhongMaterial({
             // color: "#ffff77",
-            // specular: "#000000", emissive: "#000000", shininess: 90,
+            // specular: "#000000", emissive: "#000000", shininess: 90
             map : this.cubeTexture
         })
 
@@ -120,18 +131,14 @@ class MyContents {
 
 
         // Create a Plane Mesh with basic material
-        let planeSizeU = 10;
-        let planeSizeV = 7;
-        let planeUVRate = planeSizeV / planeSizeU;
-        let planeTextureUVRate = 3354 / 2385; // image dimensions
-        let planeTextureRepeatU = 1;
-        let planeTextureRepeatV = planeTextureRepeatU * planeUVRate * planeTextureUVRate;
 
-        this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV );
-        this.planeTexture.rotation = 30 * Math.PI / 180; 
-        this.planeTexture.offset = new THREE.Vector2(0,0);
+        this.planeTexture.wrapS = this.planeWrappingModeU
+        this.planeTexture.wrapT = this.planeWrappingModeV;
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+        this.planeTexture.rotation = this.planeRotation
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
 
-        var plane = new THREE.PlaneGeometry( planeSizeU, planeSizeV );
+        var plane = new THREE.PlaneGeometry( this.planeSizeU, this.planeSizeV );
         this.planeMesh = new THREE.Mesh( plane, this.planeMaterial );
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
@@ -162,6 +169,44 @@ class MyContents {
         this.planeShininess = value
         this.planeMaterial.shininess = this.planeShininess
     }
+
+    updateWrappingModeU(value) {
+        this.planeWrappingModeU = value
+        this.planeTexture.wrapS = this.planeWrappingModeU
+    }
+
+    updateWrappingModeV(value) {
+        this.planeWrappingModeV = value
+        this.planeTexture.wrapT = this.planeWrappingModeV
+    }
+
+    updateRepeatU(value) {
+        this.planeRepeatU = value
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+    }
+
+    updateRepeatV(value) {
+        this.planeRepeatV = value
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+    }
+
+    updateOffsetU(value) {
+        this.planeOffsetU = value
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+    }
+
+    updateOffsetV(value) {
+        this.planeOffsetV = value
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+    }
+
+    updateRotation(value) {
+        let radians = value * Math.PI / 180;
+        this.planeRotation = radians 
+        this.planeTexture.rotation = this.planeRotation
+    }
+
+    
 
     /**
      * rebuilds the box mesh if required
