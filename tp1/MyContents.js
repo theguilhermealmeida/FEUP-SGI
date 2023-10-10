@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyFrame} from './MyFrame.js';
+import { MyCatmullRoll } from './MyCatmullRom.js';
 
 
 /**
@@ -41,6 +42,8 @@ class MyContents  {
 
         this.createFrameWithCar()
 
+        this.createSpiral()
+
     }
 
     /**
@@ -77,6 +80,42 @@ class MyContents  {
         frame.display()
 
     }
+
+    createSpiral() {
+        // Number of points in the spiral
+        const numPoints = 1000;
+        
+        // Radius of the spiral
+        const radius = 1;
+
+        // Number of turns in the spiral
+        const turns = 5;
+
+        // Create an array to store the points along the spiral
+        const points = [];
+
+        // Create a loop which will generate the points along the spiral
+        for (let i = 0; i < numPoints; i++) {
+            // Calculate the angle for each point along the spiral
+            const angle = (i / numPoints) * turns * Math.PI * 2;
+
+            // Calculate the x and y coordinates for the point along the spiral
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            const z = i * 0.005;
+
+            // Add the point to the array
+            points.push(new THREE.Vector3(x, y, z));
+        }
+
+
+        let catmull = new MyCatmullRoll(this.app,points,[0,0,0],500)
+        catmull.display()
+
+        }
+
+
+
     /**
      * removes (if existing) and recreates the nurbs surfaces
      */
