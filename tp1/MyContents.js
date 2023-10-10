@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyFrame} from './MyFrame.js';
 
 
 /**
@@ -36,7 +37,9 @@ class MyContents  {
 
         this.init()
 
-        this.createNurbsSurfaces()  
+        //this.createNurbsSurfaces()  
+
+        this.createFrameWithCar()
 
     }
 
@@ -68,6 +71,12 @@ class MyContents  {
         this.app.scene.add( ambientLight );
     }
 
+    createFrameWithCar() {
+        
+        let frame = new MyFrame(this.app, 6, 4, 0.3, new THREE.Vector3(0,0,0))
+        frame.display()
+
+    }
     /**
      * removes (if existing) and recreates the nurbs surfaces
      */
@@ -237,8 +246,6 @@ class MyContents  {
 
        
     }
-
 }
-
 
 export { MyContents };
