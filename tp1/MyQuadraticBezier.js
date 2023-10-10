@@ -24,7 +24,7 @@ export class MyQuadraticBezier {
 
         let material = new THREE.LineBasicMaterial( { color: 0x000000 } )
         this.curve = new THREE.Line( geometry, material )
-        this.curve.position.set(this.position.x,this.position.y,this.position.z)
+        this.curve.position.set(this.position[0],this.position[1],this.position[2])
         this.app.scene.add( this.curve );
         
         

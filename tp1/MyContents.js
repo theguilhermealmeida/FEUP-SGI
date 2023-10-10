@@ -73,7 +73,7 @@ class MyContents  {
 
     createFrameWithCar() {
         
-        let frame = new MyFrame(this.app, 6, 4, 0.3, new THREE.Vector3(0,0,0))
+        let frame = new MyFrame(this.app, 6, 4, 0.3,[-1,4,0])
         frame.display()
 
     }
