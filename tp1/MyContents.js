@@ -40,9 +40,13 @@ class MyContents  {
 
         //this.createNurbsSurfaces()  
 
-        this.createFrameWithCar()
+        //this.createFrameWithCar()
 
-        this.createSpiral()
+        //this.createSpiral()
+
+        //this.createNewspaper()
+
+        this.createJar()
 
     }
 
@@ -76,7 +80,7 @@ class MyContents  {
 
     createFrameWithCar() {
         
-        let frame = new MyFrame(this.app, 6, 4, 0.3,[-1,4,0])
+        let frame = new MyFrame(this.app, 10, 6, 0.3,[-1,4,0])
         frame.display()
 
     }
@@ -113,6 +117,151 @@ class MyContents  {
         catmull.display()
 
         }
+
+        createNewspaper(){
+
+            // declare local variables
+            let controlPoints;
+            let surfaceData;
+            let mesh;
+            let orderU = 3; // Increased the order for smoother curves
+            let orderV = 1; // Increased the order for smoother curves
+            let samplesU = 16;      
+            let samplesV = 16;
+        
+            let map =
+                new THREE.TextureLoader().load('textures/newspaper.jpg');
+        
+            map.wrapS = map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 16;
+            map.colorSpace = THREE.SRGBColorSpace;
+            
+            let material = new THREE.MeshLambertMaterial({ 
+                map: map,
+                side: THREE.DoubleSide,
+                transparent: true, 
+                opacity: 0.90 
+            });
+            
+            let builder = new MyNurbsBuilder();
+        
+            // create left part of newspaper
+            controlPoints = [
+                // U = 0
+                [ // V = 0..1
+                    [-5.0, 0.0, -2.0, 1],
+                    [-5.0,  0.0, 2.0, 1]
+                ],
+                // U = 1
+                [ // V = 0..1
+                    [-4.0, -0.3, -2.0, 1],
+                    [-4.0, -0.3, 2.0, 1]
+                ],
+                // U = 2
+                [ // V = 0..1
+                    [-1.5, 3, -2.0, 1],
+                    [-1.5, 3, 2.0, 1]
+                ],
+                // U = 3
+                [ // V = 0..1
+                    [0, 0.0, -2.0, 1],
+                    [0,  0.0, 2.0, 1]
+                ],
+            ];
+        
+            surfaceData = builder.build(controlPoints,
+                            orderU, orderV, samplesU,
+                            samplesV, material);
+        
+            mesh = new THREE.Mesh(surfaceData, material);
+            mesh.position.set(0, 0, 0);
+            let mesh2 = mesh.clone();
+            mesh2.rotation.y = -Math.PI;
+            mesh2.position.set(0, 0, 0);
+            // group the two meshes together
+            let newspaper = new THREE.Group();
+            newspaper.add(mesh);
+            newspaper.add(mesh2);
+            this.app.scene.add(newspaper);
+
+        }
+
+        createJar() {
+            // declare local variables
+            let controlPoints;
+            let surfaceData;
+            let mesh;
+            let orderU = 3; // Increased the order for smoother curves
+            let orderV = 3; // Increased the order for smoother curves
+            let samplesU = 16;
+            let samplesV = 16;
+        
+            let map = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
+        
+            map.wrapS = map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 16;
+            map.colorSpace = THREE.SRGBColorSpace;
+        
+            let material = new THREE.MeshLambertMaterial({
+                map: map,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.90
+            });
+        
+            let builder = new MyNurbsBuilder();
+        
+            // create cilinder
+            controlPoints = [
+                // U = 0
+                [ // V = 0..2
+                    [-1.0, 0.0, 0.0, 1],
+                    [-2.5, 2.0, 0.0, 1],
+                    [0, 4.0, 0.0, 1],
+                    [-1.0, 5.0, 0.0, 1]
+                ],
+                // U = 1
+                [ // V = 0..2
+                    [-1.0, 0.0, 1.3, 1],
+                    [-1.5, 2.0, 3, 1],
+                    [0, 4.0, 0, 1],
+                    [-1.0, 5.0, 1.3, 1]
+                ],
+                // U = 2
+                [ // V = 0..2
+                    [1.0, 0.0, 1.3, 1],
+                    [1.5, 2.0, 3, 1],
+                    [0, 4.0, 0, 1],
+                    [1.0, 5.0, 1.3, 1]
+                ],           
+                // U = 3
+                [ // V = 0..2
+                    [1.0, 0.0, 0.0, 1],
+                    [2.5, 2.0, 0.0, 1],
+                    [0, 4.0, 0.0, 1],
+                    [1.0, 5.0, 0.0, 1]
+                ],
+
+            ];
+        
+            surfaceData = builder.build(controlPoints,
+                orderU, orderV, samplesU,
+                samplesV, material);
+        
+            mesh = new THREE.Mesh(surfaceData, material);
+            mesh.position.set(0, 0, 0);
+            let mesh2 = mesh.clone();
+            mesh2.rotation.y = -Math.PI;
+            mesh2.position.set(0, 0, 0);
+            // group the two meshes together
+            let jar = new THREE.Group();
+            jar.add(mesh);
+            jar.add(mesh2);
+            this.app.scene.add(jar);
+        }
+        
+
+        
 
 
 
