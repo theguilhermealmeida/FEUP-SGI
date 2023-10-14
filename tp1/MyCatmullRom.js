@@ -35,7 +35,7 @@ export class MyCatmullRoll {
 
         let geometry = new THREE.BufferGeometry().setFromPoints( sampledPoints )
 
-        let material = new THREE.LineBasicMaterial( { color: 0xff0000 } )
+        let material = new THREE.LineBasicMaterial( { color: 0x006400 } )
         this.curve = new THREE.Line( geometry, material )
         return this.curve;
         
