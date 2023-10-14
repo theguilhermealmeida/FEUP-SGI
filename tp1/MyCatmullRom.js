@@ -22,9 +22,22 @@ export class MyCatmullRoll {
 
         let material = new THREE.LineBasicMaterial( { color: 0xff0000 } )
         this.curve = new THREE.Line( geometry, material )
-        this.curve.position.set(this.position[0],this.position[1],this.position[2])
+        this.curve.position.set(this.position.x,this.position.y,this.position.z)
         this.app.scene.add( this.curve );
         
         
     }   
+
+    compute() {
+
+        let curve = new THREE.CatmullRomCurve3(this.points);
+        let sampledPoints = curve.getPoints( this.nrOfSamples );
+
+        let geometry = new THREE.BufferGeometry().setFromPoints( sampledPoints )
+
+        let material = new THREE.LineBasicMaterial( { color: 0xff0000 } )
+        this.curve = new THREE.Line( geometry, material )
+        return this.curve;
+        
+    }  
 }
