@@ -6,6 +6,7 @@ import { MyVase} from './MyVase.js';
 import { MyNewspaper} from './MyNewspaper.js';
 import { MySpiral } from './MySpiral.js';
 import { MyFlower} from './MyFlower.js';
+import { MyBalloon } from './MyBaloon.js';
 
 
 /**
@@ -57,6 +58,9 @@ class MyContents  {
 
         //this.flower = new MyFlower(this.app,new THREE.Vector3(3,0,0))
         //this.flower.display()
+
+        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(3,0,0),0xff0000)
+        //this.balloon.display()
 
         
 
