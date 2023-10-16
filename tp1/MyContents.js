@@ -7,6 +7,15 @@ import { MyCandle } from './MyCandle.js';
 import { MyHat } from './MyHat.js';
 import { MyChair } from './MyChair.js'
 import { MyFlashlight } from './MyFlashlight.js';
+import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyFrame } from './MyFrame.js';
+import { MyVase } from './MyVase.js';
+import { MyNewspaper } from './MyNewspaper.js';
+import { MySpiral } from './MySpiral.js';
+import { MyFlower } from './MyFlower.js';
+import { MyBalloon } from './MyBaloon.js';
+import { MyTifo } from './MyTifo.js';
+
 
 /**
  *  This class contains the contents of out application
@@ -17,6 +26,7 @@ class MyContents {
        constructs the object
        @param {MyApp} app The application object
     */
+
     constructor(app) {
         this.app = app
         this.axis = null
@@ -26,7 +36,7 @@ class MyContents {
         this.floorWidth = 30
         this.floorTexture = new THREE.TextureLoader().load('textures/floor.jpeg');
         this.floorMaterial = new THREE.MeshStandardMaterial({ map: this.floorTexture });
-        this.wallHeight = 0.4*this.floorWidth
+        this.wallHeight = 0.4 * this.floorWidth
 
         // wall related attributes
 
@@ -108,7 +118,7 @@ class MyContents {
         this.chairColor = 0x808080;
 
 
-        
+
         // create rectLight helper
         // this.rectLightHelper = new THREE.RectAreaLightHelper( this.rectLight );
         // this.app.scene.add( this.rectLightHelper );
@@ -167,14 +177,56 @@ class MyContents {
 
         // alternative 2
 
-        this.planeMaterial = new THREE.MeshLambertMaterial({
+        // this.planeMaterial = new THREE.MeshLambertMaterial({
 
-            map: this.planeTexture
-        });
+        //     map: this.planeTexture
+        // });
 
-        // end of alternative 2
+        // // end of alternative 2
 
-        let plane = new THREE.PlaneGeometry(10, 10);
+        // let plane = new THREE.PlaneGeometry(10, 10);
+
+        const map =
+            new THREE.TextureLoader().load( 'textures/uv_grid_opengl.jpg' );
+
+        map.wrapS = map.wrapT = THREE.RepeatWrapping;
+        map.anisotropy = 16;
+        map.colorSpace = THREE.SRGBColorSpace;
+        this.material = new THREE.MeshLambertMaterial( { map: map,
+                        side: THREE.DoubleSide,
+                        transparent: true, opacity: 0.90 } );
+        this.builder = new MyNurbsBuilder()
+
+        this.meshes = []
+
+        this.samplesU = 16         // maximum defined in MyGuiInterface
+        this.samplesV = 16        // maximum defined in MyGuiInterface
+
+        this.init()
+
+        //this.createNurbsSurfaces()  
+
+        //this.vase = new MyVase(this.app,new THREE.Vector3(3,0,2))
+        //this.vase.display()
+
+        //this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(3,0,2))
+        //this.newspaper.display()
+
+        //this.frame = new MyFrame(this.app, 10, 6, 0.3,new THREE.Vector3(3,0,2))
+        //this.frame.display()
+
+        //this.spiral = new MySpiral(this.app,new THREE.Vector3(3,0,0))
+        //this.spiral.display()
+
+        //this.flower = new MyFlower(this.app,new THREE.Vector3(3,0,0))
+        //this.flower.display()
+
+        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(3,0,0),0xff0000)
+        //this.balloon.display()
+
+        this.tifo = new MyTifo(this.app,new THREE.Vector3(0,0,0))
+        this.tifo.display()
+
     }
 
 
@@ -182,26 +234,14 @@ class MyContents {
     /**
      * builds the box mesh with material assigned
      */
-    buildBox() {
-        let boxMaterial = new THREE.MeshPhongMaterial({
-            // color: "#ffff77",
-            // specular: "#000000", emissive: "#000000", shininess: 90
-            map: this.cubeTexture
-        })
-
-        // Create a Cube Mesh with basic material
-        let box = new THREE.BoxGeometry(this.boxMeshSize, this.boxMeshSize, this.boxMeshSize);
-        this.boxMesh = new THREE.Mesh(box, boxMaterial);
-        this.boxMesh.rotation.x = -Math.PI / 2;
-        this.boxMesh.position.y = this.boxDisplacement.y;
-    }
+    
 
     /**
      * initializes the contents
      */
     init() {
 
-        // create once 
+        // create once
         if (this.axis === null) {
             // create and attach the axis to the scene
             this.axis = new MyAxis(this)
@@ -211,7 +251,7 @@ class MyContents {
         // add lightbulb geometry on the point light
         // add a point light on top of the model
 
-        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI/4,1);
+        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI / 4, 1);
         spotLight.position.set(this.tablePosition.x, this.wallHeight, this.tablePosition.z);
         spotLight.power = 100
         spotLight.target.position.copy(this.tablePosition);
@@ -219,7 +259,7 @@ class MyContents {
         // create spotlight helper
         // const spotLightHelper = new THREE.SpotLightHelper( spotLight );
         // this.app.scene.add( spotLightHelper );
-     
+
         // create a lightbulb object thats the source of the spotlight
         const lightbulbGeometry = new THREE.SphereGeometry(0.1, 32, 32);
         const lightbulbMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
@@ -228,10 +268,10 @@ class MyContents {
         this.app.scene.add(lightbulbMesh);
 
 
-       // create a cilinder
-       // make the cilinder a child of the spotlight
+        // create a cilinder
+        // make the cilinder a child of the spotlight
 
-        this.cilinder = new THREE.CylinderGeometry(0.08, 0.8, 0.5, 32, 1, true); 
+        this.cilinder = new THREE.CylinderGeometry(0.08, 0.8, 0.5, 32, 1, true);
         this.cilinderMaterial = new THREE.MeshPhongMaterial({ color: 0x000000, transparent: true, opacity: 1, side: THREE.DoubleSide });
         this.cilinderMesh = new THREE.Mesh(this.cilinder, this.cilinderMaterial);
         this.cilinderMesh.position.copy(spotLight.position);
@@ -331,22 +371,22 @@ class MyContents {
         }
 
         let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableMaterial, this.tableLegsMaterial, this.legHeight, this.legRadius, this.tablePosition);
-        table.display();
+        // table.display();
 
         let plate = new MyPlate(this.app, this.platePosition, this.plateRadius, this.plateHeight, this.plateColor);
-        plate.display();
+        // plate.display();
 
         let cake = new MyCake(this.app, this.cakePosition, this.cakeRadius, this.cakeHeight, this.cakeColor);
-        cake.display();
+        // cake.display();
 
         let candle = new MyCandle(this.app, this.candlePosition, this.candleRadius, this.candleHeight, this.candleColor);
-        candle.display()
+        // candle.display()
 
         let hat = new MyHat(this.app, this.hatPosition, this.hatRadius, this.hatHeight, this.hatColor);
-        hat.display()
+        // hat.display()
 
-        let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
-        chair.display()
+        // let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
+        // chair.display()
 
 
         this.windowTexture = new THREE.TextureLoader().load('textures/window2.jpeg');
@@ -354,7 +394,7 @@ class MyContents {
         this.windowMaterial = new THREE.MeshBasicMaterial({ map: this.windowTexture });
         this.window = new THREE.Mesh(this.windowGeometry, this.windowMaterial);
 
-        this.window.position.set(0, this.wallHeight*0.65,-this.floorHeight/2+0.102);
+        this.window.position.set(0, this.wallHeight * 0.65, -this.floorHeight / 2 + 0.102);
 
         this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.2, 0.15 * this.floorWidth + 0.2); // Slightly larger than the window
         this.frameMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide }); // Black color for the frame
@@ -368,23 +408,23 @@ class MyContents {
 
         // Create a RectAreaLight
         const width = this.windowGeometry.parameters.width;
-        const height = this.windowGeometry.parameters.height; 
+        const height = this.windowGeometry.parameters.height;
         const intensity = 1;
         this.rectLight = new THREE.RectAreaLight(0xffffff, intensity, width, height);
         this.rectLight.position.set(this.frame.position.x, this.frame.position.y, this.frame.position.z);
-        this.rectLight.lookAt(this.frame.position.x, this.frame.position.y, this.frame.position.z+this.floorHeight);
+        this.rectLight.lookAt(this.frame.position.x, this.frame.position.y, this.frame.position.z + this.floorHeight);
         this.rectLight.power = 400
 
         this.rectLight2 = new THREE.RectAreaLight(0xffffff, intensity, this.floorHeight, this.wallHeight);
         this.rectLight2.position.set(this.frame.position.x, this.wallHeight, this.frame.position.z);
-        this.rectLight2.lookAt(this.frame.position.x, this.frame.position.y, -(this.frame.position.z+this.floorHeight));
-        this.rectLight2.power = 0.4*this.rectLight.power 
+        this.rectLight2.lookAt(this.frame.position.x, this.frame.position.y, -(this.frame.position.z + this.floorHeight));
+        this.rectLight2.power = 0.4 * this.rectLight.power
 
 
         // let flashlight = new MyFlashlight(this.app, new THREE.Vector3(-this.tablePosition.y-this.tableWidth*0.8, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
         // let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(-this.tablePosition.y-this.tableWidth*0.2, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff,1, this.tableWidth);
-        let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x-this.tableWidth*0.3, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
-        let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x+this.tableWidth*0.3, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff,1, this.tableWidth);
+        let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
+        let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 1, this.tableWidth);
         // rotate the flashlight
 
         flashlight.display()
@@ -394,7 +434,7 @@ class MyContents {
         this.app.scene.add(this.rectLight)
         this.app.scene.add(this.rectLight2)
 
-        this.buildBox()
+        // this.buildBox()
 
 
         // Create a Plane Mesh with basic material
@@ -413,9 +453,9 @@ class MyContents {
         // this.app.scene.add( this.planeMesh );
     }
 
+
     /**
-     * updates the diffuse plane color and the material
-     * @param {THREE.Color} value 
+     * removes (if existing) and recreates the nurbs surfaces
      */
     updateDiffusePlaneColor(value) {
         this.diffusePlaneColor = value
@@ -483,10 +523,10 @@ class MyContents {
     rebuildBox() {
         // remove boxMesh if exists
         if (this.boxMesh !== undefined && this.boxMesh !== null) {
-            this.app.scene.remove(this.boxMesh)
+            this.app.scene.remove(this.boxMesh);
         }
-        this.buildBox();
-        this.lastBoxEnabled = null
+        // this.buildBox();
+        this.lastBoxEnabled = null;
     }
 
     /**
@@ -494,37 +534,199 @@ class MyContents {
      * this method is called from the render method of the app
      * updates are trigered by boxEnabled property changes
      */
-    updateBoxIfRequired() {
-        if (this.boxEnabled !== this.lastBoxEnabled) {
-            this.lastBoxEnabled = this.boxEnabled
-            if (this.boxEnabled) {
-                this.app.scene.add(this.boxMesh)
-            }
-            else {
-                this.app.scene.remove(this.boxMesh)
-            }
-        }
-    }
+    // updateBoxIfRequired() {
+    //     if (this.boxEnabled !== this.lastBoxEnabled) {
+    //         this.lastBoxEnabled = this.boxEnabled;
+    //         if (this.boxEnabled) {
+    //             this.app.scene.add(this.boxMesh);
+    //         }
+    //         else {
+    //             this.app.scene.remove(this.boxMesh);
+    //             this.createNurbsSurfaces();
+    //         }
+    //     }
+    //     if (this.boxEnabled !== this.lastBoxEnabled) {
+    //         this.lastBoxEnabled = this.boxEnabled
+    //         if (this.boxEnabled) {
+    //             this.app.scene.add(this.boxMesh)
+    //         }
+    //         else {
+    //             this.app.scene.remove(this.boxMesh)
+    //         }
+    createNurbsSurfaces() {
 
+        // are there any meshes to remove?
+        if (this.meshes !== null) {
+            // traverse mesh array
+            for (let i = 0; i < this.meshes.length; i++) {
+                // remove all meshes from the scene
+                this.app.scene.remove(this.meshes[i])
+            }
+            this.meshes = [] // empty the array  
+        }
+
+        // declare local variables
+        let controlPoints;
+        let surfaceData;
+        let mesh;
+        let orderU = 1
+        let orderV = 1
+
+        // build nurb #1
+        controlPoints =
+            [   // U = 0
+                [ // V = 0..1;
+                    [-2.0, -2.0, 0.0, 1],
+                    [-2.0, 2.0, 0.0, 1]
+                ],
+                // U = 1
+                [ // V = 0..1
+                    [2.0, -2.0, 0.0, 1],
+                    [2.0, 2.0, 0.0, 1]
+                ]
+            ]
+
+        surfaceData = this.builder.build(controlPoints,
+            orderU, orderV, this.samplesU,
+            this.samplesV, this.material)
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0
+        mesh.rotation.y = 0
+        mesh.rotation.z = 0
+        mesh.scale.set(1, 1, 1)
+        mesh.position.set(-4, 3, 0)
+        this.app.scene.add(mesh)
+        this.meshes.push(mesh)
+
+
+        // build nurb #2
+        controlPoints =
+            [   // U = 0
+                [ // V = 0..1;
+                    [-1.5, -1.5, 0.0, 1],
+                    [-1.5, 1.5, 0.0, 1]
+                ],
+
+                // U = 1
+                [ // V = 0..1
+                    [0, -1.5, 3.0, 1],
+                    [0, 1.5, 3.0, 1]
+                ],
+
+                // U = 2
+                [ // V = 0..1
+                    [1.5, -1.5, 0.0, 1],
+                    [1.5, 1.5, 0.0, 1]
+                ]
+            ]
+
+        surfaceData = this.builder.build(controlPoints,
+            2, 1, this.samplesU,
+            this.samplesV, this.material)
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0
+        mesh.rotation.y = 0
+        mesh.rotation.z = 0
+        mesh.scale.set(1, 1, 1)
+        mesh.position.set(4, 3, 0)
+        this.app.scene.add(mesh)
+        this.meshes.push(mesh)
+
+        // build nurb #3
+        controlPoints =
+            [   // U = 0
+                [ // V = 0..3;
+                    [-1.5, -1.5, 0.0, 1],
+                    [-2.0, -2.0, 2.0, 1],
+                    [-2.0, 2.0, 2.0, 1],
+                    [-1.5, 1.5, 0.0, 1]
+                ],
+                // U = 1
+                [ // V = 0..3
+                    [0.0, 0.0, 3.0, 1],
+                    [0.0, -2.0, 3.0, 1],
+                    [0.0, 2.0, 3.0, 1],
+                    [0.0, 0.0, 3.0, 1]
+                ],
+                // U = 2
+                [ // V = 0..3
+                    [1.5, -1.5, 0.0, 1],
+                    [2.0, -2.0, 2.0, 1],
+                    [2.0, 2.0, 2.0, 1],
+                    [1.5, 1.5, 0.0, 1]
+                ]
+            ]
+
+        surfaceData = this.builder.build(controlPoints,
+            2, 3, this.samplesU,
+            this.samplesV, this.material)
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0
+        mesh.rotation.y = 0
+        mesh.rotation.z = 0
+        mesh.scale.set(1, 1, 1)
+        mesh.position.set(-4, -3, 0)
+        this.app.scene.add(mesh)
+        this.meshes.push(mesh)
+
+        // build nurb #4
+        controlPoints =
+            [   // U = 0
+                [ // V = 0..2;
+                    [-2.0, -2.0, 1.0, 1],
+                    [0, -2.0, 0, 1],
+                    [2.0, -2.0, -1.0, 1]
+                ],
+                // U = 1
+                [ // V = 0..2
+                    [-2.0, -1.0, -2.0, 1],
+                    [0, -1.0, -1.0, 1],
+                    [2.0, -1.0, 2.0, 1]
+                ],
+                // U = 2
+                [ // V = 0..2
+                    [-2.0, 1.0, 5.0, 1],
+                    [0, 1.0, 1.5, 1],
+                    [2.0, 1.0, -5.0, 1]
+                ],
+                // U = 3
+                [ // V = 0..2
+                    [-2.0, 2.0, -1.0, 1],
+                    [0, 2.0, 0, 1],
+                    [2.0, 2.0, 1.0, 1]
+                ]
+            ]
+
+        surfaceData = this.builder.build(controlPoints,
+            3, 2, this.samplesU,
+            this.samplesV, this.material)
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0
+        mesh.rotation.y = 0
+        mesh.rotation.z = 0
+        mesh.scale.set(1, 1, 1)
+        mesh.position.set(4, -3, 0)
+        this.app.scene.add(mesh)
+        this.meshes.push(mesh)
+    }
     // function to convert degrees to radians
 
 
     /**
      * updates the contents
      * this method is called from the render method of the app
-     * 
+     *
      */
     update() {
         // check if box mesh needs to be updated
         // this.updateBoxIfRequired()
 
         // sets the box mesh position based on the displacement vector
-        this.boxMesh.position.x = this.boxDisplacement.x
-        this.boxMesh.position.y = this.boxDisplacement.y
-        this.boxMesh.position.z = this.boxDisplacement.z
+        // this.boxMesh.position.x = this.boxDisplacement.x
+        // this.boxMesh.position.y = this.boxDisplacement.y
+        // this.boxMesh.position.z = this.boxDisplacement.z
 
     }
-
 }
 
 export { MyContents };
