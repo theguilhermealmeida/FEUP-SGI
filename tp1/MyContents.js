@@ -8,7 +8,7 @@ import { MyHat } from './MyHat.js';
 import { MyChair } from './MyChair.js'
 import { MyFlashlight } from './MyFlashlight.js';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
-import { MyFrame } from './MyFrame.js';
+import { MyCarocha } from './MyCarocha.js';
 import { MyVase } from './MyVase.js';
 import { MyNewspaper } from './MyNewspaper.js';
 import { MySpiral } from './MySpiral.js';
@@ -456,8 +456,8 @@ class MyContents {
         this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.35, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
         this.newspaper.display()
 
-        //this.frame = new MyFrame(this.app, 10, 6, 0.3,new THREE.Vector3(3,0,2))
-        //this.frame.display()
+        //this.carocha = new MyCarocha(this.app,new THREE.Vector3(3,8,2))
+        //this.carocha.display()
 
         this.spiral = new MySpiral(this.app,new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2,0.2,0.2)
         this.spiral.display()
