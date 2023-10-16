@@ -206,26 +206,6 @@ class MyContents {
 
         //this.createNurbsSurfaces()  
 
-        //this.vase = new MyVase(this.app,new THREE.Vector3(3,0,2))
-        //this.vase.display()
-
-        //this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(3,0,2))
-        //this.newspaper.display()
-
-        //this.frame = new MyFrame(this.app, 10, 6, 0.3,new THREE.Vector3(3,0,2))
-        //this.frame.display()
-
-        //this.spiral = new MySpiral(this.app,new THREE.Vector3(3,0,0))
-        //this.spiral.display()
-
-        //this.flower = new MyFlower(this.app,new THREE.Vector3(3,0,0))
-        //this.flower.display()
-
-        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(3,0,0),0xff0000)
-        //this.balloon.display()
-
-        this.tifo = new MyTifo(this.app,new THREE.Vector3(0,0,0))
-        this.tifo.display()
 
     }
 
@@ -371,22 +351,22 @@ class MyContents {
         }
 
         let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableMaterial, this.tableLegsMaterial, this.legHeight, this.legRadius, this.tablePosition);
-        // table.display();
+        table.display();
 
         let plate = new MyPlate(this.app, this.platePosition, this.plateRadius, this.plateHeight, this.plateColor);
-        // plate.display();
+        plate.display();
 
         let cake = new MyCake(this.app, this.cakePosition, this.cakeRadius, this.cakeHeight, this.cakeColor);
-        // cake.display();
+        cake.display();
 
         let candle = new MyCandle(this.app, this.candlePosition, this.candleRadius, this.candleHeight, this.candleColor);
-        // candle.display()
+        candle.display()
 
         let hat = new MyHat(this.app, this.hatPosition, this.hatRadius, this.hatHeight, this.hatColor);
-        // hat.display()
+        hat.display()
 
-        // let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
-        // chair.display()
+        let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
+        chair.display()
 
 
         this.windowTexture = new THREE.TextureLoader().load('textures/window2.jpeg');
@@ -429,6 +409,27 @@ class MyContents {
 
         flashlight.display()
         flashlight2.display()
+
+        //this.vase = new MyVase(this.app,new THREE.Vector3(3,0,2))
+        //this.vase.display()
+
+        //this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(3,0,2))
+        //this.newspaper.display()
+
+        //this.frame = new MyFrame(this.app, 10, 6, 0.3,new THREE.Vector3(3,0,2))
+        //this.frame.display()
+
+        //this.spiral = new MySpiral(this.app,new THREE.Vector3(3,0,0))
+        //this.spiral.display()
+
+        //this.flower = new MyFlower(this.app,new THREE.Vector3(3,0,0))
+        //this.flower.display()
+
+        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(3,0,0),0xff0000)
+        //this.balloon.display()
+
+        // this.tifo = new MyTifo(this.app,new THREE.Vector3(0,0,0))
+        // this.tifo.display()
 
         this.app.scene.add(this.window);
         this.app.scene.add(this.rectLight)
