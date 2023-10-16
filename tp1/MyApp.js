@@ -68,8 +68,8 @@ class MyApp  {
         const aspect = window.innerWidth / window.innerHeight;
 
         // Create a basic perspective camera
-        const perspective1 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
-        perspective1.position.set(10,10,3)
+        const perspective1 = new THREE.PerspectiveCamera( 80, aspect, 0.1, 1000 )
+        perspective1.position.set(6,6,6)
         this.cameras['Perspective'] = perspective1
 
         const perspective2 = new THREE.PerspectiveCamera( 40, aspect, 0.1, 1000 )

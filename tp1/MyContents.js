@@ -225,7 +225,7 @@ class MyContents {
         if (this.axis === null) {
             // create and attach the axis to the scene
             this.axis = new MyAxis(this)
-            this.app.scene.add(this.axis)
+            //this.app.scene.add(this.axis)
         }
 
         // add lightbulb geometry on the point light
@@ -447,13 +447,13 @@ class MyContents {
         flashlight2.display()
 
 
-        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2,0.2,0.2)
+        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.4,0.35,0.4)
         this.vase.display()
 
         this.flower = new MyFlower(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth))
         this.flower.display()
 
-        this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.35, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
+        this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.25, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
         this.newspaper.display()
 
         this.carocha = new MyCarocha(this.app,new THREE.Vector3(this.floorHeight/2, this.wallHeight*0.6,0), 0.5,0.5,0.5)
@@ -463,11 +463,18 @@ class MyContents {
         this.spiral.display()
 
 
-        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth), 0.5,0.5,0.5)
-        this.vase.display()
+        //this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth), 0.5,0.5,0.5)
+        //this.vase.display()
 
-        this.balloon = new MyBalloon(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth),0xff0000)
-        this.balloon.display()
+        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth),0xff0000)
+        //this.balloon.display()
+
+        // generate 8 baloons around the table
+        for (let i = 0; i < 8; i++) {
+            let balloon = new MyBalloon(this.app,new THREE.Vector3(this.tablePosition.x + Math.cos(i * Math.PI / 4) * this.tableWidth/1.5 , 0, this.tablePosition.z + Math.sin(i * Math.PI / 4) * this.tableWidth / 1.5),0xffffff * Math.random())
+            balloon.display()
+        }
+        
 
         this.tifo = new MyTifo(this.app,new THREE.Vector3(-this.floorHeight/2*0.8 ,this.wallHeight*0.6, 4))
         this.tifo.display()
@@ -584,188 +591,6 @@ class MyContents {
         this.lastBoxEnabled = null;
     }
 
-    /**
-     * updates the box mesh if required
-     * this method is called from the render method of the app
-     * updates are trigered by boxEnabled property changes
-     */
-    // updateBoxIfRequired() {
-    //     if (this.boxEnabled !== this.lastBoxEnabled) {
-    //         this.lastBoxEnabled = this.boxEnabled;
-    //         if (this.boxEnabled) {
-    //             this.app.scene.add(this.boxMesh);
-    //         }
-    //         else {
-    //             this.app.scene.remove(this.boxMesh);
-    //             this.createNurbsSurfaces();
-    //         }
-    //     }
-    //     if (this.boxEnabled !== this.lastBoxEnabled) {
-    //         this.lastBoxEnabled = this.boxEnabled
-    //         if (this.boxEnabled) {
-    //             this.app.scene.add(this.boxMesh)
-    //         }
-    //         else {
-    //             this.app.scene.remove(this.boxMesh)
-    //         }
-    createNurbsSurfaces() {
-
-        // are there any meshes to remove?
-        if (this.meshes !== null) {
-            // traverse mesh array
-            for (let i = 0; i < this.meshes.length; i++) {
-                // remove all meshes from the scene
-                this.app.scene.remove(this.meshes[i])
-            }
-            this.meshes = [] // empty the array  
-        }
-
-        // declare local variables
-        let controlPoints;
-        let surfaceData;
-        let mesh;
-        let orderU = 1
-        let orderV = 1
-
-        // build nurb #1
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..1;
-                    [-2.0, -2.0, 0.0, 1],
-                    [-2.0, 2.0, 0.0, 1]
-                ],
-                // U = 1
-                [ // V = 0..1
-                    [2.0, -2.0, 0.0, 1],
-                    [2.0, 2.0, 0.0, 1]
-                ]
-            ]
-
-        surfaceData = this.builder.build(controlPoints,
-            orderU, orderV, this.samplesU,
-            this.samplesV, this.material)
-        mesh = new THREE.Mesh(surfaceData, this.material);
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set(1, 1, 1)
-        mesh.position.set(-4, 3, 0)
-        this.app.scene.add(mesh)
-        this.meshes.push(mesh)
-
-
-        // build nurb #2
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..1;
-                    [-1.5, -1.5, 0.0, 1],
-                    [-1.5, 1.5, 0.0, 1]
-                ],
-
-                // U = 1
-                [ // V = 0..1
-                    [0, -1.5, 3.0, 1],
-                    [0, 1.5, 3.0, 1]
-                ],
-
-                // U = 2
-                [ // V = 0..1
-                    [1.5, -1.5, 0.0, 1],
-                    [1.5, 1.5, 0.0, 1]
-                ]
-            ]
-
-        surfaceData = this.builder.build(controlPoints,
-            2, 1, this.samplesU,
-            this.samplesV, this.material)
-        mesh = new THREE.Mesh(surfaceData, this.material);
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set(1, 1, 1)
-        mesh.position.set(4, 3, 0)
-        this.app.scene.add(mesh)
-        this.meshes.push(mesh)
-
-        // build nurb #3
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..3;
-                    [-1.5, -1.5, 0.0, 1],
-                    [-2.0, -2.0, 2.0, 1],
-                    [-2.0, 2.0, 2.0, 1],
-                    [-1.5, 1.5, 0.0, 1]
-                ],
-                // U = 1
-                [ // V = 0..3
-                    [0.0, 0.0, 3.0, 1],
-                    [0.0, -2.0, 3.0, 1],
-                    [0.0, 2.0, 3.0, 1],
-                    [0.0, 0.0, 3.0, 1]
-                ],
-                // U = 2
-                [ // V = 0..3
-                    [1.5, -1.5, 0.0, 1],
-                    [2.0, -2.0, 2.0, 1],
-                    [2.0, 2.0, 2.0, 1],
-                    [1.5, 1.5, 0.0, 1]
-                ]
-            ]
-
-        surfaceData = this.builder.build(controlPoints,
-            2, 3, this.samplesU,
-            this.samplesV, this.material)
-        mesh = new THREE.Mesh(surfaceData, this.material);
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set(1, 1, 1)
-        mesh.position.set(-4, -3, 0)
-        this.app.scene.add(mesh)
-        this.meshes.push(mesh)
-
-        // build nurb #4
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..2;
-                    [-2.0, -2.0, 1.0, 1],
-                    [0, -2.0, 0, 1],
-                    [2.0, -2.0, -1.0, 1]
-                ],
-                // U = 1
-                [ // V = 0..2
-                    [-2.0, -1.0, -2.0, 1],
-                    [0, -1.0, -1.0, 1],
-                    [2.0, -1.0, 2.0, 1]
-                ],
-                // U = 2
-                [ // V = 0..2
-                    [-2.0, 1.0, 5.0, 1],
-                    [0, 1.0, 1.5, 1],
-                    [2.0, 1.0, -5.0, 1]
-                ],
-                // U = 3
-                [ // V = 0..2
-                    [-2.0, 2.0, -1.0, 1],
-                    [0, 2.0, 0, 1],
-                    [2.0, 2.0, 1.0, 1]
-                ]
-            ]
-
-        surfaceData = this.builder.build(controlPoints,
-            3, 2, this.samplesU,
-            this.samplesV, this.material)
-        mesh = new THREE.Mesh(surfaceData, this.material);
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set(1, 1, 1)
-        mesh.position.set(4, -3, 0)
-        this.app.scene.add(mesh)
-        this.meshes.push(mesh)
-    }
-    // function to convert degrees to radians
-
 
     /**
      * updates the contents
@@ -773,13 +598,6 @@ class MyContents {
      *
      */
     update() {
-        // check if box mesh needs to be updated
-        // this.updateBoxIfRequired()
-
-        // sets the box mesh position based on the displacement vector
-        // this.boxMesh.position.x = this.boxDisplacement.x
-        // this.boxMesh.position.y = this.boxDisplacement.y
-        // this.boxMesh.position.z = this.boxDisplacement.z
 
     }
 }
