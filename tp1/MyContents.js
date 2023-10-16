@@ -129,7 +129,7 @@ class MyContents {
 
         // main source of light
 
-        let spotLight = new THREE.SpotLight(0xffffff, 175, 0, Math.PI / 2.1);
+        let spotLight = new THREE.SpotLight(0xffffff, 150, 0, Math.PI / 2.1);
         spotLight.position.set(this.tablePosition.x, this.wallHeight + 1, this.tablePosition.z);
         spotLight.target.position.copy(this.tablePosition);
         spotLight.castShadow = true;
@@ -157,8 +157,6 @@ class MyContents {
         // Create an ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
         //this.app.scene.add(ambientLight);
-
-
 
 
         let isLightOn = false;

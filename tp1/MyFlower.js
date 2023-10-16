@@ -70,9 +70,11 @@ export class MyFlower {
 
     createFlowerHead(){
         //circle for the head
-        let circle = new THREE.CircleGeometry( 0.2, 32 );
-        let material = new THREE.MeshBasicMaterial( { color: 0xffff00,side: THREE.DoubleSide} );
+        let circle = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 32); 
+        let material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         let head = new THREE.Mesh( circle, material );
+        head.rotation.x = Math.PI/2;
+    
         head.castShadow = true;
         head.receiveShadow = true;
         return head;
@@ -81,31 +83,39 @@ export class MyFlower {
     createFlowerPetals(){
 
         // Elongated petal
-        const petalGeometry = new THREE.CircleGeometry(0.12, 32);
-        let material = new THREE.MeshBasicMaterial( { color: 0xffffff ,side: THREE.DoubleSide} );
+        const petalGeometry = new THREE.CylinderGeometry(0.12,0.12,0.05,32);
+        let material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
         let petal1 = new THREE.Mesh( petalGeometry, material );
         petal1.position.set(0,0.25,-0.01);
+        petal1.rotation.x = Math.PI/2;
 
         let petal2 = new THREE.Mesh( petalGeometry, material );
         petal2.position.set(0.15,0.2,-0.01);
+        petal2.rotation.x = Math.PI/2;
 
         let petal3 = new THREE.Mesh( petalGeometry, material );
         petal3.position.set(0.25,0,-0.01);
+        petal3.rotation.x = Math.PI/2;
 
         let petal4 = new THREE.Mesh( petalGeometry, material );
         petal4.position.set(0.15,-0.2,-0.01);
+        petal4.rotation.x = Math.PI/2;
 
         let petal5 = new THREE.Mesh( petalGeometry, material );
         petal5.position.set(0,-0.25,-0.01);
+        petal5.rotation.x = Math.PI/2;
 
         let petal6 = new THREE.Mesh( petalGeometry, material );
         petal6.position.set(-0.15,-0.2,-0.01);
+        petal6.rotation.x = Math.PI/2;
 
         let petal7 = new THREE.Mesh( petalGeometry, material );
         petal7.position.set(-0.25,0,-0.01);
+        petal7.rotation.x = Math.PI/2;
 
         let petal8 = new THREE.Mesh( petalGeometry, material );
         petal8.position.set(-0.15,0.2,-0.01);
+        petal8.rotation.x = Math.PI/2;
 
         //set shadows for all petals
         petal1.castShadow = true;
@@ -124,7 +134,7 @@ export class MyFlower {
         petal7.receiveShadow = true;
         petal8.castShadow = true;
         petal8.receiveShadow = true;
-        
+
 
         let petals = new THREE.Group();
         petals.add(petal1);

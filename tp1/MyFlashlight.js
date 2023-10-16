@@ -46,8 +46,8 @@ export class MyFlashlight {
     spotLight.decay = 2;
     spotLight.distance = 50;
     spotLight.castShadow = true;
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
+    spotLight.shadow.mapSize.width = 8192;
+    spotLight.shadow.mapSize.height = 8192;
     this.app.scene.add( spotLight.target );
     this.app.scene.add( spotLight );
     }
