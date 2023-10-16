@@ -10,7 +10,6 @@ export class MyChair {
     this.legRadius = legRadius || 0.1;
     this.color = color || 0x808080; // Default gray color
 
-    this.display();
   }
 
   display() {
@@ -19,12 +18,16 @@ export class MyChair {
     const seatMaterial = new THREE.MeshPhongMaterial({ color: this.color });
     const seatMesh = new THREE.Mesh(seatGeometry, seatMaterial);
     seatMesh.position.copy(this.position);
+    seatMesh.castShadow = true;
+    seatMesh.receiveShadow = true;
 
     // Create the back geometry (a square)
     const backGeometry = new THREE.BoxGeometry(this.backSize.width, this.backSize.height, 0.1);
     const backMaterial = new THREE.MeshPhongMaterial({ color: this.color });
     const backMesh = new THREE.Mesh(backGeometry, backMaterial);
     backMesh.position.set(this.position.x, this.position.y + this.backSize.height / 2, this.position.z - this.seatSize.depth / 2);
+    backMesh.castShadow = true;
+    backMesh.receiveShadow = true;
 
     // Create the four chair legs (cylinders)
     const legPositions = [
@@ -42,6 +45,8 @@ export class MyChair {
     legPositions.forEach((position) => {
       const legMesh = new THREE.Mesh(legGeometry, legMaterial);
       legMesh.position.copy(position);
+      legMesh.castShadow = true;
+      legMesh.receiveShadow = true;
       legs.add(legMesh);
     });
 

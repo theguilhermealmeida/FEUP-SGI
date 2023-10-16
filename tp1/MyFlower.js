@@ -73,6 +73,8 @@ export class MyFlower {
         let circle = new THREE.CircleGeometry( 0.2, 32 );
         let material = new THREE.MeshBasicMaterial( { color: 0xffff00,side: THREE.DoubleSide} );
         let head = new THREE.Mesh( circle, material );
+        head.castShadow = true;
+        head.receiveShadow = true;
         return head;
     }
 
@@ -104,6 +106,25 @@ export class MyFlower {
 
         let petal8 = new THREE.Mesh( petalGeometry, material );
         petal8.position.set(-0.15,0.2,-0.01);
+
+        //set shadows for all petals
+        petal1.castShadow = true;
+        petal1.receiveShadow = true;
+        petal2.castShadow = true;
+        petal2.receiveShadow = true;
+        petal3.castShadow = true;
+        petal3.receiveShadow = true;
+        petal4.castShadow = true;
+        petal4.receiveShadow = true;
+        petal5.castShadow = true;
+        petal5.receiveShadow = true;
+        petal6.castShadow = true;
+        petal6.receiveShadow = true;
+        petal7.castShadow = true;
+        petal7.receiveShadow = true;
+        petal8.castShadow = true;
+        petal8.receiveShadow = true;
+        
 
         let petals = new THREE.Group();
         petals.add(petal1);

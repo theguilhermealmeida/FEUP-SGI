@@ -87,6 +87,8 @@ export class MyNewspaper {
     
         mesh = new THREE.Mesh(surfaceData, material);
         mesh.position.set(0, 0, 0);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         let mesh2 = mesh.clone();
         mesh2.rotation.y = -Math.PI;
         mesh2.position.set(0, 0, 0);

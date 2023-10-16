@@ -38,12 +38,16 @@ export class MyBalloon {
         });
         const balloonMesh = new THREE.Mesh(balloonGeometry, balloonMaterial);
         balloonMesh.position.set(0, 5, 0); // Adjust the position to avoid the balloon intersecting the ground plane
+        balloonMesh.castShadow = true;
+        balloonMesh.receiveShadow = true;
     
         // Balloon string (cylinder)
         const stringGeometry = new THREE.CylinderGeometry(0.02, 0.02, 5, 16);
         const stringMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff }); // Black color
         const stringMesh = new THREE.Mesh(stringGeometry, stringMaterial);
         stringMesh.position.set(0, 2.5, 0); // Adjust the position to connect the balloon to the ground
+        stringMesh.castShadow = true;
+        stringMesh.receiveShadow = true;
     
         balloonGroup.add(balloonMesh);
         balloonGroup.add(stringMesh);

@@ -91,6 +91,8 @@ export class MyTifo {
     
         mesh = new THREE.Mesh(surfaceData, material);
         mesh.position.set(0, 0, 0);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         let mesh2 = mesh.clone();
         mesh2.position.set(3, 0, 0);
         let mesh3 = mesh.clone();

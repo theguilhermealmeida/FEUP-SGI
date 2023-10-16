@@ -20,6 +20,9 @@ export class MySpiral {
     
             // define geometry
             this.spiral = this.createSpiral();
+            // shadows
+            this.spiral.castShadow = true;
+            this.spiral.receiveShadow = true;
             
             this.spiral.position.set(this.position.x,this.position.y,this.position.z)
 

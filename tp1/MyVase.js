@@ -94,9 +94,13 @@ createVase() {
 
     mesh = new THREE.Mesh(surfaceData, material);
     mesh.position.set(0, 0, 0);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     let mesh2 = mesh.clone();
     mesh2.rotation.y = -Math.PI;
     mesh2.position.set(0, 0, 0);
+    mesh2.castShadow = true;
+    mesh2.receiveShadow = true;
     // create circle plane for bottom of vase
     let mesh3 = new THREE.Mesh(new THREE.CircleGeometry(1, 32), material);
     mesh3.rotation.x = Math.PI / 2;

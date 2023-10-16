@@ -20,6 +20,8 @@ export class MyTable{
     // let tableMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
     let tableMesh = new THREE.Mesh(table, this.tableMaterial);
     tableMesh.position.copy(this.position);
+    tableMesh.castShadow = true;
+    tableMesh.receiveShadow = true;
     this.app.scene.add(tableMesh);
 
     // Create the cylindrical legs
@@ -33,6 +35,8 @@ export class MyTable{
         i < 2 ? this.position.z - (this.tableDepth/2 - this.legRadius) : this.position.z + (this.tableDepth/2 - this.legRadius)
       );
       cylinderMesh.position.copy(legPosition);
+      cylinderMesh.castShadow = true;
+      cylinderMesh.receiveShadow = true;
       this.app.scene.add(cylinderMesh);
     }
   }

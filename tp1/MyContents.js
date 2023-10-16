@@ -31,21 +31,14 @@ class MyContents {
         this.app = app
         this.axis = null
 
+        this.mapSize  = 8192
+
         // floor related attributes
         this.floorHeight = 30
         this.floorWidth = 30
         this.floorTexture = new THREE.TextureLoader().load('textures/floor.jpeg');
         this.floorMaterial = new THREE.MeshStandardMaterial({ map: this.floorTexture });
         this.wallHeight = 0.4 * this.floorWidth
-
-        // wall related attributes
-
-        // box related attributes
-        this.boxMesh = null
-        this.boxMeshSize = 1.0
-        this.boxEnabled = true
-        this.lastBoxEnabled = null
-        this.boxDisplacement = new THREE.Vector3(0, 2, 0)
 
         // plane related attributes
         this.diffusePlaneColor = "#00ffff"
@@ -118,25 +111,6 @@ class MyContents {
         this.chairColor = 0x808080;
 
 
-
-        const map =
-            new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
-
-        map.wrapS = map.wrapT = THREE.RepeatWrapping;
-        map.anisotropy = 16;
-        map.colorSpace = THREE.SRGBColorSpace;
-        this.material = new THREE.MeshLambertMaterial({
-            map: map,
-            side: THREE.DoubleSide,
-            transparent: true, opacity: 0.90
-        });
-        this.builder = new MyNurbsBuilder()
-
-        this.meshes = []
-
-        this.samplesU = 16         // maximum defined in MyGuiInterface
-        this.samplesV = 16        // maximum defined in MyGuiInterface
-
         this.init()
 
     }
@@ -155,10 +129,15 @@ class MyContents {
 
         // main source of light
 
-        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI / 2, 1, 1);
-        spotLight.position.set(this.tablePosition.x, this.wallHeight, this.tablePosition.z);
-        spotLight.power = 20
+        let spotLight = new THREE.SpotLight(0xffffff, 175, 0, Math.PI / 2.1);
+        spotLight.position.set(this.tablePosition.x, this.wallHeight + 1, this.tablePosition.z);
         spotLight.target.position.copy(this.tablePosition);
+        spotLight.castShadow = true;
+        spotLight.shadow.mapSize.width = this.mapSize;
+        spotLight.shadow.mapSize.height = this.mapSize;
+        spotLight.shadow.camera.near = 0.5;
+        spotLight.shadow.camera.far = 500;
+        spotLight.shadow.focus = 1;
         this.app.scene.add(spotLight);
         // create spotlight helper
         // const spotLightHelper = new THREE.SpotLightHelper( spotLight );
@@ -174,6 +153,11 @@ class MyContents {
         this.cilinderMesh = new THREE.Mesh(this.cilinder, this.cilinderMaterial);
         this.cilinderMesh.position.copy(spotLight.position);
         this.app.scene.add(this.cilinderMesh);
+
+        // Create an ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+        //this.app.scene.add(ambientLight);
+
 
 
 
@@ -237,6 +221,7 @@ class MyContents {
         this.floorMesh = new THREE.Mesh(floor, this.floorMaterial);
         this.floorMesh.rotation.x = -Math.PI / 2;
         this.floorMesh.position.y = -0;
+        this.floorMesh.receiveShadow = true;
         this.app.scene.add(this.floorMesh);
 
 
@@ -265,6 +250,7 @@ class MyContents {
             wallMesh.position.y = this.wallHeight / 2;
             wallMesh.position.z = 0;
             wallMesh.rotation.y = Math.PI / 2 * i;
+            wallMesh.receiveShadow = true;
             if (i % 2 == 0) {
                 wallMesh.translateZ(-this.floorWidth / 2);
             }
@@ -290,7 +276,7 @@ class MyContents {
         let cake = new MyCake(this.app, this.cakePosition, this.cakeRadius, this.cakeHeight, this.cakeColor);
         cake.display();
 
-        // candel
+        // candle
         let candle = new MyCandle(this.app, this.candlePosition, this.candleRadius, this.candleHeight, this.candleColor);
         candle.display()
 
@@ -363,7 +349,7 @@ class MyContents {
         this.rectLight = new THREE.RectAreaLight(0xffffff, intensity, width, height);
         this.rectLight.position.set(this.frame.position.x, this.frame.position.y, this.frame.position.z);
         this.rectLight.lookAt(this.frame.position.x, this.frame.position.y, this.frame.position.z + this.floorHeight);
-        this.rectLight.power = 400
+        this.rectLight.power = 200
         this.rectLight2 = new THREE.RectAreaLight(0xffffff, intensity, this.floorHeight, this.wallHeight);
         this.rectLight2.position.set(this.frame.position.x, this.wallHeight, this.frame.position.z);
         this.rectLight2.lookAt(this.frame.position.x, this.frame.position.y, -(this.frame.position.z + this.floorHeight));
@@ -375,13 +361,13 @@ class MyContents {
 
 
         // flashlights
-        let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
-        let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 1, this.tableWidth);
-        flashlight.display()
-        flashlight2.display()
+        //let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
+        //let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 1, this.tableWidth);
+        //flashlight.display()
+        //flashlight2.display()
 
 
-        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.4,0.35,0.4)
+        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.25, this.tablePosition.z - 0.2 * this.tableDepth), 0.4,0.35,0.4)
         this.vase.display()
 
         // flower
@@ -414,29 +400,19 @@ class MyContents {
         this.stringMaterial = new THREE.MeshPhongMaterial({ color: 0xFFC0CB, transparent: false, opacity: 1, side: THREE.DoubleSide });
         this.stringMesh = new THREE.Mesh(this.stringGeometry, this.stringMaterial);
         this.stringMesh.position.set(-this.floorHeight / 2 * 0.8, this.wallHeight * 0.88, 4);
+        this.stringMesh.castShadow = true;
+        this.stringMesh.receiveShadow = true;
         this.app.scene.add(this.stringMesh);
 
         this.stringGeometry2 = new THREE.CylinderGeometry(0.02, 0.02, 3, 32);
         this.stringMaterial2 = new THREE.MeshPhongMaterial({ color: 0xFFC0CB, transparent: false, opacity: 1, side: THREE.DoubleSide });
         this.stringMesh2 = new THREE.Mesh(this.stringGeometry2, this.stringMaterial2);
         this.stringMesh2.position.set(-this.floorHeight / 2 * 0.8, this.wallHeight * 0.88, -4);
+        this.stringMesh.castShadow = true;
+        this.stringMesh.receiveShadow = true;
         this.app.scene.add(this.stringMesh2);
 
     }
-
-    /**
-     * rebuilds the box mesh if required
-     * this method is called from the gui interface
-     */
-    rebuildBox() {
-        // remove boxMesh if exists
-        if (this.boxMesh !== undefined && this.boxMesh !== null) {
-            this.app.scene.remove(this.boxMesh);
-        }
-        // this.buildBox();
-        this.lastBoxEnabled = null;
-    }
-
 
     /**
      * updates the contents

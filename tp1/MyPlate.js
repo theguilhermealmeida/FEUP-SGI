@@ -16,6 +16,8 @@ export class MyPlate {
     let plate = new THREE.CylinderGeometry(this.radius, 0.6*this.radius, this.height, 32 );
     let plateMesh = new THREE.Mesh(plate, this.plateMaterial);
     plateMesh.position.copy(this.position)
+    plateMesh.castShadow = true;
+    plateMesh.receiveShadow = true;
     this.app.scene.add( plateMesh );
   }
 
