@@ -3,10 +3,13 @@ import { MyPolyline } from './MyPolyline.js';
 import { MyCubicBezier } from './MyCubicBezier.js';
 
 export class MyCarocha{
-    constructor(app,position) { 
+    constructor(app,position, xScale, yScale, zScale) { 
         this.app = app;
         this.position = position;
         this.carocha = null;
+        this.xScale = xScale;
+        this.yScale = yScale;
+        this.zScale = zScale;
     }
 
     display() {
@@ -19,6 +22,10 @@ export class MyCarocha{
 
         // set initial position
         this.carocha.position.set(this.position.x,this.position.y,this.position.z)
+
+        this.carocha.scale.set(this.xScale,this.yScale,this.zScale)
+
+        this.carocha.rotation.y = -Math.PI/2;
 
         // add the line to the scene
         this.app.scene.add( this.carocha )

@@ -374,13 +374,13 @@ class MyContents {
         this.paintingFrameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
         this.paintingFrameMaterial = new THREE.MeshStandardMaterial({ map: this.paintingFrameTexture, emissive: "#000000"});
         this.paintingFrame = new THREE.Mesh(this.paintingFrameGeometry, this.paintingFrameMaterial);
-        this.paintingFrame.position.set(this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
+        this.paintingFrame.position.set(this.floorHeight*0.2, this.wallHeight * 0.65, this.floorWidth / 2 - 0.102);
         this.paintingFrame.rotation.y = Math.PI;
 
         this.paintingFrameGeometry2 = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
         this.paintingFrameMaterial2 = new THREE.MeshStandardMaterial({ map: this.paintingFrame2Texture, emissive: "#000000"});
         this.paintingFrame2 = new THREE.Mesh(this.paintingFrameGeometry2, this.paintingFrameMaterial2);
-        this.paintingFrame2.position.set(-this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
+        this.paintingFrame2.position.set(-this.floorHeight*0.2, this.wallHeight * 0.65, this.floorWidth / 2 - 0.102);
         this.paintingFrame2.rotation.y = Math.PI;
 
         this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.3, 0.15 * this.floorWidth + 0.3); // Slightly larger than the window
@@ -410,7 +410,7 @@ class MyContents {
         this.windowMaterial = new THREE.MeshBasicMaterial({ map: this.windowTexture });
         this.window = new THREE.Mesh(this.windowGeometry, this.windowMaterial);
 
-        this.window.position.set(0, this.wallHeight * 0.65, -this.floorHeight / 2 + 0.102);
+        this.window.position.set(0, this.wallHeight * 0.65, -this.floorWidth / 2 + 0.102);
 
         this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.2, 0.15 * this.floorWidth + 0.2); // Slightly larger than the window
         this.frameMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide }); // Black color for the frame
@@ -456,8 +456,8 @@ class MyContents {
         this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.35, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
         this.newspaper.display()
 
-        //this.carocha = new MyCarocha(this.app,new THREE.Vector3(3,8,2))
-        //this.carocha.display()
+        this.carocha = new MyCarocha(this.app,new THREE.Vector3(this.floorHeight/2, this.wallHeight*0.6,0), 0.5,0.5,0.5)
+        this.carocha.display()
 
         this.spiral = new MySpiral(this.app,new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2,0.2,0.2)
         this.spiral.display()
