@@ -149,7 +149,7 @@ class MyContents {
         if (this.axis === null) {
             // create and attach the axis to the scene
             this.axis = new MyAxis(this)
-            this.app.scene.add(this.axis)
+            //this.app.scene.add(this.axis)
         }
 
 
@@ -191,18 +191,18 @@ class MyContents {
         }
 
         // Interval for changing the light state (e.g., every 2 seconds)
-        const interval = 100; // 2000 milliseconds (2 seconds)
+        // const interval = 100; // 2000 milliseconds (2 seconds)
 
-        // Set an interval to toggle the light
-        const lightInterval = setInterval(toggleLight, interval);
+        // // Set an interval to toggle the light
+        // const lightInterval = setInterval(toggleLight, interval);
 
-        // Stop the interval after a certain duration (e.g., 10 seconds)
-        const stopDuration = 50000; // 10000 milliseconds (10 seconds)
+        // // Stop the interval after a certain duration (e.g., 10 seconds)
+        // const stopDuration = 50000; // 10000 milliseconds (10 seconds)
 
-        setTimeout(() => {
-            clearInterval(lightInterval); // Stop the interval
-            console.log('Lightbulb simulation stopped');
-        }, stopDuration);
+        // setTimeout(() => {
+        //     clearInterval(lightInterval); // Stop the interval
+        //     console.log('Lightbulb simulation stopped');
+        // }, stopDuration);
 
         // let isLightOn = true; setInterval(() => {
         //     if (isLightOn) {
@@ -380,16 +380,15 @@ class MyContents {
         flashlight.display()
         flashlight2.display()
 
-        // vase
-        this.vase = new MyVase(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2, 0.2, 0.2)
+
+        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.4,0.35,0.4)
         this.vase.display()
 
         // flower
         this.flower = new MyFlower(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth))
         this.flower.display()
 
-        // newspaper
-        this.newspaper = new MyNewspaper(this.app, new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.35, this.tablePosition.z - this.tableDepth / 3), 0.2, 0.2, 0.2)
+        this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.25, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
         this.newspaper.display()
 
         // carocha
@@ -400,13 +399,13 @@ class MyContents {
         this.spiral = new MySpiral(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2, 0.2, 0.2)
         this.spiral.display()
 
-        // vase
-        this.vase = new MyVase(this.app, new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth), 0.5, 0.5, 0.5)
-        this.vase.display()
 
-        // balloon
-        this.balloon = new MyBalloon(this.app, new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth), 0xff0000)
-        this.balloon.display()
+        // balloons
+        for (let i = 0; i < 8; i++) {
+            let balloon = new MyBalloon(this.app,new THREE.Vector3(this.tablePosition.x + Math.cos(i * Math.PI / 4) * this.tableWidth/1.5 , 0, this.tablePosition.z + Math.sin(i * Math.PI / 4) * this.tableWidth / 1.5),0xffffff * Math.random())
+            balloon.display()
+        }
+        
 
         // tifo
         this.tifo = new MyTifo(this.app, new THREE.Vector3(-this.floorHeight / 2 * 0.8, this.wallHeight * 0.6, 4))
@@ -423,10 +422,6 @@ class MyContents {
         this.stringMesh2.position.set(-this.floorHeight / 2 * 0.8, this.wallHeight * 0.88, -4);
         this.app.scene.add(this.stringMesh2);
 
-
-
-
-
     }
 
     /**
@@ -442,6 +437,12 @@ class MyContents {
         this.lastBoxEnabled = null;
     }
 
+
+    /**
+     * updates the contents
+     * this method is called from the render method of the app
+     *
+     */
     update() {
 
     }
