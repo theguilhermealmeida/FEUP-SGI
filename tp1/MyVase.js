@@ -105,6 +105,8 @@ createVase() {
     let mesh3 = new THREE.Mesh(new THREE.CircleGeometry(1, 32), material);
     mesh3.rotation.x = Math.PI / 2;
     mesh3.position.set(0, 0, 0);
+    mesh3.castShadow = true;
+    mesh3.receiveShadow = true;
     // group the two meshes together
     let group = new THREE.Group();
     group.add(mesh);
