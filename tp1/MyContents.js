@@ -204,7 +204,7 @@ class MyContents {
 
         this.init()
 
-        //this.createNurbsSurfaces()  
+        // this.createNurbsSurfaces()  
 
 
     }
@@ -368,6 +368,41 @@ class MyContents {
         let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
         chair.display()
 
+        this.paintingFrameTexture = new THREE.TextureLoader().load('textures/bear.jpeg');
+        this.paintingFrame2Texture = new THREE.TextureLoader().load('textures/bear2.webp');
+
+        this.paintingFrameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
+        this.paintingFrameMaterial = new THREE.MeshBasicMaterial({ map: this.paintingFrameTexture });
+        this.paintingFrame = new THREE.Mesh(this.paintingFrameGeometry, this.paintingFrameMaterial);
+        this.paintingFrame.position.set(this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
+        this.paintingFrame.rotation.y = Math.PI;
+
+        this.paintingFrameGeometry2 = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
+        this.paintingFrameMaterial2 = new THREE.MeshBasicMaterial({ map: this.paintingFrame2Texture });
+        this.paintingFrame2 = new THREE.Mesh(this.paintingFrameGeometry2, this.paintingFrameMaterial2);
+        this.paintingFrame2.position.set(-this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
+        this.paintingFrame2.rotation.y = Math.PI;
+
+        this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.3, 0.15 * this.floorWidth + 0.3); // Slightly larger than the window
+        this.frameMaterial = new THREE.MeshBasicMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
+        this.frame = new THREE.Mesh(this.frameGeometry, this.frameMaterial);
+
+        this.frame.position.copy(this.paintingFrame.position);
+        this.frame.position.z += 0.01;
+        this.app.scene.add(this.frame);
+
+        this.frameGeometry2 = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.3, 0.15 * this.floorWidth + 0.3); // Slightly larger than the window
+        this.frameMaterial2 = new THREE.MeshBasicMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
+        this.frame2 = new THREE.Mesh(this.frameGeometry2, this.frameMaterial2);
+
+        this.frame2.position.copy(this.paintingFrame2.position);
+        this.frame2.position.z += 0.01;
+        this.app.scene.add(this.frame2);
+
+
+        this.app.scene.add(this.paintingFrame);
+        this.app.scene.add(this.paintingFrame2);
+
 
         this.windowTexture = new THREE.TextureLoader().load('textures/window2.jpeg');
         this.windowGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth); // Adjust the size as needed
@@ -383,7 +418,7 @@ class MyContents {
 
         // Position the window frame behind the window
         this.frame.position.copy(this.window.position);
-        this.frame.position.z -= 0.001;
+        this.frame.position.z -= 0.01;
         this.app.scene.add(this.frame);
 
         // Create a RectAreaLight
