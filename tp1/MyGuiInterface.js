@@ -45,6 +45,13 @@ class MyGuiInterface  {
         cameraFolder.add(this.app.activeCamera.position, 'z', -30, 30).name("z coord")
         cameraFolder.open()
 
+         
+
+         // create a folder for the light to turn on and off a light
+        const lightFolder = this.datgui.addFolder('Light')
+        lightFolder.add(this.contents, 'lightOn').name("light on/off")
+        lightFolder.open()
+
 
     }
 }

@@ -24,6 +24,13 @@ export class MyCandle {
         flameMesh.position.x = this.position.x;
         flameMesh.position.y = this.position.y + this.height/2 + flameHeight/2;
         flameMesh.position.z = this.position.z;
+        
+        // add light on the flame
+        const light = new THREE.PointLight( 0xffa500, 1, 100 );
+        light.position.set( flameMesh.position.x, flameMesh.position.y, flameMesh.position.z );
+        this.app.scene.add( light );
+
+
 
         this.app.scene.add(candleMesh);
         this.app.scene.add(flameMesh);

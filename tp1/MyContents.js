@@ -1,20 +1,20 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
-import { MyTable } from './MyTable.js';
-import { MyCake } from './MyCake.js';
-import { MyPlate } from './MyPlate.js';
-import { MyCandle } from './MyCandle.js';
-import { MyHat } from './MyHat.js';
-import { MyChair } from './MyChair.js'
-import { MyFlashlight } from './MyFlashlight.js';
-import { MyNurbsBuilder } from './MyNurbsBuilder.js';
-import { MyCarocha } from './MyCarocha.js';
-import { MyVase } from './MyVase.js';
-import { MyNewspaper } from './MyNewspaper.js';
-import { MySpiral } from './MySpiral.js';
-import { MyFlower } from './MyFlower.js';
-import { MyBalloon } from './MyBaloon.js';
-import { MyTifo } from './MyTifo.js';
+import { MyTable } from './MyObjects/MyTable.js';
+import { MyCake } from './MyObjects/MyCake.js';
+import { MyPlate } from './MyObjects/MyPlate.js';
+import { MyCandle } from './MyObjects/MyCandle.js';
+import { MyHat } from './MyObjects/MyHat.js';
+import { MyChair } from './MyObjects/MyChair.js'
+import { MyFlashlight } from './MyObjects/MyFlashlight.js';
+import { MyNurbsBuilder } from './MyObjects/MyNurbsBuilder.js';
+import { MyCarocha } from './MyObjects/MyCarocha.js';
+import { MyVase } from './MyObjects/MyVase.js';
+import { MyNewspaper } from './MyObjects/MyNewspaper.js';
+import { MySpiral } from './MyObjects/MySpiral.js';
+import { MyFlower } from './MyObjects/MyFlower.js';
+import { MyBalloon } from './MyObjects/MyBaloon.js';
+import { MyTifo } from './MyObjects/MyTifo.js';
 
 
 /**
@@ -110,6 +110,15 @@ class MyContents {
         this.chariLegRadius = 0.1;
         this.chairColor = 0x808080;
 
+        this.spotLight = new THREE.SpotLight(0xffffff, 150, 0, Math.PI / 2.1);
+        this.spotLight.position.set(this.tablePosition.x, this.wallHeight + 1, this.tablePosition.z);
+        this.spotLight.target.position.copy(this.tablePosition);
+        this.spotLight.castShadow = true;
+        this.spotLight.shadow.mapSize.width = this.mapSize;
+        this.spotLight.shadow.mapSize.height = this.mapSize;
+        this.spotLight.shadow.camera.near = 0.5;
+        this.spotLight.shadow.camera.far = 500;
+        this.spotLight.shadow.focus = 1;
 
         this.init()
 
@@ -129,29 +138,17 @@ class MyContents {
 
         // main source of light
 
-        let spotLight = new THREE.SpotLight(0xffffff, 150, 0, Math.PI / 2.1);
-        spotLight.position.set(this.tablePosition.x, this.wallHeight + 1, this.tablePosition.z);
-        spotLight.target.position.copy(this.tablePosition);
-        spotLight.castShadow = true;
-        spotLight.shadow.mapSize.width = this.mapSize;
-        spotLight.shadow.mapSize.height = this.mapSize;
-        spotLight.shadow.camera.near = 0.5;
-        spotLight.shadow.camera.far = 500;
-        spotLight.shadow.focus = 1;
-        this.app.scene.add(spotLight);
-        // create spotlight helper
-        // const spotLightHelper = new THREE.SpotLightHelper( spotLight );
-        // this.app.scene.add( spotLightHelper );
+        this.app.scene.add(this.spotLight);
         const lightbulbGeometry = new THREE.SphereGeometry(0.1, 32, 32);
         const lightbulbMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         const lightbulbMesh = new THREE.Mesh(lightbulbGeometry, lightbulbMaterial);
-        lightbulbMesh.position.copy(spotLight.position);
+        lightbulbMesh.position.copy(this.spotLight.position);
         this.app.scene.add(lightbulbMesh);
 
         this.cilinder = new THREE.CylinderGeometry(0.08, 0.8, 0.5, 32, 1, true);
         this.cilinderMaterial = new THREE.MeshPhongMaterial({ color: 0x000000, transparent: true, opacity: 1, side: THREE.DoubleSide });
         this.cilinderMesh = new THREE.Mesh(this.cilinder, this.cilinderMaterial);
-        this.cilinderMesh.position.copy(spotLight.position);
+        this.cilinderMesh.position.copy(this.spotLight.position);
         this.app.scene.add(this.cilinderMesh);
 
         // Create an ambient light
@@ -359,10 +356,10 @@ class MyContents {
 
 
         // flashlights
-        //let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
-        //let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 1, this.tableWidth);
-        //flashlight.display()
-        //flashlight2.display()
+        // let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
+        // let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z), 0xffffff, 1, this.tableWidth);
+        // flashlight.display()
+        // flashlight2.display()
 
 
         this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.25, this.tablePosition.z - 0.2 * this.tableDepth), 0.4,0.35,0.4)
@@ -411,6 +408,16 @@ class MyContents {
         this.app.scene.add(this.stringMesh2);
 
     }
+
+    // function for interface to control light on and off
+    lightOn() {
+        if (this.spotLight.intensity == 0) {
+            this.spotLight.intensity = 150 
+        } else {
+            this.spotLight.intensity = 0
+        }
+    }
+
 
     /**
      * updates the contents

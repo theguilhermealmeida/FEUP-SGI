@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { MyPolyline } from './MyPolyline.js';
-import { MyCubicBezier } from './MyCubicBezier.js';
+import { MyPolyline } from '../Curves/MyPolyline.js';
+import { MyCubicBezier } from '../Curves/MyCubicBezier.js';
 
 export class MyCarocha{
     constructor(app,position, xScale, yScale, zScale) { 
@@ -36,13 +36,13 @@ export class MyCarocha{
 
         // Create the frame
         let frame = new THREE.BoxGeometry(10, 6, 0.15);
-        let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x65350f });
+        let frameMaterial = new THREE.MeshStandardMaterial({ color: 0x65350f, emissive: "#000000"  });
         this.frameMesh = new THREE.Mesh(frame, frameMaterial);
         this.frameMesh.position.set(0, 0, 0)
 
         // Create the canvas
         let canvas = new THREE.BoxGeometry(9, 5.4, 0.03);
-        let canvasMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        let canvasMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: "#000000" });
         this.canvasMesh = new THREE.Mesh(canvas, canvasMaterial);
         this.canvasMesh.position.set(0, 0, 0.07)
 
