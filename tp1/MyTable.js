@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 
 export class MyTable{
-  constructor(app, tableWidth, tableDepth, tableThickness, tableColor, legHeight, legRadius, position) {
+  constructor(app, tableWidth, tableDepth, tableThickness, tableMaterial, tableLegsMaterial, legHeight, legRadius, position) {
     this.app = app;
-    this.tableColor = tableColor || '#8B4513'
+    this.tableMaterial = tableMaterial || new THREE.MeshBasicMaterial({ color: 0x0000ff }); // Default table material is blue
+    this.tableLegsMaterial = tableLegsMaterial || new THREE.MeshBasicMaterial({ color: 0x0000ff }); // Default table legs material is blue
     this.legHeight = legHeight || 2.5; // Default leg height is 2.5
     this.legRadius = legRadius || 0.3; // Default leg radius is 0.3
     this.position = position || new THREE.Vector3(0, 0, 0); // Default position is the origin
@@ -16,16 +17,16 @@ export class MyTable{
   display() {
     // Create the table top
     let table = new THREE.BoxGeometry(this.tableWidth, this.tableThickness, this.tableDepth);
-    let tableMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
-    let tableMesh = new THREE.Mesh(table, tableMaterial);
+    // let tableMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
+    let tableMesh = new THREE.Mesh(table, this.tableMaterial);
     tableMesh.position.copy(this.position);
     this.app.scene.add(tableMesh);
 
     // Create the cylindrical legs
     let cylinder = new THREE.CylinderGeometry(this.legRadius, this.legRadius, this.legHeight, 32);
     for (let i = 0; i < 4; i++) {
-      let cylinderMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
-      let cylinderMesh = new THREE.Mesh(cylinder, cylinderMaterial);
+      // let cylinderMaterial = new THREE.MeshBasicMaterial({ color: this.tableColor });
+      let cylinderMesh = new THREE.Mesh(cylinder, this.tableLegsMaterial);
       let legPosition = new THREE.Vector3(
         i % 2 === 0 ? this.position.x - (this.tableWidth/2 - this.legRadius) : this.position.x + (this.tableWidth/2 - this.legRadius),
         this.position.y - this.legHeight / 2,

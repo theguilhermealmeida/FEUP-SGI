@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyTable } from './MyTable.js';
-import { MyCake} from './MyCake.js';
-import { MyPlate} from './MyPlate.js';
-import { MyCandle} from './MyCandle.js';
-import { MyHat} from './MyHat.js';
-import {MyChair} from './MyChair.js'
+import { MyCake } from './MyCake.js';
+import { MyPlate } from './MyPlate.js';
+import { MyCandle } from './MyCandle.js';
+import { MyHat } from './MyHat.js';
+import { MyChair } from './MyChair.js'
+import { MyFlashlight } from './MyFlashlight.js';
 
 /**
  *  This class contains the contents of out application
@@ -21,10 +22,13 @@ class MyContents {
         this.axis = null
 
         // floor related attributes
-        this.floorHeight = 60
-        this.floorWidth = 30 
+        this.floorHeight = 30
+        this.floorWidth = 30
         this.floorTexture = new THREE.TextureLoader().load('textures/floor.jpeg');
-        this.floorMaterial = new THREE.MeshPhongMaterial({ map: this.floorTexture }); 
+        this.floorMaterial = new THREE.MeshStandardMaterial({ map: this.floorTexture });
+        this.wallHeight = 0.4*this.floorWidth
+
+        // wall related attributes
 
         // box related attributes
         this.boxMesh = null
@@ -37,64 +41,90 @@ class MyContents {
         this.diffusePlaneColor = "#00ffff"
         this.specularPlaneColor = "#777777"
         this.planeShininess = 30
-        this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
-        
+        this.planeMaterial = new THREE.MeshPhongMaterial({
+            color: this.diffusePlaneColor,
+            specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess
+        })
+
 
         // walls related attributes
         this.wallTexture = new THREE.TextureLoader().load('textures/wall.jpeg');
-        this.wallMaterial = new THREE.MeshPhongMaterial({ map: this.wallTexture });
+        this.wallMaterial = new THREE.MeshStandardMaterial({
+            map: this.wallTexture
+        });
 
         // table related attributes
-        this.tableWidth = 6
-        this.tableDepth = 4
+        this.tableWidth = 10
+        this.tableDepth = 5
         this.tableThickness = 0.5
         this.legHeight = 2
-        this.legRadius = 0.2
+        this.legRadius = 0.15
         this.tableColor = '#5C4033'
-        this.tablePosition = new THREE.Vector3(0, 2, 0)
+        this.tableLegsColor = '#a19d94'
+        this.tablePosition = new THREE.Vector3(0, this.legHeight, 0)
+        this.tableTexture = new THREE.TextureLoader().load('textures/table.jpeg');
+        this.tableMaterial = new THREE.MeshPhongMaterial({
+            map: this.tableTexture,
+            color: 0xFFFFFF, // Set a neutral color (you can adjust this to match the wood texture)
+            specular: 0x111111, // Adjust the specular color
+            shininess: 20
+        });
+        this.tableLegsMaterial = new THREE.MeshPhongMaterial({
+            color: this.tableLegsColor,
+            specular: 0xffffff, // Set the specular color to white
+            shininess: 50 // Increase the shininess value
+        });
 
         // plate related attributes
         this.plateHeight = 0.2
-        this.platePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight/2, this.tablePosition.z)
+        this.platePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness / 2 + this.plateHeight / 2, this.tablePosition.z)
         this.plateRadius = 0.9
         this.plateColor = '#ffffff'
 
         // cake related attributes
         this.cakeHeight = 0.4
-        this.cakePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight/2+0.001, this.tablePosition.z)
+        this.cakePosition = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + this.tableThickness / 2 + this.plateHeight + this.cakeHeight / 2 + 0.001, this.tablePosition.z)
         this.cakeRadius = 0.6
         this.cakeColor = '#964b00'
 
         // candle related attributes
-        this.candleHeight = 0.25 
-        this.candlePosition = new THREE.Vector3(this.cakePosition.x + 0.2, this.tablePosition.y + this.tableThickness/2 + this.plateHeight + this.cakeHeight + this.candleHeight/2, this.cakePosition.z - 0.2)
+        this.candleHeight = 0.25
+        this.candlePosition = new THREE.Vector3(this.cakePosition.x + 0.2, this.tablePosition.y + this.tableThickness / 2 + this.plateHeight + this.cakeHeight + this.candleHeight / 2, this.cakePosition.z - 0.2)
         this.candleRadius = 0.01
         this.candleColor = '#ffffff'
 
         // hat related attributes
-        this.hatHeight = 0.5 
-        this.hatPosition = new THREE.Vector3(this.tablePosition.x+0.3*this.tableWidth, this.tablePosition.y + this.tableThickness/2 + this.hatHeight/2, this.tablePosition.z+0.2*this.tableDepth)        
-        this.hatRadius = 0.2 
+        this.hatHeight = 0.5
+        this.hatPosition = new THREE.Vector3(this.tablePosition.x + 0.3 * this.tableWidth, this.tablePosition.y + this.tableThickness / 2 + this.hatHeight / 2, this.tablePosition.z + 0.2 * this.tableDepth)
+        this.hatRadius = 0.2
         this.hatColor = '#FF69B4'
 
         // chair related attributes
-        this.position = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y * 0.65, this.tablePosition.z - 0.5*this.tableDepth);
+        this.position = new THREE.Vector3(this.tablePosition.x, this.tablePosition.y * 0.65, this.tablePosition.z - 0.5 * this.tableDepth);
         this.seatSize = { width: 1, depth: 1 };
         this.backSize = { width: 1, height: 1 };
         this.chairLegHeight = this.position.y;
         this.chariLegRadius = 0.1;
-        this.chairColor = 0x808080; 
+        this.chairColor = 0x808080;
+
+
+        
+        // create rectLight helper
+        // this.rectLightHelper = new THREE.RectAreaLightHelper( this.rectLight );
+        // this.app.scene.add( this.rectLightHelper );
+
+
+
+        // plane related attributes
         this.planeSizeU = 10;
         this.planeSizeV = 7;
         let planeUVRate = this.planeSizeV / this.planeSizeU;
         let planeTextureUVRate = 3354 / 2385; // image dimensions
 
-        // plane related attributes
         this.planeWrappingModeU = THREE.RepeatWrapping
         this.planeWrappingModeV = THREE.RepeatWrapping
         this.planeRepeatU = 1
-        this.planeRepeatV = this.planeRepeatU * planeUVRate * planeTextureUVRate; 
+        this.planeRepeatV = this.planeRepeatU * planeUVRate * planeTextureUVRate;
         this.planeOffsetU = 0
         this.planeOffsetV = 0
         this.planeRotation = 0
@@ -139,7 +169,8 @@ class MyContents {
 
         this.planeMaterial = new THREE.MeshLambertMaterial({
 
-               map : this.planeTexture });
+            map: this.planeTexture
+        });
 
         // end of alternative 2
 
@@ -155,7 +186,7 @@ class MyContents {
         let boxMaterial = new THREE.MeshPhongMaterial({
             // color: "#ffff77",
             // specular: "#000000", emissive: "#000000", shininess: 90
-            map : this.cubeTexture
+            map: this.cubeTexture
         })
 
         // Create a Cube Mesh with basic material
@@ -177,38 +208,129 @@ class MyContents {
             this.app.scene.add(this.axis)
         }
 
+        // add lightbulb geometry on the point light
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight(0xffffff, 500, 0);
-        pointLight.position.set(0, 20, 0);
-        this.app.scene.add(pointLight);
+
+        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI/4,1);
+        spotLight.position.set(this.tablePosition.x, this.wallHeight, this.tablePosition.z);
+        spotLight.power = 100
+        spotLight.target.position.copy(this.tablePosition);
+        this.app.scene.add(spotLight);
+        // create spotlight helper
+        // const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+        // this.app.scene.add( spotLightHelper );
+     
+        // create a lightbulb object thats the source of the spotlight
+        const lightbulbGeometry = new THREE.SphereGeometry(0.1, 32, 32);
+        const lightbulbMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const lightbulbMesh = new THREE.Mesh(lightbulbGeometry, lightbulbMaterial);
+        lightbulbMesh.position.copy(spotLight.position);
+        this.app.scene.add(lightbulbMesh);
+
+
+       // create a cilinder
+       // make the cilinder a child of the spotlight
+
+        this.cilinder = new THREE.CylinderGeometry(0.08, 0.8, 0.5, 32, 1, true); 
+        this.cilinderMaterial = new THREE.MeshPhongMaterial({ color: 0x000000, transparent: true, opacity: 1, side: THREE.DoubleSide });
+        this.cilinderMesh = new THREE.Mesh(this.cilinder, this.cilinderMaterial);
+        this.cilinderMesh.position.copy(spotLight.position);
+        this.app.scene.add(this.cilinderMesh);
+
+
+
+
+        let isLightOn = true;
+        setInterval(() => {
+            if (isLightOn) {
+                spotLight.intensity = 0;
+                // remove lightbulb mesh
+                this.app.scene.remove(lightbulbMesh);
+            } else {
+                spotLight.intensity = 10;
+                this.app.scene.add(lightbulbMesh)
+            }
+            isLightOn = !isLightOn;
+        }, 250);
 
         // add a point light helper for the previous point light
-        const sphereSize = 0.5;
-        const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
-        this.app.scene.add(pointLightHelper);
+        // const sphereSize = 0.5;
+        // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
+        // this.app.scene.add(pointLightHelper);
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight( 0x555555 );
-        this.app.scene.add( ambientLight );
-        
-        let floor = new THREE.PlaneGeometry(this.floorHeight,this.floorWidth);
-        this.floorMesh = new THREE.Mesh( floor, this.floorMaterial );
+        const ambientLight = new THREE.AmbientLight(0x555555);
+        // this.app.scene.add(ambientLight);
+
+        // this.planeTexture.wrapS = this.planeWrappingModeU
+        // this.planeTexture.wrapT = this.planeWrappingModeV;
+        // this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+        // this.planeTexture.rotation = this.planeRotation
+        // this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+
+        // this.planeWrappingModeU = THREE.RepeatWrapping
+        // this.planeWrappingModeV = THREE.RepeatWrapping
+        // this.planeRepeatU = 1
+        // this.planeRepeatV = this.planeRepeatU * planeUVRate * planeTextureUVRate; 
+        // this.planeOffsetU = 0
+        // this.planeOffsetV = 0
+        // this.planeRotation = 0
+
+        let floorSizeU = 10;
+        let floorSizeV = 10;
+        let floorUVRate = floorSizeV / floorSizeU;
+        let floorTextureUVRate = 3354 / 2385; // image dimensions
+        let floorRepeatU = 3
+        let floorRepeatV = floorRepeatU * floorUVRate * floorTextureUVRate
+        let floorOffsetU = 0
+        let floorOffsetV = 0
+        let floor = new THREE.PlaneGeometry(this.floorHeight, this.floorWidth);
+
+        this.floorTexture.wrapS = THREE.RepeatWrapping
+        this.floorTexture.wrapT = THREE.RepeatWrapping
+        this.floorTexture.repeat.set(floorRepeatU, floorRepeatV)
+        this.floorTexture.rotation = 0
+        this.floorTexture.offset = new THREE.Vector2(floorOffsetU, floorOffsetV)
+
+        this.floorMesh = new THREE.Mesh(floor, this.floorMaterial);
         this.floorMesh.rotation.x = -Math.PI / 2;
         this.floorMesh.position.y = -0;
-        this.app.scene.add( this.floorMesh);
+        this.app.scene.add(this.floorMesh);
 
+
+        let wallRepeatU = 1
+        let wallRepeatV = 1
+        let wallOffsetU = 0
+        let wallOffsetV = 0
+        let wall = new THREE.PlaneGeometry(this.floorHeight, this.floorWidth);
+
+        this.wallTexture.wrapS = THREE.RepeatWrapping
+        this.wallTexture.wrapT = THREE.ClampToEdgeWrapping
+        this.wallTexture.repeat.set(wallRepeatU, wallRepeatV)
+        this.wallTexture.rotation = 0
+        this.wallTexture.offset = new THREE.Vector2(wallOffsetU, wallOffsetV)
         for (let i = 0; i < 4; i++) {
-            let wall = new THREE.PlaneGeometry(this.floorHeight, this.floorWidth);
-            let wallMesh = new THREE.Mesh( wall, this.wallMaterial );
+            if (i % 2 == 0) {
+                wall = new THREE.PlaneGeometry(this.floorHeight, this.wallHeight);
+            }
+            else {
+                wall = new THREE.PlaneGeometry(this.floorWidth, this.wallHeight);
+            }
+            let wallMesh = new THREE.Mesh(wall, this.wallMaterial);
             wallMesh.position.x = 0;
-            wallMesh.position.y = this.floorHeight/2;
+            wallMesh.position.y = this.wallHeight / 2;
             wallMesh.position.z = 0;
             wallMesh.rotation.y = Math.PI / 2 * i;
-            wallMesh.translateZ(-this.floorHeight/2);
-            this.app.scene.add( wallMesh );
+            if (i % 2 == 0) {
+                wallMesh.translateZ(-this.floorWidth / 2);
+            }
+            else {
+                wallMesh.translateZ(-this.floorHeight / 2);
+            }
+            this.app.scene.add(wallMesh);
         }
 
-        let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableColor, this.legHeight, this.legRadius, this.tablePosition);
+        let table = new MyTable(this.app, this.tableWidth, this.tableDepth, this.tableThickness, this.tableMaterial, this.tableLegsMaterial, this.legHeight, this.legRadius, this.tablePosition);
         table.display();
 
         let plate = new MyPlate(this.app, this.platePosition, this.plateRadius, this.plateHeight, this.plateColor);
@@ -226,6 +348,52 @@ class MyContents {
         let chair = new MyChair(this.app, this.position, this.seatSize, this.backSize, this.chairLegHeight, this.chariLegRadius, this.chairColor);
         chair.display()
 
+
+        this.windowTexture = new THREE.TextureLoader().load('textures/window2.jpeg');
+        this.windowGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth); // Adjust the size as needed
+        this.windowMaterial = new THREE.MeshBasicMaterial({ map: this.windowTexture });
+        this.window = new THREE.Mesh(this.windowGeometry, this.windowMaterial);
+
+        this.window.position.set(0, this.wallHeight*0.65,-this.floorHeight/2+0.102);
+
+        this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.2, 0.15 * this.floorWidth + 0.2); // Slightly larger than the window
+        this.frameMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide }); // Black color for the frame
+
+        this.frame = new THREE.Mesh(this.frameGeometry, this.frameMaterial);
+
+        // Position the window frame behind the window
+        this.frame.position.copy(this.window.position);
+        this.frame.position.z -= 0.001;
+        this.app.scene.add(this.frame);
+
+        // Create a RectAreaLight
+        const width = this.windowGeometry.parameters.width;
+        const height = this.windowGeometry.parameters.height; 
+        const intensity = 1;
+        this.rectLight = new THREE.RectAreaLight(0xffffff, intensity, width, height);
+        this.rectLight.position.set(this.frame.position.x, this.frame.position.y, this.frame.position.z);
+        this.rectLight.lookAt(this.frame.position.x, this.frame.position.y, this.frame.position.z+this.floorHeight);
+        this.rectLight.power = 400
+
+        this.rectLight2 = new THREE.RectAreaLight(0xffffff, intensity, this.floorHeight, this.wallHeight);
+        this.rectLight2.position.set(this.frame.position.x, this.wallHeight, this.frame.position.z);
+        this.rectLight2.lookAt(this.frame.position.x, this.frame.position.y, -(this.frame.position.z+this.floorHeight));
+        this.rectLight2.power = 0.4*this.rectLight.power 
+
+
+        // let flashlight = new MyFlashlight(this.app, new THREE.Vector3(-this.tablePosition.y-this.tableWidth*0.8, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
+        // let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(-this.tablePosition.y-this.tableWidth*0.2, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff,1, this.tableWidth);
+        let flashlight = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x-this.tableWidth*0.3, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff, 0, this.tableWidth);
+        let flashlight2 = new MyFlashlight(this.app, new THREE.Vector3(this.tablePosition.x+this.tableWidth*0.3, this.tablePosition.y+0.35, this.tablePosition.z), 0xffffff,1, this.tableWidth);
+        // rotate the flashlight
+
+        flashlight.display()
+        flashlight2.display()
+
+        this.app.scene.add(this.window);
+        this.app.scene.add(this.rectLight)
+        this.app.scene.add(this.rectLight2)
+
         this.buildBox()
 
 
@@ -233,9 +401,9 @@ class MyContents {
 
         this.planeTexture.wrapS = this.planeWrappingModeU
         this.planeTexture.wrapT = this.planeWrappingModeV;
-        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV);
         this.planeTexture.rotation = this.planeRotation
-        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU, this.planeOffsetV);
 
         // uncomment to add plane to the scene
         // var plane = new THREE.PlaneGeometry( this.planeSizeU, this.planeSizeV );
@@ -282,31 +450,31 @@ class MyContents {
 
     updateRepeatU(value) {
         this.planeRepeatU = value
-        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV);
     }
 
     updateRepeatV(value) {
         this.planeRepeatV = value
-        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV );
+        this.planeTexture.repeat.set(this.planeRepeatU, this.planeRepeatV);
     }
 
     updateOffsetU(value) {
         this.planeOffsetU = value
-        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU, this.planeOffsetV);
     }
 
     updateOffsetV(value) {
         this.planeOffsetV = value
-        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU,this.planeOffsetV);
+        this.planeTexture.offset = new THREE.Vector2(this.planeOffsetU, this.planeOffsetV);
     }
 
     updateRotation(value) {
         let radians = value * Math.PI / 180;
-        this.planeRotation = radians 
+        this.planeRotation = radians
         this.planeTexture.rotation = this.planeRotation
     }
 
-    
+
 
     /**
      * rebuilds the box mesh if required
@@ -337,6 +505,9 @@ class MyContents {
             }
         }
     }
+
+    // function to convert degrees to radians
+
 
     /**
      * updates the contents
