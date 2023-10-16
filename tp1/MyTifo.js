@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { MyNurbsBuilder } from './MyNurbsBuilder.js'
+import { MyCatmullRoll } from './MyCatmullRom.js'
 
 export class MyTifo {
     constructor(app,position) {
@@ -16,9 +17,15 @@ export class MyTifo {
 
         // define geometry
         this.tifo = this.createTifo();
+        // rotate the tifo to be perpendicular to the field
+        this.tifo.rotation.z = -Math.PI/2;
+        this.tifo.rotation.x = Math.PI/2;
+
 
         // set initial position
         this.tifo.position.set(this.position.x,this.position.y,this.position.z)
+
+        
 
         // add the line to the scene
         this.app.scene.add( this.tifo )
@@ -97,6 +104,7 @@ export class MyTifo {
         group.add(mesh2);
         group.add(mesh3);
         group.add(mesh4);
+
         return group;
 
     }

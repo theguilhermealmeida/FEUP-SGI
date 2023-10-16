@@ -2,10 +2,14 @@ import * as THREE from 'three'
 import { MyCatmullRoll } from './MyCatmullRom.js';
 
 export class MySpiral {
-    constructor(app,position) {
+    constructor(app,position, xScale, yScale, zScale) {
         this.app = app
         this.position = position
         this.spiral = null
+        this.xScale = xScale
+        this.yScale = yScale
+        this.zScale = zScale
+
     }
 
     display() {
@@ -18,6 +22,8 @@ export class MySpiral {
             this.spiral = this.createSpiral();
             
             this.spiral.position.set(this.position.x,this.position.y,this.position.z)
+
+            this.spiral.scale.set(this.xScale,this.yScale,this.zScale)
     
             // add the line to the scene
             this.app.scene.add( this.spiral )

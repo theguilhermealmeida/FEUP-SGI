@@ -2,10 +2,14 @@ import * as THREE from 'three'
 import { MyNurbsBuilder } from './MyNurbsBuilder.js'
 
 export class MyVase {
-    constructor(app,position) {
+    constructor(app,position, xScale, yScale, zScale) {
         this.app = app
         this.position = position
         this.vase = null
+        this.xScale = xScale
+        this.yScale = yScale
+        this.zScale = zScale
+
     }
 
     display() {
@@ -20,6 +24,7 @@ export class MyVase {
         // set initial position
         this.vase.position.set(this.position.x,this.position.y,this.position.z)
 
+        this.vase.scale.set(this.xScale,this.yScale,this.zScale)
         // add the line to the scene
         this.app.scene.add( this.vase )
     }

@@ -231,9 +231,9 @@ class MyContents {
         // add lightbulb geometry on the point light
         // add a point light on top of the model
 
-        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI / 4, 1);
+        let spotLight = new THREE.SpotLight(0xffffff, 500, 0, Math.PI/2 ,1, 1);
         spotLight.position.set(this.tablePosition.x, this.wallHeight, this.tablePosition.z);
-        spotLight.power = 100
+        spotLight.power =20 
         spotLight.target.position.copy(this.tablePosition);
         this.app.scene.add(spotLight);
         // create spotlight helper
@@ -260,18 +260,18 @@ class MyContents {
 
 
 
-        let isLightOn = true;
-        setInterval(() => {
-            if (isLightOn) {
-                spotLight.intensity = 0;
-                // remove lightbulb mesh
-                this.app.scene.remove(lightbulbMesh);
-            } else {
-                spotLight.intensity = 10;
-                this.app.scene.add(lightbulbMesh)
-            }
-            isLightOn = !isLightOn;
-        }, 250);
+        // let isLightOn = true;
+        // setInterval(() => {
+        //     if (isLightOn) {
+        //         spotLight.intensity = 0;
+        //         // remove lightbulb mesh
+        //         this.app.scene.remove(lightbulbMesh);
+        //     } else {
+        //         spotLight.intensity = 10;
+        //         this.app.scene.add(lightbulbMesh)
+        //     }
+        //     isLightOn = !isLightOn;
+        // }, 250);
 
         // add a point light helper for the previous point light
         // const sphereSize = 0.5;
@@ -372,19 +372,19 @@ class MyContents {
         this.paintingFrame2Texture = new THREE.TextureLoader().load('textures/bear2.webp');
 
         this.paintingFrameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
-        this.paintingFrameMaterial = new THREE.MeshBasicMaterial({ map: this.paintingFrameTexture });
+        this.paintingFrameMaterial = new THREE.MeshStandardMaterial({ map: this.paintingFrameTexture, emissive: "#000000"});
         this.paintingFrame = new THREE.Mesh(this.paintingFrameGeometry, this.paintingFrameMaterial);
         this.paintingFrame.position.set(this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
         this.paintingFrame.rotation.y = Math.PI;
 
         this.paintingFrameGeometry2 = new THREE.PlaneGeometry(0.15 * this.floorWidth, 0.15 * this.floorWidth);
-        this.paintingFrameMaterial2 = new THREE.MeshBasicMaterial({ map: this.paintingFrame2Texture });
+        this.paintingFrameMaterial2 = new THREE.MeshStandardMaterial({ map: this.paintingFrame2Texture, emissive: "#000000"});
         this.paintingFrame2 = new THREE.Mesh(this.paintingFrameGeometry2, this.paintingFrameMaterial2);
         this.paintingFrame2.position.set(-this.floorWidth*0.2, this.wallHeight * 0.65, this.floorHeight / 2 - 0.102);
         this.paintingFrame2.rotation.y = Math.PI;
 
         this.frameGeometry = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.3, 0.15 * this.floorWidth + 0.3); // Slightly larger than the window
-        this.frameMaterial = new THREE.MeshBasicMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
+        this.frameMaterial = new THREE.MeshStandardMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
         this.frame = new THREE.Mesh(this.frameGeometry, this.frameMaterial);
 
         this.frame.position.copy(this.paintingFrame.position);
@@ -392,12 +392,13 @@ class MyContents {
         this.app.scene.add(this.frame);
 
         this.frameGeometry2 = new THREE.PlaneGeometry(0.15 * this.floorWidth + 0.3, 0.15 * this.floorWidth + 0.3); // Slightly larger than the window
-        this.frameMaterial2 = new THREE.MeshBasicMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
+        this.frameMaterial2 = new THREE.MeshStandardMaterial({ color: 0x352500, side: THREE.DoubleSide }); // Black color for the frame
         this.frame2 = new THREE.Mesh(this.frameGeometry2, this.frameMaterial2);
 
         this.frame2.position.copy(this.paintingFrame2.position);
         this.frame2.position.z += 0.01;
         this.app.scene.add(this.frame2);
+
 
 
         this.app.scene.add(this.paintingFrame);
@@ -445,26 +446,44 @@ class MyContents {
         flashlight.display()
         flashlight2.display()
 
-        //this.vase = new MyVase(this.app,new THREE.Vector3(3,0,2))
-        //this.vase.display()
 
-        //this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(3,0,2))
-        //this.newspaper.display()
+        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2,0.2,0.2)
+        this.vase.display()
+
+        this.flower = new MyFlower(this.app,new THREE.Vector3(this.tablePosition.x + this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth))
+        this.flower.display()
+
+        this.newspaper = new MyNewspaper(this.app,new THREE.Vector3(this.tablePosition.x, this.tablePosition.y + 0.35, this.tablePosition.z - this.tableDepth/3), 0.2,0.2,0.2)
+        this.newspaper.display()
 
         //this.frame = new MyFrame(this.app, 10, 6, 0.3,new THREE.Vector3(3,0,2))
         //this.frame.display()
 
-        //this.spiral = new MySpiral(this.app,new THREE.Vector3(3,0,0))
-        //this.spiral.display()
+        this.spiral = new MySpiral(this.app,new THREE.Vector3(this.tablePosition.x - this.tableWidth * 0.3, this.tablePosition.y + 0.35, this.tablePosition.z - 0.2 * this.tableDepth), 0.2,0.2,0.2)
+        this.spiral.display()
 
-        //this.flower = new MyFlower(this.app,new THREE.Vector3(3,0,0))
-        //this.flower.display()
 
-        //this.balloon = new MyBalloon(this.app,new THREE.Vector3(3,0,0),0xff0000)
-        //this.balloon.display()
+        this.vase = new MyVase(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth), 0.5,0.5,0.5)
+        this.vase.display()
 
-        // this.tifo = new MyTifo(this.app,new THREE.Vector3(0,0,0))
-        // this.tifo.display()
+        this.balloon = new MyBalloon(this.app,new THREE.Vector3(this.tablePosition.x, 0, this.tablePosition.z + this.tableDepth),0xff0000)
+        this.balloon.display()
+
+        this.tifo = new MyTifo(this.app,new THREE.Vector3(-this.floorHeight/2*0.8 ,this.wallHeight*0.6, 4))
+        this.tifo.display()
+
+        this.stringGeometry = new THREE.CylinderGeometry(0.02, 0.02, 3, 32);
+        this.stringMaterial = new THREE.MeshPhongMaterial({ color: 0xFFC0CB, transparent: false, opacity: 1, side: THREE.DoubleSide });
+        this.stringMesh = new THREE.Mesh(this.stringGeometry, this.stringMaterial);
+        this.stringMesh.position.set(-this.floorHeight/2*0.8 ,this.wallHeight*0.88, 4);
+        this.app.scene.add(this.stringMesh);
+
+        this.stringGeometry2 = new THREE.CylinderGeometry(0.02, 0.02, 3, 32);
+        this.stringMaterial2 = new THREE.MeshPhongMaterial({ color: 0xFFC0CB, transparent: false, opacity: 1, side: THREE.DoubleSide });
+        this.stringMesh2 = new THREE.Mesh(this.stringGeometry2, this.stringMaterial2);
+        this.stringMesh2.position.set(-this.floorHeight/2*0.8 ,this.wallHeight*0.88, -4);
+        this.app.scene.add(this.stringMesh2);
+
 
         this.app.scene.add(this.window);
         this.app.scene.add(this.rectLight)

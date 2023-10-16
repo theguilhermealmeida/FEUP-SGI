@@ -2,10 +2,14 @@ import * as THREE from 'three'
 import { MyNurbsBuilder } from './MyNurbsBuilder.js'
 
 export class MyNewspaper {
-    constructor(app,position) {
+    constructor(app,position, xScale, yScale, zScale) {
         this.app = app
         this.position = position
         this.newspaper = null
+        this.xScale = xScale
+        this.yScale = yScale
+        this.zScale = zScale
+
     }
 
     display() {
@@ -19,6 +23,8 @@ export class MyNewspaper {
 
         // set initial position
         this.newspaper.position.set(this.position.x,this.position.y,this.position.z)
+
+        this.newspaper.scale.set(this.xScale,this.yScale,this.zScale)
 
         // add the line to the scene
         this.app.scene.add( this.newspaper )
