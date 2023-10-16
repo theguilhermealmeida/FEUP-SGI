@@ -12,10 +12,14 @@
 
 ### [TP1 - ThreeJS Basics](tp1)
 
-- (items briefly describing main strong points)
+- Strong Points
+  - idea/concept of the room
+  - requested objects like newspaper, spring, flower etc. are detailed and realistc
+  - code is well organized
+  - creativity on aditional objects  
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - This scene is inspired on the 5 Night's at Freddys game room. From the floor and walls texture, to the paintings on the wall with the main characters of the game, this scene tries to replicate the spookiness of the video game, while envolving the requested objects for this delivery.
+  - tp1/index.html 
 
 -----
 

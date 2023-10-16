@@ -17,7 +17,7 @@
 - Scene
   - This scene is inspired on the 5 Night's at Freddys game room. From the floor and walls texture, to the paintings on the wall with the main characters of the game, this scene tries to replicate the spookiness of the video game, while envolving the requested objects for this delivery.
 
-  - (relative link to the scene)
+  - tp1/index.html
 ----
 ## Issues/Problems
 

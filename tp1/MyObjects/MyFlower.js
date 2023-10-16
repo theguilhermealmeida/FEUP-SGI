@@ -71,7 +71,7 @@ export class MyFlower {
     createFlowerHead(){
         //circle for the head
         let circle = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 32); 
-        let material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+        let material = new THREE.MeshStandardMaterial( {color: 0xffff00, emissive: "#000000"} );
         let head = new THREE.Mesh( circle, material );
         head.rotation.x = Math.PI/2;
     
@@ -84,7 +84,7 @@ export class MyFlower {
 
         // Elongated petal
         const petalGeometry = new THREE.CylinderGeometry(0.12,0.12,0.05,32);
-        let material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+        let material = new THREE.MeshStandardMaterial( { color: 0xffffff, emissive: "#000000"} );
         let petal1 = new THREE.Mesh( petalGeometry, material );
         petal1.position.set(0,0.25,-0.01);
         petal1.rotation.x = Math.PI/2;
