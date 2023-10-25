@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { MyCatmullRoll } from './MyCatmullRom.js';
+import { MyCatmullRoll } from '../Curves/MyCatmullRom.js';
 
 export class MySpiral {
     constructor(app,position, xScale, yScale, zScale) {

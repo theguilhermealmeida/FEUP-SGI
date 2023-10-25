@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { MyNurbsBuilder } from './MyNurbsBuilder.js'
-import { MyCatmullRoll } from './MyCatmullRom.js'
+import { MyCatmullRoll } from '../Curves/MyCatmullRom.js'
 
 export class MyTifo {
     constructor(app,position) {

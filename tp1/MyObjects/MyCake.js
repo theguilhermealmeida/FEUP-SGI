@@ -15,6 +15,8 @@ export class MyCake {
 
         const cake = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 32, 1, false, 0, Math.PI * 2 * 0.90);
         let cakeMesh = new THREE.Mesh( cake, this.cakeMaterial );
+        // cakeMesh.castShadow = true
+        // cakeMesh.receiveShadow = true;
         cakeMesh.position.copy(this.position); 
 
         // plane to cover the cut of the cylinder

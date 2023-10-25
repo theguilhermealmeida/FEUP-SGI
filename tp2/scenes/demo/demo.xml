@@ -590,7 +590,7 @@
 				<noderef id="treeSeg2" />
 				<noderef id="treeSeg3" />
                 <primitive>
-                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20" >
+                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20" distance="0.0">
                         <controlpoint xx="0" yy="0" zz="0" />
                         <controlpoint xx="0" yy="0" zz="1" />
                         <controlpoint xx="1" yy="0" zz="0" />
