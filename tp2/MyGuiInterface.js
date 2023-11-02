@@ -29,6 +29,14 @@ class MyGuiInterface  {
      * Initialize the gui interface
      */
     init() {
+        // adds a folder to the gui interface for the camera
+        const cameraFolder = this.datgui.addFolder('Camera')
+        cameraFolder.add(this.app, 'activeCameraName', [ 'Perspective', 'Left', 'Top', 'Front','Right','Back', 'Perspective2', 'Orthogonal' ] ).name("active camera");
+        // note that we are using a property from the app 
+        cameraFolder.add(this.app.activeCamera.position, 'x', -30, 30).name("x coord")
+        cameraFolder.add(this.app.activeCamera.position, 'y', -30, 30).name("y coord")
+        cameraFolder.add(this.app.activeCamera.position, 'z', -30, 30).name("z coord")
+        cameraFolder.open()
     }
 }
 
