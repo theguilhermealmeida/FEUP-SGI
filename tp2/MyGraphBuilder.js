@@ -8,10 +8,9 @@ class MyGraphBuilder {
         this.group = new THREE.Group();
         this.nodes = new Map()
         this.materials = new Map()
-        this.cameras = []
         this.textures = new Map()
         this.lights = new Map()
-        this.cameras = new Map()
+        this.transformations = new Map()
 
         this.initTextures()
         this.initMaterials()
@@ -116,13 +115,6 @@ class MyGraphBuilder {
                 child = new THREE.Mesh(geometry, material);
 
             } else if (childData.type === "node") {
-                console.log(childData.transformations)
-                if (childData.transformations.length == 0) {
-                    childData.transformations = nodeData.transformations
-                }
-                else {
-                    this.handleTransformations(childData, nodeData)
-                }
                 if (childData.materialIds.length == 0) {
                     childData.materialIds = nodeData.materialIds
                 }
@@ -134,14 +126,37 @@ class MyGraphBuilder {
             else {
                 console.warn("Unknown node type: " + childData.type);
             }
-            // TODO: handle transformations
 
 
             if (child !== undefined) {
                 nodeGroup.add(child);
+                this.nodes.set(childData.id, child)
             }
-            this.nodes.set(childData.id, child)
         }
+
+        // TODO: handle transformations
+        for (let transformation of nodeData.transformations) {
+            switch (transformation.type) {
+                case "T":
+                    nodeGroup.translateX(transformation.translate[0])
+                    nodeGroup.translateY(transformation.translate[1])
+                    nodeGroup.translateZ(transformation.translate[2])
+                    break;
+                case "R":
+                    nodeGroup.rotateX((transformation.rotation[0] * Math.PI) / 180) 
+                    nodeGroup.rotateY((transformation.rotation[1] * Math.PI) / 180) 
+                    nodeGroup.rotateZ((transformation.rotation[2] * Math.PI) / 180)
+                    break;
+                case "S":
+                    nodeGroup.scale.set(transformation.scale[0], transformation.scale[1], transformation.scale[2])
+                    break;
+                default:
+                    console.warn("unknow transformation type: " + transformation.type)
+                    break;
+            }
+        }
+
+
         return nodeGroup
     }
 
@@ -191,9 +206,6 @@ class MyGraphBuilder {
         return geometry
     }
     
-    handleTransformations(childData, nodeData) { 
-        // for (let )
-    }
 
     buildLight(lightData) {
         let light
@@ -226,6 +238,7 @@ class MyGraphBuilder {
                 break
             }
         }
+
         // commom attributes
         light.position.copy(...lightData.position);
         light.visible = lightData.enabled ?? true;

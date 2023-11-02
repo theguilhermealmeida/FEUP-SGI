@@ -55,7 +55,21 @@ class MyContents  {
         // add group to the scene
         this.app.scene.add(group);
         
-        // this.printGroupInfo(group)
+        this.printGroupInfo(group)
+
+        const spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set( 0, 10, 0 );
+        // create target pointing to the origin
+        const targetObject = new THREE.Object3D();
+        targetObject.position.set(0, 0, 0);
+        this.app.scene.add(targetObject);
+        spotLight.intensity = 400;
+        
+        spotLight.angle = Math.PI ;
+        spotLight.castShadow = true;
+        
+        // this.app.scene.add( spotLight );
+
        
         // refer to descriptors in class MySceneData.js
         // to see the data structure for each item
@@ -96,18 +110,17 @@ class MyContents  {
     //             }
     //         }
     //     }
-    // }
+    }
 
-    // // resucrsive function to print group info
-    // printGroupInfo(group, ident = 0) {
-    //     for (let child of group.children) {
-    //         if (child.type === "Group") {
-    //             this.printGroupInfo(child, ident +1)
-    //         }
-    //         else {
-    //             console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
-    //         }
-    //     }
+    printGroupInfo(group, ident = 0) {
+        for (let child of group.children) {
+            if (child.type === "Group") {
+                this.printGroupInfo(child, ident +1)
+            }
+            else {
+                console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
+            }
+        }
     }
 
     initCameras(data) {
