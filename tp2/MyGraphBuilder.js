@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyGeometryBuilder } from './MyGeometryBuilder.js';
 
 
 class MyGraphBuilder {
@@ -54,7 +55,7 @@ class MyGraphBuilder {
     initMaterials() {
         for (let key in this.sceneData.materials) {
             let material = this.sceneData.materials[key];
-            let materialObject = new THREE.MeshPhongMaterial({ map: this.textures.get(material.textureref ?? null) });
+            let materialObject = new THREE.MeshPhongMaterial();
             materialObject.color = new THREE.Color(material.color);
             materialObject.specular = material.specular;
             materialObject.emissive = material.emissive;
@@ -66,12 +67,8 @@ class MyGraphBuilder {
             else if (material.shading === "smoooth" || material.shading === "none") {
                 materialObject.flatShading = false;
             }
-            let texture = this.textures.get(material.textureref ?? null);
-            if (texture !== null) {
-                texture.wrapS = texture.wrapt = THREE.RepeatWrapping;
-                texture.repeat.set(material.length_s, material.length_t);
-            }
             materialObject.side = material.twosided ? THREE.DoubleSide : THREE.FrontSide;
+            materialObject.map = this.textures.get(material.textureref ?? null);
             // TODO: materialObject.bump_ref = material.bump_ref;
             // TODO: materialObject.bumpScale = material.bump_scale ?? 1.0;
             this.materials.set(material.id, materialObject);
@@ -110,9 +107,10 @@ class MyGraphBuilder {
             let child
 
             if (childData.type === "primitive") {
-                const geometry = this.createGeometry(childData);
-                const material = this.materials.get(nodeData.materialIds[0])
-                child = new THREE.Mesh(geometry, material);
+                const materialData = this.sceneData.getMaterial(nodeData.materialIds[0]);
+                const materialObject = this.materials.get(nodeData.materialIds[0]);
+                const textureObject = this.textures.get(materialData.textureref ?? null);
+                child = new MyGeometryBuilder(childData, materialData, materialObject, textureObject);
 
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
@@ -261,3 +259,28 @@ class MyGraphBuilder {
 }
 
 export { MyGraphBuilder }
+
+
+
+
+// constructor(geometryData, material, textPath) {
+//     this.geometryData = geometryData;
+//     this.material = new THREE.MeshPhongMaterial({ color: `rgb(${material.color.r}, ${material.color.g}, ${material.color.b})`, specular: `rgb(${material.specular.r}, ${material.specular.g}, ${material.specular.b})`, emissive: `rgb(${material.emissive.r}, ${material.emissive.g}, ${material.emissive.b})`, shininess: material.shininess });
+//     //this.builder = new MyNurbsBuilder();
+//     this.mesh = new THREE.Mesh();
+
+//     if (material.textureref != null ) {
+//         if (geometryData.type == "rectangle") {
+//             let map = new THREE.TextureLoader().load(textPath.filepath);
+//             map.wrapS = map.wrapT = THREE.RepeatWrapping;
+//             map.repeat.set((this.geometryData.xy2[0] - this.geometryData.xy1[0]) / material.texlength_s, (this.geometryData.xy2[1] - this.geometryData.xy1[1]) / material.texlength_t);
+//             this.material.map = map;
+//         }
+//         else {
+//             let map = new THREE.TextureLoader().load(textPath.filepath);
+//             // map.wrapS = map.wrapT = THREE.RepeatWrapping;
+//             // map.repeat.set((this.geometryData.xy1[0] - this.geometryData.xy2[0]) / material.texlength_s, (this.geometryData.xy1[1] - this.geometryData.xy2[1]) / material.texlength_t);
+//             this.material.map = map;
+//         }
+//     }
+// }

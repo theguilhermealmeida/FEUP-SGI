@@ -18,6 +18,9 @@ class MyContents  {
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/demo.xml");		
 
+        this.defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
+
+
     }
 
     /**
@@ -39,6 +42,8 @@ class MyContents  {
     onSceneLoaded(data) {
         this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
+        data.addMaterial(this.defaultMaterial)
+        data.getNode("scene").materialIds[0] = this.defaultMaterial.id
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
