@@ -125,16 +125,11 @@ class MyContents  {
     printGroupInfo(group, ident = 0) {
         for (let child of group.children) {
             if (child.type === "Group") {
+                console.log(child)
                 this.printGroupInfo(child, ident +1)
             }
             else {
-                if (child.type === "PointLight" || child.type === "SpotLight" || child.type === "DirectionalLight") {
-                console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
-                console.log(child)
-                }
-                else {
                     console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
-                }
             }
         }
     }
