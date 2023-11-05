@@ -42,8 +42,13 @@ class MyContents  {
     onSceneLoaded(data) {
         this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
+
         data.addMaterial(this.defaultMaterial)
         data.getNode("scene").materialIds[0] = this.defaultMaterial.id
+
+        let fog = new THREE.Fog( data.fog.color, data.fog.near, data.fog.far );
+        this.app.scene.fog = fog;
+
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
@@ -123,7 +128,13 @@ class MyContents  {
                 this.printGroupInfo(child, ident +1)
             }
             else {
+                if (child.type === "PointLight" || child.type === "SpotLight" || child.type === "DirectionalLight") {
                 console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
+                console.log(child)
+                }
+                else {
+                    console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
+                }
             }
         }
     }
