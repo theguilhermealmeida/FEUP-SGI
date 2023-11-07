@@ -23,6 +23,7 @@
             bottom="-5" 
             top="-5" /> 
     </cameras> 
+        <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>        
@@ -122,7 +123,7 @@
 
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="100"
+                    intensity="1.0"
                     distance="1000"
                     decay="0"
                     castshadow="false"
@@ -168,7 +169,7 @@
 
                 <pointlight id="light6" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="100"
+                    intensity="1.0"
                     distance="1000"
                     decay="0"
                     castshadow="false"
@@ -177,7 +178,7 @@
 
                 <pointlight id="light7" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="100"
+                    intensity="1.0"
                     distance="1000"
                     decay="0"
                     castshadow="false"
@@ -357,9 +358,9 @@
                 <scale value3="0.5 0.5 0.5" />
             </transforms>
             <children>
+                <noderef id="carWheels" />
                 <noderef id="carBody" />
                 <noderef id="carTop" />
-                <noderef id="carWheels" />
             </children>
         </node>
 
@@ -374,7 +375,9 @@
             <materialref id="carBodyMaterial" />
 
             <children>
-                <noderef id="unitCube" />
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive>
             </children>
         </node>
 
@@ -388,7 +391,9 @@
             <materialref id="carTopMaterial" />
 
             <children>
-                <noderef id="unitCube" />
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive>
             </children>
         </node>
 

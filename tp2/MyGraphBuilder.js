@@ -47,7 +47,17 @@ class MyGraphBuilder {
                     break;
             }
             textureObject.anisotropy = texture.anisotropy;
-            // TODO: handle mipmaps?
+            if (texture.mipmaps) {
+                textureObject.mipmaps[0] = texture.mipmap0;
+                textureObject.mipmaps[1] = texture.mipmap1;
+                textureObject.mipmaps[2] = texture.mipmap2;
+                textureObject.mipmaps[3] = texture.mipmap3;
+                textureObject.mipmaps[4] = texture.mipmap4;
+                textureObject.mipmaps[5] = texture.mipmap5;
+                textureObject.mipmaps[6] = texture.mipmap6;
+                textureObject.mipmaps[7] = texture.mipmap7;
+
+            }
             this.textures.set(texture.id, textureObject)
         }
     }
@@ -56,9 +66,9 @@ class MyGraphBuilder {
         for (let key in this.sceneData.materials) {
             let material = this.sceneData.materials[key];
             let materialObject = new THREE.MeshPhongMaterial();
-            materialObject.color = new THREE.Color(material.color);
-            materialObject.specular = material.specular;
-            materialObject.emissive = material.emissive;
+            materialObject.color = new THREE.Color(material.color.r, material.color.g, material.color.b);
+            materialObject.specular = new THREE.Color(material.specular.r, material.specular.g, material.specular.b);
+            materialObject.emissive = new THREE.Color(material.emissive.r, material.emissive.g, material.emissive.b);
             materialObject.shininess = material.shininess;
             materialObject.wireframe = material.wireframe ?? false;
             if (material.shading === "flat") {
@@ -66,6 +76,10 @@ class MyGraphBuilder {
             }
             else if (material.shading === "smoooth" || material.shading === "none") {
                 materialObject.flatShading = false;
+            }
+            if (material.textureref != null) {
+                let materialTextureref = this.textures.get(material.textureref);
+                materialTextureref.wrapS = materialTextureref.wrapT = THREE.RepeatWrapping;
             }
             materialObject.side = material.twosided ? THREE.DoubleSide : THREE.FrontSide;
             materialObject.map = this.textures.get(material.textureref ?? null);
@@ -81,6 +95,7 @@ class MyGraphBuilder {
         if (rootNode) {
             let group = new THREE.Group();
             group = this.processNode(rootNode);
+            console.log(group)
             return group
         } else {
             console.error("Root node not found.");
@@ -140,12 +155,9 @@ class MyGraphBuilder {
                     nodeGroup.translateZ(transformation.translate[2])
                     break;
                 case "R":
-                    console.log("rotation")
-                    console.log(transformation)
                     nodeGroup.rotateX(transformation.rotation[0] * (Math.PI / 180)) 
                     nodeGroup.rotateY(transformation.rotation[1] * (Math.PI / 180)) 
                     nodeGroup.rotateZ(transformation.rotation[2] * (Math.PI / 180))
-                    console.log(nodeGroup.rotation)
                     break;
                 case "S":
                     nodeGroup.scale.set(transformation.scale[0], transformation.scale[1], transformation.scale[2])

@@ -21,8 +21,15 @@ class MyGeometryBuilder {
                 }
 
                 // build geometry
-                let x = this.representations.xy1[0] - this.representations.xy2[0];
-                let y = this.representations.xy1[1] - this.representations.xy2[1];
+                // const xWidth = Math.abs(this.representations.xy1[0] - this.representations.xy2[0]);
+                // const yWidth = Math.abs(this.representations.xy1[1] - this.representations.xy2[1]);
+                // geometry = new THREE.PlaneGeometry(xWidth, yWidth, this.representations.parts_x ?? 1, this.representations.parts_y ?? 1);
+                // const xMin = Math.min(this.representations.xy1[0], this.representations.xy2[0]);
+                // const yMin = Math.min(this.representations.xy1[1], this.representations.xy2[1]);
+                // geometry.translate(xMin + xWidth / 2, yMin + yWidth / 2, 0);
+                
+                let x = this.representations.xy2[0] - this.representations.xy1[0];
+                let y = this.representations.xy2[1] - this.representations.xy1[1];
                 geometry = new THREE.PlaneGeometry(x, y, this.representations.parts_x ?? 1, this.representations.parts_y ?? 1);
                 break;
             }
@@ -49,32 +56,58 @@ class MyGeometryBuilder {
 
                 // build geometry
                 geometry = new THREE.Geometry();
-                let x2 = this.representations.xy1[0] - this.representations.xy2[0];
-                let y2 = this.representations.xy1[1] - this.representations.xy2[1];
-                let z2 = this.representations.xy1[2] - this.representations.xy2[2];
+                let x2 = this.representations.xy2[0] - this.representations.xy1[0];
+                let y2 = this.representations.xy2[1] - this.representations.xy1[1];
+                let z2 = this.representations.xy2[2] - this.representations.xy1[2];
                 let triangle = new THREE.Triangle(x2, y2, z2);
                 let normal = triangle.normal();
                 geometry.vertices.push(triangle.a, triangle.b, triangle.c);
                 geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
                 break;
             }
-            // case "nurbs": {
-            //     // TODO: implement nurbs
-            //     break;
-            // }
-            // case "skybox": {
-            //     // TODO: implement skybox
-            //     break;
-            // }
-            // case "model3d": {
-            //     // TODO: implement model3d 
-            //     break;
-            // }
+            case "nurbs": {
+                // TODO: implement nurbs
+                console.log(this.geometryData)
+                let points = []
+                let count = 0
+                let temp = []
+                for (const controlpoint of this.representations.controlpoints) {
+                    temp.push(Object.values(controlpoint).slice(0, -1))
+                    if (count++ === this.representations['degree_u']) {
+                        points.push(temp)
+                        temp = []
+                        count = 0
+                    }
+                }
+                const builder = new MyNurbsBuilder()
+                geometry = builder.build(points, this.representations.degree_u, this.representations.degree_v, this.representations.parts_u, this.representations.parts_v)
+                break;
+            }
+            case "box": {
+                // handle texture
+                geometry = new THREE.BoxGeometry(this.representations.xyz2[0] - this.representations.xyz1[0], this.representations.xyz2[1] - this.representations.xyz1[1], this.representations.xyz2[2] - this.representations.xyz1[2], this.representations.parts_x, this.representations.parts_y, this.representations.parts_z);
+                break;
+            }
+            case "skybox": {
+                // TODO: implement skybox
+                break;
+            }
+            case "model3d": {
+                // TODO: implement model3d 
+                break;
+            }
+            case "lod": {
+                // TODO: implement lod 
+                break
+            }
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
         }
 
+        if (this.materialData.id === "pineApp") {
+            console.log("pineMaterial")
+        }
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         return this.mesh
     }

@@ -16,9 +16,10 @@ class MyContents  {
         this.axis = null
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		this.reader.open("scenes/demo/demo.xml");		
+		// this.reader.open("scenes/demo/demo.xml");		
+		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
+		// this.reader.open("scenes/ricardo/ovalOffice.xml");		
 
-        this.defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
 
 
     }
@@ -43,8 +44,10 @@ class MyContents  {
         this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
 
-        data.addMaterial(this.defaultMaterial)
-        data.getNode("scene").materialIds[0] = this.defaultMaterial.id
+        let defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
+        data.addMaterial(defaultMaterial)
+        data.getNode("scene").materialIds[0] = defaultMaterial.id
+        console.log(data.getNode("scene").cameras)
 
         let fog = new THREE.Fog( data.fog.color, data.fog.near, data.fog.far );
         this.app.scene.fog = fog;
@@ -78,58 +81,54 @@ class MyContents  {
         spotLight.angle = Math.PI ;
         spotLight.castShadow = true;
         
-        // this.app.scene.add( spotLight );
 
        
-        // refer to descriptors in class MySceneData.js
-        // to see the data structure for each item
 
-    //     this.output(data.options)
-    //     console.log("textures:")
-    //     for (var key in data.textures) {
-    //         let texture = data.textures[key]
-    //         this.output(texture, 1)
-    //     }
+        this.output(data.options)
+        console.log("textures:")
+        for (var key in data.textures) {
+            let texture = data.textures[key]
+            this.output(texture, 1)
+        }
 
-    //     console.log("materials:")
-    //     for (var key in data.materials) {
-    //         let material = data.materials[key]
-    //         this.output(material, 1)
-    //     }
+        console.log("materials:")
+        for (var key in data.materials) {
+            let material = data.materials[key]
+            this.output(material, 1)
+        }
 
-    //     console.log("cameras:")
-    //     for (var key in data.cameras) {
-    //         let camera = data.cameras[key]
-    //         this.output(camera, 1)
-    //     }
+        console.log("cameras:")
+        for (var key in data.cameras) {
+            let camera = data.cameras[key]
+            this.output(camera, 1)
+        }
 
-    //     console.log("nodes:")
-    //     for (var key in data.nodes) {
-    //         let node = data.nodes[key]
-    //         this.output(node, 1)
-    //         for (let i=0; i< node.children.length; i++) {
-    //             let child = node.children[i]
-    //             if (child.type === "primitive") {
-    //                 console.log("" + new Array(2 * 4).join(' ') + " - " + child.type + " with "  + child.representations.length + " " + child.subtype + " representation(s)")
-    //                 if (child.subtype === "nurbs") {
-    //                     console.log("" + new Array(3 * 4).join(' ') + " - " + child.representations[0].controlpoints.length + " control points")
-    //                 }
-    //             }
-    //             else {
-    //                 this.output(child, 2)
-    //             }
-    //         }
-    //     }
+        console.log("nodes:")
+        for (var key in data.nodes) {
+            let node = data.nodes[key]
+            this.output(node, 1)
+            for (let i=0; i< node.children.length; i++) {
+                let child = node.children[i]
+                if (child.type === "primitive") {
+                    console.log("" + new Array(2 * 4).join(' ') + " - " + child.type + " with "  + child.representations.length + " " + child.subtype + " representation(s)")
+                    if (child.subtype === "nurbs") {
+                        console.log("" + new Array(3 * 4).join(' ') + " - " + child.representations[0].controlpoints.length + " control points")
+                    }
+                }
+                else {
+                    this.output(child, 2)
+                }
+            }
+        }
     }
 
     printGroupInfo(group, ident = 0) {
         for (let child of group.children) {
             if (child.type === "Group") {
-                console.log(child)
                 this.printGroupInfo(child, ident +1)
             }
             else {
-                    console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
+                console.log("" + new Array((ident + 1) * 4).join(' ') + " - " + child.type + " " + (child.id !== undefined ? "'" + child.id + "'" : ""))
             }
         }
     }
