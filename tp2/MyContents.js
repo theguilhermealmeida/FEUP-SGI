@@ -157,6 +157,8 @@ class MyContents  {
                 cameraObj.position.set(...camera.location)
                 cameraObj.lookAt(...camera.target)
                 // add a left, right, top bootom, near and far camera
+                console.log(camera)
+                console.log(cameraObj)
                 this.app.cameras['Orthogonal'] = cameraObj
 
             }

@@ -143,7 +143,7 @@ class MySceneData  {
 			{name: "slices", type: "integer"},
 			{name: "stacks", type: "integer"},
             {name: "thetastart", type: "float", required: false, default: 0.0},
-            {name: "thetalength", type: "float", required: false, default: 2 * Math.PI},
+            {name: "thetalength", type: "float", required: false, default: Math.PI},
             {name: "phistart", type: "float", required: false, default: 0.0},
             {name: "philength", type: "float", required: false, default: 2 * Math.PI},
             {name: "distance", type: "float", required: false, default: 0.0}, // The distance at which to display this level of detail. Default 0.0.  

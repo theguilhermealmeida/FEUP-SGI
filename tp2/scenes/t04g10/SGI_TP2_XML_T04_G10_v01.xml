@@ -17,11 +17,11 @@
             near="0.1" 
             far="1000" 
             location="0 15 15" 
-            target="0.0 15 0.0" 
+            target="7.5 0 7.5" 
             left="-5" 
             right="5" 
             bottom="-5" 
-            top="-5" /> 
+            top="5" /> 
     </cameras> 
         <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
 
@@ -109,7 +109,6 @@
             textureref="tableTex" 
             texlength_s="1" 
             texlength_t="1" />
-			
     </materials> 
 
     <graph rootid="scene">
