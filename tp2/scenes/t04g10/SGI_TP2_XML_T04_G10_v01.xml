@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf> 
+	
+    <globals background="0 0 0 1" ambient="0 0 0 1" /> 
+
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
+
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
+            angle="60" 
+            near="0.1" 
+            far="1000" 
+            location="15 15 15" 
+            target="0 0.0 0" /> 
+
+        <orthogonal id="cam2" 
+            near="0.1" 
+            far="1000" 
+            location="0 15 15" 
+            target="7.5 0 7.5" 
+            left="-5" 
+            right="5" 
+            bottom="-5" 
+            top="5" /> 
+    </cameras> 
+        <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
+
+    <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
+    <textures>        
+        <texture id="landscapeTex" filepath="scenes/t04g10/textures/landscape.jpg" />
+        <texture id="grassTex" filepath="scenes/t04g10/textures/grass.jpg" />
+        <texture id="asphaltTex" filepath="scenes/t04g10/textures/asphalt.jpg" />
+        <texture id="kerbTex" filepath="scenes/t04g10/textures/kerb.jpg" />
+        <texture id="pineTex" filepath="scenes/t04g10/textures/pine.png" />
+        <texture id="tableTex" filepath="scenes/t04g10/textures/table.png" />
+    </textures> 
+
+    <materials> 
+
+        <material id="landscapeApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="landscapeTex"
+            texlength_s="25" 
+            texlength_t="18"/>
+		
+		<material id="grassApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="grassTex" 
+            texlength_s="15" 
+            texlength_t="15"/>
+
+        <material id="carBodyMaterial" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.0 0.0 1.0" 
+            specular="0.8 0.8 0.8 1.0" 
+            shininess="100"/>
+
+        <material id="carWheelMaterial" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.0 0.0 0.0 1.0" 
+            specular="0.4 0.4 0.4 1.0" 
+            shininess="10"/>
+
+        <material id="carTopMaterial" 
+            emissive="0.0 0.0 0.0 1" 
+            color="1.0 1.0 1.0 1.0" 
+            specular="0.4 0.4 0.4 1.0" 
+            shininess="10"/>
+
+        <material id="asphaltApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="asphaltTex" 
+            texlength_s="5" 
+            texlength_t="5"/>
+
+        <material id="kerbApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="kerbTex" 
+            texlength_s="2" 
+            texlength_t="1"/>
+
+        <material id="pineApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="pineTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            wireframe = "true" />
+
+        <material id="tableApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="tableTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+    </materials> 
+
+    <graph rootid="scene">
+        <node id="scene">
+            <children>
+                <noderef id="landscape" />
+                <noderef id="car" />
+                <noderef id="grass" />
+                <noderef id="track" />
+                <noderef id="forest" />
+
+                <pointlight id="light1" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="0"
+                    castshadow="false"
+                    position="33.75 37.3 33.75" 
+                /> 
+
+                <pointlight id="light2" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"
+                /> 
+
+                <pointlight id="light3" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"
+                /> 
+
+                <spotlight id="light4" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                    target="0 0 0"
+                    penumbra="1.0"
+                    angle="10.0" 
+                /> 
+
+                <directionallight id="light5" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                />
+
+                <pointlight id="light6" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="0"
+                    castshadow="false"
+                    position="-33.75 37.3 33.75" 
+                /> 
+
+                <pointlight id="light7" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="0"
+                    castshadow="false"
+                    position="-33.75 37.3 -33.75" 
+                /> 
+            </children>
+        </node>
+
+        <node id="rectangle1"> 
+
+            <transforms>
+				<translate value3="0 0 -0.5" />
+				<rotate value3="0 180.0 0.0" />
+            </transforms> 
+
+            <children>   
+                <primitive>          
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+                </primitive> 
+            </children> 
+        </node>
+		
+		<node id="rectangle2"> 
+
+            <transforms>
+				<translate value3="0 0 0.5" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle3"> 
+
+            <transforms>
+				<translate value3="0 -0.5 0" />
+				<rotate value3="90 0.0 0.0" />
+            </transforms> 
+
+            <children>   
+                <primitive>          
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle4"> 
+
+            <transforms>
+				<translate value3="0 0.5 0" />
+				<rotate value3="-90 0.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle5"> 
+
+            <transforms>
+				<translate value3="-0.5 0 0" />
+				<rotate value3="0.0 -90.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle6"> 
+            <transforms>
+				<translate value3="0.5 0 0" />
+				<rotate value3="0.0 90.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="unitCube">
+            <children>            
+				<!-- Back -->
+                <noderef id="rectangle1" /> 
+				<!-- Front -->
+				<noderef id="rectangle2" /> 
+				<!-- Bottom -->
+				<noderef id="rectangle3" />
+				<!-- Top -->
+				<noderef id="rectangle4" />
+				<!-- Left -->				
+				<noderef id="rectangle5" />
+				 <!-- Right -->
+				<noderef id="rectangle6" />
+            </children> 
+        </node>
+
+        <node id="landscape">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <materialref id="landscapeApp" />
+            <children>
+                <noderef id="wall1" />
+                <noderef id="wall2" />
+                <noderef id="wall3" />
+                <noderef id="wall4" />
+            </children>
+        </node>
+        
+        <node id="wall1">
+            <transforms>
+                <!-- Position and rotation for the first wall -->
+                <translate value3="0 7.5 12.5" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="25 15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wall2">
+            <transforms>
+                <!-- Position and rotation for the second wall -->
+                <translate value3="12.5 7.5 0" />
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="25 15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wall3">
+            <transforms>
+                <!-- Position and rotation for the third wall -->
+                <translate value3="25 7.5 12.5" />
+                <rotate value3="0 -90 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="25 15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wall4">
+            <transforms>
+                <!-- Position and rotation for the fourth wall -->
+                <translate value3="12.5 7.5 25" />
+                <rotate value3="0 -180 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="25 15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="car">
+            <transforms>
+                <!-- Position and rotation for the car -->
+                <translate value3="12.5 1.5 12.5" />
+                <scale value3="0.5 0.5 0.5" />
+            </transforms>
+            <children>
+                <noderef id="carWheels" />
+                <noderef id="carBody" />
+                <noderef id="carTop" />
+            </children>
+        </node>
+
+        <node id="carBody">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0.5 0" />
+                <rotate value3="0 0 0" />
+                <scale value3="15 3 6" />
+            </transforms>
+
+            <materialref id="carBodyMaterial" />
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carTop">
+            <transforms>
+                <!-- Position and rotation for the car top -->
+                <translate value3="-1 3 0" />
+                <scale value3="7 4 5" />
+            </transforms>
+
+            <materialref id="carTopMaterial" />
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carWheels">
+            <transforms>
+                <!-- Position and rotation for the car wheels -->
+                <translate value3="0.5 -1.5 0.5" />
+            </transforms>
+            <materialref id="carWheelMaterial" />
+            <children>
+                <noderef id="carWheel1" />
+                <noderef id="carWheel2" />
+                <noderef id="carWheel3" />
+                <noderef id="carWheel4" />
+            </children>
+        </node>
+
+        <node id="carWheel">
+            <transforms>
+                <!-- Position and rotation for the first car wheel -->
+                <!-- <translate value3="0 0 0" />
+                <rotate value3="90 0 0" /> -->
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="1" top="1" height="1" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carWheel1">
+            <transforms>
+                <!-- Position and rotation for the first car wheel -->
+                <translate value3="-5.5 0 2" />
+                <rotate value3="90 0 0" />
+                <scale value3="1.5 1.5 1.5" />
+            </transforms>
+            <children>
+                <noderef id="carWheel"/>
+            </children>
+        </node>
+
+        <node id="carWheel2">
+            <transforms>
+                <!-- Position and rotation for the second car wheel -->
+                <translate value3="4.5 0 2" />
+                <rotate value3="90 0 0" />
+                <scale value3="1.5 1.5 1.5" />
+            </transforms>
+            <children>
+                <noderef id="carWheel"/>
+            </children>
+        </node>
+
+        <node id="carWheel3">
+            <transforms>
+                <!-- Position and rotation for the third car wheel -->
+                <translate value3="-5.5 0 -3" />
+                <rotate value3="-90 0 0" />
+                <scale value3="1.5 1.5 1.5" />
+            </transforms>
+            <children>
+                <noderef id="carWheel"/>
+            </children>
+        </node>
+
+        <node id="carWheel4">
+            <transforms>
+                <!-- Position and rotation for the fourth car wheel -->
+                <translate value3="4.5 0 -3" />
+                <rotate value3="-90 0 0" />
+                <scale value3="1.5 1.5 1.5" />
+            </transforms>
+            <children>
+                <noderef id="carWheel"/>
+            </children>
+        </node>
+
+        <node id="grass">
+            <transforms>
+                <translate value3="12.5 0 12.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="grassApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="25 25" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="track">
+            <transforms>
+                <translate value3="12.5 0.02 12.5" />
+                <scale value3="1.5 0.7 0.7" />
+            </transforms>
+            <children>
+                <noderef id="asphalt" />
+                <noderef id="kerb1" />
+                <noderef id="kerb2" />
+            </children>
+        </node>
+
+        <node id="asphalt">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="asphaltApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="15 15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="kerb1">
+            <transforms>
+                <translate value3="0 0.02 7.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="kerbApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="15 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="kerb2">
+            <transforms>
+                <translate value3="0 0.02 -7.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="kerbApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="15 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trunk">
+			<transforms>
+				<translate value3="0 1.5 0" />
+			</transforms> 
+			
+			<materialref id="tableApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="0.4" top="0.4" height="3" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="treeSeg1">
+			<transforms>
+				<translate value3="0 2.7 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="2" top="1" height="1.9" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="treeSeg2">
+			<transforms>
+				<translate value3="0 4.6 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>
+                <primitive >
+                    <cylinder base="1.5" top="0.75" height="2" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="treeSeg3">
+			<transforms>
+				<translate value3="0 6.6 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="0.9" top="0" height="2" slices="32" stacks="32" />
+                </primitive>
+
+            </children> 
+        </node>
+		
+		<node id="tree">
+			<transforms>
+				<translate value3="2 0 2" />
+            </transforms> 
+
+            <materialref id="tableApp" />
+			
+            <children>             
+				<noderef id="trunk" />
+				<noderef id="treeSeg1" />
+				<noderef id="treeSeg2" />
+				<noderef id="treeSeg3" />
+                
+            </children> 
+        </node>
+
+        <node id="forest">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="tree1" />
+                <noderef id="tree2" />
+                <noderef id="tree3" />
+                <noderef id="tree4" />
+            </children>
+        </node>
+
+        <node id="tree1">
+            <transforms>
+                <translate value3="4 0 4" />
+                <scale value3="1.2 1.2 0.8" />
+            </transforms>
+            <children>
+                <noderef id="tree" />
+            </children>
+        </node>
+
+        <node id="tree2">
+            <transforms>
+                <translate value3="16 0 3.5" />
+                <scale value3="0.8 0.9 1.1" />
+            </transforms>
+            <children>
+                <noderef id="tree" />
+            </children>
+        </node>
+        
+    </graph>
+              
+</yaf> 
