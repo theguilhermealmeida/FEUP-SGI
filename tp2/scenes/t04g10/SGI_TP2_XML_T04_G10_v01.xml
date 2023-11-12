@@ -33,6 +33,8 @@
         <texture id="kerbTex" filepath="scenes/t04g10/textures/kerb.jpg" />
         <texture id="pineTex" filepath="scenes/t04g10/textures/pine.png" />
         <texture id="tableTex" filepath="scenes/t04g10/textures/table.png" />
+        <texture id="finishTex" filepath="scenes/t04g10/textures/finish.png" />
+        <texture id="f1Tex" filepath="scenes/t04g10/textures/f1.png" />
     </textures> 
 
     <materials> 
@@ -46,14 +48,12 @@
             texlength_s="25" 
             texlength_t="18"/>
 		
-		<material id="grassApp" 
+        <material id="grassApp" 
             emissive="0.0 0.0 0.0 1" 
-            color="0.8 0.8 0.8 1.0"  
+            color="0.274509804 0.839215686 0.176470588 1.0"  
             specular="0 0 0 0" 
-            shininess="0" 
-            textureref="grassTex" 
-            texlength_s="15" 
-            texlength_t="15"/>
+            shininess="0" />
+
 
         <material id="carBodyMaterial" 
             emissive="0.0 0.0 0.0 1" 
@@ -75,12 +75,9 @@
 
         <material id="asphaltApp"
             emissive="0.0 0.0 0.0 1" 
-            color="0.8 0.8 0.8 1.0" 
+            color="0.305882353 0.305882353 0.321568627 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
-            textureref="asphaltTex" 
-            texlength_s="5" 
-            texlength_t="5"
             twosided="true"/>
 
         <material id="kerbApp"
@@ -117,6 +114,46 @@
             specular="0 0 0 0" 
             shininess="10" 
             twosided="true"/>
+
+        <material id="finishApp"
+            emissive="0.3 0.3 0.3 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="10" 
+            textureref="finishTex" 
+            texlength_s="3" 
+            texlength_t="2.1"
+            twosided="true"/>
+
+        <material id="blackApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.0 0.0 0.0 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            twosided="true"/>
+
+        <material id="metalApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.305882353 0.305882353 0.321568627 1.0"  
+            specular="1 1 1 1"
+            shininess="5" /> 
+
+        <material id="redApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="1.0 0.0 0.0 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            twosided="true"/>
+
+        <material id="f1App"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="f1Tex" 
+            texlength_s="12" 
+            texlength_t="3"/>
+
     </materials> 
 
     <graph rootid="scene">
@@ -131,7 +168,7 @@
                 <directionallight id="light1"  
                     enabled="true" 
                     color="1.0 1.0 1.0 1" 
-                    intensity="10.0"
+                    intensity="6.0"
                     castshadow="true"
                     position="50 15 50" 
                 />
@@ -444,6 +481,8 @@
         <node id="sector1">
             <children>
                 <noderef id="straight1" />
+                <noderef id="finish" />
+                <noderef id="gridboxes" />
                 <noderef id="turn1" />
                 <noderef id="straight2" />
                 <noderef id="turn2" />
@@ -680,6 +719,307 @@
             </transforms>
             <children>
                 <noderef id="straight" />
+            </children>
+        </node>
+
+        <node id="gridboxes">
+            <transforms>
+                <translate value3="15 0 63" />
+            </transforms>
+            <children>
+                <noderef id="gridbox1" />
+                <noderef id="gridbox2" />
+                <noderef id="gridbox3" />
+                <noderef id="gridbox4" />
+                <noderef id="gridbox5" />
+                <noderef id="gridbox6" />
+                <noderef id="gridbox7" />
+            </children>
+        </node>
+
+
+        <node id="gridbox1">
+            <transforms>
+                <translate value3="0 0 2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox2">
+            <transforms>
+                <translate value3="5 0 -2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox3">
+            <transforms>
+                <translate value3="10 0 2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox4">
+            <transforms>
+                <translate value3="15 0 -2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox5">
+            <transforms>
+                <translate value3="20 0 2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox6">
+            <transforms>
+                <translate value3="25 0 -2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox7">
+            <transforms>
+                <translate value3="30 0 2.5" />
+            </transforms>
+            <children>
+                <noderef id="gridbox" />
+            </children>
+        </node>
+
+        <node id="gridbox">
+            <transforms>
+                <translate value3="0 0.1 0" />
+            </transforms>
+            <children>
+                <noderef id="gridboxTop" />
+                <noderef id="gridboxLeft" />
+                <noderef id="gridboxRight" />
+            </children>
+        </node>
+
+        <node id="gridboxTop">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.15 -1.6" xy2="0.15 1.6" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="gridboxLeft">
+            <transforms>
+                <translate value3="2 0 1.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-2 -0.15" xy2="2 0.15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="gridboxRight">
+            <transforms>
+                <translate value3="2 0 -1.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-2 -0.15" xy2="2 0.15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="finish">
+            <transforms>
+                <translate value3="10 0 63" />
+            </transforms>
+            <children>
+                <noderef id="finishLine" />
+                <noderef id="finishStructure" />
+            </children>
+        </node>
+
+        <node id="finishStructure">
+            <transforms>
+            </transforms>
+            <children>
+                <noderef id="finishPole1" />
+                <noderef id="finishPole2" />
+                <noderef id="finishTop" />
+                <noderef id="finishLights"/>
+            </children>
+        </node>
+
+        <node id="finishPole">
+            <transforms>
+                <translate value3="0 5 0" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="10" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="finishPole1">
+            <transforms>
+                <translate value3="0 0 -7" />
+            </transforms>
+            <children>
+                <noderef id="finishPole" />
+            </children>
+        </node>
+
+        <node id="finishPole2">
+            <transforms>
+                <translate value3="0 0 7" />
+            </transforms>
+            <children>
+                <noderef id="finishPole" />
+            </children>
+        </node>
+
+        <node id="finishTop">
+            <transforms>
+                <translate value3="0 12 0" />
+            </transforms>
+            <materialref id="blackApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -2 -8" xyz2="0.5 2 8" />
+                </primitive>
+                <noderef id="f1Logo" />
+            </children>
+        </node>
+
+        <node id="f1Logo">
+            <transforms>
+                <translate value3="0.6 0.3 0" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <materialref id="f1App" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-6 -1.5" xy2="6 1.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="finishLights">
+            <transforms>
+                <translate value3="0 9 0" />
+            </transforms>
+            <materialref id="blackApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -1 -3" xyz2="0.5 1 3" />
+                </primitive>
+                <noderef id="redlights" />
+            </children>
+        </node>
+
+        <node id="redlights">
+            <transforms>
+                <translate value3="0.5 0 0" />
+            </transforms>
+            <children>
+                <noderef id="redlight1" />
+                <noderef id="redlight2" />
+                <noderef id="redlight3" />
+                <noderef id="redlight4" />
+                <noderef id="redlight5" />
+            </children>
+        </node>
+
+
+        <node id="redlight1">
+            <transforms>
+                <translate value3="0 0 2" />
+            </transforms>
+            <children>
+                <noderef id="redlight" />
+            </children>
+        </node>
+
+        <node id="redlight2">
+            <transforms>
+                <translate value3="0 0 1" />
+            </transforms>
+            <children>
+                <noderef id="redlight" />
+            </children>
+        </node>
+
+        <node id="redlight3">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="redlight" />
+            </children>
+        </node>
+
+        <node id="redlight4">
+            <transforms>
+                <translate value3="0 0 -1" />
+            </transforms>
+            <children>
+                <noderef id="redlight" />
+            </children>
+        </node>
+
+        <node id="redlight5">
+            <transforms>
+                <translate value3="0 0 -2" />
+            </transforms>
+            <children>
+                <noderef id="redlight" />
+            </children>
+        </node>
+
+        <node id="redlight">
+            <transforms>
+                <rotate value3="0 0 -90" />
+            </transforms>
+            <materialref id="redApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="0.1" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+        
+
+        <node id="finishLine">
+            <transforms>
+                <translate value3="0 0.1 0" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="finishApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="3 9.5" />
+                </primitive>
             </children>
         </node>
 
