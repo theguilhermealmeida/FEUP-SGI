@@ -169,8 +169,15 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="heinekenTex" 
-            texlength_s="22.8" 
+            texlength_s="22.5" 
             texlength_t="4"/>
+
+        <material id="blueApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.337254902 0.850980392 0.941176471 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            twosided="true"/>
 
     </materials> 
 
@@ -181,7 +188,8 @@
                 <noderef id="car" />
                 <noderef id="grass" />
                 <noderef id="track" />
-                <noderef id="trackWall" />   
+                <noderef id="trackWall" />  
+                <noderef id="stands" /> 
 
                 <directionallight id="light1"  
                     enabled="true" 
@@ -485,14 +493,115 @@
             </children>
         </node>
 
-        <node id="trackWall">
+        <node id="standsTop">
             <transforms>
-                <translate value3="5 2 73" />
+                <translate value3="0 30 1.5" />
+                <rotate value3="-5 0 0" />
+            </transforms>
+            <materialref id="asphaltApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -13" xyz2="75 2 13" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands6">
+            <transforms>
+                <translate value3="0 27 15" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -1" xyz2="75 10 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands5">
+            <transforms>
+                <translate value3="0 20 12" />
             </transforms>
             <materialref id="whiteApp" />
             <children>
                 <primitive>
-                    <box xyz1="-57 0 -0.3" xyz2="57 4 0.3" />
+                    <box xyz1="-75 0 -4" xyz2="75 4 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands4">
+            <transforms>
+                <translate value3="0 16 9" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -7" xyz2="75 4 7" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands3">
+            <transforms>
+                <translate value3="0 12 6" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -10" xyz2="75 4 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands2">
+            <transforms>
+                <translate value3="0 8 3" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -13" xyz2="75 4 13" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands1">
+            <transforms>
+                <translate value3="0 3 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -16" xyz2="75 6 16" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands">
+            <transforms>
+                <translate value3="5 0 90" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <noderef id="stands1" />
+                <noderef id="stands2" />
+                <noderef id="stands3" />
+                <noderef id="stands4" />
+                <noderef id="stands5" />
+                <noderef id="stands6" />
+                <noderef id="standsTop" />
+            </children>
+        </node>
+
+        <node id="trackWall">
+            <transforms>
+                <translate value3="5 2 70" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
                 </primitive>
                 <noderef id="trackWallAd" />
                 <noderef id="trackWallFence" />
@@ -517,7 +626,7 @@
             <materialref id="fenceApp" />
             <children>
                 <primitive>
-                    <box xyz1="-57 0 -0.1" xyz2="57 5 0.1" parts_x="40" parts_y="7"/>
+                    <box xyz1="-75 0 -0.1" xyz2="75 5 0.1" parts_x="20" parts_y="7"/>
                 </primitive>
             </children>
         </node> 
@@ -530,7 +639,7 @@
             <materialref id="fenceApp" />
             <children>
                 <primitive>
-                    <box xyz1="-57 0 -0.1" xyz2="57 2 0.1" parts_x="40" parts_y="7"/>
+                    <box xyz1="-75 0 -0.1" xyz2="75 2 0.1" parts_x="20" parts_y="7"/>
                 </primitive>
             </children>
         </node>
@@ -543,7 +652,7 @@
             <materialref id="heinekenApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="-57 0" xy2="57 4" />
+                    <rectangle xy1="-75 0" xy2="75 4" />
                 </primitive>
             </children>
         </node>
