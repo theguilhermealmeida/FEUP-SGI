@@ -215,7 +215,7 @@ class MyGraphBuilder {
         light.decay = lightData.decay ?? 2.0;
         light.castShadow = lightData.castShadow ?? false;
         light.shadow.camera.far = lightData.shadowfar ?? 500.0;
-        light.shadow.mapSize = new THREE.Vector2(lightData.shadowmapsize, lightData.shadowmapsize, lightData.shadowmapsize);
+        light.shadow.mapSize = new THREE.Vector2(lightData.shadowmapsize, lightData.shadowmapsize);
 
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();

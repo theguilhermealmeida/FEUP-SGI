@@ -70,19 +70,15 @@ class MyContents  {
         
         this.printGroupInfo(group)
 
-        const spotLight = new THREE.SpotLight( 0xffffff );
-        spotLight.position.set( 0, 10, 0 );
         // create target pointing to the origin
         const targetObject = new THREE.Object3D();
         targetObject.position.set(0, 0, 0);
         this.app.scene.add(targetObject);
-        spotLight.intensity = 400;
-        
-        spotLight.angle = Math.PI ;
-        spotLight.castShadow = true;
-        
 
-       
+        // add ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff);
+        ambientLight.intensity = 0.3;
+        this.app.scene.add(ambientLight);
 
         this.output(data.options)
         console.log("textures:")

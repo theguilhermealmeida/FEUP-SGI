@@ -69,16 +69,24 @@ class MyGeometryBuilder {
                 // TODO: implement nurbs
                 console.log(this.geometryData)
                 let points = []
-                let count = 0
+                let count_v = 0
+                let count_u = 0
                 let temp = []
                 for (const controlpoint of this.representations.controlpoints) {
                     temp.push(Object.values(controlpoint).slice(0, -1))
-                    if (count++ === this.representations['degree_u']) {
+                    count_v++
+                    if (count_v == this.representations.degree_v + 1) {
                         points.push(temp)
                         temp = []
-                        count = 0
+                        count_v = 0
+                        count_u++
+                    }
+                    if (count_u == this.representations.degree_u + 1) {
+                        console.log("more points than expected")
+                        break
                     }
                 }
+
                 const builder = new MyNurbsBuilder()
                 geometry = builder.build(points, this.representations.degree_u, this.representations.degree_v, this.representations.parts_u, this.representations.parts_v)
                 break;
