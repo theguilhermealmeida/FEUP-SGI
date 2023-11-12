@@ -35,6 +35,7 @@
         <texture id="tableTex" filepath="scenes/t04g10/textures/table.png" />
         <texture id="finishTex" filepath="scenes/t04g10/textures/finish.png" />
         <texture id="f1Tex" filepath="scenes/t04g10/textures/f1.png" />
+        <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
     </textures> 
 
     <materials> 
@@ -99,6 +100,14 @@
             texlength_t="1"
             wireframe = "true" />
 
+        <material id="fenceApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.305882353 0.305882353 0.321568627 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            twosided="true"
+            wireframe="true"/>
+
         <material id="tableApp" 
             color="0.8 0.8 0.8 1.0" 
             emissive="0.0 0.0 0.0 0.0" 
@@ -154,6 +163,15 @@
             texlength_s="12" 
             texlength_t="3"/>
 
+        <material id="heinekenApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="heinekenTex" 
+            texlength_s="22.8" 
+            texlength_t="4"/>
+
     </materials> 
 
     <graph rootid="scene">
@@ -163,7 +181,7 @@
                 <noderef id="car" />
                 <noderef id="grass" />
                 <noderef id="track" />
-                <!-- <noderef id="forest" /> --> 
+                <noderef id="trackWall" />   
 
                 <directionallight id="light1"  
                     enabled="true" 
@@ -466,6 +484,71 @@
                 </primitive>
             </children>
         </node>
+
+        <node id="trackWall">
+            <transforms>
+                <translate value3="5 2 73" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-57 0 -0.3" xyz2="57 4 0.3" />
+                </primitive>
+                <noderef id="trackWallAd" />
+                <noderef id="trackWallFence" />
+            </children>
+        </node>
+
+        <node id="trackWallFence">
+            <transforms>
+                <translate value3="0 4.5 0" />
+            </transforms>
+            <materialref id="fenceApp" />
+            <children>
+                <noderef id="trackWallFenceTop" />
+                <noderef id="trackWallFenceBottom" />
+            </children>
+        </node>
+
+        <node id="trackWallFenceBottom">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <materialref id="fenceApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-57 0 -0.1" xyz2="57 5 0.1" parts_x="40" parts_y="7"/>
+                </primitive>
+            </children>
+        </node> 
+
+        <node id="trackWallFenceTop">
+            <transforms>
+                <translate value3="0 3.25 -0.75" />
+                <rotate value3="-45 0 0" />
+            </transforms>
+            <materialref id="fenceApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-57 0 -0.1" xyz2="57 2 0.1" parts_x="40" parts_y="7"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trackWallAd">
+            <transforms>
+                <translate value3="0 0 -0.35" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="heinekenApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-57 0" xy2="57 4" />
+                </primitive>
+            </children>
+        </node>
+
+
 
         <node id="track">
             <transforms>
@@ -863,7 +946,7 @@
             </transforms>
             <children>
                 <noderef id="finishPole1" />
-                <noderef id="finishPole2" />
+                <!-- <noderef id="finishPole2" /> -->
                 <noderef id="finishTop" />
                 <noderef id="finishLights"/>
             </children>
@@ -876,23 +959,15 @@
             <materialref id="metalApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.5" top="0.5" height="10" slices="32" stacks="32" />
+                    <cylinder base="0.75" top="0.75" height="10" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
 
         <node id="finishPole1">
             <transforms>
-                <translate value3="0 0 -7" />
-            </transforms>
-            <children>
-                <noderef id="finishPole" />
-            </children>
-        </node>
-
-        <node id="finishPole2">
-            <transforms>
-                <translate value3="0 0 7" />
+                <translate value3="0 0 -9" />
+                <scale value3="1 1 2" />
             </transforms>
             <children>
                 <noderef id="finishPole" />
@@ -901,7 +976,7 @@
 
         <node id="finishTop">
             <transforms>
-                <translate value3="0 12 0" />
+                <translate value3="0 12 -3" />
             </transforms>
             <materialref id="blackApp" />
             <children>

@@ -77,8 +77,8 @@ class MyContents  {
 
         // add ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff);
-        ambientLight.intensity = 0.3;
-        //this.app.scene.add(ambientLight);
+        ambientLight.intensity = 0.5;
+        this.app.scene.add(ambientLight);
 
         this.output(data.options)
         console.log("textures:")
