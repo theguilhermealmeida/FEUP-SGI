@@ -129,6 +129,7 @@ class MyGraphBuilder {
 
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
+                    //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
                     childData.materialIds = nodeData.materialIds
                 }
                 child = this.processNode(childData);
