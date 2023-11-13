@@ -3,7 +3,7 @@
 	
     <globals background="0 0 0 1" ambient="0 0 0 1" /> 
 
-    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="500.0" />
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="700.0" />
 
     <cameras initial="cam1" > 
         <perspective id="cam1" 
@@ -36,6 +36,8 @@
         <texture id="finishTex" filepath="scenes/t04g10/textures/finish.png" />
         <texture id="f1Tex" filepath="scenes/t04g10/textures/f1.png" />
         <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
+        <texture id="waterTex" filepath="scenes/t04g10/textures/water.png" />
+        <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
     </textures> 
 
     <materials> 
@@ -178,6 +180,24 @@
             specular="0 0 0 0" 
             shininess="0" 
             twosided="true"/>
+        
+        <material id="waterApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="waterTex" 
+            texlength_s="15" 
+            texlength_t="15"/>
+
+        <material id="dirtApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="dirtTex" 
+            texlength_s="15" 
+            texlength_t="15"/>
 
     </materials> 
 
@@ -483,12 +503,80 @@
 
         <node id="grass">
             <transforms>
+            </transforms>
+            <materialref id="grassApp" />
+            <children>
+                <noderef id="grass1" />
+                <noderef id="grass2" />
+                <noderef id="water" />
+                <noderef id="dirt1" />
+                <noderef id="dirt2" />
+            
+            </children>
+        </node>
+
+        <node id="dirt2">
+            <transforms>
+                <translate value3="-34 -2.2 -160" />
+                <rotate value3="0 90 0" />
+                <rotate value3="-115 0 0" />
+            </transforms>
+            <materialref id="dirtApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="250 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="dirt1">
+            <transforms>
+                <translate value3="-190 -2.2 -41.5" />
+                <rotate value3="-115 0 0" />
+            </transforms>
+            <materialref id="dirtApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="320 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="water">
+            <transforms>
+                <translate value3="-195 -4.2 -165" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="waterApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="315 240" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="grass1">
+            <transforms>
+                <translate value3="0 0 125" />
                 <rotate value3="-90 0 0" />
             </transforms>
             <materialref id="grassApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="650 650" />
+                    <rectangle xy1="0 0" xy2="700 325" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="grass2">
+            <transforms>
+                <translate value3="160 0 -160" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="grassApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="380 250" />
                 </primitive>
             </children>
         </node>
