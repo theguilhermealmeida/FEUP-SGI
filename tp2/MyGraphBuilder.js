@@ -120,6 +120,7 @@ class MyGraphBuilder {
         // Process the node's children
         for (let childData of nodeData.children) {
             let child
+            let no_material = false
 
             if (childData.type === "primitive") {
                 const materialData = this.sceneData.getMaterial(nodeData.materialIds[0]);
@@ -130,6 +131,7 @@ class MyGraphBuilder {
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
                     //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
+                    no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
                 child = this.processNode(childData);

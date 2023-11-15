@@ -23,7 +23,7 @@
             bottom="-5" 
             top="5" /> 
     </cameras> 
-        <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
+    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/heineken.png" down="scenes/t04g10/textures/heineken.png" left="scenes/t04g10/textures/heineken.png" right="scenes/t04g10/textures/heineken.png" front="scenes/t04g10/textures/heineken.png" back="scenes/t04g10/textures/heineken.png"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>        

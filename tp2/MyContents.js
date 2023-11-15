@@ -44,13 +44,44 @@ class MyContents  {
         this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
 
+        // default material
         let defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
         data.addMaterial(defaultMaterial)
         data.getNode("scene").materialIds[0] = defaultMaterial.id
         console.log(data.getNode("scene").cameras)
 
+        // fog
         let fog = new THREE.Fog( data.fog.color, data.fog.near, data.fog.far );
-        this.app.scene.fog = fog;
+        // this.app.scene.fog = fog;
+
+        // skybox
+        let data_skybox = data.skyboxes.default
+        let skybox = new THREE.BoxGeometry(...data_skybox.size)
+        skybox.translate(...data_skybox.center)
+        const skyboxTexturesArray = [
+            new THREE.TextureLoader().load(data_skybox.right),
+            new THREE.TextureLoader().load(data_skybox.left),
+            new THREE.TextureLoader().load(data_skybox.up),
+            new THREE.TextureLoader().load(data_skybox.back),
+            new THREE.TextureLoader().load(data_skybox.front),
+            new THREE.TextureLoader().load(data_skybox.down),
+        ]
+        let emissive = new THREE.Color(data_skybox.emissive.r, data_skybox.emissive.g, data_skybox.emissive.b)
+        const skyBoxMaterialsArray = [
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[0]}),
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[1]}),
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[2]}),
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[3]}),
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[4]}),
+            new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[5]}),
+        ];
+        let skyboxMesh = new THREE.Mesh(skybox, skyBoxMaterialsArray)
+        this.app.scene.add(skyboxMesh)
+
+
+
+
+
 
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
