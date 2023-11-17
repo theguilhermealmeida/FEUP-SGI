@@ -23,7 +23,7 @@
             bottom="-5" 
             top="5" /> 
     </cameras> 
-    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/heineken.png" down="scenes/t04g10/textures/heineken.png" left="scenes/t04g10/textures/heineken.png" right="scenes/t04g10/textures/heineken.png" front="scenes/t04g10/textures/heineken.png" back="scenes/t04g10/textures/heineken.png"/>
+    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/pine.png" down="scenes/t04g10/textures/pine.png" left="scenes/t04g10/textures/pine.png" right="scenes/t04g10/textures/pine.png" front="scenes/t04g10/textures/pine.png" back="scenes/t04g10/textures/pine.png"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>        
@@ -453,58 +453,73 @@
         </node>
 
         <node id="carBodyGreen">
-            <transforms>
-                <!-- Position and rotation for the car body -->
+            <!-- <transforms>
                 <translate value3="0 0.5 0" />
                 <rotate value3="0 0 0" />
                 <scale value3="15 3 6" />
-            </transforms>
+            </transforms> -->
             <materialref id="greenApp" />
             <children>
-                <primitive>
+                <noderef id="carBody" />
+                <!-- <primitive>
                     <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive>
+                </primitive> -->
             </children>
         </node>
 
         <node id="carBodyBlue">
-            <transforms>
-                <!-- Position and rotation for the car body -->
+            <!-- <transforms>
                 <translate value3="0 0.5 0" />
                 <rotate value3="0 0 0" />
                 <scale value3="15 3 6" />
-            </transforms>
+            </transforms> -->
             <materialref id="blueApp" />
             <children>
-                <primitive>
+                <noderef id="carBody" />
+                <!-- <primitive>
                     <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive>
-            </children>
-        </node>
-
-        <node id="carBodyYellow">
-            <transforms>
-                <!-- Position and rotation for the car body -->
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
-            </transforms>
-            <materialref id="yellowApp" />
-            <children>
-                <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive>
+                </primitive> -->
             </children>
         </node>
 
         <node id="carBodyRed">
+            <!-- <transforms>
+                <translate value3="0 0.5 0" />
+                <rotate value3="0 0 0" />
+                <scale value3="15 3 6" />
+            </transforms> -->
+            <materialref id="redApp" />
+            <children>
+                <noderef id="carBody" />
+                <!-- <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive> -->
+            </children>
+        </node>
+
+        <node id="carBodyYellow">
+            <!-- <transforms>
+                <translate value3="0 0.5 0" />
+                <rotate value3="0 0 0" />
+                <scale value3="15 3 6" />
+            </transforms> -->
+            <materialref id="yellowApp" />
+            <children>
+                <noderef id="carBody" />
+                <!-- <primitive>
+                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                </primitive> -->
+            </children>
+        </node>
+
+
+        <node id="carBody">
             <transforms>
                 <!-- Position and rotation for the car body -->
                 <translate value3="0 0.5 0" />
                 <rotate value3="0 0 0" />
                 <scale value3="15 3 6" />
             </transforms>
-            <materialref id="redApp" />
             <children>
                 <primitive>
                     <box xyz1="0 0 0" xyz2="1 1 1"/>

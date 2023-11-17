@@ -119,8 +119,8 @@ class MyGraphBuilder {
         const nodeGroup = new THREE.Group();
         // Process the node's children
         for (let childData of nodeData.children) {
-            let child
             let no_material = false
+            let child
 
             if (childData.type === "primitive") {
                 const materialData = this.sceneData.getMaterial(nodeData.materialIds[0]);
@@ -146,6 +146,10 @@ class MyGraphBuilder {
 
             if (child !== undefined) {
                 nodeGroup.add(child);
+                if (no_material) {
+                    childData.materialIds = []
+                    child.material = null
+                }
                 this.nodes.set(childData.id, child)
             }
         }
