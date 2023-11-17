@@ -3,12 +3,14 @@ import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 
 class MyGeometryBuilder {
-    constructor(geometryData, materialData, materialObject, textureObject) {
+    constructor(geometryData, materialData, materialObject, textureObject, castShadows, receiveShadows) {
         this.geometryData = geometryData
         this.materialData = materialData
         this.materialObject = materialObject
         this.textureObject = textureObject
         this.representations = geometryData.representations[0]
+        this.castShadows = castShadows
+        this.receiveShadows = receiveShadows
         let geometry
 
         switch (geometryData.subtype) {
@@ -102,8 +104,8 @@ class MyGeometryBuilder {
 
         }
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
-        this.mesh.castShadow = this.geometryData.castShadow;
-        this.mesh.receiveShadow = this.geometryData.receiveShadow;
+        this.mesh.castShadow = this.castShadows;
+        this.mesh.receiveShadow = this.receiveShadows;
         return this.mesh
     }
 

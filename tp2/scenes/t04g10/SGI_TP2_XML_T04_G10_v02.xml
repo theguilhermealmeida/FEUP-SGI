@@ -23,21 +23,21 @@
             bottom="-5" 
             top="5" /> 
     </cameras> 
-    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/heineken.png" down="scenes/t04g10/textures/heineken.png" left="scenes/t04g10/textures/heineken.png" right="scenes/t04g10/textures/heineken.png" front="scenes/t04g10/textures/heineken.png" back="scenes/t04g10/textures/heineken.png"/>
+    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="test_scenes/t04g10/t04g10/textures/heineken.png" down="test_scenes/t04g10/t04g10/textures/heineken.png" left="test_scenes/t04g10/t04g10/textures/heineken.png" right="test_scenes/t04g10/t04g10/textures/heineken.png" front="test_scenes/t04g10/t04g10/textures/heineken.png" back="test_scenes/t04g10/t04g10/textures/heineken.png"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>        
-        <texture id="landscapeTex" filepath="scenes/t04g10/textures/landscape.jpg" />
-        <texture id="grassTex" filepath="scenes/t04g10/textures/grass.jpg" />
-        <texture id="asphaltTex" filepath="scenes/t04g10/textures/asphalt.jpg" />
-        <texture id="kerbTex" filepath="scenes/t04g10/textures/kerb.jpg" />
-        <texture id="pineTex" filepath="scenes/t04g10/textures/pine.png" />
-        <texture id="tableTex" filepath="scenes/t04g10/textures/table.png" />
-        <texture id="finishTex" filepath="scenes/t04g10/textures/finish.png" />
-        <texture id="f1Tex" filepath="scenes/t04g10/textures/f1.png" />
-        <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
-        <texture id="waterTex" filepath="scenes/t04g10/textures/water.png" />
-        <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
+        <texture id="landscapeTex" filepath="test_scenes/t04g10/t04g10/textures/landscape.jpg" />
+        <texture id="grassTex" filepath="test_scenes/t04g10/t04g10/textures/grass.jpg" />
+        <texture id="asphaltTex" filepath="test_scenes/t04g10/t04g10/textures/asphalt.jpg" />
+        <texture id="kerbTex" filepath="test_scenes/t04g10/t04g10/textures/kerb.jpg" />
+        <texture id="pineTex" filepath="test_scenes/t04g10/t04g10/textures/pine.png" />
+        <texture id="tableTex" filepath="test_scenes/t04g10/t04g10/textures/table.png" />
+        <texture id="finishTex" filepath="test_scenes/t04g10/t04g10/textures/finish.png" />
+        <texture id="f1Tex" filepath="test_scenes/t04g10/t04g10/textures/f1.png" />
+        <texture id="heinekenTex" filepath="test_scenes/t04g10/t04g10/textures/heineken.png" />
+        <texture id="waterTex" filepath="test_scenes/t04g10/t04g10/textures/water.png" />
+        <texture id="dirtTex" filepath="test_scenes/t04g10/t04g10/textures/dirt.png" />
     </textures> 
 
     <materials> 
@@ -225,6 +225,17 @@
                     castshadow="true"
                     position="50 15 50" 
                 />
+
+
+                <pointlight id="light2" enabled="true"
+                            color="1 1 1 1"
+                            intensity="10"
+                            distance="1000"
+                            decay="0"
+                            castshadow="true"
+                            position="0 10 0"
+                />
+
             </children>
         </node>
 
@@ -392,7 +403,7 @@
             </children>
         </node>
 
-        <node id="cars" castshadows = "true" receiveshadows = "true">
+        <node id="cars">
             <children>
                 <noderef id="car1" />
                 <noderef id="car2" />
