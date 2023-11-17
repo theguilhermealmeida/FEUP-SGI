@@ -16,7 +16,7 @@ class MyContents  {
         this.axis = null
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		// this.reader.open("scenes/demo/demo.xml");		
+		//this.reader.open("scenes/demo/demo.xml");		
 		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
 		// this.reader.open("scenes/ricardo/ovalOffice.xml");		
 
@@ -94,6 +94,8 @@ class MyContents  {
         // loop through data camaras and add them to the scene
         this.graphBuilder = new MyGraphBuilder(data)
 
+        console.log("BBBBBBBBBBBBBB")
+        console.log(data)
 
         const group = this.graphBuilder.buildGraph(data);
         // add group to the scene

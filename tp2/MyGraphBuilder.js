@@ -94,6 +94,14 @@ class MyGraphBuilder {
         const rootNode = this.sceneData.getNode(this.sceneData.rootId);
         if (rootNode) {
             let group = new THREE.Group();
+            console.log("AAAAAAAAAAAAAAAAA")
+            console.log(rootNode)
+            if (rootNode.castShadows) {
+                group.castShadow = true
+            }
+            if (rootNode.receiveShadows) {
+                group.receiveShadow = true
+            }
             group = this.processNode(rootNode);
             console.log(group)
             return group
@@ -134,6 +142,14 @@ class MyGraphBuilder {
                     no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
+                if (nodeData.castShadows || childData.castShadows) {
+                    childData.castShadows = true
+                }
+
+                if (nodeData.receiveShadows || childData.receiveShadows) {
+                    childData.receiveShadows = true
+                }
+
                 child = this.processNode(childData);
             }
             else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
@@ -216,9 +232,10 @@ class MyGraphBuilder {
         light.intensity = lightData.intensity ?? 1.0;
         light.distance = lightData.distance ?? 1000;
         light.decay = lightData.decay ?? 2.0;
-        light.castShadow = lightData.castShadow ?? false;
+        light.castShadow = lightData.castshadow ?? false;
         light.shadow.camera.far = lightData.shadowfar ?? 500.0;
-        light.shadow.mapSize = new THREE.Vector2(lightData.shadowmapsize, lightData.shadowmapsize);
+        light.shadow.mapSize.width = lightData.shadowmapsize ?? 512;
+        light.shadow.mapSize.height = lightData.shadowmapsize ?? 512;
 
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();
