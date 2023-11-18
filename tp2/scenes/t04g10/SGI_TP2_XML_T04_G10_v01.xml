@@ -39,6 +39,8 @@
         <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
         <texture id="waterTex" filepath="scenes/t04g10/textures/water.png" />
         <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
+        <texture id="treeTex" filepath="scenes/t04g10/textures/treeTrunk.jpg" />
+        <texture id="leafTex" filepath="scenes/t04g10/textures/treeLeaf.jpg" />
     </textures> 
 
     <materials> 
@@ -210,6 +212,24 @@
             specular="0 0 0 0" 
             shininess="0"/>
 
+        <material id="treeTrunkApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="treeTex" 
+            texlength_s="10" 
+            texlength_t="10"/>
+
+        <material id="treeLeafApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="leafTex" 
+            texlength_s="10" 
+            texlength_t="10"/>
+
     </materials> 
 
     <graph rootid="scene">
@@ -221,6 +241,7 @@
                 <noderef id="trackWall" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
+                <noderef id="palmTrees" />
 
                 <directionallight id="light1"  
                     enabled="true" 
@@ -249,11 +270,262 @@
             </children>
         </node>
 
+        <node id="palmTrees">
+            <children>
+                <noderef id="palmTree1" />
+                <noderef id="palmTree2" />
+                <noderef id="palmTree3" />
+                <noderef id="palmTree4" />
+                <noderef id="palmTree5" />
+            </children>
+        </node>
+
+        <node id="palmTree1">
+            <transforms>
+                <translate value3="15 0 -45" />
+            </transforms>
+            <children>
+                <noderef id="palmTree" />
+            </children>
+        </node>
+
+        <node id="palmTree2">
+            <transforms>
+                <translate value3="15 0 25" />
+            </transforms>
+            <children>
+                <noderef id="palmTree" />
+            </children>
+        </node>
+
+        <node id="palmTree3">
+            <transforms>
+                <translate value3="50 0 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTree" />
+            </children>
+        </node>
+
+        <node id="palmTree4">
+            <transforms>
+                <translate value3="-20 0 -5" />
+            </transforms>
+            <children>
+                <noderef id="palmTree" />
+            </children>
+        </node>
+
+        <node id="palmTree">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeTrunk" />
+                <noderef id="palmTreeLeaves" />
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeTrunk1" />
+                <noderef id="palmTreeTrunk2" />
+                <noderef id="palmTreeTrunk3" />
+                <noderef id="palmTreeTrunk4" />
+                <noderef id="palmTreeTrunk5" />
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk1">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="2.5" top="1.5" height="4" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk2">
+            <transforms>
+                <translate value3="0 6 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1.4" top="1.5" height="4" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk3">
+            <transforms>
+                <translate value3="0 10 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1.3" top="1.4" height="4" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk4">
+            <transforms>
+                <translate value3="0 14 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1.2" top="0.9" height="4" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="palmTreeTrunk5">
+            <transforms>
+                <translate value3="0 18 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.8" top="0.9" height="4" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="palmTreeLeaves">
+            <transforms>
+                <translate value3="0 20 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf1" />
+                <noderef id="palmTreeLeaf2" />
+                <noderef id="palmTreeLeaf3" />
+                <noderef id="palmTreeLeaf4" />
+                <noderef id="palmTreeLeaf5" />
+                <noderef id="palmTreeLeaf6" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf1">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf2">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 60 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf3">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 120 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf4">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf5">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 240 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf6">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 300 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTreeLeaf" />
+            </children>
+        </node>
+
+        <node id="palmTreeLeaf">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 0 0" />
+            </transforms>
+            <materialref id="treeLeafApp" />
+            <children>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="2" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="0" yy="0" zz="-0.1" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0.1" />
+
+                        <controlpoint xx="2" yy="0" zz="3" />
+                        <controlpoint xx="2" yy="4" zz="0" />
+                        <controlpoint xx="2" yy="0" zz="-3" />
+
+                        <controlpoint xx="6" yy="-1" zz="2" />
+                        <controlpoint xx="6" yy="2" zz="0" />
+                        <controlpoint xx="6" yy="-1" zz="-2" />
+
+                        <controlpoint xx="8" yy="-4" zz="0.1" />
+                        <controlpoint xx="8" yy="-4" zz="0" />
+                        <controlpoint xx="8" yy="-4" zz="-0.1" />
+                    </nurbs>
+                </primitive>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="2" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="8" yy="-4" zz="0.1" />
+                        <controlpoint xx="8" yy="-4" zz="0" />
+                        <controlpoint xx="8" yy="-4" zz="-0.1" />
+
+                        <controlpoint xx="6" yy="-1" zz="2" />
+                        <controlpoint xx="6" yy="2" zz="0" />
+                        <controlpoint xx="6" yy="-1" zz="-2" />
+
+                        <controlpoint xx="2" yy="0" zz="3" />
+                        <controlpoint xx="2" yy="4" zz="0" />
+                        <controlpoint xx="2" yy="0" zz="-3" />
+
+                        <controlpoint xx="0" yy="0" zz="-0.1" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0.1" />
+                    </nurbs>
+                </primitive>
+                
+            </children>
+        </node>
+
         <node id="spotlights">
             <children>
                 <noderef id="spotlight1" />
                 <noderef id="spotlight2" />
-                <noderef id="spotlight3" />
             </children>
         </node>
 
@@ -281,7 +553,8 @@
 
         <node id="spotlight1">
             <transforms>
-                <translate value3="70 0 -70" />
+                <translate value3="50 0 -80" />
+                <rotate value3="0 45 0" />
             </transforms>
             <children>
                 <noderef id="spotlight" />
@@ -290,7 +563,7 @@
                     enabled="true" 
                     color="1.0 1.0 1.0 1" 
                     intensity="20"
-                    target="40 0 -40"
+                    target="60 0 -50"
                     angle="10"
                     decay="0.5"
                     castshadow="true"
@@ -378,7 +651,7 @@
 
         <node id="car2">
             <transforms>
-                <translate value3="-20 1.5 62.5" />
+                <translate value3="-40 1.5 62.5" />
                 <scale value3="0.5 0.5 0.5" />
                 <rotate value3="0 180 0" />
             </transforms>
@@ -1079,7 +1352,7 @@
 
         <node id="gridboxes">
             <transforms>
-                <translate value3="15 0 63" />
+                <translate value3="15 0.6 63" />
             </transforms>
             <children>
                 <noderef id="gridbox1" />
@@ -1205,7 +1478,7 @@
 
         <node id="finish">
             <transforms>
-                <translate value3="10 0 63" />
+                <translate value3="10 0.6 63" />
             </transforms>
             <children>
                 <noderef id="finishLine" />
@@ -1218,7 +1491,6 @@
             </transforms>
             <children>
                 <noderef id="finishPole1" />
-                <!-- <noderef id="finishPole2" /> -->
                 <noderef id="finishTop" />
                 <noderef id="finishLights"/>
             </children>
