@@ -251,170 +251,7 @@
                 />
             </children>
         </node>
-
-        <node id="rectangle1"> 
-
-            <transforms>
-				<translate value3="0 0 -0.5" />
-				<rotate value3="0 180.0 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
-                </primitive> 
-            </children> 
-        </node>
-		
-		<node id="rectangle2"> 
-
-            <transforms>
-				<translate value3="0 0 0.5" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle3"> 
-
-            <transforms>
-				<translate value3="0 -0.5 0" />
-				<rotate value3="90 0.0 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle4"> 
-
-            <transforms>
-				<translate value3="0 0.5 0" />
-				<rotate value3="-90 0.0 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle5"> 
-
-            <transforms>
-				<translate value3="-0.5 0 0" />
-				<rotate value3="0.0 -90.0 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle6"> 
-            <transforms>
-				<translate value3="0.5 0 0" />
-				<rotate value3="0.0 90.0 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="unitCube">
-            <children>            
-				<!-- Back -->
-                <noderef id="rectangle1" /> 
-				<!-- Front -->
-				<noderef id="rectangle2" /> 
-				<!-- Bottom -->
-				<noderef id="rectangle3" />
-				<!-- Top -->
-				<noderef id="rectangle4" />
-				<!-- Left -->				
-				<noderef id="rectangle5" />
-				 <!-- Right -->
-				<noderef id="rectangle6" />
-            </children> 
-        </node>
-
-        <node id="landscape">
-            <transforms>
-                <translate value3="0 0 0" />
-            </transforms>
-            <materialref id="landscapeApp" />
-            <children>
-                <noderef id="wall1" />
-                <noderef id="wall2" />
-                <noderef id="wall3" />
-                <noderef id="wall4" />
-            </children>
-        </node>
-        
-        <node id="wall1">
-            <transforms>
-                <!-- Position and rotation for the first wall -->
-                <translate value3="0 7.5 12.5" />
-                <rotate value3="0 90 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <rectangle xy1="0 0" xy2="25 15" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="wall2">
-            <transforms>
-                <!-- Position and rotation for the second wall -->
-                <translate value3="12.5 7.5 0" />
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <rectangle xy1="0 0" xy2="25 15" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="wall3">
-            <transforms>
-                <!-- Position and rotation for the third wall -->
-                <translate value3="25 7.5 12.5" />
-                <rotate value3="0 -90 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <rectangle xy1="0 0" xy2="25 15" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="wall4">
-            <transforms>
-                <!-- Position and rotation for the fourth wall -->
-                <translate value3="12.5 7.5 25" />
-                <rotate value3="0 -180 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <rectangle xy1="0 0" xy2="25 15" />
-                </primitive>
-            </children>
-        </node>
+	
 
         <node id="cars" castshadows = "true" receiveshadows = "true">
             <children>
@@ -1510,25 +1347,33 @@
             </children>
         </node>
 
-        <node id="wallLeftJump">
-            <transforms>
-                <translate value3="0 0 -5.25" />
-            </transforms>
-            <children>
-                <noderef id="wallSideJump" />
-            </children>
-        </node>
 
         <node id="wallRightJump">
             <transforms>
                 <translate value3="0 0 5.25" />
             </transforms>
+            <materialref id="asphaltApp" />
             <children>
-                <noderef id="wallSideJump" />
+                <primitive>
+                    <nurbs degree_u="1" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="0" yy="0.25" zz="0" />
+                        <controlpoint xx="7" yy="0.25" zz="0" />
+                        <controlpoint xx="10" yy="3" zz="0" />
+                        <controlpoint xx="12" yy="6" zz="0" />
+
+                        <controlpoint xx="0" yy="0" zz="0" />
+                        <controlpoint xx="7" yy="0" zz="0" />
+                        <controlpoint xx="10" yy="0" zz="0" />
+                        <controlpoint xx="12" yy="0" zz="0" />
+                    </nurbs>
+                </primitive>
             </children>
         </node>
 
-        <node id="wallSideJump">
+        <node id="wallLeftJump">
+            <transforms>
+                <translate value3="0 0 -5.25" />
+            </transforms>
             <materialref id="asphaltApp" />
             <children>
                 <primitive>
