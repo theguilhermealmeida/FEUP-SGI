@@ -79,9 +79,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="asphaltTex" 
-            texlength_s="5" 
-            texlength_t="5"
-            twosided="true"/>
+            texlength_s="1" 
+            texlength_t="1"/>
 
         <material id="kerbApp"
             emissive="0.0 0.0 0.0 1" 
@@ -107,7 +106,6 @@
             color="0.305882353 0.305882353 0.321568627 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
-            twosided="true"
             wireframe="true"/>
 
         <material id="tableApp" 
@@ -123,8 +121,7 @@
             color="1.0 1.0 1.0 1.0" 
             emissive="0.0 0.0 0.0 0.0" 
             specular="0 0 0 0" 
-            shininess="10" 
-            twosided="true"/>
+            shininess="10" />
 
         <material id="finishApp"
             emissive="0.3 0.3 0.3 1" 
@@ -133,15 +130,13 @@
             shininess="10" 
             textureref="finishTex" 
             texlength_s="3" 
-            texlength_t="2.1"
-            twosided="true"/>
+            texlength_t="2.1"/>
 
         <material id="blackApp"
             emissive="0.0 0.0 0.0 1" 
             color="0.0 0.0 0.0 1.0" 
             specular="0 0 0 0" 
-            shininess="0" 
-            twosided="true"/>
+            shininess="0"/>
 
         <material id="metalApp" 
             emissive="0.0 0.0 0.0 1" 
@@ -153,8 +148,7 @@
             emissive="0.0 0.0 0.0 1" 
             color="1.0 0.0 0.0 1.0" 
             specular="0 0 0 0" 
-            shininess="0" 
-            twosided="true"/>
+            shininess="0" />
 
         <material id="f1App"
             emissive="0.0 0.0 0.0 1" 
@@ -178,8 +172,7 @@
             emissive="0.0 0.0 0.0 1" 
             color="0.337254902 0.850980392 0.941176471 1.0" 
             specular="0 0 0 0" 
-            shininess="0" 
-            twosided="true"/>
+            shininess="0" />
         
         <material id="waterApp"
             emissive="0.0 0.0 0.0 1" 
@@ -203,15 +196,13 @@
             emissive="0.0 0.0 0.0 1" 
             color="0.274509804 0.839215686 0.176470588 1.0" 
             specular="0 0 0 0" 
-            shininess="0" 
-            twosided="true"/>
+            shininess="0" />
 
         <material id="yellowApp"
             emissive="0.0 0.0 0.0 1" 
             color="1 1 0 1.0" 
             specular="0 0 0 0" 
-            shininess="0" 
-            twosided="true"/>
+            shininess="0"/>
 
     </materials> 
 
@@ -246,6 +237,17 @@
                     intensity="0.5"
                     castshadow="true"
                     position="0 -1000 0" 
+                />
+
+                <spotlight id="light4"  
+                    enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="40"
+                    target="30 0 -30"
+                    angle="45"
+                    decay="0.5"
+                    castshadow="true"
+                    position="70 20 -70"
                 />
             </children>
         </node>
@@ -1503,7 +1505,7 @@
             <materialref id="asphaltApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="10.5 6" />
+                    <box xyz1="0 0 0" xyz2="10.5 6 0.1" />
                 </primitive>
             </children>
         </node>
@@ -1536,8 +1538,8 @@
                         <controlpoint xx="10" yy="0" zz="0" />
                         <controlpoint xx="12" yy="0" zz="0" />
 
-                        <controlpoint xx="0" yy="0" zz="0" />
-                        <controlpoint xx="7" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.25" zz="0" />
+                        <controlpoint xx="7" yy="0.25" zz="0" />
                         <controlpoint xx="10" yy="3" zz="0" />
                         <controlpoint xx="12" yy="6" zz="0" />
                     </nurbs>
@@ -1571,17 +1573,17 @@
             <children>
                 <primitive>
                     <nurbs degree_u="3" degree_v="1" parts_u="20" parts_v="20" distance="0.0">
-                        <controlpoint xx="0" yy="0" zz="0" />
-                        <controlpoint xx="0" yy="0" zz="0.5" />
-
-                        <controlpoint xx="7" yy="0" zz="0" />
-                        <controlpoint xx="7" yy="0" zz="0.5" />
+                        <controlpoint xx="12" yy="6" zz="0" />
+                        <controlpoint xx="12" yy="6" zz="0.5" />
 
                         <controlpoint xx="10" yy="3" zz="0" />
                         <controlpoint xx="10" yy="3" zz="0.5" />
 
-                        <controlpoint xx="12" yy="6" zz="0" />
-                        <controlpoint xx="12" yy="6" zz="0.5" />
+                        <controlpoint xx="7" yy="0.26" zz="0" />
+                        <controlpoint xx="7" yy="0.26" zz="0.5" />
+
+                        <controlpoint xx="0" yy="0.26" zz="0" />
+                        <controlpoint xx="0" yy="0.26" zz="0.5" />
                     </nurbs>
                 </primitive>
             </children>
@@ -1596,17 +1598,18 @@
             <children>
                 <primitive>
                     <nurbs degree_u="3" degree_v="1" parts_u="20" parts_v="20" distance="0.0">
-                        <controlpoint xx="0" yy="0" zz="-5" />
-                        <controlpoint xx="0" yy="0" zz="5" />
 
-                        <controlpoint xx="7" yy="0" zz="-5" />
-                        <controlpoint xx="7" yy="0" zz="5" />
+                        <controlpoint xx="12" yy="6" zz="-5" />
+                        <controlpoint xx="12" yy="6" zz="5" />
 
                         <controlpoint xx="10" yy="3" zz="-5" />
                         <controlpoint xx="10" yy="3" zz="5" />
 
-                        <controlpoint xx="12" yy="6" zz="-5" />
-                        <controlpoint xx="12" yy="6" zz="5" />
+                        <controlpoint xx="7" yy="0.25" zz="-5" />
+                        <controlpoint xx="7" yy="0.25" zz="5" />
+
+                        <controlpoint xx="0" yy="0.25" zz="-5" />
+                        <controlpoint xx="0" yy="0.25" zz="5" />
                     </nurbs>
                 </primitive>
             </children>
@@ -1629,7 +1632,7 @@
             <materialref id="whiteApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.5" top="0.5" height="0.05" slices="32" stacks="32"
+                    <cylinder base="0.5" top="0.5" height="0.51" slices="32" stacks="32"
                     thetastart="0" thetalength="1.57075"
                     />
                 </primitive>
@@ -1640,7 +1643,7 @@
             <materialref id="asphaltApp" />
             <children>
                 <primitive>
-                    <cylinder base="10" top="10" height="0.03" slices="32" stacks="32"
+                    <cylinder base="10" top="10" height="0.5" slices="32" stacks="32"
                     thetastart="0" thetalength="1.57075"
                     />
                 </primitive>
@@ -1651,7 +1654,7 @@
             <materialref id="whiteApp" />
             <children>
                 <primitive>
-                    <cylinder base="10.5" top="10.5" height="0.001" slices="32" stacks="32"
+                    <cylinder base="10.5" top="10.5" height="0.45" slices="32" stacks="32"
                     thetastart="0" thetalength="1.57075"
                     />
                 </primitive>
@@ -1668,13 +1671,11 @@
 
         <node id="asphalt">
             <transforms>
-                <translate value3="0 0 0" />
-                <rotate value3="-90 0 0" />
             </transforms>
             <materialref id="asphaltApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="10 10" />
+                    <box xyz1="0 0 0" xyz2="10 0.5 10" />
                 </primitive>
             </children>
         </node>
@@ -1687,7 +1688,7 @@
             <materialref id="whiteApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="10 0.5" />
+                    <box xyz1="0 0 0" xyz2="10 0.5 0.5" />
                 </primitive>
             </children>
         </node>
