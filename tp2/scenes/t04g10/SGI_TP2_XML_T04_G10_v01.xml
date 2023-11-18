@@ -10,7 +10,7 @@
             angle="60" 
             near="0.1" 
             far="1000" 
-            location="15 15 15" 
+            location="-45 15 15" 
             target="0 0.0 0" /> 
 
         <orthogonal id="cam2" 
@@ -23,7 +23,7 @@
             bottom="-5" 
             top="5" /> 
     </cameras> 
-    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/pine.png" down="scenes/t04g10/textures/pine.png" left="scenes/t04g10/textures/pine.png" right="scenes/t04g10/textures/pine.png" front="scenes/t04g10/textures/pine.png" back="scenes/t04g10/textures/pine.png"/>
+    <skybox size="5000 5000 5000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/sky.png" down="scenes/t04g10/textures/sky.png" left="scenes/t04g10/textures/sky.png" right="scenes/t04g10/textures/sky.png" front="scenes/t04g10/textures/sky.png" back="scenes/t04g10/textures/sky.png"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>        
@@ -53,9 +53,12 @@
 		
         <material id="grassApp" 
             emissive="0.0 0.0 0.0 1" 
-            color="0.274509804 0.839215686 0.176470588 1.0"  
+            color="0.8 0.8 0.8 1.0" 
             specular="0 0 0 0" 
-            shininess="0" />
+            shininess="0" 
+            textureref="grassTex" 
+            texlength_s="25" 
+            texlength_t="25"/>
 
         <material id="carWheelMaterial" 
             emissive="0.0 0.0 0.0 1" 
@@ -71,9 +74,12 @@
 
         <material id="asphaltApp"
             emissive="0.0 0.0 0.0 1" 
-            color="0.305882353 0.305882353 0.321568627 1.0" 
+            color="0.8 0.8 0.8 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
+            textureref="asphaltTex" 
+            texlength_s="5" 
+            texlength_t="5"
             twosided="true"/>
 
         <material id="kerbApp"
@@ -211,7 +217,6 @@
     <graph rootid="scene">
         <node id="scene" castshadows = "true" receiveshadows = "true">
             <children>
-                <!-- <noderef id="landscape" /> -->
                 <noderef id="cars" />
                 <noderef id="grass" />
                 <noderef id="track" />
@@ -220,10 +225,26 @@
 
                 <directionallight id="light1"  
                     enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="6.0"
+                    color="1.0 0.5 1.0 1" 
+                    intensity="1.0"
                     castshadow="true"
-                    position="50 15 50" 
+                    position="1000 1000 1000"
+                />
+
+                <directionallight id="light2"  
+                    enabled="true" 
+                    color="1.0 0.5 1.0 1" 
+                    intensity="1.0"
+                    castshadow="true"
+                    position="-1000 1000 -1000" 
+                />
+
+                <directionallight id="light3"  
+                    enabled="true" 
+                    color="1.0 0.5 1.0 1" 
+                    intensity="0.5"
+                    castshadow="true"
+                    position="0 -1000 0" 
                 />
             </children>
         </node>
