@@ -3,12 +3,14 @@ import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 
 class MyGeometryBuilder {
-    constructor(geometryData, materialData, materialObject, textureObject) {
+    constructor(geometryData, materialData, materialObject, textureObject, castShadows, receiveShadows) {
         this.geometryData = geometryData
         this.materialData = materialData
         this.materialObject = materialObject
         this.textureObject = textureObject
         this.representations = geometryData.representations[0]
+        this.castShadows = castShadows
+        this.receiveShadows = receiveShadows
         let geometry
 
         switch (geometryData.subtype) {
@@ -19,14 +21,6 @@ class MyGeometryBuilder {
                     this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
                     this.materialObject.map = this.textureObject;
                 }
-
-                // build geometry
-                // const xWidth = Math.abs(this.representations.xy1[0] - this.representations.xy2[0]);
-                // const yWidth = Math.abs(this.representations.xy1[1] - this.representations.xy2[1]);
-                // geometry = new THREE.PlaneGeometry(xWidth, yWidth, this.representations.parts_x ?? 1, this.representations.parts_y ?? 1);
-                // const xMin = Math.min(this.representations.xy1[0], this.representations.xy2[0]);
-                // const yMin = Math.min(this.representations.xy1[1], this.representations.xy2[1]);
-                // geometry.translate(xMin + xWidth / 2, yMin + yWidth / 2, 0);
                 
                 let x = this.representations.xy2[0] - this.representations.xy1[0];
                 let y = this.representations.xy2[1] - this.representations.xy1[1];
@@ -66,7 +60,6 @@ class MyGeometryBuilder {
                 break;
             }
             case "nurbs": {
-                // TODO: implement nurbs
                 console.log(this.geometryData)
                 let points = []
                 let count_v = 0
@@ -96,10 +89,6 @@ class MyGeometryBuilder {
                 geometry = new THREE.BoxGeometry(this.representations.xyz2[0] - this.representations.xyz1[0], this.representations.xyz2[1] - this.representations.xyz1[1], this.representations.xyz2[2] - this.representations.xyz1[2], this.representations.parts_x, this.representations.parts_y, this.representations.parts_z);
                 break;
             }
-            case "skybox": {
-                // TODO: implement skybox
-                break;
-            }
             case "model3d": {
                 // TODO: implement model3d 
                 break;
@@ -111,12 +100,12 @@ class MyGeometryBuilder {
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
-        }
+            
 
-        if (this.materialData.id === "pineApp") {
-            console.log("pineMaterial")
         }
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
+        this.mesh.castShadow = this.castShadows;
+        this.mesh.receiveShadow = this.receiveShadows;
         return this.mesh
     }
 

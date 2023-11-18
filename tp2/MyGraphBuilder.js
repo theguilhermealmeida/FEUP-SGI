@@ -126,7 +126,10 @@ class MyGraphBuilder {
                 const materialData = this.sceneData.getMaterial(nodeData.materialIds[0]);
                 const materialObject = this.materials.get(nodeData.materialIds[0]);
                 const textureObject = this.textures.get(materialData.textureref ?? null);
-                child = new MyGeometryBuilder(childData, materialData, materialObject, textureObject);
+                let castShadows = nodeData.castShadows
+                let receiveShadows = nodeData.receiveShadows
+                child = new MyGeometryBuilder(childData, materialData, materialObject, textureObject, castShadows, receiveShadows);
+
 
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
@@ -134,6 +137,10 @@ class MyGraphBuilder {
                     no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
+
+                if (nodeData.castShadows) childData.castShadows = true
+                if (nodeData.receiveShadows) childData.receiveShadows = true
+
                 child = this.processNode(childData);
             }
             else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
@@ -142,7 +149,6 @@ class MyGraphBuilder {
             else {
                 console.warn("Unknown node type: " + childData.type);
             }
-
 
             if (child !== undefined) {
                 nodeGroup.add(child);
@@ -220,9 +226,10 @@ class MyGraphBuilder {
         light.intensity = lightData.intensity ?? 1.0;
         light.distance = lightData.distance ?? 1000;
         light.decay = lightData.decay ?? 2.0;
-        light.castShadow = lightData.castShadow ?? false;
+        light.castShadow = lightData.castshadow ?? false;
         light.shadow.camera.far = lightData.shadowfar ?? 500.0;
-        light.shadow.mapSize = new THREE.Vector2(lightData.shadowmapsize, lightData.shadowmapsize);
+        light.shadow.mapSize.width = lightData.shadowmapsize ?? 512;
+        light.shadow.mapSize.height = lightData.shadowmapsize ?? 512;
 
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();
