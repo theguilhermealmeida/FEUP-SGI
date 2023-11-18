@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <yaf> 
 	
-    <globals background="0 0 0 1" ambient="0 0 0 1" /> 
+    <globals background="0 0 0 1" ambient="0 0 0 1" />  
+    <!-- TODO: AMBIENT NOT WORKING  -->
 
-    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="700.0" />
+    <fog color="1.0 1.0 1.0 1.0" near="6000.0" far="7000.0" />
 
     <cameras initial="cam1" > 
         <perspective id="cam1" 
