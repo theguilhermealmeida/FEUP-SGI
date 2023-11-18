@@ -48,15 +48,16 @@ class MyGraphBuilder {
             }
             textureObject.anisotropy = texture.anisotropy;
             if (texture.mipmaps) {
-                textureObject.mipmaps[0] = texture.mipmap0;
-                textureObject.mipmaps[1] = texture.mipmap1;
-                textureObject.mipmaps[2] = texture.mipmap2;
-                textureObject.mipmaps[3] = texture.mipmap3;
-                textureObject.mipmaps[4] = texture.mipmap4;
-                textureObject.mipmaps[5] = texture.mipmap5;
-                textureObject.mipmaps[6] = texture.mipmap6;
-                textureObject.mipmaps[7] = texture.mipmap7;
-
+               // implement mipmaps
+               const mipmaps = []
+                for (let i = 0; i <= 7; i++) {
+                    const mipmapPath = texture[`mipmap${i}`]
+                    if (mipmapPath) {
+                        const mipmap = new THREE.TextureLoader().load(mipmapPath)
+                        mipmaps.push(mipmap)
+                    }
+                }
+                textureObject.mipmaps = mipmaps
             }
             this.textures.set(texture.id, textureObject)
         }
