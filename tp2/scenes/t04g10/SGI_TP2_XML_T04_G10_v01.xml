@@ -41,6 +41,7 @@
         <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
         <texture id="treeTex" filepath="scenes/t04g10/textures/treeTrunk.jpg" />
         <texture id="leafTex" filepath="scenes/t04g10/textures/treeLeaf.jpg" />
+        <texture id="sandTex" filepath="scenes/t04g10/textures/sand.png" /> 
     </textures> 
 
     <materials> 
@@ -230,6 +231,15 @@
             texlength_s="10" 
             texlength_t="10"/>
 
+        <material id="sandApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="sandTex" 
+            texlength_s="5" 
+            texlength_t="5"/>
+
     </materials> 
 
     <graph rootid="scene">
@@ -238,7 +248,7 @@
                 <noderef id="cars" />
                 <noderef id="grass" />
                 <noderef id="track" />
-                <noderef id="trackWall" />  
+                <noderef id="trackWalls" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
                 <noderef id="palmTrees" />
@@ -850,26 +860,65 @@
         </node>
 
         <node id="grass">
-            <transforms>
-            </transforms>
-            <materialref id="grassApp" />
             <children>
                 <noderef id="grass1" />
                 <noderef id="grass2" />
                 <noderef id="water" />
-                <noderef id="dirt1" />
-                <noderef id="dirt2" />
-            
+                <noderef id="sand1" />
+                <noderef id="sand2" />
+                <noderef id="sand3" />
+                <noderef id="sand4" />
+                <noderef id="sand5" />
             </children>
         </node>
 
-        <node id="dirt2">
+        <node id="sand1">
+            <transforms>
+                <translate value3="-85 0.1 16.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="sandApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="49 109" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="sand2">
+            <transforms>
+                <translate value3="-17 0.1 -65" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="sandApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="27 55" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="sand3">
+            <transforms>
+                <translate value3="-32.5 0.1 -30.5" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+            <materialref id="sandApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="58 15" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="sand4">
             <transforms>
                 <translate value3="-34 -2.2 -160" />
                 <rotate value3="0 90 0" />
                 <rotate value3="-115 0 0" />
             </transforms>
-            <materialref id="dirtApp" />
+            <materialref id="sandApp" />
             <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="250 10" />
@@ -877,12 +926,12 @@
             </children>
         </node>
 
-        <node id="dirt1">
+        <node id="sand5">
             <transforms>
                 <translate value3="-190 -2.2 -41.5" />
                 <rotate value3="-115 0 0" />
             </transforms>
-            <materialref id="dirtApp" />
+            <materialref id="sandApp" />
             <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="320 10" />
@@ -1015,10 +1064,59 @@
         </node>
 
         <node id="stands">
+            <children>
+                <noderef id="standNorth" />
+                <noderef id="standWest" />
+                <noderef id="standSouth" />
+                <noderef id="standEast" />
+            </children>
+        </node>
+
+        <node id="standNorth">
             <transforms>
-                <translate value3="5 0 90" />
+                <translate value3="-15 0 90" />
+                <scale value3="1.3 1 1" />
             </transforms>
-            <materialref id="whiteApp" />
+            <children>
+                <noderef id="stand" />
+            </children>
+        </node>
+
+        <node id="standWest">
+            <transforms>
+                <translate value3="100 0 -8" />
+                <rotate value3="0 90 0" />
+                <scale value3="1.07 1 1" />
+            </transforms>
+            <children>
+                <noderef id="stand" />
+            </children>
+        </node>
+
+        <node id="standSouth">
+            <transforms>
+                <translate value3="27 0 -110" />
+                <rotate value3="0 180 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="standWithoutTop" />
+            </children>
+        </node>
+
+        <node id="standEast">
+            <transforms>
+                <translate value3="-130 0 18" />
+                <rotate value3="0 270 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="standWithoutTop" />
+            </children>
+        </node>
+
+
+        <node id="stand">
             <children>
                 <noderef id="stands1" />
                 <noderef id="stands2" />
@@ -1030,9 +1128,71 @@
             </children>
         </node>
 
+        <node id="standWithoutTop">
+            <children>
+                <noderef id="stands1" />
+                <noderef id="stands2" />
+                <noderef id="stands3" />
+                <noderef id="stands4" />
+                <noderef id="stands5" />
+            </children>
+        </node>
+
+        <node id="trackWalls">
+            <children>
+                <noderef id="trackWallNorth" />
+                <noderef id="trackWallWest" />
+                <noderef id="trackWallSouth" />
+                <noderef id="trackWallEast" />
+            </children>
+        </node>
+
+        <node id="trackWallNorth">
+            <transforms>
+                <translate value3="-14 0 70" />
+                <scale value3="1.25 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallWest">
+            <transforms>
+                <translate value3="81 0 -10" />
+                <rotate value3="0 90 0" />
+                <scale value3="1.05 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallSouth">
+            <transforms>
+                <translate value3="27 0 -90" />
+                <rotate value3="0 180 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallEast">
+            <transforms>
+                <translate value3="-110 0 18" />
+                <rotate value3="0 270 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
         <node id="trackWall">
             <transforms>
-                <translate value3="5 2 70" />
+                <translate value3="0 2 0" />
             </transforms>
             <materialref id="whiteApp" />
             <children>
@@ -1352,7 +1512,7 @@
 
         <node id="gridboxes">
             <transforms>
-                <translate value3="15 0.6 63" />
+                <translate value3="15 0.18 63" />
             </transforms>
             <children>
                 <noderef id="gridbox1" />
@@ -1478,7 +1638,7 @@
 
         <node id="finish">
             <transforms>
-                <translate value3="10 0.6 63" />
+                <translate value3="10 0 63" />
             </transforms>
             <children>
                 <noderef id="finishLine" />
@@ -1528,6 +1688,7 @@
                     <box xyz1="-0.5 -2 -8" xyz2="0.5 2 8" />
                 </primitive>
                 <noderef id="f1Logo" />
+                <noderef id="f1Logo2" />
             </children>
         </node>
 
@@ -1535,6 +1696,19 @@
             <transforms>
                 <translate value3="0.6 0.3 0" />
                 <rotate value3="0 90 0" />
+            </transforms>
+            <materialref id="f1App" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-6 -1.5" xy2="6 1.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="f1Logo2">
+            <transforms>
+                <translate value3="-0.6 0.6 0" />
+                <rotate value3="0 -90 0" />
             </transforms>
             <materialref id="f1App" />
             <children>
