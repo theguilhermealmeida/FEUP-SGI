@@ -79,13 +79,25 @@ class MyGraphBuilder {
                 materialObject.flatShading = false;
             }
             if (material.textureref != null) {
-                let materialTextureref = this.textures.get(material.textureref);
+                let materialTextureref = this.textures.get(material.textureref ?? null);
+                materialObject.map = materialTextureref; 
                 materialTextureref.wrapS = materialTextureref.wrapT = THREE.RepeatWrapping;
             }
             materialObject.side = material.twosided ? THREE.DoubleSide : THREE.FrontSide;
-            materialObject.map = this.textures.get(material.textureref ?? null);
-            // TODO: materialObject.bump_ref = material.bump_ref;
-            // TODO: materialObject.bumpScale = material.bump_scale ?? 1.0;
+
+            let bump_ref = material.bumpref ?? null;
+            if (bump_ref != null) {
+                const bump_texture = this.textures.get(bump_ref ?? null); 
+                materialObject.bumpMap = bump_texture;
+                materialObject.bumpScale = material.bumpscale ?? 1.0;
+            }
+
+            let specular_ref = material.specularref ?? null;
+            if (specular_ref != null) {
+                const specular_texture = this.textures.get(specular_ref ?? null); 
+                materialObject.specularMap = specular_texture;
+            }
+            // materialObject.map = this.textures.get(material.textureref ?? null);
             this.materials.set(material.id, materialObject);
         }
     }
