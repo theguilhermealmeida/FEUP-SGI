@@ -75,7 +75,6 @@ class MyGeometryBuilder {
                         count_u++
                     }
                     if (count_u == this.representations.degree_u + 1) {
-                        console.log("more points than expected")
                         break
                     }
                 }

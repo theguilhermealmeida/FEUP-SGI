@@ -232,7 +232,7 @@ class MyGraphBuilder {
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();
             const helper = new THREE.SpotLightHelper(light);
-            light.add(helper);
+            //light.add(helper);
         }
         return light
     }

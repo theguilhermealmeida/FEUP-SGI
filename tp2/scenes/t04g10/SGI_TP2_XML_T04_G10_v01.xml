@@ -123,6 +123,12 @@
             specular="0 0 0 0" 
             shininess="10" />
 
+        <material id="lightApp" 
+            color="1.0 1.0 1.0 1.0" 
+            emissive="1.0 1.0 1.0 0.0" 
+            specular="0 0 0 0" 
+            shininess="10" />
+
         <material id="finishApp"
             emissive="0.3 0.3 0.3 1" 
             color="1 1 1 1.0" 
@@ -214,6 +220,7 @@
                 <noderef id="track" />
                 <noderef id="trackWall" />  
                 <noderef id="stands" /> 
+                <noderef id="spotlights" />
 
                 <directionallight id="light1"  
                     enabled="true" 
@@ -239,21 +246,116 @@
                     position="0 -1000 0" 
                 />
 
+            </children>
+        </node>
+
+        <node id="spotlights">
+            <children>
+                <noderef id="spotlight1" />
+                <noderef id="spotlight2" />
+                <noderef id="spotlight3" />
+            </children>
+        </node>
+
+        <node id="spotlight2">
+            <transforms>
+                <translate value3="-60 0 -30" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <children>
+                <noderef id="spotlight" />
+
+                <spotlight id="light5"  
+                    enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="20"
+                    target="-40 0 -10"
+                    angle="10"
+                    decay="0.5"
+                    castshadow="true"
+                    position="5 20 5"
+                />
+                
+            </children>
+        </node>
+
+        <node id="spotlight1">
+            <transforms>
+                <translate value3="70 0 -70" />
+            </transforms>
+            <children>
+                <noderef id="spotlight" />
+
                 <spotlight id="light4"  
                     enabled="true" 
                     color="1.0 1.0 1.0 1" 
-                    intensity="40"
-                    target="30 0 -30"
-                    angle="45"
+                    intensity="20"
+                    target="40 0 -40"
+                    angle="10"
                     decay="0.5"
                     castshadow="true"
-                    position="70 20 -70"
+                    position="-6 20 6"
                 />
+                
             </children>
         </node>
+
+        <node id="spotlight">
+            <children>
+                <noderef id="spotlightBase" />
+                <noderef id="spotlightLight" />
+                <noderef id="spotlightTop" />                
+            </children>
+        </node>
+
+        <node id="spotlightLight">
+            <transforms>
+                <translate value3="0 20 0" />
+                <rotate value3="0 45 0" />
+                <rotate value3="0 0 30" />
+                <translate value3="-1.1 1 0" />
+
+            </transforms>
+            <materialref id="lightApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-0.1 -1.2 -1.2" xyz2="0.1 1.2 1.2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="spotlightTop">
+            <transforms>
+                <translate value3="0 21 0" />
+                <rotate value3="0 -45 0" />
+                <rotate value3="120 0 0" />
+                <rotate value3="0 45 0" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1" top="2" height="3" slices="4" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        
+        <node id="spotlightBase">
+            <transforms>
+                <translate value3="0 10 0" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="20" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        
 	
 
-        <node id="cars" castshadows = "true" receiveshadows = "true">
+        <node id="cars">
             <children>
                 <noderef id="car1" />
                 <noderef id="car2" />
@@ -289,9 +391,9 @@
 
         <node id="car3">
             <transforms>
-                <translate value3="30 1.5 -17.5" />
+                <translate value3="-30 1.5 -17.5" />
                 <scale value3="0.5 0.5 0.5" />
-                <rotate value3="0 180 0" />
+                <rotate value3="0 0 0" />
             </transforms>
             <children>
                 <noderef id="carWheels" />
