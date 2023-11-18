@@ -18,7 +18,7 @@ class MyContents  {
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		// this.reader.open("scenes/demo/demo.xml");		
 		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
-		// this.reader.open("scenes/ricardo/ovalOffice.xml");		
+		// this.reader.open("scenes/ricardo/ovalOffice.xml");	
 
 
 
@@ -75,6 +75,18 @@ class MyContents  {
             new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[4]}),
             new THREE.MeshPhongMaterial({emissive: emissive, emissiveIntensity: data_skybox.intensity, side: THREE.BackSide, map: skyboxTexturesArray[5]}),
         ];
+
+        // Change texture wrapping and repeat for all textures in the skybox
+        for (let i = 0; i < skyboxTexturesArray.length; i++) {
+            // Set texture wrapping to RepeatWrapping
+            skyboxTexturesArray[i].wrapS = THREE.RepeatWrapping;
+            skyboxTexturesArray[i].wrapT = THREE.RepeatWrapping;
+
+            // Set texture repeat - change these values as needed
+            skyboxTexturesArray[i].repeat.set(1, 2); // This will repeat the texture twice along S and T axes
+            // You can adjust the repeat values for different lengths on the skybox
+        }
+
         let skyboxMesh = new THREE.Mesh(skybox, skyBoxMaterialsArray)
         this.app.scene.add(skyboxMesh)
 
@@ -109,7 +121,7 @@ class MyContents  {
         // add ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff);
         ambientLight.intensity = 0.5;
-        this.app.scene.add(ambientLight);
+        //this.app.scene.add(ambientLight);
 
         this.output(data.options)
         console.log("textures:")
