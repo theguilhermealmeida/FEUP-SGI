@@ -640,131 +640,64 @@
 
         <node id="cars">
             <children>
-                <noderef id="car1" />
-                <noderef id="car2" />
-                <noderef id="car3" />
-                <noderef id="car4" />
+                <noderef id="car" />
             </children>
         </node>
 
-        <node id="car1">
+        <node id="car">
             <transforms>
-                <translate value3="50 1.5 -57.5" />
-                <scale value3="0.5 0.5 0.5" />
+                <translate value3="50 1 -57.5" />
+                <scale value3="0.65 0.8 0.6" />
             </transforms>
-            <children>
-                <noderef id="carWheels" />
-                <noderef id="carBodyRed" />
-                <noderef id="carTop" />
-            </children>
-        </node>
-
-        <node id="car2">
-            <transforms>
-                <translate value3="-40 1.5 62.5" />
-                <scale value3="0.5 0.5 0.5" />
-                <rotate value3="0 180 0" />
-            </transforms>
-            <children>
-                <noderef id="carWheels" />
-                <noderef id="carBodyBlue" />
-                <noderef id="carTop" />
-            </children>
-        </node>
-
-        <node id="car3">
-            <transforms>
-                <translate value3="-30 1.5 -17.5" />
-                <scale value3="0.5 0.5 0.5" />
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <noderef id="carWheels" />
-                <noderef id="carBodyGreen" />
-                <noderef id="carTop" />
-            </children>
-        </node>
-
-        <node id="car4">
-            <transforms>
-                <translate value3="65 1.5 30" />
-                <scale value3="0.5 0.5 0.5" />
-                <rotate value3="0 -90 0" />
-            </transforms>
-            <children>
-                <noderef id="carWheels" />
-                <noderef id="carBodyYellow" />
-                <noderef id="carTop" />
-            </children>
-        </node>
-
-        <node id="carBodyGreen">
-            <!-- <transforms>
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
-            </transforms> -->
-            <materialref id="greenApp" />
-            <children>
-                <noderef id="carBody" />
-                <!-- <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive> -->
-            </children>
-        </node>
-
-        <node id="carBodyBlue">
-            <!-- <transforms>
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
-            </transforms> -->
-            <materialref id="blueApp" />
-            <children>
-                <noderef id="carBody" />
-                <!-- <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive> -->
-            </children>
-        </node>
-
-        <node id="carBodyRed">
-            <!-- <transforms>
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
-            </transforms> -->
             <materialref id="redApp" />
             <children>
-                <noderef id="carBody" />
-                <!-- <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive> -->
+                <noderef id="carFront"/>
+                <noderef id="carFrontCone"/>
+                <noderef id="carFrontWing"/>
+                <noderef id="carRear"/>
+                <noderef id="carBody"/>
+                <noderef id="carWheels"/>
             </children>
         </node>
-
-        <node id="carBodyYellow">
-            <!-- <transforms>
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
-            </transforms> -->
-            <materialref id="yellowApp" />
-            <children>
-                <noderef id="carBody" />
-                <!-- <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
-                </primitive> -->
-            </children>
-        </node>
-
 
         <node id="carBody">
             <transforms>
+                
+            </transforms>
+            <children>
+                <noderef id="carBodyMid" />
+                <noderef id="carDriver" />
+                <noderef id="carBodyTop" />
+            </children>
+        </node>
+
+        <node id="carFront">
+            <transforms>
                 <!-- Position and rotation for the car body -->
-                <translate value3="0 0.5 0" />
-                <rotate value3="0 0 0" />
-                <scale value3="15 3 6" />
+                <translate value3="4 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 2 2"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carRear">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="-3 0 0" />
+            </transforms>
+            <children>
+                <noderef id="carRearWing" />
+                <noderef id="carRearSupport" />
+            </children>
+        </node>
+
+        <node id="carRearSupport">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 1.2 0" />
             </transforms>
             <children>
                 <primitive>
@@ -773,28 +706,232 @@
             </children>
         </node>
 
-        <node id="carTop">
+        <node id="carRearWing">
             <transforms>
-                <!-- Position and rotation for the car top -->
-                <translate value3="-1 3 0" />
-                <scale value3="7 4 5" />
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 2 0" />
+                <rotate value3="0 0 -15" />
+                <scale value3="0.6 0.7 0.6" />
             </transforms>
+            <children>
+                <noderef id="carRearWingMid" />
+                <noderef id="carRearWingLeft" />
+                <noderef id="carRearWingRight" />
+            </children>
+        </node>
 
-            <materialref id="carTopMaterial" />
+        <node id="carFrontWing">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="10 0 0" />
+            </transforms>
+            <children>
+                <noderef id="carFrontWingMid" />
+                <noderef id="carFrontWingLeft" />
+                <noderef id="carFrontWingRight" />
+            </children>
+        </node>
 
+        <node id="carFrontWingMid">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 -0.2 0" />
+            </transforms>
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="1 1 1"/>
+                    <box xyz1="0 0 0" xyz2="2 0.1 7"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carRearWingMid">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 -0.2 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 0.1 7"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carRearWingLeft">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0.2 -3.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 1 0.1"/>
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="carFrontWingLeft">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0.2 -3.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 1 0.1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carRearWingRight">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0.2 3.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 1 0.1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carFrontWingRight">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0.2 3.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 1 0.1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carFrontCone">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="8 0 0" />
+                <rotate value3="0 0 90" />
+                <rotate value3="0 45 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="1.45" height="6" slices="4" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carBodyMid">
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="6 2 4.5"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carBodyTop">
+            <transforms>
+                <translate value3="-3.1 1 0" />
+            </transforms>
+            <materialref id="redApp" />
+            <children>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="0" yy="0" zz="-1" />
+                        <controlpoint xx="0" yy="0" zz="-0.5" />
+                        <controlpoint xx="0" yy="0" zz="0.5" />
+                        <controlpoint xx="0" yy="0" zz="1" />
+
+                        <controlpoint xx="1" yy="0" zz="2" />
+                        <controlpoint xx="1" yy="1.5" zz="1" />
+                        <controlpoint xx="1" yy="1.5" zz="-1" />
+                        <controlpoint xx="1" yy="0" zz="-2" />
+
+                        <controlpoint xx="2" yy="0" zz="2" />
+                        <controlpoint xx="2" yy="1.5" zz="1" />
+                        <controlpoint xx="2" yy="1.5" zz="-1" />
+                        <controlpoint xx="2" yy="0" zz="-2" />
+
+                        <controlpoint xx="4" yy="0" zz="1" />
+                        <controlpoint xx="4" yy="1.5" zz="0.5" />
+                        <controlpoint xx="4" yy="1.5" zz="-0.5" />
+                        <controlpoint xx="4" yy="0" zz="-1" />
+                    </nurbs>
+                </primitive>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="4" yy="0" zz="1" />
+                        <controlpoint xx="4" yy="1.5" zz="0.5" />
+                        <controlpoint xx="4" yy="1.5" zz="-0.5" />
+                        <controlpoint xx="4" yy="0" zz="-1" />
+
+                        <controlpoint xx="2" yy="0" zz="2" />
+                        <controlpoint xx="2" yy="1.5" zz="1" />
+                        <controlpoint xx="2" yy="1.5" zz="-1" />
+                        <controlpoint xx="2" yy="0" zz="-2" />
+
+                        <controlpoint xx="1" yy="0" zz="2" />
+                        <controlpoint xx="1" yy="1.5" zz="1" />
+                        <controlpoint xx="1" yy="1.5" zz="-1" />
+                        <controlpoint xx="1" yy="0" zz="-2" />
+
+                        <controlpoint xx="0" yy="0" zz="-1" />
+                        <controlpoint xx="0" yy="0" zz="-0.5" />
+                        <controlpoint xx="0" yy="0" zz="0.5" />
+                        <controlpoint xx="0" yy="0" zz="1" />
+                    </nurbs>
+                </primitive>
+                
+            </children>
+        </node>
+
+        <node id="carDriver">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="2 0 0" />
+            </transforms>
+            <children>
+                <noderef id="helmet"/>
+                <noderef id="cockpit"/>
+            </children>
+        </node>
+
+        <node id="helmet">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="-0.7 1.4 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <sphere radius="0.8" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cockpit">
+            <transforms>
+                <translate value3="0 1 0" />
+                <scale value3="2.4 1 1.5" />
+            </transforms>
+            <materialref id="blackApp" />
+            <children>
+                <noderef id="triangle"/>
+            </children>
+        </node>
+
+        <node id="triangle">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="0 0 0" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="1" top="1" height="0.1" slices="3" stacks="20" />
                 </primitive>
             </children>
         </node>
 
         <node id="carWheels">
-            <transforms>
-                <!-- Position and rotation for the car wheels -->
-                <translate value3="0.5 -1.5 0.5" />
-            </transforms>
-            <materialref id="carWheelMaterial" />
             <children>
                 <noderef id="carWheel1" />
                 <noderef id="carWheel2" />
@@ -803,59 +940,111 @@
             </children>
         </node>
 
-        <node id="carWheel">
+        <node id="carWheel4">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="7 0 -3.6" />
+            </transforms>
+            <children>
+                <noderef id="carWheel" />
+                <noderef id="carWheelSuport" />
+            </children>
+        </node>
+
+        <node id="carWheelSuport">
+            <transforms>
+            </transforms>
+            <materialref id="metalApp" />   
+            <children>
+                <noderef id="carWheelSuport1" />
+                <noderef id="carWheelSuport2" />
+                <noderef id="carWheelSuport3" />
+            </children>
+        </node>
+
+        <node id="carWheelSuport1">
+            <transforms>
+                <translate value3="0 0.2 1.8" />
+                <rotate value3="90 0 0" />
+            </transforms> 
             <children>
                 <primitive>
-                    <cylinder base="1" top="1" height="1" slices="20" stacks="20" />
+                    <cylinder base="0.1" top="0.1" height="3" slices="20" stacks="20"/>
                 </primitive>
             </children>
         </node>
 
-        <node id="carWheel1">
+        <node id="carWheelSuport2">
             <transforms>
-                <!-- Position and rotation for the first car wheel -->
-                <translate value3="-5.5 0 2" />
+                <translate value3="0 0.2 1.8" />
+                <rotate value3="0 -20 0" />
                 <rotate value3="90 0 0" />
-                <scale value3="1.5 1.5 1.5" />
-            </transforms>
+            </transforms> 
             <children>
-                <noderef id="carWheel"/>
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height="3" slices="20" stacks="20"/>
+                </primitive>
             </children>
         </node>
 
-        <node id="carWheel2">
+        <node id="carWheelSuport3">
             <transforms>
-                <!-- Position and rotation for the second car wheel -->
-                <translate value3="4.5 0 2" />
+                <translate value3="0 0.2 1.8" />
+                <rotate value3="0 20 0" />
                 <rotate value3="90 0 0" />
-                <scale value3="1.5 1.5 1.5" />
-            </transforms>
+            </transforms> 
             <children>
-                <noderef id="carWheel"/>
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height="3" slices="20" stacks="20"/>
+                </primitive>
             </children>
         </node>
 
         <node id="carWheel3">
             <transforms>
-                <!-- Position and rotation for the third car wheel -->
-                <translate value3="-5.5 0 -3" />
-                <rotate value3="-90 0 0" />
-                <scale value3="1.5 1.5 1.5" />
-            </transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="7 0 3.6" />
+                <rotate value3="0 180 0" />
+            </transforms>   
             <children>
-                <noderef id="carWheel"/>
+                <noderef id="carWheel" />
+                <noderef id="carWheelSuport" />
             </children>
         </node>
 
-        <node id="carWheel4">
+        <node id="carWheel2">
             <transforms>
-                <!-- Position and rotation for the fourth car wheel -->
-                <translate value3="4.5 0 -3" />
-                <rotate value3="-90 0 0" />
-                <scale value3="1.5 1.5 1.5" />
+                <!-- Position and rotation for the car body -->
+                <translate value3="-2 0 -3.6" />
             </transforms>
             <children>
-                <noderef id="carWheel"/>
+                <noderef id="carWheel" />
+                <noderef id="carWheelSuport" />
+            </children>
+        </node>
+
+        <node id="carWheel1">
+            <transforms>
+                <!-- Position and rotation for the car body -->
+                <translate value3="-2 0 3.6" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <children>
+                <noderef id="carWheel" />
+                <noderef id="carWheelSuport" />
+            </children>
+        </node>
+
+        <node id="carWheel">
+            <transforms>
+                <translate value3="0 0.3 0" />
+                <rotate value3="90 0 0" />
+            </transforms>
+            <materialref id="blackApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1.2" top="1.2" height="1.4" slices="20" stacks="20" />
+                </primitive>
             </children>
         </node>
 
