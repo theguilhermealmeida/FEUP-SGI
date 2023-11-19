@@ -42,6 +42,7 @@
         <texture id="treeTex" filepath="scenes/t04g10/textures/treeTrunk.jpg" />
         <texture id="leafTex" filepath="scenes/t04g10/textures/treeLeaf.jpg" />
         <texture id="sandTex" filepath="scenes/t04g10/textures/sand.png" /> 
+        <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
     </textures> 
 
     <materials> 
@@ -240,6 +241,15 @@
             texlength_s="5" 
             texlength_t="5"/>
 
+        <material id="woodApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="woodTex" 
+            texlength_s="5" 
+            texlength_t="5"/>
+
     </materials> 
 
     <graph rootid="scene">
@@ -252,6 +262,7 @@
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
                 <noderef id="palmTrees" />
+                <noderef id="statue"/>
 
                 <directionallight id="light1"  
                     enabled="true" 
@@ -280,6 +291,54 @@
             </children>
         </node>
 
+        <node id="statue">
+            <transforms>
+                <translate value3="-20 1.2 30" />
+            </transforms>
+            <children>
+                <noderef id="statueBase" />
+                <noderef id="statueBody" />
+                <noderef id="statueCube" />
+            </children>
+        </node>
+
+        <node id="statueBody">
+            <transforms>
+                <translate value3="0 3 0" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="7" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="statueCube">
+            <transforms>
+                <translate value3="0 13 1" />
+                <rotate value3="45 0 0" />
+                <rotate value3="0 0 45" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-4 -4 -4" xyz2="4 4 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="statueBase">
+            <transforms>
+            </transforms>
+            <materialref id="woodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="8" top="6" height="3" slices="4" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="palmTrees">
             <children>
                 <noderef id="palmTree1" />
@@ -292,7 +351,7 @@
 
         <node id="palmTree1">
             <transforms>
-                <translate value3="15 0 -45" />
+                <translate value3="15 0 -70" />
             </transforms>
             <children>
                 <noderef id="palmTree" />
@@ -310,7 +369,7 @@
 
         <node id="palmTree3">
             <transforms>
-                <translate value3="50 0 0" />
+                <translate value3="48 0 -38" />
             </transforms>
             <children>
                 <noderef id="palmTree" />
@@ -1994,7 +2053,7 @@
 
         <node id="finishLine">
             <transforms>
-                <translate value3="0 0.1 0" />
+                <translate value3="0 0.3 0" />
                 <rotate value3="-90 0 0" />
             </transforms>
             <materialref id="finishApp" />
