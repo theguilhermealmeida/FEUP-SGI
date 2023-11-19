@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyPolygon } from './MyPolygon.js';
 
 
 class MyGeometryBuilder {
@@ -102,6 +103,23 @@ class MyGeometryBuilder {
             }
             case "lod": {
                 // TODO: implement lod 
+                break
+            }
+            case "polygon": {
+                // this.descriptors["polygon"] = [
+                //     {name: "radius", type: "float"},
+                //     {name: "stacks", type: "integer"},
+                //     {name: "slices", type: "integer"},
+                //     {name: "color_c", type: "rgba"},
+                //     {name: "color_p", type: "rgba"} 
+                // ]
+
+                geometry = new MyPolygon(geometryData)
+
+                let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatshading: true, vertexColors: true})
+                let primitive = new THREE.Mesh(geometry, material);
+                return primitive
+
                 break
             }
             default:

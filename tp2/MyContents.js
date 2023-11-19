@@ -20,8 +20,6 @@ class MyContents  {
 		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
 		// this.reader.open("scenes/ricardo/ovalOffice.xml");	
 
-
-
     }
 
     /**

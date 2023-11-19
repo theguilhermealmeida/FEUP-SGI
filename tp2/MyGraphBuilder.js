@@ -29,9 +29,22 @@ class MyGraphBuilder {
                 video.muted = true
                 video.autoplay = true;
                 textureObject = new THREE.VideoTexture(video);
-                // TODO: hardcoded 
                 video.playbackRate = 0.55 
-                video.play()
+                // let playPromise = video.play()
+                // if (playPromise !== undefined) {
+                //     playPromise.then(_ => {
+                //         // Automatic playback started!
+                //         // Show playing UI.
+                //         console.log("video started")
+                //     })
+                //     .catch(error => {
+                //         // Auto-play was prevented
+                //         // Show paused UI.
+                //         console.log("video not started")
+                //     });
+                // }
+
+                
             }
             else {
                 textureObject = new THREE.TextureLoader().load(texture.filepath);

@@ -607,7 +607,7 @@
             </transforms> 
 			
             <children>             
-                <noderef id="vase" />
+                <!-- <noderef id="vase" />
 				<noderef id="trunk" />
 				<noderef id="treeSeg1" />
 				<noderef id="treeSeg2" />
@@ -622,7 +622,7 @@
                 </primitive>
                 <primitive>
                     <box xyz1="-0.5 -0.5 -0.5" xyz2="0.5 0.5 0.5" />
-                </primitive>
+                </primitive> -->
                 <primitive>
                     <polygon radius="2.0" slices="12" stacks="3" color_c="1 0 0 1" color_p="1 1 0 1" />
                 </primitive>
