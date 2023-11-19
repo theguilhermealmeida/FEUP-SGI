@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <yaf> 
 	
+<!--
+************************************
+        GLOBAL VARIABLES
+************************************
+-->
+
     <globals background="0 0 0 1" ambient="0 0 0 1" />  
     <!-- TODO: AMBIENT NOT WORKING  -->
 
+
+<!--
+************************************
+            FOG
+************************************
+-->
+
     <fog color="1.0 1.0 1.0 1.0" near="6000.0" far="7000.0" />
+
+<!--
+************************************
+            CAMERAS
+************************************
+-->
 
     <cameras initial="cam1" > 
         <perspective id="cam1" 
-            angle="60" 
+            angle="75" 
             near="0.1" 
-            far="1000" 
-            location="-45 15 15" 
+            far="10000" 
+            location="95 45 -36" 
             target="0 0.0 0" /> 
 
         <orthogonal id="cam2" 
@@ -24,9 +43,21 @@
             bottom="-5" 
             top="5" /> 
     </cameras> 
+
+<!--
+************************************
+            SKYBOX
+************************************
+-->
+
     <skybox size="5000 5000 5000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="0.0" up="scenes/t04g10/textures/sky.png" down="scenes/t04g10/textures/sky.png" left="scenes/t04g10/textures/sky.png" right="scenes/t04g10/textures/sky.png" front="scenes/t04g10/textures/sky.png" back="scenes/t04g10/textures/sky.png"/>
 
-    <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
+<!--
+************************************
+            TEXTURES
+************************************
+-->
+
     <textures>        
         <texture id="landscapeTex" filepath="scenes/t04g10/textures/landscape.jpg" />
         <texture id="grassTex" filepath="scenes/t04g10/textures/grass.jpg" />
@@ -45,17 +76,13 @@
         <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
     </textures> 
 
-    <materials> 
+<!--
+************************************
+            MATERIALS
+************************************
+-->
 
-        <material id="landscapeApp" 
-            emissive="0.0 0.0 0.0 1" 
-            color="0.8 0.8 0.8 1.0" 
-            specular="0 0 0 0" 
-            shininess="0" 
-            textureref="landscapeTex"
-            texlength_s="25" 
-            texlength_t="18"/>
-		
+    <materials> 		
         <material id="grassApp" 
             emissive="0.0 0.0 0.0 1" 
             color="0.8 0.8 0.8 1.0" 
@@ -64,18 +91,6 @@
             textureref="grassTex" 
             texlength_s="25" 
             texlength_t="25"/>
-
-        <material id="carWheelMaterial" 
-            emissive="0.0 0.0 0.0 1" 
-            color="0.0 0.0 0.0 1.0" 
-            specular="0.7 0.7 0.7 1.0" 
-            shininess="10"/>
-
-        <material id="carTopMaterial" 
-            emissive="0.0 0.0 0.0 1" 
-            color="1.0 1.0 1.0 1.0" 
-            specular="0.7 0.7 0.7 1.0" 
-            shininess="50"/>
 
         <material id="asphaltApp"
             emissive="0.0 0.0 0.0 1" 
@@ -86,40 +101,12 @@
             texlength_s="1" 
             texlength_t="1"/>
 
-        <material id="kerbApp"
-            emissive="0.0 0.0 0.0 1" 
-            color="0.8 0.8 0.8 1.0" 
-            specular="0 0 0 0" 
-            shininess="0" 
-            textureref="kerbTex" 
-            texlength_s="1" 
-            texlength_t="1"/>
-
-        <material id="pineApp" 
-            emissive="0.0 0.0 0.0 1" 
-            color="0.8 0.8 0.8 1.0"  
-            specular="0 0 0 0" 
-            shininess="0" 
-            textureref="pineTex" 
-            texlength_s="1" 
-            texlength_t="1"
-            wireframe = "true" />
-
         <material id="fenceApp"
             emissive="0.0 0.0 0.0 1" 
             color="0.305882353 0.305882353 0.321568627 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
             wireframe="true"/>
-
-        <material id="tableApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="tableTex" 
-            texlength_s="1" 
-            texlength_t="1" />
 
         <material id="whiteApp" 
             color="1.0 1.0 1.0 1.0" 
@@ -193,15 +180,6 @@
             texlength_s="15" 
             texlength_t="15"/>
 
-        <material id="dirtApp"
-            emissive="0.0 0.0 0.0 1" 
-            color="1 1 1 1.0" 
-            specular="0 0 0 0" 
-            shininess="0" 
-            textureref="dirtTex" 
-            texlength_s="15" 
-            texlength_t="15"/>
-
         <material id="greenApp"
             emissive="0.0 0.0 0.0 1" 
             color="0.274509804 0.839215686 0.176470588 1.0" 
@@ -249,8 +227,13 @@
             textureref="woodTex" 
             texlength_s="5" 
             texlength_t="5"/>
-
     </materials> 
+
+<!--
+************************************
+            SCENE
+************************************
+-->
 
     <graph rootid="scene">
         <node id="scene" castshadows = "true" receiveshadows = "true">
