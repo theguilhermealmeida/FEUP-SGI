@@ -39,6 +39,18 @@
         <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
         <texture id="waterTex" filepath="scenes/t04g10/textures/water.png" />
         <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
+
+        <!-- mipmap example -->
+        <!-- <texture id="dirtTex" filepath="scenes/t04g10/textures/caravaggio.jpg" 
+            mipmap0="scenes/t04g10/textures/caravaggio.1024.jpg"
+            mipmap1="scenes/t04g10/textures/caravaggio.512.jpg"
+            mipmap2="scenes/t04g10/textures/caravaggio.256.jpg"
+            mipmap3="scenes/t04g10/textures/caravaggio.128.jpg"
+            mipmap4="scenes/t04g10/textures/caravaggio.64.jpg"
+            mipmap5="scenes/t04g10/textures/caravaggio.32.jpg"
+            mipmap6="scenes/t04g10/textures/caravaggio.16.jpg"
+            mipmap7="scenes/t04g10/textures/caravaggio.8.jpg"
+        /> -->
     </textures> 
 
     <materials> 

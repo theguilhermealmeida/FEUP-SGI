@@ -47,17 +47,25 @@ class MyGraphBuilder {
                     break;
             }
             textureObject.anisotropy = texture.anisotropy;
-            if (texture.mipmaps) {
-               // implement mipmaps
-               const mipmaps = []
+            if (texture.mipmap0 !== undefined && texture.mipmap0 !== null) {
+                textureObject.generateMipmaps = false
                 for (let i = 0; i <= 7; i++) {
                     const mipmapPath = texture[`mipmap${i}`]
-                    if (mipmapPath) {
-                        const mipmap = new THREE.TextureLoader().load(mipmapPath)
-                        mipmaps.push(mipmap)
+                    if (texture[`mipmap${i}`] !== undefined && texture[`mipmap${i}`] !== null) {
+                        new THREE.TextureLoader().load(mipmapPath,
+                            function (mipmap) {
+                                textureObject.mipmaps[i] = mipmap.image
+                                console.log(mipmap.image.width)
+                            },
+                            undefined,
+                            function (error) {
+                                console.error("Error loading mipmap: " + error)
+                        })
                     }
+                    console.log("AQUIII")
+                    console.log(textureObject)
+                    console.log(textureObject.mipmaps)
                 }
-                textureObject.mipmaps = mipmaps
             }
             this.textures.set(texture.id, textureObject)
         }
