@@ -39,6 +39,7 @@
         <texture id="heinekenTex" filepath="scenes/t04g10/textures/heineken.png" />
         <texture id="waterTex" filepath="scenes/t04g10/textures/water.png" />
         <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
+        <texture id="videoTex" isVideo="true" filepath="scenes/t04g10/videos/water.mp4" />
 
         <!-- mipmap example -->
         <!-- <texture id="dirtTex" filepath="scenes/t04g10/textures/caravaggio.jpg" 
@@ -198,7 +199,7 @@
             color="1 1 1 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
-            textureref="waterTex" 
+            textureref="videoTex" 
             texlength_s="15" 
             texlength_t="15"/>
 

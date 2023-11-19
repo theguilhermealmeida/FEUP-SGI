@@ -17,10 +17,17 @@ class MyGeometryBuilder {
             case "rectangle": {
                 // handle texture
                 if (this.textureObject != null) {
-                    this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                    this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
-                    this.materialObject.map = this.textureObject;
+                    if (materialData.id == "waterApp") {
+                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                        this.textureObject.repeat.set(2,2);
+                    }
+                    else {
+                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                        this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
+                        this.materialObject.map = this.textureObject;
+                    }
                 }
+                
                 
                 let x = this.representations.xy2[0] - this.representations.xy1[0];
                 let y = this.representations.xy2[1] - this.representations.xy1[1];

@@ -21,7 +21,20 @@ class MyGraphBuilder {
     initTextures() {
         for (let key in this.sceneData.textures) {
             let texture = this.sceneData.textures[key];
-            let textureObject = new THREE.TextureLoader().load(texture.filepath);
+            let textureObject
+            if (texture.isVideo) {
+                const video = document.createElement('video');
+                video.src = texture.filepath
+                video.loop = true;
+                video.muted = true
+                video.autoplay = true;
+                textureObject = new THREE.VideoTexture(video);
+                // TODO: hardcoded 
+                video.playbackRate = 0.55 
+                video.play()
+            }
+            else {
+                textureObject = new THREE.TextureLoader().load(texture.filepath);
             textureObject.magFilter = texture.magFilter == "NearestFilter" ? THREE.NearestFilter : THREE.LinearFilter;
             switch (texture.minFilter) {
                 case "NearestFilter":
@@ -55,18 +68,15 @@ class MyGraphBuilder {
                         new THREE.TextureLoader().load(mipmapPath,
                             function (mipmap) {
                                 textureObject.mipmaps[i] = mipmap.image
-                                console.log(mipmap.image.width)
                             },
                             undefined,
                             function (error) {
                                 console.error("Error loading mipmap: " + error)
                         })
                     }
-                    console.log("AQUIII")
-                    console.log(textureObject)
-                    console.log(textureObject.mipmaps)
                 }
             }
+        }
             this.textures.set(texture.id, textureObject)
         }
     }
