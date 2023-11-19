@@ -1599,7 +1599,7 @@
 
         <node id="straight10">
             <transforms>
-                <translate value3="13.5 7.5 12.5" />
+                <translate value3="13.5 7.17 12.5" />
                 <scale value3="5 1 1" />
             </transforms>
             <children>
