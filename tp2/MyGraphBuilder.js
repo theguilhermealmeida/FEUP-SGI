@@ -12,6 +12,9 @@ class MyGraphBuilder {
         this.textures = new Map()
         this.lights = new Map()
         this.transformations = new Map()
+        this.lods = new Map()
+
+        this.no_materials = new Map()
 
         this.initTextures()
         this.initMaterials()
@@ -163,7 +166,6 @@ class MyGraphBuilder {
         const nodeGroup = new THREE.Group();
         // Process the node's children
         for (let childData of nodeData.children) {
-            let no_material = false
             let child
 
             if (childData.type === "primitive") {
@@ -178,7 +180,6 @@ class MyGraphBuilder {
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
                     //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
-                    no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
 
@@ -190,16 +191,17 @@ class MyGraphBuilder {
             else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
                 child = this.buildLight(childData)
             }
+            // else if (childData.type === "lod") {
+            //     this.lods.set(childData.id, new THREE.LOD())
+            //     this.buildLod(childData)
+            //     child = this.lods.get(childData.id)
+            // }
             else {
                 console.warn("Unknown node type: " + childData.type);
             }
 
             if (child !== undefined) {
                 nodeGroup.add(child);
-                if (no_material) {
-                    childData.materialIds = []
-                    child.material = null
-                }
                 this.nodes.set(childData.id, child)
             }
         }
@@ -282,6 +284,20 @@ class MyGraphBuilder {
             return group;
         }
         return light
+    }
+
+    buildLod(lodData) {
+        for (let childNodeData of lodData.children) {
+            // node already exists
+            if (this.nodes.has(childNodeData.node.id)) {
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+            // node does not exist
+            else {
+                this.processNode(childNodeData.node)
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+        }
     }
 
 }

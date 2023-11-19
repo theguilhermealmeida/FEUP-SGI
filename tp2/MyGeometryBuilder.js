@@ -50,6 +50,18 @@ class MyGeometryBuilder {
                 // handle texture
                 if (this.textureObject != null) {
                     this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                    // const v1 = new THREE.Vector3(this.representations.xyz1[0], this.representations.xyz1[1], this.representations.xyz1[2]);
+                    // const v2 = new THREE.Vector3(this.representations.xyz2[0], this.representations.xyz2[1], this.representations.xyz2[2]);
+                    // const v3 = new THREE.Vector3(this.representations.xyz3[0], this.representations.xyz3[1], this.representations.xyz3[2]);
+
+                    // const a = v1.distanceTo(v2);
+                    // const b = v2.distanceTo(v3);
+                    // const c = v1.distanceTo(v3);
+
+                    // const v213 = Math.acos((a*a - b*b + c*c) / (2*a*c));
+                    // const v132 = Math.acos((-(a*a) + b*b + c*c) / (2*c*b));
+                    // const v321 = Math.acos((a*a + b*b - (c*c)) / (2*a*b));
+
                     // TODO: use texlenght_s and texlenght_t
                     this.textureObject.repeat.set(1,1);
                     this.materialObject.map = this.textureObject;
@@ -93,10 +105,6 @@ class MyGeometryBuilder {
                 // TODO: implement model3d 
                 break;
             }
-            case "lod": {
-                // TODO: implement lod 
-                break
-            }
             case "polygon": {
                 geometry = new MyPolygon(geometryData)
 
@@ -108,6 +116,7 @@ class MyGeometryBuilder {
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
         }
+
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         this.mesh.castShadow = this.castShadows;
         this.mesh.receiveShadow = this.receiveShadows;

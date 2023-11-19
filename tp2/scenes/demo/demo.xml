@@ -26,7 +26,7 @@
             top="-5" /> 
     </cameras> 
 
-    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./scenes/demo/textures/pine.png" down="./scenes/demo/textures/pine.png" left="./scenes/demo/textures/pine.png" right="./scenes/demo/textures/pine.png" front="./scenes/demo/textures/pine.png" back="./scenes/demo/textures/pine.png"/>
+    <skybox size="1000 1000 1000" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./scenes/demo/textures/pine.png" down="./scenes/demo/textures/pine.png" left="./scenes/demo/textures/pine.png" right="./scenes/demo/textures/pine.png" front="./scenes/demo/textures/pine.png" back="./scenes/demo/textures/pine.png"/>
 
     
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
@@ -149,22 +149,22 @@
     <graph rootid="scene"> 
         <lod id="demo" near="0" far="1000" > 
             <noderef id="rectangle2" mindist="5" />
-            <noderef id="rectangle2" mindist="10"/>
-            <noderef id="rectangle2" mindist="100"/>
-            <noderef id="rectangle2" mindist="500"/>
+            <noderef id="rectangle4" mindist="10"/>
+            <noderef id="rectangle5" mindist="100"/>
+            <noderef id="rectangle6" mindist="500"/>
         </lod>
 		
 		<node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
-                <noderef id="leftWall" /> 
-				<noderef id="rightWall" /> 
-				<noderef id="floor" /> 
+                <!-- <noderef id="leftWall" />  -->
+				<!-- <noderef id="rightWall" />  -->
+				<!-- <noderef id="floor" />  -->
 				<noderef id="table" /> 
 				 
-				<noderef id="tree" /> 
-				<noderef id="policeWarning1" /> 
-				<noderef id="policeWarning2" />
-				<noderef id="crimeWeapon" />
+				<!-- <noderef id="tree" />  -->
+				<!-- <noderef id="policeWarning1" />  -->
+				<!-- <noderef id="policeWarning2" /> -->
+				<!-- <noderef id="crimeWeapon" /> -->
 
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
@@ -624,7 +624,7 @@
                     <box xyz1="-0.5 -0.5 -0.5" xyz2="0.5 0.5 0.5" />
                 </primitive> -->
                 <primitive>
-                    <polygon radius="2.0" slices="12" stacks="3" color_c="1 0 0 1" color_p="1 1 0 1" />
+                    <polygon radius="2.0" slices="12" stacks="3" color_c="0 0 0 1" color_p="0 1 0 1" />
                 </primitive>
 
 
