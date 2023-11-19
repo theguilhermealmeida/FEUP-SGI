@@ -36,8 +36,10 @@ class MyTriangle extends THREE.BufferGeometry {
 		var crossProductY = vectorBx * vectorAz - vectorAx * vectorBz
 		var crossProductZ = vectorAx * vectorBy - vectorBx * vectorAy
 		
-		var normal = new THREE.Vector3(crossProductX, crossProductY, crossProductZ)
+		var normal = new THREE.Vector3(crossProductX, crossProductY, crossProductZ);
+		// var oppositeNormal = normal.clone().negate();
         normal.normalize()
+		// oppositeNormal.normalize()
 
         //TEXTURE COORDINATES
 		let a = this.p1.distanceTo(this.p2);
@@ -56,13 +58,17 @@ class MyTriangle extends THREE.BufferGeometry {
         ] );
 		
 		const indices = [
-            0, 1, 2
+            0, 1, 2,
+			0, 2, 1
         ];
 		
 		const normals = [
 			...normal.toArray(),
 			...normal.toArray(),
 			...normal.toArray(),
+			// ...oppositeNormal.toArray(),
+			// ...oppositeNormal.toArray(),
+			// ...oppositeNormal.toArray()
 		];
 
 /* 		const uvs = [

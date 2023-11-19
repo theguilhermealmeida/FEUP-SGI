@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyPolygon } from './MyPolygon.js';
+import { MyTriangle } from './MyTriangle.js';
 
 
 class MyGeometryBuilder {
@@ -36,35 +37,26 @@ class MyGeometryBuilder {
                 break;
             }
             case "cylinder": {
-                // handle texture
-                // TODO: implement texture for cylinder
-
-
                 // build geometry
                 geometry = new THREE.CylinderGeometry(this.representations.top, this.representations.base, this.representations.height, this.representations.slices, this.representations.stacks, this.representations.capsclose, this.representations.thetastart, this.representations.thetalength);
                 break;
             }
             case "sphere": {
-                // handle texture
-                // TODO: implement texture for sphere
-
                 // build geometry
                 geometry = new THREE.SphereGeometry(this.representations.radius, this.representations.slices, this.representations.stacks, this.representations.phistart, this.representations.philength, this.representations.thetastart, this.representations.thetalength);
                 break;
             }
             case "triangle": {
                 // handle texture
-                // TODO: implement texture for triangle
+                if (this.textureObject != null) {
+                    this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                    // TODO: use texlenght_s and texlenght_t
+                    this.textureObject.repeat.set(1,1);
+                    this.materialObject.map = this.textureObject;
+                }
 
                 // build geometry
-                geometry = new THREE.Geometry();
-                let x2 = this.representations.xy2[0] - this.representations.xy1[0];
-                let y2 = this.representations.xy2[1] - this.representations.xy1[1];
-                let z2 = this.representations.xy2[2] - this.representations.xy1[2];
-                let triangle = new THREE.Triangle(x2, y2, z2);
-                let normal = triangle.normal();
-                geometry.vertices.push(triangle.a, triangle.b, triangle.c);
-                geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
+                geometry = new MyTriangle(this.representations.xyz1[0], this.representations.xyz1[1], this.representations.xyz1[2], this.representations.xyz2[0], this.representations.xyz2[1], this.representations.xyz2[2], this.representations.xyz3[0], this.representations.xyz3[1], this.representations.xyz3[2]);
                 break;
             }
             case "nurbs": {
@@ -106,27 +98,15 @@ class MyGeometryBuilder {
                 break
             }
             case "polygon": {
-                // this.descriptors["polygon"] = [
-                //     {name: "radius", type: "float"},
-                //     {name: "stacks", type: "integer"},
-                //     {name: "slices", type: "integer"},
-                //     {name: "color_c", type: "rgba"},
-                //     {name: "color_p", type: "rgba"} 
-                // ]
-
                 geometry = new MyPolygon(geometryData)
 
                 let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatshading: true, vertexColors: true})
                 let primitive = new THREE.Mesh(geometry, material);
                 return primitive
-
-                break
             }
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
-            
-
         }
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         this.mesh.castShadow = this.castShadows;
