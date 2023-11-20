@@ -1,60 +1,34 @@
-# sgi-tp2-base
-The starting point of the second assignment of SGI.
+# SGI 2023/2024 - TP2
 
+## Group T04G10
+| Name             | Number    | E-Mail             |
+| ---------------- | --------- | ------------------ |
+| Tiago Barbosa    | 202004926 | <up202004926@edu.fe.up.pt>|
+| Guilherme Almeida    | 202008866 | <up202008866@edu.fe.up.pt>|
 
-# Getting started
+----
+## Project information
 
-Considering a code block (for instance class A.js), to load an xml file (in the defined structure) call:
+- Strong Points
+  - idea/concept of the scene
+  - variety of textures and types of textures
+  - variety of objects
+  - diverse GUI
+- Scene
+  - This scene is inspired on a F1 track. It has a track with some cars running through it. It also has a tropical vibe with palm trees and a beach. We also added a litle cube statue with art on it and some stands for the audience.
 
-    let reader = new MyFileReader(app, this, *this.onSceneLoaded*);
-    reader.open("<path to xml file>");	
+- tp2/index.html
 
-The last argument in the MyFileReader object call is the name of the method that is to be called when the xml file is loaded and parsed.
+----
 
-Hence, In the same code block (for instance class A.js) add a function method with the following signature: 
+## Issues/Problems
 
-    onSceneLoaded(data) {
-        // do something with the data object
-    }
+- Textures for triangle is still not working
+- The clone of nodes is not perfect so we remove it from the builder
 
-This method is called once the xml file is loaded and parsed successfully. This method single input argument, *data*, is an object containing the entire scene data object. This document can be traversed according to the rules defined in the section on MySceneData class
+---
 
+## Screenshots
 
-
-# MyFileServer
-File MyFileServer.js contains the class responsible for the XML parser general functionality. Most of the parsing process is derived from descriptors defined in MySceneData.js. A small part is hardcoded.
-
-> <span style="color: red;">**DO NOT CHANGE MyFileServer.js FILE. IT WILL BE MODIFIED OR REPLACED DURING EVALUATION**</span>
-
-# MySceneData
-File MySceneData.js contains a class with metadata description and, in the end of parsing, contains the full set of objects loaded from the xml scene file. This class has several important object attributes:
-- options: contains the scene options, from the globals section
-- fog: contains the scene fog options, from the fog section
-- materials: associative array/list with the scene described materials
-- textures: associative array/list with the scene described textures
-- cameras: associative array/list with all the cameras in the scene
-- activeCameraId: the id of the active camera
-- nodes: associative array/list with all the scene nodes.
-- rootId: the id of the root node
-
-NOTES: 
-1. for each entity type, there are no repeated ids. For instance, if there are two nodes with the same id, the parser will complain and the scene will not be loaded.
-2. For each loaded entity, the parser will check if all the required attributes are present. If not, the parser will complain and the scene will not be loaded.
-3. For each entity, a descriptor defined in the constructor defines the attribute's name, type, requiredness, default value.
-4. **DO NOT CHANGE MySceneData.js IT WILL BE MODIFIED OR REPLACED DURING EVALUATION**
-
-## Custom attributes
-Use  the custom attribute in the data objects to add further attributes:
-
-
-    let obj = {
-        id: "some id",
-        type: "some type",
-        custom: {
-            attr1: "value1",
-            attr2: "value2"
-        } 
-    }
-
-in the previous object, attr1 and attr2 are custom attributes that were added to the object by the programmer (student), in light its program specific needs.
-
+[<img src="./scenes/t04g10/screenshots/v02/scene1.png" width="3360" heigth="1904">]()
+[<img src="./scenes/t04g10/screenshots/v02/scene2.png" width="3360" heigth="1904">]()
