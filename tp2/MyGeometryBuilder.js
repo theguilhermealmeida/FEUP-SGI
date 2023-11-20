@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyPolygon } from './MyPolygon.js';
+import { MyTriangle } from './MyTriangle.js';
 
 
 class MyGeometryBuilder {
@@ -17,10 +19,17 @@ class MyGeometryBuilder {
             case "rectangle": {
                 // handle texture
                 if (this.textureObject != null) {
-                    this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                    this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
-                    this.materialObject.map = this.textureObject;
+                    if (materialData.id == "waterApp") {
+                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                        this.textureObject.repeat.set(2,2);
+                    }
+                    else {
+                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                        this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
+                        this.materialObject.map = this.textureObject;
+                    }
                 }
+                
                 
                 let x = this.representations.xy2[0] - this.representations.xy1[0];
                 let y = this.representations.xy2[1] - this.representations.xy1[1];
@@ -28,35 +37,38 @@ class MyGeometryBuilder {
                 break;
             }
             case "cylinder": {
-                // handle texture
-                // TODO: implement texture for cylinder
-
-
                 // build geometry
                 geometry = new THREE.CylinderGeometry(this.representations.top, this.representations.base, this.representations.height, this.representations.slices, this.representations.stacks, this.representations.capsclose, this.representations.thetastart, this.representations.thetalength);
                 break;
             }
             case "sphere": {
-                // handle texture
-                // TODO: implement texture for sphere
-
                 // build geometry
                 geometry = new THREE.SphereGeometry(this.representations.radius, this.representations.slices, this.representations.stacks, this.representations.phistart, this.representations.philength, this.representations.thetastart, this.representations.thetalength);
                 break;
             }
             case "triangle": {
                 // handle texture
-                // TODO: implement texture for triangle
+                if (this.textureObject != null) {
+                    this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                    // const v1 = new THREE.Vector3(this.representations.xyz1[0], this.representations.xyz1[1], this.representations.xyz1[2]);
+                    // const v2 = new THREE.Vector3(this.representations.xyz2[0], this.representations.xyz2[1], this.representations.xyz2[2]);
+                    // const v3 = new THREE.Vector3(this.representations.xyz3[0], this.representations.xyz3[1], this.representations.xyz3[2]);
+
+                    // const a = v1.distanceTo(v2);
+                    // const b = v2.distanceTo(v3);
+                    // const c = v1.distanceTo(v3);
+
+                    // const v213 = Math.acos((a*a - b*b + c*c) / (2*a*c));
+                    // const v132 = Math.acos((-(a*a) + b*b + c*c) / (2*c*b));
+                    // const v321 = Math.acos((a*a + b*b - (c*c)) / (2*a*b));
+
+                    // TODO: use texlenght_s and texlenght_t
+                    this.textureObject.repeat.set(1,1);
+                    this.materialObject.map = this.textureObject;
+                }
 
                 // build geometry
-                geometry = new THREE.Geometry();
-                let x2 = this.representations.xy2[0] - this.representations.xy1[0];
-                let y2 = this.representations.xy2[1] - this.representations.xy1[1];
-                let z2 = this.representations.xy2[2] - this.representations.xy1[2];
-                let triangle = new THREE.Triangle(x2, y2, z2);
-                let normal = triangle.normal();
-                geometry.vertices.push(triangle.a, triangle.b, triangle.c);
-                geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
+                geometry = new MyTriangle(this.representations.xyz1[0], this.representations.xyz1[1], this.representations.xyz1[2], this.representations.xyz2[0], this.representations.xyz2[1], this.representations.xyz2[2], this.representations.xyz3[0], this.representations.xyz3[1], this.representations.xyz3[2]);
                 break;
             }
             case "nurbs": {
@@ -75,7 +87,6 @@ class MyGeometryBuilder {
                         count_u++
                     }
                     if (count_u == this.representations.degree_u + 1) {
-                        console.log("more points than expected")
                         break
                     }
                 }
@@ -93,16 +104,18 @@ class MyGeometryBuilder {
                 // TODO: implement model3d 
                 break;
             }
-            case "lod": {
-                // TODO: implement lod 
-                break
+            case "polygon": {
+                geometry = new MyPolygon(geometryData)
+
+                let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatshading: true, vertexColors: true})
+                let primitive = new THREE.Mesh(geometry, material);
+                return primitive
             }
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
-            
-
         }
+
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         this.mesh.castShadow = this.castShadows;
         this.mesh.receiveShadow = this.receiveShadows;

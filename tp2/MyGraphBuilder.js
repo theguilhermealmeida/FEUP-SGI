@@ -12,6 +12,9 @@ class MyGraphBuilder {
         this.textures = new Map()
         this.lights = new Map()
         this.transformations = new Map()
+        this.lods = new Map()
+
+        this.no_materials = new Map()
 
         this.initTextures()
         this.initMaterials()
@@ -21,7 +24,33 @@ class MyGraphBuilder {
     initTextures() {
         for (let key in this.sceneData.textures) {
             let texture = this.sceneData.textures[key];
-            let textureObject = new THREE.TextureLoader().load(texture.filepath);
+            let textureObject
+            if (texture.isVideo) {
+                const video = document.createElement('video');
+                video.src = texture.filepath
+                video.loop = true;
+                video.muted = true
+                video.autoplay = true;
+                textureObject = new THREE.VideoTexture(video);
+                video.playbackRate = 0.55 
+                // let playPromise = video.play()
+                // if (playPromise !== undefined) {
+                //     playPromise.then(_ => {
+                //         // Automatic playback started!
+                //         // Show playing UI.
+                //         console.log("video started")
+                //     })
+                //     .catch(error => {
+                //         // Auto-play was prevented
+                //         // Show paused UI.
+                //         console.log("video not started")
+                //     });
+                // }
+
+                
+            }
+            else {
+                textureObject = new THREE.TextureLoader().load(texture.filepath);
             textureObject.magFilter = texture.magFilter == "NearestFilter" ? THREE.NearestFilter : THREE.LinearFilter;
             switch (texture.minFilter) {
                 case "NearestFilter":
@@ -47,18 +76,23 @@ class MyGraphBuilder {
                     break;
             }
             textureObject.anisotropy = texture.anisotropy;
-            if (texture.mipmaps) {
-               // implement mipmaps
-               const mipmaps = []
+            if (texture.mipmap0 !== undefined && texture.mipmap0 !== null) {
+                textureObject.generateMipmaps = false
                 for (let i = 0; i <= 7; i++) {
                     const mipmapPath = texture[`mipmap${i}`]
-                    if (mipmapPath) {
-                        const mipmap = new THREE.TextureLoader().load(mipmapPath)
-                        mipmaps.push(mipmap)
+                    if (texture[`mipmap${i}`] !== undefined && texture[`mipmap${i}`] !== null) {
+                        new THREE.TextureLoader().load(mipmapPath,
+                            function (mipmap) {
+                                textureObject.mipmaps[i] = mipmap.image
+                            },
+                            undefined,
+                            function (error) {
+                                console.error("Error loading mipmap: " + error)
+                        })
                     }
                 }
-                textureObject.mipmaps = mipmaps
             }
+        }
             this.textures.set(texture.id, textureObject)
         }
     }
@@ -132,7 +166,6 @@ class MyGraphBuilder {
         const nodeGroup = new THREE.Group();
         // Process the node's children
         for (let childData of nodeData.children) {
-            let no_material = false
             let child
 
             if (childData.type === "primitive") {
@@ -147,7 +180,6 @@ class MyGraphBuilder {
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
                     //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
-                    no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
 
@@ -159,16 +191,17 @@ class MyGraphBuilder {
             else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
                 child = this.buildLight(childData)
             }
+            // else if (childData.type === "lod") {
+            //     this.lods.set(childData.id, new THREE.LOD())
+            //     this.buildLod(childData)
+            //     child = this.lods.get(childData.id)
+            // }
             else {
                 console.warn("Unknown node type: " + childData.type);
             }
 
             if (child !== undefined) {
                 nodeGroup.add(child);
-                if (no_material) {
-                    childData.materialIds = []
-                    child.material = null
-                }
                 this.nodes.set(childData.id, child)
             }
         }
@@ -209,8 +242,6 @@ class MyGraphBuilder {
                 target.position.set(...lightData.target);
                 light.angle = lightData.angle;
                 light.penumbra = lightData.penumbra;
-                const helper = new THREE.SpotLightHelper(light);
-                light.add(helper);
                 light.target = target;
                 break
             }
@@ -246,11 +277,24 @@ class MyGraphBuilder {
 
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();
-            group.add(light);
-            group.add(light.target);
-            return group;
+            const helper = new THREE.SpotLightHelper(light);
+            //light.add(helper);
         }
         return light
+    }
+
+    buildLod(lodData) {
+        for (let childNodeData of lodData.children) {
+            // node already exists
+            if (this.nodes.has(childNodeData.node.id)) {
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+            // node does not exist
+            else {
+                this.processNode(childNodeData.node)
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+        }
     }
 
 }
