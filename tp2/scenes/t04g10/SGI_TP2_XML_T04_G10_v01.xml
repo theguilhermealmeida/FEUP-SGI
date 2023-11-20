@@ -57,7 +57,6 @@
 -->
 
     <textures>        
-        <texture id="grassTex" filepath="scenes/t04g10/textures/grass.jpg" />
         <texture id="asphaltTex" filepath="scenes/t04g10/textures/asphalt.jpg" />
         <texture id="tableTex" filepath="scenes/t04g10/textures/table.png" />
         <texture id="finishTex" filepath="scenes/t04g10/textures/finish.png" />
@@ -72,16 +71,16 @@
         <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
         <texture id="videoTex" isVideo="true" filepath="scenes/t04g10/videos/water.mp4" />
         <!-- mipmap example -->
-        <!-- <texture id="dirtTex" filepath="scenes/t04g10/textures/caravaggio.jpg" 
-            mipmap0="scenes/t04g10/textures/caravaggio.1024.jpg"
-            mipmap1="scenes/t04g10/textures/caravaggio.512.jpg"
-            mipmap2="scenes/t04g10/textures/caravaggio.256.jpg"
-            mipmap3="scenes/t04g10/textures/caravaggio.128.jpg"
-            mipmap4="scenes/t04g10/textures/caravaggio.64.jpg"
-            mipmap5="scenes/t04g10/textures/caravaggio.32.jpg"
-            mipmap6="scenes/t04g10/textures/caravaggio.16.jpg"
-            mipmap7="scenes/t04g10/textures/caravaggio.8.jpg"
-        /> -->
+        <texture id="grassTex" filepath="scenes/t04g10/textures/grass.png" 
+            mipmap0="scenes/t04g10/textures/grass.1024.png"
+            mipmap1="scenes/t04g10/textures/grass.512.png"
+            mipmap2="scenes/t04g10/textures/grass.256.png"
+            mipmap3="scenes/t04g10/textures/grass.128.png"
+            mipmap4="scenes/t04g10/textures/grass.64.png"
+            mipmap5="scenes/t04g10/textures/grass.32.png"
+            mipmap6="scenes/t04g10/textures/grass.16.png"
+            mipmap7="scenes/t04g10/textures/grass.8.png"
+        />
     </textures> 
 
 <!--
@@ -97,8 +96,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="grassTex" 
-            texlength_s="25" 
-            texlength_t="25"/>
+            texlength_s="20" 
+            texlength_t="20"/>
 
         <material id="asphaltApp"
             emissive="0.0 0.0 0.0 1" 
@@ -266,6 +265,9 @@
                 <noderef id="spotlights" />
                 <noderef id="palmTrees" />
                 <noderef id="statue"/>
+                <primitive>
+                    <polygon radius="10.0" slices="3" stacks="3" color_c="1 0 0 1" color_p="0 1 0 1" />
+                </primitive>
             </children>
         </node>
 

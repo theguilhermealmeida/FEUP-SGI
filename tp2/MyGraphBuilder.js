@@ -179,14 +179,14 @@ class MyGraphBuilder {
         if (nodeData.type === "primitive") nodeGroup.name = nodeData.subtype
         else nodeGroup.name = nodeData.id
 
-        if (this.nodes.has(nodeData.id)) {
-            console.log("node already exists")
-            nodeGroup.add(this.nodes.get(nodeData.id).clone())
-            // let clone = this.nodes.get(nodeData.id).clone()
-            // this.handleClone(clone, nodeGroup.material)
-            // nodeGroup.add(clone) 
-            return
-        }
+        // if (this.nodes.has(nodeData.id)) {
+        //     console.log("node already exists")
+        //     nodeGroup.add(this.nodes.get(nodeData.id).clone())
+        //     // let clone = this.nodes.get(nodeData.id).clone()
+        //     // this.handleClone(clone, nodeGroup.material)
+        //     // nodeGroup.add(clone) 
+        //     return
+        // }
 
         if (nodeData == undefined) {
             console.warn("Undefined node: " + nodeData.id)
