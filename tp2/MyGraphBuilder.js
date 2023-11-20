@@ -242,8 +242,6 @@ class MyGraphBuilder {
                 target.position.set(...lightData.target);
                 light.angle = lightData.angle;
                 light.penumbra = lightData.penumbra;
-                const helper = new THREE.SpotLightHelper(light);
-                light.add(helper);
                 light.target = target;
                 break
             }
@@ -279,9 +277,8 @@ class MyGraphBuilder {
 
         if (lightData.type === "spotlight") {
             const group = new THREE.Group();
-            group.add(light);
-            group.add(light.target);
-            return group;
+            const helper = new THREE.SpotLightHelper(light);
+            //light.add(helper);
         }
         return light
     }
