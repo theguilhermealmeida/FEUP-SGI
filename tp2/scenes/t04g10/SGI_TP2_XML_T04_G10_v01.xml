@@ -2538,7 +2538,7 @@
             <children>
                 <noderef id="statueBase" />
                 <noderef id="statueBody" />
-                <noderef id="statueCube" />
+                <noderef id="statueTop" />
             </children>
         </node>
 
@@ -2563,11 +2563,97 @@
             </children>
         </node>
 
-        <node id="statueCube">
+        <node id="statueTop">
             <transforms>
                 <translate value3="0 13 1" />
                 <rotate value3="0.7853 0 0" />
                 <rotate value3="0 0 0.7853" />
+            </transforms>
+            <children>
+                <noderef id="statueCube" />
+                <noderef id="cubeDecoration1" />
+                <noderef id="cubeDecoration2" />
+                <noderef id="cubeDecoration3" />
+                <noderef id="cubeDecoration4" />
+                <noderef id="cubeDecoration5" />
+                <noderef id="cubeDecoration6" />
+            </children>
+        </node>
+
+        <node id="cubeDecoration1">
+            <transforms>
+                <translate value3="0 4.05 0" />
+                <rotate value3="-1.5707 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="0 1 0 1" color_p="1 0 1 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cubeDecoration2">
+            <transforms>
+                <translate value3="0 0 4.05" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="1 1 1 1" color_p="1 0 1 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cubeDecoration3">
+            <transforms>
+                <translate value3="0 0 -4.05" />
+                <rotate value3="0 3.1415 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="0 1 0 1" color_p="0 0 1 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cubeDecoration4">
+            <transforms>
+                <translate value3="4.05 0 0" />
+                <rotate value3="0 1.5707 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="0 1 1 1" color_p="1 0 0 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cubeDecoration5">
+            <transforms>
+                <translate value3="-4.05 0 0" />
+                <rotate value3="0 -1.5707 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="0 1 1 1" color_p="0 0 1 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="cubeDecoration6">
+            <transforms>
+                <translate value3="0 -4.05 0" />
+                <rotate value3="1.5707 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="3.5" slices="12" stacks="20" color_c="1 0 1 1" color_p="1 1 0 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="statueCube">
+            <transforms>
+
             </transforms>
             <materialref id="whiteApp" />
             <children>
