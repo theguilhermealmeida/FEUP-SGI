@@ -277,22 +277,31 @@
 
         <node id="cars">
             <children>
+                <noderef id="redCar" />
+            </children>
+        </node>
+
+        <node id="redCar" >
+            <transforms>
+                <translate value3="50 0 -57.5" />
+            </transforms>
+                <materialref id="redApp" />
+            <children>
                 <lodref id="lodCar" />
             </children>
         </node>
 
         <lod id="lodCar" near="0" far="10000" > 
             <noderef id="car" mindist="0" />
-            <noderef id="carMiddle" mindist="150"/>
-            <noderef id="carSimple" mindist="250"/>
+            <noderef id="carMiddle" mindist="100"/>
+            <noderef id="carSimple" mindist="200"/>
         </lod>
 
         <node id="car">
             <transforms>
-                <translate value3="50 1 -57.5" />
+                <translate value3="0 1 0" />
                 <scale value3="0.65 0.8 0.6" />
             </transforms>
-            <materialref id="redApp" />
             <children>
                 <noderef id="carFront"/>
                 <noderef id="carFrontCone"/>
@@ -305,10 +314,9 @@
 
         <node id="carMiddle">
             <transforms>
-                <translate value3="50 1 -57.5" />
+                <translate value3="0 1 0" />
                 <scale value3="0.65 0.8 0.6" />
             </transforms>
-            <materialref id="redApp" />
             <children>
                 <noderef id="carFrontSimple"/>
                 <noderef id="carFrontWing"/>
@@ -320,13 +328,11 @@
 
         <node id="carSimple">
             <transforms>
-                <translate value3="50 1 -57.5" />
+                <translate value3="0 1 0" />
                 <scale value3="0.65 0.8 0.6" />
             </transforms>
-            <materialref id="redApp" />
             <children>
-                <noderef id="carFrontSimple"/>
-                <noderef id="carBodySimple"/>
+                <noderef id="carBodySimpler"/>
                 <noderef id="carWheels"/>
             </children>
         </node>
@@ -437,6 +443,15 @@
             </children>
         </node>
 
+        <node id="carBodySimpler">
+            <transforms>
+                <translate value3="3 0 0" />
+            </transforms>
+            <children>
+                <noderef id="carBodyMidSimple" />
+            </children>
+        </node>
+
         <node id="carBodyMid">
             <children>
                 <primitive>
@@ -445,11 +460,18 @@
             </children>
         </node>
 
+        <node id="carBodyMidSimple">
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="10 4 4.5"/>
+                </primitive>
+            </children>
+        </node>
+
         <node id="carBodyTop">
             <transforms>
                 <translate value3="-3.1 1 0" />
             </transforms>
-            <materialref id="redApp" />
             <children>
                 <primitive>
                     <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
