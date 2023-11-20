@@ -74,6 +74,18 @@
         <texture id="leafTex" filepath="scenes/t04g10/textures/treeLeaf.jpg" />
         <texture id="sandTex" filepath="scenes/t04g10/textures/sand.png" /> 
         <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
+        <texture id="videoTex" isVideo="true" filepath="scenes/t04g10/videos/water.mp4" />
+        <!-- mipmap example -->
+        <!-- <texture id="dirtTex" filepath="scenes/t04g10/textures/caravaggio.jpg" 
+            mipmap0="scenes/t04g10/textures/caravaggio.1024.jpg"
+            mipmap1="scenes/t04g10/textures/caravaggio.512.jpg"
+            mipmap2="scenes/t04g10/textures/caravaggio.256.jpg"
+            mipmap3="scenes/t04g10/textures/caravaggio.128.jpg"
+            mipmap4="scenes/t04g10/textures/caravaggio.64.jpg"
+            mipmap5="scenes/t04g10/textures/caravaggio.32.jpg"
+            mipmap6="scenes/t04g10/textures/caravaggio.16.jpg"
+            mipmap7="scenes/t04g10/textures/caravaggio.8.jpg"
+        /> -->
     </textures> 
 
 <!--
@@ -176,7 +188,7 @@
             color="1 1 1 1.0" 
             specular="0 0 0 0" 
             shininess="0" 
-            textureref="waterTex" 
+            textureref="videoTex" 
             texlength_s="15" 
             texlength_t="15"/>
 

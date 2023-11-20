@@ -12,6 +12,9 @@ class MyGraphBuilder {
         this.textures = new Map()
         this.lights = new Map()
         this.transformations = new Map()
+        this.lods = new Map()
+
+        this.no_materials = new Map()
 
         this.initTextures()
         this.initMaterials()
@@ -21,7 +24,33 @@ class MyGraphBuilder {
     initTextures() {
         for (let key in this.sceneData.textures) {
             let texture = this.sceneData.textures[key];
-            let textureObject = new THREE.TextureLoader().load(texture.filepath);
+            let textureObject
+            if (texture.isVideo) {
+                const video = document.createElement('video');
+                video.src = texture.filepath
+                video.loop = true;
+                video.muted = true
+                video.autoplay = true;
+                textureObject = new THREE.VideoTexture(video);
+                video.playbackRate = 0.55 
+                // let playPromise = video.play()
+                // if (playPromise !== undefined) {
+                //     playPromise.then(_ => {
+                //         // Automatic playback started!
+                //         // Show playing UI.
+                //         console.log("video started")
+                //     })
+                //     .catch(error => {
+                //         // Auto-play was prevented
+                //         // Show paused UI.
+                //         console.log("video not started")
+                //     });
+                // }
+
+                
+            }
+            else {
+                textureObject = new THREE.TextureLoader().load(texture.filepath);
             textureObject.magFilter = texture.magFilter == "NearestFilter" ? THREE.NearestFilter : THREE.LinearFilter;
             switch (texture.minFilter) {
                 case "NearestFilter":
@@ -47,17 +76,23 @@ class MyGraphBuilder {
                     break;
             }
             textureObject.anisotropy = texture.anisotropy;
-            if (texture.mipmaps) {
-                textureObject.mipmaps[0] = texture.mipmap0;
-                textureObject.mipmaps[1] = texture.mipmap1;
-                textureObject.mipmaps[2] = texture.mipmap2;
-                textureObject.mipmaps[3] = texture.mipmap3;
-                textureObject.mipmaps[4] = texture.mipmap4;
-                textureObject.mipmaps[5] = texture.mipmap5;
-                textureObject.mipmaps[6] = texture.mipmap6;
-                textureObject.mipmaps[7] = texture.mipmap7;
-
+            if (texture.mipmap0 !== undefined && texture.mipmap0 !== null) {
+                textureObject.generateMipmaps = false
+                for (let i = 0; i <= 7; i++) {
+                    const mipmapPath = texture[`mipmap${i}`]
+                    if (texture[`mipmap${i}`] !== undefined && texture[`mipmap${i}`] !== null) {
+                        new THREE.TextureLoader().load(mipmapPath,
+                            function (mipmap) {
+                                textureObject.mipmaps[i] = mipmap.image
+                            },
+                            undefined,
+                            function (error) {
+                                console.error("Error loading mipmap: " + error)
+                        })
+                    }
+                }
             }
+        }
             this.textures.set(texture.id, textureObject)
         }
     }
@@ -78,13 +113,25 @@ class MyGraphBuilder {
                 materialObject.flatShading = false;
             }
             if (material.textureref != null) {
-                let materialTextureref = this.textures.get(material.textureref);
+                let materialTextureref = this.textures.get(material.textureref ?? null);
+                materialObject.map = materialTextureref; 
                 materialTextureref.wrapS = materialTextureref.wrapT = THREE.RepeatWrapping;
             }
             materialObject.side = material.twosided ? THREE.DoubleSide : THREE.FrontSide;
-            materialObject.map = this.textures.get(material.textureref ?? null);
-            // TODO: materialObject.bump_ref = material.bump_ref;
-            // TODO: materialObject.bumpScale = material.bump_scale ?? 1.0;
+
+            let bump_ref = material.bumpref ?? null;
+            if (bump_ref != null) {
+                const bump_texture = this.textures.get(bump_ref ?? null); 
+                materialObject.bumpMap = bump_texture;
+                materialObject.bumpScale = material.bumpscale ?? 1.0;
+            }
+
+            let specular_ref = material.specularref ?? null;
+            if (specular_ref != null) {
+                const specular_texture = this.textures.get(specular_ref ?? null); 
+                materialObject.specularMap = specular_texture;
+            }
+            // materialObject.map = this.textures.get(material.textureref ?? null);
             this.materials.set(material.id, materialObject);
         }
     }
@@ -119,7 +166,6 @@ class MyGraphBuilder {
         const nodeGroup = new THREE.Group();
         // Process the node's children
         for (let childData of nodeData.children) {
-            let no_material = false
             let child
 
             if (childData.type === "primitive") {
@@ -134,7 +180,6 @@ class MyGraphBuilder {
             } else if (childData.type === "node") {
                 if (childData.materialIds.length == 0) {
                     //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
-                    no_material = true
                     childData.materialIds = nodeData.materialIds
                 }
 
@@ -146,16 +191,17 @@ class MyGraphBuilder {
             else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
                 child = this.buildLight(childData)
             }
+            // else if (childData.type === "lod") {
+            //     this.lods.set(childData.id, new THREE.LOD())
+            //     this.buildLod(childData)
+            //     child = this.lods.get(childData.id)
+            // }
             else {
                 console.warn("Unknown node type: " + childData.type);
             }
 
             if (child !== undefined) {
                 nodeGroup.add(child);
-                if (no_material) {
-                    childData.materialIds = []
-                    child.material = null
-                }
                 this.nodes.set(childData.id, child)
             }
         }
@@ -235,6 +281,20 @@ class MyGraphBuilder {
             //light.add(helper);
         }
         return light
+    }
+
+    buildLod(lodData) {
+        for (let childNodeData of lodData.children) {
+            // node already exists
+            if (this.nodes.has(childNodeData.node.id)) {
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+            // node does not exist
+            else {
+                this.processNode(childNodeData.node)
+                this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id).clone(), childNodeData.mindist)
+            }
+        }
     }
 
 }
