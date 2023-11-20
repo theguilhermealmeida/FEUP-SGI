@@ -255,6 +255,7 @@
 -->
 
     <graph rootid="scene">
+
         <node id="scene" castshadows = "true" receiveshadows = "true">
             <children>
                 <noderef id="cars" />
@@ -276,9 +277,15 @@
 
         <node id="cars">
             <children>
-                <noderef id="car" />
+                <lodref id="lodCar" />
             </children>
         </node>
+
+        <lod id="lodCar" near="0" far="10000" > 
+            <noderef id="car" mindist="0" />
+            <noderef id="carMiddle" mindist="150"/>
+            <noderef id="carSimple" mindist="250"/>
+        </lod>
 
         <node id="car">
             <transforms>
@@ -296,6 +303,34 @@
             </children>
         </node>
 
+        <node id="carMiddle">
+            <transforms>
+                <translate value3="50 1 -57.5" />
+                <scale value3="0.65 0.8 0.6" />
+            </transforms>
+            <materialref id="redApp" />
+            <children>
+                <noderef id="carFrontSimple"/>
+                <noderef id="carFrontWing"/>
+                <noderef id="carBodySimple"/>
+                <noderef id="carRear"/>
+                <noderef id="carWheels"/>
+            </children>
+        </node>
+
+        <node id="carSimple">
+            <transforms>
+                <translate value3="50 1 -57.5" />
+                <scale value3="0.65 0.8 0.6" />
+            </transforms>
+            <materialref id="redApp" />
+            <children>
+                <noderef id="carFrontSimple"/>
+                <noderef id="carBodySimple"/>
+                <noderef id="carWheels"/>
+            </children>
+        </node>
+
 <!-- 
 ************************************
             CAR FRONT
@@ -309,6 +344,17 @@
             <children>
                 <primitive>
                     <box xyz1="0 0 0" xyz2="2 2 2"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="carFrontSimple">
+            <transforms>
+                <translate value3="6 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="8 2 2"/>
                 </primitive>
             </children>
         </node>
@@ -381,6 +427,13 @@
                 <noderef id="carBodyMid" />
                 <noderef id="carBodyTop" />
                 <noderef id="carDriver" />
+            </children>
+        </node>
+
+        <node id="carBodySimple">
+            <children>
+                <noderef id="carBodyMid" />
+                <noderef id="carDriverSimple" />
             </children>
         </node>
 
@@ -460,6 +513,15 @@
             <children>
                 <noderef id="helmet"/>
                 <noderef id="cockpit"/>
+            </children>
+        </node>
+
+        <node id="carDriverSimple">
+            <transforms>
+                <translate value3="2 0 0" />
+            </transforms>
+            <children>
+                <noderef id="helmet"/>
             </children>
         </node>
 
@@ -2185,7 +2247,7 @@
                 <translate value3="0 0 0" />
             </transforms>
             <children>
-                <noderef id="palmTreeTrunk" />
+                <lodref id="lodTreeTrunk" />
                 <noderef id="palmTreeLeaves" />
             </children>
         </node>
@@ -2195,6 +2257,23 @@
            PALM TREE TRUNK
 ************************************
  -->
+
+        <lod id="lodTreeTrunk" near="0" far="10000" > 
+            <noderef id="palmTreeTrunk" mindist="0" />
+            <noderef id="palmTreeTrunkSimple" mindist="200"/>
+        </lod>
+
+        <node id="palmTreeTrunkSimple">
+            <transforms>
+                <translate value3="0 10 0" />
+            </transforms>
+            <materialref id="treeTrunkApp" />
+            <children>
+                <primitive>
+                    <cylinder base="1.5" top="1.5" height="20" slices="5" stacks="5" />
+                </primitive>
+            </children>
+        </node>
 
         <node id="palmTreeTrunk">
             <transforms>
