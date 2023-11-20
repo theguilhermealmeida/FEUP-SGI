@@ -2034,78 +2034,120 @@
             </children>
         </node>
 
+<!--
+************************************
+            SPOTLIGHTS
+************************************
+-->
 
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <node id="statue">
-            <transforms>
-                <translate value3="-20 1.2 30" />
-            </transforms>
+        <node id="spotlights">
             <children>
-                <noderef id="statueBase" />
-                <noderef id="statueBody" />
-                <noderef id="statueCube" />
+                <noderef id="spotlight1" />
+                <noderef id="spotlight2" />
             </children>
         </node>
 
-        <node id="statueBody">
+        <node id="spotlight1">
             <transforms>
-                <translate value3="0 3 0" />
+                <translate value3="50 0 -80" />
+                <rotate value3="0 45 0" />
+            </transforms>
+            <children>
+                <noderef id="spotlight" />
+                <spotlight id="light4"  
+                    enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="20"
+                    target="60 0 -50"
+                    angle="10"
+                    decay="0.5"
+                    castshadow="true"
+                    position="-6 20 6"
+                />
+            </children>
+        </node>
+
+        <node id="spotlight2">
+            <transforms>
+                <translate value3="-60 0 -30" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <children>
+                <noderef id="spotlight" />
+                <spotlight id="light5"  
+                    enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="20"
+                    target="-40 0 -10"
+                    angle="10"
+                    decay="0.5"
+                    castshadow="true"
+                    position="5 20 5"
+                />
+            </children>
+        </node>
+
+<!-- 
+************************************
+            SPOTLIGHT
+************************************
+ -->
+
+        <node id="spotlight">
+            <children>
+                <noderef id="spotlightBase" />
+                <noderef id="spotlightLight" />
+                <noderef id="spotlightTop" />                
+            </children>
+        </node>
+
+        <node id="spotlightBase">
+            <transforms>
+                <translate value3="0 10 0" />
             </transforms>
             <materialref id="metalApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.5" top="0.5" height="7" slices="20" stacks="20" />
+                    <cylinder base="0.5" top="0.5" height="20" slices="20" stacks="20" />
                 </primitive>
             </children>
         </node>
 
-        <node id="statueCube">
+        <node id="spotlightLight">
             <transforms>
-                <translate value3="0 13 1" />
-                <rotate value3="45 0 0" />
-                <rotate value3="0 0 45" />
+                <translate value3="0 20 0" />
+                <rotate value3="0 45 0" />
+                <rotate value3="0 0 30" />
+                <translate value3="-1.1 1 0" />
             </transforms>
-            <materialref id="whiteApp" />
+            <materialref id="lightApp" />
             <children>
                 <primitive>
-                    <box xyz1="-4 -4 -4" xyz2="4 4 4" />
+                    <box xyz1="-0.1 -1.2 -1.2" xyz2="0.1 1.2 1.2" />
                 </primitive>
             </children>
         </node>
 
-        <node id="statueBase">
+        <node id="spotlightTop">
             <transforms>
+                <translate value3="0 21 0" />
+                <rotate value3="0 -45 0" />
+                <rotate value3="120 0 0" />
+                <rotate value3="0 45 0" />
             </transforms>
-            <materialref id="woodApp" />
+            <materialref id="metalApp" />
             <children>
                 <primitive>
-                    <cylinder base="8" top="6" height="3" slices="4" stacks="20" />
+                    <cylinder base="1" top="2" height="3" slices="4" stacks="20" />
                 </primitive>
             </children>
         </node>
+
+<!--
+************************************
+            PALM TREES
+************************************
+-->
 
         <node id="palmTrees">
             <children>
@@ -2113,7 +2155,6 @@
                 <noderef id="palmTree2" />
                 <noderef id="palmTree3" />
                 <noderef id="palmTree4" />
-                <noderef id="palmTree5" />
             </children>
         </node>
 
@@ -2153,6 +2194,12 @@
             </children>
         </node>
 
+<!--
+************************************
+            PALM TREE
+************************************
+-->
+
         <node id="palmTree">
             <transforms>
                 <translate value3="0 0 0" />
@@ -2162,6 +2209,12 @@
                 <noderef id="palmTreeLeaves" />
             </children>
         </node>
+
+<!-- 
+************************************
+           PALM TREE TRUNK
+************************************
+ -->
 
         <node id="palmTreeTrunk">
             <transforms>
@@ -2236,6 +2289,12 @@
             </children>
         </node>
 
+<!--
+************************************
+           PALM TREE LEAVES
+************************************
+-->
+
         <node id="palmTreeLeaves">
             <transforms>
                 <translate value3="0 20 0" />
@@ -2251,10 +2310,6 @@
         </node>
 
         <node id="palmTreeLeaf1">
-            <transforms>
-                <translate value3="0 0 0" />
-                <rotate value3="0 0 0" />
-            </transforms>
             <children>
                 <noderef id="palmTreeLeaf" />
             </children>
@@ -2262,7 +2317,6 @@
 
         <node id="palmTreeLeaf2">
             <transforms>
-                <translate value3="0 0 0" />
                 <rotate value3="0 60 0" />
             </transforms>
             <children>
@@ -2272,7 +2326,6 @@
 
         <node id="palmTreeLeaf3">
             <transforms>
-                <translate value3="0 0 0" />
                 <rotate value3="0 120 0" />
             </transforms>
             <children>
@@ -2282,7 +2335,6 @@
 
         <node id="palmTreeLeaf4">
             <transforms>
-                <translate value3="0 0 0" />
                 <rotate value3="0 180 0" />
             </transforms>
             <children>
@@ -2292,7 +2344,6 @@
 
         <node id="palmTreeLeaf5">
             <transforms>
-                <translate value3="0 0 0" />
                 <rotate value3="0 240 0" />
             </transforms>
             <children>
@@ -2302,7 +2353,6 @@
 
         <node id="palmTreeLeaf6">
             <transforms>
-                <translate value3="0 0 0" />
                 <rotate value3="0 300 0" />
             </transforms>
             <children>
@@ -2311,10 +2361,6 @@
         </node>
 
         <node id="palmTreeLeaf">
-            <transforms>
-                <translate value3="0 0 0" />
-                <rotate value3="0 0 0" />
-            </transforms>
             <materialref id="treeLeafApp" />
             <children>
                 <primitive>
@@ -2355,296 +2401,60 @@
                         <controlpoint xx="0" yy="0" zz="0.1" />
                     </nurbs>
                 </primitive>
-                
             </children>
         </node>
 
-        <node id="spotlights">
-            <children>
-                <noderef id="spotlight1" />
-                <noderef id="spotlight2" />
-            </children>
-        </node>
+<!--
+************************************
+            STATUE
+************************************
+-->
 
-        <node id="spotlight2">
+        <node id="statue">
             <transforms>
-                <translate value3="-60 0 -30" />
-                <rotate value3="0 90 0" />
+                <translate value3="-20 1.2 30" />
             </transforms>
             <children>
-                <noderef id="spotlight" />
-
-                <spotlight id="light5"  
-                    enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="20"
-                    target="-40 0 -10"
-                    angle="10"
-                    decay="0.5"
-                    castshadow="true"
-                    position="5 20 5"
-                />
-                
+                <noderef id="statueBase" />
+                <noderef id="statueBody" />
+                <noderef id="statueCube" />
             </children>
         </node>
 
-        <node id="spotlight1">
-            <transforms>
-                <translate value3="50 0 -80" />
-                <rotate value3="0 45 0" />
-            </transforms>
-            <children>
-                <noderef id="spotlight" />
-
-                <spotlight id="light4"  
-                    enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="20"
-                    target="60 0 -50"
-                    angle="10"
-                    decay="0.5"
-                    castshadow="true"
-                    position="-6 20 6"
-                />
-                
-            </children>
-        </node>
-
-        <node id="spotlight">
-            <children>
-                <noderef id="spotlightBase" />
-                <noderef id="spotlightLight" />
-                <noderef id="spotlightTop" />                
-            </children>
-        </node>
-
-        <node id="spotlightLight">
-            <transforms>
-                <translate value3="0 20 0" />
-                <rotate value3="0 45 0" />
-                <rotate value3="0 0 30" />
-                <translate value3="-1.1 1 0" />
-
-            </transforms>
-            <materialref id="lightApp" />
+        <node id="statueBase">
+            <materialref id="woodApp" />
             <children>
                 <primitive>
-                    <box xyz1="-0.1 -1.2 -1.2" xyz2="0.1 1.2 1.2" />
+                    <cylinder base="8" top="6" height="3" slices="4" stacks="20" />
                 </primitive>
             </children>
         </node>
 
-        <node id="spotlightTop">
+        <node id="statueBody">
             <transforms>
-                <translate value3="0 21 0" />
-                <rotate value3="0 -45 0" />
-                <rotate value3="120 0 0" />
-                <rotate value3="0 45 0" />
+                <translate value3="0 3 0" />
             </transforms>
             <materialref id="metalApp" />
             <children>
                 <primitive>
-                    <cylinder base="1" top="2" height="3" slices="4" stacks="20" />
+                    <cylinder base="0.5" top="0.5" height="7" slices="20" stacks="20" />
                 </primitive>
             </children>
         </node>
 
-        
-        <node id="spotlightBase">
+        <node id="statueCube">
             <transforms>
-                <translate value3="0 10 0" />
+                <translate value3="0 13 1" />
+                <rotate value3="45 0 0" />
+                <rotate value3="0 0 45" />
             </transforms>
-            <materialref id="metalApp" />
+            <materialref id="whiteApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.5" top="0.5" height="20" slices="20" stacks="20" />
+                    <box xyz1="-4 -4 -4" xyz2="4 4 4" />
                 </primitive>
             </children>
         </node>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-        <node id="trunk">
-			<transforms>
-				<translate value3="0 1.5 0" />
-			</transforms> 
-			
-			<materialref id="tableApp" />
-			
-            <children>             
-                <primitive>
-                    <cylinder base="0.4" top="0.4" height="3" slices="32" stacks="32" />
-                </primitive>
-            </children> 
-        </node>
-
-        <node id="treeSeg1">
-			<transforms>
-				<translate value3="0 2.7 0" />
-            </transforms> 
-			
-			<materialref id="pineApp" />
-			
-            <children>             
-                <primitive>
-                    <cylinder base="2" top="1" height="1.9" slices="32" stacks="32" />
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="treeSeg2">
-			<transforms>
-				<translate value3="0 4.6 0" />
-            </transforms> 
-			
-			<materialref id="pineApp" />
-			
-            <children>
-                <primitive >
-                    <cylinder base="1.5" top="0.75" height="2" slices="32" stacks="32" />
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="treeSeg3">
-			<transforms>
-				<translate value3="0 6.6 0" />
-            </transforms> 
-			
-			<materialref id="pineApp" />
-			
-            <children>             
-                <primitive>
-                    <cylinder base="0.9" top="0" height="2" slices="32" stacks="32" />
-                </primitive>
-
-            </children> 
-        </node>
-		
-		<node id="tree">
-			<transforms>
-				<translate value3="2 0 2" />
-            </transforms> 
-
-            <materialref id="tableApp" />
-			
-            <children>             
-				<noderef id="trunk" />
-				<noderef id="treeSeg1" />
-				<noderef id="treeSeg2" />
-				<noderef id="treeSeg3" />
-                
-            </children> 
-        </node>
-
-        <node id="forest">
-            <transforms>
-                <translate value3="0 0 0" />
-            </transforms>
-            <children>
-                <noderef id="tree1" />
-                <noderef id="tree2" />
-                <noderef id="tree3" />
-                <noderef id="tree4" />
-            </children>
-        </node>
-
-        <node id="tree1">
-            <transforms>
-                <translate value3="4 0 4" />
-                <scale value3="1.2 1.2 0.8" />
-            </transforms>
-            <children>
-                <noderef id="tree" />
-            </children>
-        </node>
-
-        <node id="tree2">
-            <transforms>
-                <translate value3="16 0 3.5" />
-                <scale value3="0.8 0.9 1.1" />
-            </transforms>
-            <children>
-                <noderef id="tree" />
-            </children>
-        </node>
-        
-    </graph>
-              
+    </graph>         
 </yaf> 
