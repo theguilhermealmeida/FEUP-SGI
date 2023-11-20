@@ -72,7 +72,8 @@
         <texture id="dirtTex" filepath="scenes/t04g10/textures/dirt.png" />
         <texture id="treeTex" filepath="scenes/t04g10/textures/treeTrunk.jpg" />
         <texture id="leafTex" filepath="scenes/t04g10/textures/treeLeaf.jpg" />
-        <texture id="sandTex" filepath="scenes/t04g10/textures/sand.png" /> 
+        <texture id="sandTex" filepath="scenes/t04g10/textures/sand.jpg" />
+        <texture id="sandBumpTex" filepath="scenes/t04g10/textures/sand_bw.png" />
         <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
         <texture id="videoTex" isVideo="true" filepath="scenes/t04g10/videos/water.mp4" />
         <!-- mipmap example -->
@@ -228,8 +229,19 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="sandTex" 
+            texlength_s="1" 
+            texlength_t="1"/>
+
+        <material id="sandAppBump"
+            emissive="0.0 0.0 0.0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="sandTex" 
             texlength_s="5" 
-            texlength_t="5"/>
+            texlength_t="5"
+            bumpref="sandBumpTex"
+            bumpscale="3"/>
 
         <material id="woodApp"
             emissive="0.0 0.0 0.0 1" 
@@ -720,7 +732,6 @@
                 <noderef id="sand2" />
                 <noderef id="sand3" />
                 <noderef id="sand4" />
-                <noderef id="sand5" />
             </children>
         </node>
 
@@ -786,7 +797,7 @@
                 <translate value3="-85 0.1 16.5" />
                 <rotate value3="-90 0 0" />
             </transforms>
-            <materialref id="sandApp" />
+            <materialref id="sandAppBump" />
             <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="49 109" />
@@ -799,7 +810,7 @@
                 <translate value3="-17 0.1 -65" />
                 <rotate value3="-90 0 0" />
             </transforms>
-            <materialref id="sandApp" />
+            <materialref id="sandAppBump" />
             <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="27 55" />
@@ -808,19 +819,6 @@
         </node>
 
         <node id="sand3">
-            <transforms>
-                <translate value3="-32.5 0.1 -30.5" />
-                <rotate value3="-90 0 0" />
-            </transforms>
-            <materialref id="sandApp" />
-            <children>
-                <primitive>
-                    <rectangle xy1="0 0" xy2="58 15" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="sand4">
             <transforms>
                 <translate value3="-34 -2.2 -160" />
                 <rotate value3="0 90 0" />
@@ -834,7 +832,7 @@
             </children>
         </node>
 
-        <node id="sand5">
+        <node id="sand4">
             <transforms>
                 <translate value3="-190 -2.2 -41.5" />
                 <rotate value3="-115 0 0" />
