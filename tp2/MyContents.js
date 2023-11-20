@@ -15,8 +15,7 @@ class MyContents  {
         this.app = app
         this.axis = null
 
-        this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		//this.reader.open("scenes/demo/demo.xml");		
+        this.reader = new MyFileReader(app, this, this.onSceneLoaded);	
 		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
 
     }

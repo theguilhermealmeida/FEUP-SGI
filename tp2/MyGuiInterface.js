@@ -56,7 +56,8 @@ class MyGuiInterface  {
         const videos = this.contents.graphBuilder.videos
         const videosFolder = this.datgui.addFolder('Videos');
         videos.forEach((video, index) => {
-            const videoFolder = videosFolder.addFolder(`${videos[index].type} ${index}`);
+            console.log(this.contents.graphBuilder.videos)
+            const videoFolder = videosFolder.addFolder(`video  ${index}`);
             videoFolder.add(video, 'play').name('Play');
             videoFolder.add(video, 'pause').name('Pause');
             // add parameter to change video speed
