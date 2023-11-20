@@ -265,9 +265,6 @@
                 <noderef id="spotlights" />
                 <noderef id="palmTrees" />
                 <noderef id="statue"/>
-                <primitive>
-                    <polygon radius="10.0" slices="3" stacks="3" color_c="1 0 0 1" color_p="0 1 0 1" />
-                </primitive>
             </children>
         </node>
 
