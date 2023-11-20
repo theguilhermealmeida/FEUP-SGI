@@ -259,13 +259,13 @@
         <node id="scene" castshadows = "true" receiveshadows = "true">
             <children>
                 <noderef id="cars" />
-                <noderef id="floor" />
+                <!-- <noderef id="floor" />
                 <noderef id="track" />
                 <noderef id="trackWalls" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
                 <noderef id="palmTrees" />
-                <noderef id="statue"/>
+                <noderef id="statue"/> -->
             </children>
         </node>
 
@@ -297,7 +297,7 @@
         <node id="greenCar">
             <transforms>
                 <translate value3="-55 0 15" />
-                <rotate value3="0 90 0" />
+                <rotate value3="0 1.5707 0" />
             </transforms>
             <materialref id="greenApp" />
             <children>
@@ -308,7 +308,7 @@
         <node id="blueCar">
             <transforms>
                 <translate value3="45 0 62.5" />
-                <rotate value3="0 180 0" />
+                <rotate value3="0 3.1415 0" />
             </transforms>
             <materialref id="blueApp" />
             <children>
@@ -409,8 +409,8 @@
         <node id="carFrontCone">
             <transforms>
                 <translate value3="8 0 0" />
-                <rotate value3="0 0 90" />
-                <rotate value3="0 45 0" />
+                <rotate value3="0 0 1.5707" />
+                <rotate value3="0 0.7853 0" />
             </transforms>
             <children>
                 <primitive>
@@ -613,7 +613,7 @@
 
         <node id="triangle">
             <transforms>
-                <rotate value3="0 90 0" />
+                <rotate value3="0 1.5707 0" />
             </transforms>
             <children>
                 <primitive>
@@ -641,7 +641,7 @@
         <node id="carRearWing">
             <transforms>
                 <translate value3="0 2 0" />
-                <rotate value3="0 0 -15" />
+                <rotate value3="0 0 -0.2618" />
                 <scale value3="0.6 0.7 0.6" />
             </transforms>
             <children>
@@ -713,7 +713,7 @@
         <node id="carWheel1">
             <transforms>
                 <translate value3="-2 0 3.6" />
-                <rotate value3="0 180 0" />
+                <rotate value3="0 3.1415 0" />
             </transforms>
             <children>
                 <noderef id="carWheel" />
@@ -734,7 +734,7 @@
         <node id="carWheel3">
             <transforms>
                 <translate value3="7 0 3.6" />
-                <rotate value3="0 180 0" />
+                <rotate value3="0 3.1415 0" />
             </transforms>   
             <children>
                 <noderef id="carWheel" />
@@ -755,7 +755,7 @@
         <node id="carWheel">
             <transforms>
                 <translate value3="0 0.3 0" />
-                <rotate value3="90 0 0" />
+                <rotate value3="1.5707 0 0" />
             </transforms>
             <materialref id="blackApp" />
             <children>
@@ -777,7 +777,7 @@
         <node id="carWheelSuport1">
             <transforms>
                 <translate value3="0 0.2 1.8" />
-                <rotate value3="90 0 0" />
+                <rotate value3="1.5707 0 0" />
             </transforms> 
             <children>
                 <primitive>
@@ -789,8 +789,8 @@
         <node id="carWheelSuport2">
             <transforms>
                 <translate value3="0 0.2 1.8" />
-                <rotate value3="0 -20 0" />
-                <rotate value3="90 0 0" />
+                <rotate value3="0 -0.3490 0" />
+                <rotate value3="1.5707 0 0" />
             </transforms> 
             <children>
                 <primitive>
@@ -802,8 +802,8 @@
         <node id="carWheelSuport3">
             <transforms>
                 <translate value3="0 0.2 1.8" />
-                <rotate value3="0 20 0" />
-                <rotate value3="90 0 0" />
+                <rotate value3="0 0.3490 0" />
+                <rotate value3="1.5707 0 0" />
             </transforms> 
             <children>
                 <primitive>

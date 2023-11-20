@@ -241,9 +241,9 @@ class MyGraphBuilder {
                         nodeGroup.translateZ(transformation.translate[2])
                         break;
                     case "R":
-                        nodeGroup.rotateX(transformation.rotation[0] * (Math.PI / 180))
-                        nodeGroup.rotateY(transformation.rotation[1] * (Math.PI / 180))
-                        nodeGroup.rotateZ(transformation.rotation[2] * (Math.PI / 180))
+                        nodeGroup.rotateX(transformation.rotation[0])
+                        nodeGroup.rotateY(transformation.rotation[1])
+                        nodeGroup.rotateZ(transformation.rotation[2])
                         break;
                     case "S":
                         nodeGroup.scale.set(transformation.scale[0], transformation.scale[1], transformation.scale[2])
