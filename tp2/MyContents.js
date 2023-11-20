@@ -39,6 +39,7 @@ class MyContents  {
      * @param {MySceneData} data the entire scene data object
      */
     onSceneLoaded(data) {
+
         this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
 
@@ -47,6 +48,14 @@ class MyContents  {
         data.addMaterial(defaultMaterial)
         data.getNode("scene").materialIds[0] = defaultMaterial.id
         console.log(data.getNode("scene").cameras)
+
+        // ambient light
+        let red = data.options.ambient.r
+        let green = data.options.ambient.g
+        let blue = data.options.ambient.b
+        let alpha = data.options.ambient.a
+        let ambientLight = new THREE.AmbientLight( new THREE.Color(red, green, blue), alpha);
+        this.app.scene.add( ambientLight );
 
         // fog
         let fog = new THREE.Fog( data.fog.color, data.fog.near, data.fog.far );
@@ -117,11 +126,6 @@ class MyContents  {
         const targetObject = new THREE.Object3D();
         targetObject.position.set(0, 0, 0);
         this.app.scene.add(targetObject);
-
-        // add ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff);
-        ambientLight.intensity = 0.5;
-        //this.app.scene.add(ambientLight);
 
         this.output(data.options)
         // console.log("textures:")
