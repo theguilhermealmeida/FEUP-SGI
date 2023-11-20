@@ -70,6 +70,9 @@
         <texture id="sandBumpTex" filepath="scenes/t04g10/textures/sand_bw.png" />
         <texture id="woodTex" filepath="scenes/t04g10/textures/wood.png" />
         <texture id="videoTex" isVideo="true" filepath="scenes/t04g10/videos/water.mp4" />
+        <texture id="flyEmiratesTex" filepath="scenes/t04g10/textures/flyEmirates.png" />
+        <texture id="mscCruisesTex" filepath="scenes/t04g10/textures/mscCruises.png" />
+        <texture id="justChangeTex" filepath="scenes/t04g10/textures/justChange.png" />
         <!-- mipmap example -->
         <texture id="grassTex" filepath="scenes/t04g10/textures/grass.png" 
             mipmap0="scenes/t04g10/textures/grass.1024.png"
@@ -170,6 +173,33 @@
             shininess="0" 
             textureref="heinekenTex" 
             texlength_s="22.5" 
+            texlength_t="4"/>
+
+        <material id="flyEmiratesApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="flyEmiratesTex" 
+            texlength_s="15" 
+            texlength_t="4"/>
+
+        <material id="mscCruisesApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="mscCruisesTex" 
+            texlength_s="25" 
+            texlength_t="4"/>
+
+        <material id="justChangeApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="justChangeTex" 
+            texlength_s="25" 
             texlength_t="4"/>
 
         <material id="blueApp"
@@ -1872,7 +1902,7 @@
                 <scale value3="1.25 1 1" />
             </transforms>
             <children>
-                <noderef id="trackWall" />
+                <noderef id="trackWall1" />
             </children>
         </node>
 
@@ -1883,7 +1913,7 @@
                 <scale value3="1.05 1 1" />
             </transforms>
             <children>
-                <noderef id="trackWall" />
+                <noderef id="trackWall2" />
             </children>
         </node>
 
@@ -1894,7 +1924,7 @@
                 <scale value3="0.7 1 1" />
             </transforms>
             <children>
-                <noderef id="trackWall" />
+                <noderef id="trackWall4" />
             </children>
         </node>
 
@@ -1905,11 +1935,11 @@
                 <scale value3="0.7 1 1" />
             </transforms>
             <children>
-                <noderef id="trackWall" />
+                <noderef id="trackWall3" />
             </children>
         </node>
 
-        <node id="trackWall">
+        <node id="trackWall1">
             <transforms>
                 <translate value3="0 2 0" />
             </transforms>
@@ -1918,17 +1948,99 @@
                 <primitive>
                     <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
                 </primitive>
-                <noderef id="trackWallAd" />
+                <noderef id="trackWallAd1" />
                 <noderef id="trackWallFence" />
             </children>
         </node>
 
-        <node id="trackWallAd">
+        <node id="trackWallAd1">
             <transforms>
                 <translate value3="0 0 -0.35" />
                 <rotate value3="0 3.1415 0" />
             </transforms>
             <materialref id="heinekenApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-75 0" xy2="75 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trackWall2">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
+                </primitive>
+                <noderef id="trackWallAd2" />
+                <noderef id="trackWallFence" />
+            </children>
+        </node>
+
+        <node id="trackWallAd2">
+            <transforms>
+                <translate value3="0 0 -0.35" />
+                <rotate value3="0 3.1415 0" />
+            </transforms>
+            <materialref id="flyEmiratesApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-75 0" xy2="75 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trackWall3">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
+                </primitive>
+                <noderef id="trackWallAd3" />
+                <noderef id="trackWallFence" />
+            </children>
+        </node>
+
+        <node id="trackWallAd3">
+            <transforms>
+                <translate value3="0 0 -0.35" />
+                <rotate value3="0 3.1415 0" />
+            </transforms>
+            <materialref id="justChangeApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-75 0" xy2="75 4" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="trackWall4">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
+                </primitive>
+                <noderef id="trackWallAd4" />
+                <noderef id="trackWallFence" />
+            </children>
+        </node>
+
+        <node id="trackWallAd4">
+            <transforms>
+                <translate value3="0 0 -0.35" />
+                <rotate value3="0 3.1415 0" />
+            </transforms>
+            <materialref id="mscCruisesApp" />
             <children>
                 <primitive>
                     <rectangle xy1="-75 0" xy2="75 4" />
