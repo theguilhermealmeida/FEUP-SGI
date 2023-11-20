@@ -1746,6 +1746,296 @@
                 </primitive>
             </children>
         </node>
+
+<!--
+************************************
+            TRACK WALLS
+************************************
+-->
+
+        <node id="trackWalls">
+            <children>
+                <noderef id="trackWallNorth" />
+                <noderef id="trackWallWest" />
+                <noderef id="trackWallSouth" />
+                <noderef id="trackWallEast" />
+            </children>
+        </node>
+
+        <node id="trackWallNorth">
+            <transforms>
+                <translate value3="-14 0 70" />
+                <scale value3="1.25 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallWest">
+            <transforms>
+                <translate value3="81 0 -10" />
+                <rotate value3="0 90 0" />
+                <scale value3="1.05 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallSouth">
+            <transforms>
+                <translate value3="27 0 -90" />
+                <rotate value3="0 180 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWallEast">
+            <transforms>
+                <translate value3="-110 0 18" />
+                <rotate value3="0 270 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="trackWall" />
+            </children>
+        </node>
+
+        <node id="trackWall">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
+                </primitive>
+                <noderef id="trackWallAd" />
+                <noderef id="trackWallFence" />
+            </children>
+        </node>
+
+        <node id="trackWallAd">
+            <transforms>
+                <translate value3="0 0 -0.35" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="heinekenApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-75 0" xy2="75 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trackWallFence">
+            <transforms>
+                <translate value3="0 4.5 0" />
+            </transforms>
+            <materialref id="fenceApp" />
+            <children>
+                <noderef id="trackWallFenceTop" />
+                <noderef id="trackWallFenceBottom" />
+            </children>
+        </node>
+
+        <node id="trackWallFenceTop">
+            <transforms>
+                <translate value3="0 3.25 -0.75" />
+                <rotate value3="-45 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.1" xyz2="75 2 0.1" parts_x="20" parts_y="7"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="trackWallFenceBottom">
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -0.1" xyz2="75 5 0.1" parts_x="20" parts_y="7"/>
+                </primitive>
+            </children>
+        </node> 
+
+<!--
+************************************
+            STANDS
+************************************
+-->
+
+        <node id="stands">
+            <children>
+                <noderef id="standNorth" />
+                <noderef id="standWest" />
+                <noderef id="standSouth" />
+                <noderef id="standEast" />
+            </children>
+        </node>
+
+        <node id="standNorth">
+            <transforms>
+                <translate value3="-15 0 90" />
+                <scale value3="1.3 1 1" />
+            </transforms>
+            <children>
+                <noderef id="stand" />
+            </children>
+        </node>
+
+        <node id="standWest">
+            <transforms>
+                <translate value3="100 0 -8" />
+                <rotate value3="0 90 0" />
+                <scale value3="1.07 1 1" />
+            </transforms>
+            <children>
+                <noderef id="stand" />
+            </children>
+        </node>
+
+        <node id="standSouth">
+            <transforms>
+                <translate value3="27 0 -110" />
+                <rotate value3="0 180 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="standWithoutTop" />
+            </children>
+        </node>
+
+        <node id="standEast">
+            <transforms>
+                <translate value3="-130 0 18" />
+                <rotate value3="0 270 0" />
+                <scale value3="0.7 1 1" />
+            </transforms>
+            <children>
+                <noderef id="standWithoutTop" />
+            </children>
+        </node>
+
+<!-- 
+************************************
+            STAND
+************************************
+ -->
+
+        <node id="stand">
+            <children>
+                <noderef id="stands1" />
+                <noderef id="stands2" />
+                <noderef id="stands3" />
+                <noderef id="stands4" />
+                <noderef id="stands5" />
+                <noderef id="stands6" />
+                <noderef id="standsTop" />
+            </children>
+        </node>
+
+        <node id="standWithoutTop">
+            <children>
+                <noderef id="stands1" />
+                <noderef id="stands2" />
+                <noderef id="stands3" />
+                <noderef id="stands4" />
+                <noderef id="stands5" />
+            </children>
+        </node>
+
+        <node id="stands1">
+            <transforms>
+                <translate value3="0 3 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -16" xyz2="75 6 16" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands2">
+            <transforms>
+                <translate value3="0 8 3" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -13" xyz2="75 4 13" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands3">
+            <transforms>
+                <translate value3="0 12 6" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -10" xyz2="75 4 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands4">
+            <transforms>
+                <translate value3="0 16 9" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -7" xyz2="75 4 7" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands5">
+            <transforms>
+                <translate value3="0 20 12" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -4" xyz2="75 4 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="stands6">
+            <transforms>
+                <translate value3="0 27 15" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -1" xyz2="75 10 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="standsTop">
+            <transforms>
+                <translate value3="0 30 1.5" />
+                <rotate value3="-5 0 0" />
+            </transforms>
+            <materialref id="asphaltApp" />
+            <children>
+                <primitive>
+                    <box xyz1="-75 0 -13" xyz2="75 2 13" />
+                </primitive>
+            </children>
+        </node>
+
+
+
         
 
 
@@ -2174,280 +2464,28 @@
 
 
 
-        <node id="standsTop">
-            <transforms>
-                <translate value3="0 30 1.5" />
-                <rotate value3="-5 0 0" />
-            </transforms>
-            <materialref id="asphaltApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -13" xyz2="75 2 13" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands6">
-            <transforms>
-                <translate value3="0 27 15" />
-            </transforms>
-            <materialref id="blueApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -1" xyz2="75 10 1" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands5">
-            <transforms>
-                <translate value3="0 20 12" />
-            </transforms>
-            <materialref id="whiteApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -4" xyz2="75 4 4" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands4">
-            <transforms>
-                <translate value3="0 16 9" />
-            </transforms>
-            <materialref id="blueApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -7" xyz2="75 4 7" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands3">
-            <transforms>
-                <translate value3="0 12 6" />
-            </transforms>
-            <materialref id="whiteApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -10" xyz2="75 4 10" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands2">
-            <transforms>
-                <translate value3="0 8 3" />
-            </transforms>
-            <materialref id="blueApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -13" xyz2="75 4 13" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands1">
-            <transforms>
-                <translate value3="0 3 0" />
-            </transforms>
-            <materialref id="whiteApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -16" xyz2="75 6 16" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="stands">
-            <children>
-                <noderef id="standNorth" />
-                <noderef id="standWest" />
-                <noderef id="standSouth" />
-                <noderef id="standEast" />
-            </children>
-        </node>
-
-        <node id="standNorth">
-            <transforms>
-                <translate value3="-15 0 90" />
-                <scale value3="1.3 1 1" />
-            </transforms>
-            <children>
-                <noderef id="stand" />
-            </children>
-        </node>
-
-        <node id="standWest">
-            <transforms>
-                <translate value3="100 0 -8" />
-                <rotate value3="0 90 0" />
-                <scale value3="1.07 1 1" />
-            </transforms>
-            <children>
-                <noderef id="stand" />
-            </children>
-        </node>
-
-        <node id="standSouth">
-            <transforms>
-                <translate value3="27 0 -110" />
-                <rotate value3="0 180 0" />
-                <scale value3="0.7 1 1" />
-            </transforms>
-            <children>
-                <noderef id="standWithoutTop" />
-            </children>
-        </node>
-
-        <node id="standEast">
-            <transforms>
-                <translate value3="-130 0 18" />
-                <rotate value3="0 270 0" />
-                <scale value3="0.7 1 1" />
-            </transforms>
-            <children>
-                <noderef id="standWithoutTop" />
-            </children>
-        </node>
 
 
-        <node id="stand">
-            <children>
-                <noderef id="stands1" />
-                <noderef id="stands2" />
-                <noderef id="stands3" />
-                <noderef id="stands4" />
-                <noderef id="stands5" />
-                <noderef id="stands6" />
-                <noderef id="standsTop" />
-            </children>
-        </node>
 
-        <node id="standWithoutTop">
-            <children>
-                <noderef id="stands1" />
-                <noderef id="stands2" />
-                <noderef id="stands3" />
-                <noderef id="stands4" />
-                <noderef id="stands5" />
-            </children>
-        </node>
 
-        <node id="trackWalls">
-            <children>
-                <noderef id="trackWallNorth" />
-                <noderef id="trackWallWest" />
-                <noderef id="trackWallSouth" />
-                <noderef id="trackWallEast" />
-            </children>
-        </node>
 
-        <node id="trackWallNorth">
-            <transforms>
-                <translate value3="-14 0 70" />
-                <scale value3="1.25 1 1" />
-            </transforms>
-            <children>
-                <noderef id="trackWall" />
-            </children>
-        </node>
 
-        <node id="trackWallWest">
-            <transforms>
-                <translate value3="81 0 -10" />
-                <rotate value3="0 90 0" />
-                <scale value3="1.05 1 1" />
-            </transforms>
-            <children>
-                <noderef id="trackWall" />
-            </children>
-        </node>
 
-        <node id="trackWallSouth">
-            <transforms>
-                <translate value3="27 0 -90" />
-                <rotate value3="0 180 0" />
-                <scale value3="0.7 1 1" />
-            </transforms>
-            <children>
-                <noderef id="trackWall" />
-            </children>
-        </node>
 
-        <node id="trackWallEast">
-            <transforms>
-                <translate value3="-110 0 18" />
-                <rotate value3="0 270 0" />
-                <scale value3="0.7 1 1" />
-            </transforms>
-            <children>
-                <noderef id="trackWall" />
-            </children>
-        </node>
 
-        <node id="trackWall">
-            <transforms>
-                <translate value3="0 2 0" />
-            </transforms>
-            <materialref id="whiteApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -0.3" xyz2="75 4 0.3" />
-                </primitive>
-                <noderef id="trackWallAd" />
-                <noderef id="trackWallFence" />
-            </children>
-        </node>
 
-        <node id="trackWallFence">
-            <transforms>
-                <translate value3="0 4.5 0" />
-            </transforms>
-            <materialref id="fenceApp" />
-            <children>
-                <noderef id="trackWallFenceTop" />
-                <noderef id="trackWallFenceBottom" />
-            </children>
-        </node>
 
-        <node id="trackWallFenceBottom">
-            <transforms>
-                <translate value3="0 0 0" />
-            </transforms>
-            <materialref id="fenceApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -0.1" xyz2="75 5 0.1" parts_x="20" parts_y="7"/>
-                </primitive>
-            </children>
-        </node> 
 
-        <node id="trackWallFenceTop">
-            <transforms>
-                <translate value3="0 3.25 -0.75" />
-                <rotate value3="-45 0 0" />
-            </transforms>
-            <materialref id="fenceApp" />
-            <children>
-                <primitive>
-                    <box xyz1="-75 0 -0.1" xyz2="75 2 0.1" parts_x="20" parts_y="7"/>
-                </primitive>
-            </children>
-        </node>
 
-        <node id="trackWallAd">
-            <transforms>
-                <translate value3="0 0 -0.35" />
-                <rotate value3="0 180 0" />
-            </transforms>
-            <materialref id="heinekenApp" />
-            <children>
-                <primitive>
-                    <rectangle xy1="-75 0" xy2="75 4" />
-                </primitive>
-            </children>
-        </node>
+
+
+
+
+
+
+
+
+
 
 
 
