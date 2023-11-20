@@ -18,8 +18,6 @@ class MyContents  {
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		//this.reader.open("scenes/demo/demo.xml");		
 		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
-		// this.reader.open("scenes/test/SGI_TP2_XML_T04_G10_v01.xml");		
-		// this.reader.open("scenes/ricardo/ovalOffice.xml");	
 
     }
 
@@ -99,10 +97,6 @@ class MyContents  {
         this.app.scene.add(skyboxMesh)
 
 
-
-
-
-
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
@@ -114,11 +108,8 @@ class MyContents  {
         // loop through data camaras and add them to the scene
         this.graphBuilder = new MyGraphBuilder(data)
 
-        console.log("data")
-        console.log(data)
 
         const group = this.graphBuilder.buildGraph(data);
-        console.log(group)
         // add group to the scene
         this.app.scene.add(group);
         
@@ -130,41 +121,6 @@ class MyContents  {
         this.app.scene.add(targetObject);
 
         this.output(data.options)
-        // console.log("textures:")
-        // for (var key in data.textures) {
-        //     let texture = data.textures[key]
-        //     this.output(texture, 1)
-        // }
-
-        // console.log("materials:")
-        // for (var key in data.materials) {
-        //     let material = data.materials[key]
-        //     this.output(material, 1)
-        // }
-
-        // console.log("cameras:")
-        // for (var key in data.cameras) {
-        //     let camera = data.cameras[key]
-        //     this.output(camera, 1)
-        // }
-
-        // console.log("nodes:")
-        // for (var key in data.nodes) {
-        //     let node = data.nodes[key]
-        //     this.output(node, 1)
-        //     for (let i=0; i< node.children.length; i++) {
-        //         let child = node.children[i]
-        //         if (child.type === "primitive") {
-        //             console.log("" + new Array(2 * 4).join(' ') + " - " + child.type + " with "  + child.representations.length + " " + child.subtype + " representation(s)")
-        //             if (child.subtype === "nurbs") {
-        //                 console.log("" + new Array(3 * 4).join(' ') + " - " + child.representations[0].controlpoints.length + " control points")
-        //             }
-        //         }
-        //         else {
-        //             this.output(child, 2)
-        //         }
-        //     }
-        // }
     }
 
     printGroupInfo(group, ident = 0) {
