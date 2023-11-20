@@ -5,9 +5,8 @@ import { MyTriangle } from './MyTriangle.js';
 
 
 class MyGeometryBuilder {
-    constructor(geometryData, materialData, materialObject, textureObject, castShadows, receiveShadows) {
+    constructor(geometryData, materialObject, textureObject, castShadows, receiveShadows) {
         this.geometryData = geometryData
-        this.materialData = materialData
         this.materialObject = materialObject
         this.textureObject = textureObject
         this.representations = geometryData.representations[0]
@@ -19,13 +18,16 @@ class MyGeometryBuilder {
             case "rectangle": {
                 // handle texture
                 if (this.textureObject != null) {
-                    if (materialData.id == "waterApp") {
+                    if (this.materialObject.name === "waterApp") {
                         this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
                         this.textureObject.repeat.set(2,2);
                     }
                     else {
                         this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                        this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialData.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialData.texlength_t);
+                        console.log("estamos")
+                        console.log(this.materialObject.texlength_s)
+                        console.log(this.materialObject.texlength_t)
+                        this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialObject.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialObject.texlength_t);
                         this.materialObject.map = this.textureObject;
                     }
                 }

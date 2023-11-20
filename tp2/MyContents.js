@@ -16,8 +16,9 @@ class MyContents  {
         this.axis = null
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		// this.reader.open("scenes/demo/demo.xml");		
-		this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
+		this.reader.open("scenes/demo/demo.xml");		
+		// this.reader.open("scenes/t04g10/SGI_TP2_XML_T04_G10_v01.xml");		
+		// this.reader.open("scenes/test/SGI_TP2_XML_T04_G10_v01.xml");		
 		// this.reader.open("scenes/ricardo/ovalOffice.xml");	
 
     }
@@ -108,6 +109,7 @@ class MyContents  {
         console.log(data)
 
         const group = this.graphBuilder.buildGraph(data);
+        console.log(group)
         // add group to the scene
         this.app.scene.add(group);
         
