@@ -278,26 +278,67 @@
         <node id="cars">
             <children>
                 <noderef id="redCar" />
+                <noderef id="blueCar" />
+                <noderef id="greenCar" />
+                <noderef id="yellowCar" />
             </children>
         </node>
 
-        <node id="redCar" >
+        <node id="yellowCar">
+            <transforms>
+                <translate value3="10 7 12.5" />
+            </transforms>
+            <materialref id="yellowApp" />
+            <children>
+                <noderef id="car" />
+            </children>
+        </node>
+
+        <node id="greenCar">
+            <transforms>
+                <translate value3="-55 0 15" />
+                <rotate value3="0 90 0" />
+            </transforms>
+            <materialref id="greenApp" />
+            <children>
+                <noderef id="car" />
+            </children>
+        </node>
+
+        <node id="blueCar">
+            <transforms>
+                <translate value3="45 0 62.5" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <noderef id="car" />
+            </children>
+        </node>
+
+        <node id="redCar">
             <transforms>
                 <translate value3="50 0 -57.5" />
             </transforms>
-                <materialref id="redApp" />
+            <materialref id="redApp" />
+            <children>
+                <noderef id="car" />
+            </children>
+        </node>
+
+        <node id="car" >
             <children>
                 <lodref id="lodCar" />
             </children>
         </node>
 
         <lod id="lodCar" near="0" far="10000" > 
-            <noderef id="car" mindist="0" />
+            <noderef id="carComplex" mindist="0" />
             <noderef id="carMiddle" mindist="100"/>
             <noderef id="carSimple" mindist="200"/>
         </lod>
 
-        <node id="car">
+        <node id="carComplex">
             <transforms>
                 <translate value3="0 1 0" />
                 <scale value3="0.65 0.8 0.6" />
@@ -2282,7 +2323,7 @@
 
         <lod id="lodTreeTrunk" near="0" far="10000" > 
             <noderef id="palmTreeTrunk" mindist="0" />
-            <noderef id="palmTreeTrunkSimple" mindist="200"/>
+            <noderef id="palmTreeTrunkSimple" mindist="150"/>
         </lod>
 
         <node id="palmTreeTrunkSimple">
