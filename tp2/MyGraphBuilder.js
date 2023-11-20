@@ -10,11 +10,12 @@ class MyGraphBuilder {
         this.nodes = new Map()
         this.materials = new Map()
         this.textures = new Map()
-        this.lights = new Map()
+        this.lights = [] 
         this.transformations = new Map()
         this.lods = new Map()
 
         this.no_materials = new Map()
+        this.videos = [] 
 
         this.initTextures()
         this.initMaterials()
@@ -48,6 +49,7 @@ class MyGraphBuilder {
                 //         console.log("video not started")
                 //     });
                 // }
+                this.videos.push(video)
 
 
             }
@@ -151,8 +153,6 @@ class MyGraphBuilder {
         if (rootNode) {
             let group = new THREE.Group();
             this.processNode(rootNode, group);
-            console.log("nodes")
-            console.log(this.nodes)
             return group
         } else {
             console.error("Root node not found.");
@@ -161,6 +161,7 @@ class MyGraphBuilder {
 
     }
 
+    // TODO: fix inheritance
     // handleClone(nodeGroup, material) {
     //    for (let child of nodeGroup.children) {
     //         if (child.type === "primitive") {
@@ -258,84 +259,6 @@ class MyGraphBuilder {
         if (nodeData.type === "node") {
             this.nodes.set(nodeData.id, nodeGroup)
         }
-
-        // Process the node's children
-        // for (let childData of nodeData.children) {
-        //     let child
-        //     if (childData.type === "primitive") {
-        //         const materialData = this.sceneData.getMaterial(nodeData.materialIds[0]);
-        //         const materialObject = this.materials.get(nodeData.materialIds[0]);
-        //         const textureObject = this.textures.get(materialData.textureref ?? null);
-        //         let castShadows = nodeData.castShadows
-        //         let receiveShadows = nodeData.receiveShadows
-        //         child = new MyGeometryBuilder(childData, materialData, materialObject, textureObject, castShadows, receiveShadows);
-
-
-        //     } else if (childData.type === "node") {
-        //         child = new THREE.Group();
-        //         if (childData.materialIds.length == 0) {
-        //             this.no_materials.set(childData.id, true)
-        //             //TODO: IF NODE HAS NO MATERIAL THEN STORE IT IN THE MAP WITHOUT MATERIAL
-        //             childData.materialIds = nodeData.materialIds
-        //             child.material = this.materials.get(nodeData.materialIds[0])
-        //         if (childData.id === "carBody") {
-        //             console.log("childData")
-        //             console.log(childData)
-        //         }
-        //         }
-
-        //         if (nodeData.castShadows) childData.castShadows = true
-        //         if (nodeData.receiveShadows) childData.receiveShadows = true
-
-        //         child = this.processNode(childData, nodeGroup);
-        //     }
-        //     else if (childData.type === "spotlight" || childData.type === "pointlight" || childData.type === "directionallight") {
-        //         child = this.buildLight(childData)
-        //     }
-        //     else if (childData.type === "lod") {
-        //         // this.lods.set(childData.id, new THREE.LOD())
-        //         // this.buildLod(childData)
-        //         // child = this.lods.get(childData.id)
-        //     }
-        //     else {
-        //         console.warn("Unknown node type: " + childData.type);
-        //     }
-
-        //     if (child !== undefined) {
-        //         nodeGroup.add(child);
-        //         // this.nodes.set(childData.id, child)
-        //     }
-        // }
-
-        // for (let transformation of nodeData.transformations) {
-        //     switch (transformation.type) {
-        //         case "T":
-        //             nodeGroup.translateX(transformation.translate[0])
-        //             nodeGroup.translateY(transformation.translate[1])
-        //             nodeGroup.translateZ(transformation.translate[2])
-        //             break;
-        //         case "R":
-        //             nodeGroup.rotateX(transformation.rotation[0] * (Math.PI / 180)) 
-        //             nodeGroup.rotateY(transformation.rotation[1] * (Math.PI / 180)) 
-        //             nodeGroup.rotateZ(transformation.rotation[2] * (Math.PI / 180))
-        //             break;
-        //         case "S":
-        //             nodeGroup.scale.set(transformation.scale[0], transformation.scale[1], transformation.scale[2])
-        //             break;
-        //         default:
-        //             console.warn("unknow transformation type: " + transformation.type)
-        //             break;
-        //     }
-        // }
-
-        // if (this.no_materials.get(nodeData.id)) {
-
-        //     nodeGroup.material = null
-        //     nodeData.materialIds = []
-        // }
-        // this.nodes.set(nodeData.id, nodeGroup)
-
-        // return nodeGroup
     }
 
     buildLight(lightData) {
@@ -387,6 +310,10 @@ class MyGraphBuilder {
             const helper = new THREE.SpotLightHelper(light);
             //light.add(helper);
         }
+        
+        console.log("LIGHTDATA")
+        console.log(lightData)
+        this.lights.push(light)
         return light
     }
 
