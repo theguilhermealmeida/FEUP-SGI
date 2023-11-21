@@ -40,7 +40,7 @@ class MyGeometryBuilder {
             }
             case "cylinder": {
                 // build geometry
-                geometry = new THREE.CylinderGeometry(this.representations.top, this.representations.base, this.representations.height, this.representations.slices, this.representations.stacks, this.representations.capsclose, this.representations.thetastart, this.representations.thetalength);
+                geometry = new THREE.CylinderGeometry(this.representations.top, this.representations.base, this.representations.height, this.representations.slices, this.representations.stacks, !this.representations.capsclose, this.representations.thetastart, this.representations.thetalength);
                 break;
             }
             case "sphere": {
