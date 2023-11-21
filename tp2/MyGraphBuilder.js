@@ -13,12 +13,14 @@ class MyGraphBuilder {
         this.lights = [] 
         this.transformations = new Map()
         this.lods = new Map()
+        this.cameras = []
 
         this.no_materials = new Map()
         this.videos = [] 
 
         this.initTextures()
         this.initMaterials()
+        this.buildCameras(sceneData.cameras)
     }
 
 
@@ -34,21 +36,6 @@ class MyGraphBuilder {
                 video.autoplay = true;
                 textureObject = new THREE.VideoTexture(video);
 
-                // uncomment to play video
-                // video.playbackRate = 0.25 
-                // let playPromise = video.play()
-                // if (playPromise !== undefined) {
-                //     playPromise.then(_ => {
-                //         // Automatic playback started!
-                //         // Show playing UI.
-                //         console.log("video started")
-                //     })
-                //     .catch(error => {
-                //         // Auto-play was prevented
-                //         // Show paused UI.
-                //         console.log("video not started")
-                //     });
-                // }
                 this.videos.push(video)
 
 
@@ -139,10 +126,6 @@ class MyGraphBuilder {
             }
             materialObject.texlength_s = material.texlength_s  ?? 1.0;
             materialObject.texlength_t = material.texlength_t ?? 1.0;
-            console.log("MATERIAL")
-            console.log(material)
-            console.log(materialObject.texlength_s)
-            console.log(materialObject.texlength_t)
             this.materials.set(material.id, materialObject);
         }
     }
@@ -157,9 +140,8 @@ class MyGraphBuilder {
         } else {
             console.error("Root node not found.");
         }
-
-
     }
+
 
     // TODO: fix inheritance
     // handleClone(nodeGroup, material) {
@@ -322,6 +304,45 @@ class MyGraphBuilder {
                 this.processNode(childNodeData.node, parent)
                 console.log(this.nodes.get(childNodeData.node.id))
                 this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id), childNodeData.mindist)
+        }
+    }
+
+    buildCameras(camerasData) {
+        let countP = 1
+        let countO = 1
+        for (var key in camerasData) {
+            let camera = camerasData[key]
+            if (camera.type === "perspective") {
+                const cameraObj = new THREE.PerspectiveCamera();
+                cameraObj.name = camera.type + " " + countP 
+                countP++
+                cameraObj.fov = camera.angle
+                cameraObj.far = camera.far
+                cameraObj.near = camera.near
+                cameraObj.position.set(...camera.location)
+                cameraObj.lookAt(...camera.target)
+                // this.app.cameras['Perspective2'] = cameraObj
+                this.cameras.push(cameraObj)
+            }
+            if (camera.type === "orthogonal") {
+                const cameraObj = new THREE.OrthographicCamera();
+                cameraObj.name = camera.type + " " + countO 
+                countO++
+                cameraObj.fov = camera.angle
+                cameraObj.left = camera.left
+                cameraObj.right = camera.right
+                cameraObj.top = camera.top
+                cameraObj.bottom = camera.bottom
+                cameraObj.far = camera.far
+                cameraObj.near = camera.near
+                cameraObj.position.set(...camera.location)
+                cameraObj.lookAt(...camera.target)
+                // add a left, right, top bootom, near and far camera
+                // this.app.cameras['Orthogonal'] = cameraObj
+                this.cameras.push(cameraObj)
+
+            }
+
         }
     }
 }

@@ -38,7 +38,6 @@ class MyContents  {
      */
     onSceneLoaded(data) {
 
-        this.initCameras(data)
         console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
 
         // default material
@@ -133,41 +132,6 @@ class MyContents  {
         }
     }
 
-    initCameras(data) {
-        for (var key in data.cameras) {
-            let camera = data.cameras[key]
-            if (camera.type === "perspective") {
-                // create a perspective camera
-                const cameraObj = new THREE.PerspectiveCamera();
-                cameraObj.fov = camera.angle
-                cameraObj.far = camera.far
-                cameraObj.near = camera.near
-                cameraObj.position.set(...camera.location)
-                cameraObj.lookAt(...camera.target)
-                this.app.cameras['Perspective2'] = cameraObj
-            }
-            if (camera.type === "orthogonal") {
-                const cameraObj = new THREE.OrthographicCamera();
-                cameraObj.left = camera.left
-                cameraObj.right = camera.right
-                cameraObj.top = camera.top
-                cameraObj.bottom = camera.bottom
-                cameraObj.far = camera.far
-                cameraObj.near = camera.near
-                cameraObj.position.set(...camera.location)
-                cameraObj.lookAt(...camera.target)
-                // add a left, right, top bootom, near and far camera
-                console.log(camera)
-                console.log(cameraObj)
-                this.app.cameras['Orthogonal'] = cameraObj
-
-            }
-
-        }
-    }
-
-
-    
     update() {
         
     }

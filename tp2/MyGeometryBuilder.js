@@ -18,18 +18,12 @@ class MyGeometryBuilder {
             case "rectangle": {
                 // handle texture
                 if (this.textureObject != null) {
-                    if (this.materialObject.name === "waterApp") {
-                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                        this.textureObject.repeat.set(2,2);
-                    }
-                    else {
-                        this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                        console.log("estamos")
-                        console.log(this.materialObject.texlength_s)
-                        console.log(this.materialObject.texlength_t)
-                        this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialObject.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialObject.texlength_t);
-                        this.materialObject.map = this.textureObject;
-                    }
+                    this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
+                    console.log("estamos")
+                    console.log(this.materialObject.texlength_s)
+                    console.log(this.materialObject.texlength_t)
+                    this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialObject.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialObject.texlength_t);
+                    this.materialObject.map = this.textureObject;
                 }
                 
                 
@@ -109,7 +103,7 @@ class MyGeometryBuilder {
             case "polygon": {
                 geometry = new MyPolygon(geometryData)
 
-                let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatshading: true, vertexColors: true})
+                let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatShading: true, vertexColors: true})
                 let primitive = new THREE.Mesh(geometry, material);
                 return primitive
             }
