@@ -31,12 +31,18 @@ class MyGuiInterface  {
     init() {
         const cameraFolder = this.datgui.addFolder('Cameras')
         const cameras = this.contents.graphBuilder.cameras
-        cameraFolder.add(this.app, 'activeCameraName', Object.values(cameras).map(camera => camera["name"])).name("active camera");
+        let cameraDropDown = cameraFolder.add(this.app, 'activeCameraName', Object.values(cameras).map(camera => camera["name"])).name("active camera");
+        this.app.setActiveCamera(cameras[cameras.length - 1].name)
+
+        cameraDropDown.setValue(cameras[cameras.length - 1].name)
 
         cameras.forEach((camera, index) => {
             this.app.cameras[camera.name] = camera
             cameraFolder.open();
         });
+
+
+
         
         console.log(this.contents.graphBuilder)
         console.log(this.contents)
