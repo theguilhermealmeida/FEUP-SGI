@@ -7,14 +7,19 @@
 | Guilherme Almeida    | 202008866 | <up202008866@edu.fe.up.pt>|
 
 ----
-
 ## Project information
 
-- (items describing main strong points)
+- Strong Points
+
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+
+- tp3/index.html
+
 ----
+
 ## Issues/Problems
 
-- (items describing unimplemented features, bugs, problems, etc.)
+
+---
+
+## Screenshots
