@@ -124,8 +124,6 @@ class MyPolygon {
         function disposeArray() {
             this.array = null;
         }
-        console.log("colors")
-        console.log(colors)
 
         this.buffer.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3).onUpload(disposeArray));
         this.buffer.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3).onUpload(disposeArray));

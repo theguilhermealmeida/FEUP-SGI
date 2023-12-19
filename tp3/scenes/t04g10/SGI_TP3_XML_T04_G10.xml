@@ -287,14 +287,14 @@
 
         <node id="scene" castshadows = "true" receiveshadows = "true">
             <children>
-                <noderef id="cars" />
+                <!-- <noderef id="cars" /> -->
                 <noderef id="floor" />
                 <noderef id="track" />
                 <noderef id="trackWalls" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
-                <noderef id="palmTrees" />
-                <noderef id="statue"/>
+                <!-- <noderef id="palmTrees" /> -->
+                <!-- <noderef id="statue"/> -->
             </children>
         </node>
 
@@ -977,14 +977,20 @@
 
         <node id="track">
             <transforms>
-                <translate value3="0 0.04 0" />
+                <translate value3="0 0.1 0" />
+                <scale value3="1 0.01 1" />
             </transforms>
             <children>
-                <noderef id="sector1" />
-                <noderef id="sector2" />
-                <noderef id="sector3" />
-                <noderef id="finish" />
-                <noderef id="gridboxes" />
+                <primitive>
+                    <track segments="200">
+                        <controlpoint xx="-50" yy="0" zz="50" />
+                        <controlpoint xx="65" yy="0" zz="50" />
+                        <controlpoint xx="65" yy="0" zz="-50" />
+                        <controlpoint xx="20" yy="0" zz="-65" />
+                        <controlpoint xx="0" yy="0" zz="-20" />
+
+                    </track>
+                </primitive>
             </children>
         </node>
 

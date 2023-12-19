@@ -103,6 +103,10 @@ class MyContents  {
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
+
+        //print the data
+        console.log(data)
+        
         // loop through data camaras and add them to the scene
         this.graphBuilder = new MyGraphBuilder(data)
 

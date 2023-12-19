@@ -245,7 +245,6 @@ class MyGraphBuilder {
 
     buildLight(lightData) {
 
-        console.log(lightData)
         let light
         switch (lightData.type) {
             case "spotlight": {
@@ -293,8 +292,6 @@ class MyGraphBuilder {
             //light.add(helper);
         }
         
-        console.log("LIGHTDATA")
-        console.log(lightData)
         this.lights.push(light)
         return light
     }
@@ -302,7 +299,6 @@ class MyGraphBuilder {
     buildLod(lodData, parent) {
         for (let childNodeData of lodData.children) {
                 this.processNode(childNodeData.node, parent)
-                console.log(this.nodes.get(childNodeData.node.id))
                 this.lods.get(lodData.id).addLevel(this.nodes.get(childNodeData.node.id), childNodeData.mindist)
         }
     }

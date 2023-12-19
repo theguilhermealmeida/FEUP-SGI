@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyTrack } from './MyTrack.js';
 import { MyPolygon } from './MyPolygon.js';
 import { MyTriangle } from './MyTriangle.js';
 
 
 class MyGeometryBuilder {
-    constructor(geometryData, materialObject, textureObject, castShadows, receiveShadows) {
+    constructor(geometryData, materialObject, textureObject, castShadows, receiveShadows) { 
         this.geometryData = geometryData
         this.materialObject = materialObject
         this.textureObject = textureObject
@@ -19,9 +20,6 @@ class MyGeometryBuilder {
                 // handle texture
                 if (this.textureObject != null) {
                     this.textureObject.wrapS = this.textureObject.wrapT = THREE.RepeatWrapping;
-                    console.log("estamos")
-                    console.log(this.materialObject.texlength_s)
-                    console.log(this.materialObject.texlength_t)
                     this.textureObject.repeat.set((this.representations.xy2[0] - this.representations.xy1[0]) / this.materialObject.texlength_s, (this.representations.xy2[1] - this.representations.xy1[1]) / this.materialObject.texlength_t);
                     this.materialObject.map = this.textureObject;
                 }
@@ -68,7 +66,6 @@ class MyGeometryBuilder {
                 break;
             }
             case "nurbs": {
-                console.log(this.geometryData)
                 let points = []
                 let count_v = 0
                 let count_u = 0
@@ -89,6 +86,11 @@ class MyGeometryBuilder {
 
                 const builder = new MyNurbsBuilder()
                 geometry = builder.build(points, this.representations.degree_u, this.representations.degree_v, this.representations.parts_u, this.representations.parts_v)
+                break;
+            }
+            case "track": {
+                const builder = new MyTrack(this.representations.controlpoints, this.representations.numsegments)
+                geometry = builder.build()
                 break;
             }
             case "box": {

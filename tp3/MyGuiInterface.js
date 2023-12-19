@@ -43,9 +43,6 @@ class MyGuiInterface  {
 
 
 
-        
-        console.log(this.contents.graphBuilder)
-        console.log(this.contents)
         const lights = this.contents.graphBuilder.lights
         const lightsFolder = this.datgui.addFolder('Lights');
         lights.forEach((light, index) => {
@@ -59,7 +56,6 @@ class MyGuiInterface  {
         const videos = this.contents.graphBuilder.videos
         const videosFolder = this.datgui.addFolder('Videos');
         videos.forEach((video, index) => {
-            console.log(this.contents.graphBuilder.videos)
             const videoFolder = videosFolder.addFolder(`video  ${index}`);
             videoFolder.add(video, 'play').name('Play');
             videoFolder.add(video, 'pause').name('Pause');

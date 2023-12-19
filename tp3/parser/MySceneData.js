@@ -238,9 +238,13 @@ class MySceneData  {
             {name: "shadowmapsize", type: "integer", required: false, default: 512},
 		]
 
+        this.descriptors["track"] = [
+            {name: "segments", type: "integer"},
+        ]
+
         this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon" ]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track" ]
     }
 
     createCustomAttributeIfNotExists(obj) {
