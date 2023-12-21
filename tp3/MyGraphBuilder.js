@@ -187,6 +187,7 @@ class MyGraphBuilder {
             const textureObject = parentGroup.material.map 
 
             let geometry = new MyGeometryBuilder(nodeData, materialObject, textureObject, nodeGroup.castShadow, nodeGroup.receiveShadow);
+            nodeGroup.data = nodeData
             nodeGroup.add(geometry);
         }
 

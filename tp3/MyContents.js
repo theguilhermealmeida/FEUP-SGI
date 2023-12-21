@@ -103,9 +103,6 @@ class MyContents  {
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
-
-        //print the data
-        console.log(data)
         
         // loop through data camaras and add them to the scene
         this.graphBuilder = new MyGraphBuilder(data)
@@ -115,14 +112,71 @@ class MyContents  {
         // add group to the scene
         this.app.scene.add(group);
         
-        // this.printGroupInfo(group)
+        console.log(group)
 
+        this.oppCar = group.getObjectByName("redCar");
+
+        this.clock = new THREE.Clock();
+
+        this.track = group.getObjectByName("track");
+
+        console.log(this.track.data.representations[0].controlpoints)
+
+        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+
+        //get the rotation at each control point
+        const trackQuarterions = this.track.data.representations[0].controlpoints.map(point => new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(point.ry)));
+
+        // at each control point add a little box to the scene
+        trackControlPoints.forEach(point => {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometry, material);
+            cube.position.set(point.x, point.y, point.z);
+            this.app.scene.add(cube);
+        }
+        );
+
+
+        //add the first point to the end to close the loop
+        trackControlPoints.push(trackControlPoints[0]);
+
+        //add the first point to the end to close the loop
+        trackQuarterions.push(trackQuarterions[0]);
+
+        const positionKF = new THREE.VectorKeyframeTrack(
+            '.position',
+            [...Array(trackControlPoints.length).keys()],
+            [].concat(...trackControlPoints.map(point => [...point.toArray()])),
+            THREE.InterpolateSmooth
+          );
+
+        const quaternionKF = new THREE.QuaternionKeyframeTrack(
+            '.quaternion',
+            [...Array(trackQuarterions.length).keys()],
+            [].concat(...trackQuarterions.map(point => [...point.toArray()]))
+          );
+
+        const positionClip = new THREE.AnimationClip('OpponentCar', -1, [positionKF]);
+        const rotationClip = new THREE.AnimationClip('OpponentCar', -1, [quaternionKF]);
+
+        this.mixer = new THREE.AnimationMixer(this.oppCar);
+
+        const positionAction = this.mixer.clipAction(positionClip);
+        const rotationAction = this.mixer.clipAction(rotationClip);
+
+        //change the speed of the animation
+        positionAction.timeScale = 0.5;
+        rotationAction.timeScale = 0.5;
+
+
+        positionAction.play();
+        rotationAction.play();
+    
         // create target pointing to the origin
         const targetObject = new THREE.Object3D();
         targetObject.position.set(0, 0, 0);
         this.app.scene.add(targetObject);
-
-        this.output(data.options)
     }
 
     printGroupInfo(group, ident = 0) {
@@ -137,7 +191,9 @@ class MyContents  {
     }
 
     update() {
-        
+        if (this.mixer) {
+            this.mixer.update(this.clock.getDelta());
+        }
     }
 }
 

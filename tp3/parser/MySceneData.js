@@ -171,6 +171,7 @@ class MySceneData  {
 			{name: "xx", type: "float"},
 			{name: "yy", type: "float"},
             {name: "zz", type: "float"},
+            {name: "ry", type: "float", required: false, default: 0.0}, // The rotation of the control point around the y axis. Default 0.0.
 		]
 
         this.descriptors["skybox"] = [
