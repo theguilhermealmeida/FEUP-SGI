@@ -7,7 +7,7 @@
 ************************************
 -->
 
-    <globals background="0 0 0 1" ambient="0.7 0.4 1.0 0.4" />  
+    <globals background="0 0 0 1" ambient="0.7 0.4 1.0 0.9" />  
 
 <!--
 ************************************
@@ -23,13 +23,20 @@
 ************************************
 -->
 
-    <cameras initial="cam1" > 
-        <perspective id="cam1" 
+    <cameras initial="menu" > 
+        <perspective id="game" 
             angle="75" 
             near="0.1" 
             far="10000" 
             location="95 45 -36" 
-            target="0 0.0 0" /> 
+            target="100 0.0 100" /> 
+        
+        <perspective id="menu" 
+            angle="75" 
+            near="0.1" 
+            far="10000" 
+            location="-95 45 -36" 
+            target="0 0.0 0" />
 
         <orthogonal id="cam2" 
             near="0.1" 
@@ -991,9 +998,9 @@
         <node id="trackNode">
             <transforms>
                 <translate value3="0 0.1 0" />
-                <scale value3="1 0.01 1" />
+                <scale value3="1 0.05 1" />
             </transforms>
-            <materialref id="blueApp" />
+            <materialref id="asphaltApp" />
             <children>
                 <primitive>
                     <track segments="300">

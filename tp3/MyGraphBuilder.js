@@ -316,7 +316,7 @@ class MyGraphBuilder {
             let camera = camerasData[key]
             if (camera.type === "perspective") {
                 const cameraObj = new THREE.PerspectiveCamera();
-                cameraObj.name = camera.type + " " + countP 
+                cameraObj.name = camera.id
                 countP++
                 cameraObj.fov = camera.angle
                 cameraObj.far = camera.far
@@ -328,7 +328,7 @@ class MyGraphBuilder {
             }
             if (camera.type === "orthogonal") {
                 const cameraObj = new THREE.OrthographicCamera();
-                cameraObj.name = camera.type + " " + countO 
+                cameraObj.name = camera.id
                 countO++
                 cameraObj.fov = camera.angle
                 cameraObj.left = camera.left

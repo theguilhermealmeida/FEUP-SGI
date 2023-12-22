@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
+import { MenuState } from './states/MenuState.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -108,7 +110,7 @@ class MyContents  {
         this.graphBuilder = new MyGraphBuilder(data)
 
 
-        const group = this.graphBuilder.buildGraph(data);
+        const group = this.graphBuilder.buildGraph(data);  
         // add group to the scene
         this.app.scene.add(group);
 
@@ -200,9 +202,10 @@ class MyContents  {
     }
 
     update() {
-        if (this.mixer) {
-            this.mixer.update(this.clock.getDelta());
-        }
+        // if (this.mixer) {
+        //     this.mixer.update(this.clock.getDelta());
+        // }
+        this.app.currentState.update()
     }
 }
 
