@@ -350,6 +350,21 @@
             <materialref id="redApp" />
             <children>
                 <noderef id="car" />
+                <noderef id="redCarRoute" />
+            </children>
+        </node>
+
+        <node id="redCarRoute">
+            <children>
+                <primitive>
+                    <route id="redCar">
+                        <controlpoint xx="-50" yy="0" zz="50" ry="300"/>
+                        <controlpoint xx="65" yy="0" zz="50" ry="60"/>
+                        <controlpoint xx="65" yy="0" zz="-50" ry="145"/>
+                        <controlpoint xx="20" yy="0" zz="-65" ry="220"/>
+                        <controlpoint xx="0" yy="0" zz="-20" ry="250"/>
+                    </route>
+                </primitive>
             </children>
         </node>
 
@@ -982,11 +997,11 @@
             <children>
                 <primitive>
                     <track segments="300">
-                        <controlpoint xx="-50" yy="0" zz="50" ry="300"/>
-                        <controlpoint xx="65" yy="0" zz="50" ry="60"/>
-                        <controlpoint xx="65" yy="0" zz="-50" ry="145"/>
-                        <controlpoint xx="20" yy="0" zz="-65" ry="220"/>
-                        <controlpoint xx="0" yy="0" zz="-20" ry="250"/>
+                        <controlpoint xx="-50" yy="0" zz="50"/>
+                        <controlpoint xx="65" yy="0" zz="50"/>
+                        <controlpoint xx="65" yy="0" zz="-50"/>
+                        <controlpoint xx="20" yy="0" zz="-65"/>
+                        <controlpoint xx="0" yy="0" zz="-20"/>
                     </track>
                 </primitive>
             </children>

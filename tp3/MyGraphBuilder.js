@@ -186,6 +186,11 @@ class MyGraphBuilder {
             const materialObject = parentGroup.material
             const textureObject = parentGroup.material.map 
 
+            if (nodeData.subtype === "route") {
+                nodeGroup.data = nodeData
+                return;
+            }
+
             let geometry = new MyGeometryBuilder(nodeData, materialObject, textureObject, nodeGroup.castShadow, nodeGroup.receiveShadow);
             nodeGroup.data = nodeData
             nodeGroup.add(geometry);

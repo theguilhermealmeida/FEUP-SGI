@@ -243,9 +243,13 @@ class MySceneData  {
             {name: "segments", type: "integer"},
         ]
 
+        this.descriptors["route"] = [
+            {name: "id", type: "string"},
+        ]
+
         this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track" ]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route" ]
     }
 
     createCustomAttributeIfNotExists(obj) {
