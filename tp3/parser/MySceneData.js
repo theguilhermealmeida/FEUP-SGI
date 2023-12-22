@@ -21,6 +21,7 @@ class MySceneData  {
         this.materials = []
         this.lights = [];
         this.textures = [];
+        this.powerUps = [];
         
         this.cameras = [];
         this.activeCameraId = null;
@@ -247,9 +248,16 @@ class MySceneData  {
             {name: "id", type: "string"},
         ]
 
+        this.descriptors["powerUp"] = [
+            {name: "id", type: "string"},
+            {name: "subtype", type: "string"},
+            {name: "xyz", type: "vector3"},
+            {name: "filepath", type: "string"},
+        ]
+
         this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route" ]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp"]
     }
 
     createCustomAttributeIfNotExists(obj) {
@@ -297,6 +305,12 @@ class MySceneData  {
         if (value === undefined) return null
         return value
     }
+    
+    getPowerUp(id) {
+        let value = this.powerUps[id]
+        if (value === undefined) return null
+        return value
+    }
 
     addMaterial(material) {
         let obj = this.getMaterial(material.id); 
@@ -306,6 +320,16 @@ class MySceneData  {
         this.materials[material.id] = material;
         this.createCustomAttributeIfNotExists(material)
         console.debug("added material " + JSON.stringify(material));
+    };
+
+    addPowerUp(powerUp) {
+        let obj = this.getPowerUp(powerUp.id); 
+        if (obj !== null && obj !== undefined) {
+            throw new Error("inconsistency: a powerUp with id " + powerUp.id + " already exists!");		
+        }
+        this.powerUps[powerUp.id] = powerUp;
+        this.createCustomAttributeIfNotExists(powerUp)
+        console.debug("added powerUp " + JSON.stringify(powerUp));
     };
 
     addTexture(texture) {

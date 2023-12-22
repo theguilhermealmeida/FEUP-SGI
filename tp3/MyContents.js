@@ -95,6 +95,7 @@ class MyContents  {
         this.app.scene.add(skyboxMesh)
 
 
+
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 

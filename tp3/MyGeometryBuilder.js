@@ -3,6 +3,9 @@ import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyTrack } from './MyTrack.js';
 import { MyPolygon } from './MyPolygon.js';
 import { MyTriangle } from './MyTriangle.js';
+import { MyPowerUp } from './MyPowerUp.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 
 
 class MyGeometryBuilder {
@@ -99,7 +102,10 @@ class MyGeometryBuilder {
                 break;
             }
             case "model3d": {
-                // TODO: implement model3d 
+                const loader = new GLTFLoader();
+
+                loader.load(this.representations.filepath)
+
                 break;
             }
             case "polygon": {
@@ -108,7 +114,11 @@ class MyGeometryBuilder {
                 let material = new THREE.MeshPhongMaterial({color: 0xffffff, flatShading: true, vertexColors: true})
                 let primitive = new THREE.Mesh(geometry, material);
                 return primitive
-            }
+            }   
+            // case "powerUp": {
+            //     geometry = new MyPowerUp(geometryData)
+            //     break;
+            // }
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;

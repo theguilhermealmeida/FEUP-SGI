@@ -291,8 +291,27 @@
                 <noderef id="trackWalls" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
+                <noderef id="powerUps" />
                 <!-- <noderef id="palmTrees" /> -->
                 <!-- <noderef id="statue"/> -->
+            </children>
+        </node>
+
+
+<!-- 
+************************************
+            POWER UPS 
+************************************
+ -->
+
+        <node id="powerUps">
+            <children>
+                <primitive>
+                    <powerUp id="1" subtype="speed" xyz="0 0 0" filepath="public/scene.gltf"/>
+                </primitive>
+                <!-- <primitive>
+                    <powerUp id="2" subtype="speed" xyz="10 0 0" />
+                </primitive> -->
             </children>
         </node>
 
@@ -982,6 +1001,7 @@
             </children>
         </node>
 
+        
 <!--
 ************************************
             TRACK

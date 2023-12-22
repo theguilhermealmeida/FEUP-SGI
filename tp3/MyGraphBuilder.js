@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyGeometryBuilder } from './MyGeometryBuilder.js';
+import { MyPowerUp} from './MyPowerUp.js';
 
 
 class MyGraphBuilder {
@@ -14,6 +15,7 @@ class MyGraphBuilder {
         this.transformations = new Map()
         this.lods = new Map()
         this.cameras = []
+        this.powerUps = []
 
         this.no_materials = new Map()
         this.videos = [] 
@@ -127,6 +129,14 @@ class MyGraphBuilder {
             materialObject.texlength_s = material.texlength_s  ?? 1.0;
             materialObject.texlength_t = material.texlength_t ?? 1.0;
             this.materials.set(material.id, materialObject);
+        }
+    }
+
+    initPowerUps() {
+        for (let key in this.sceneData.powerUps) {
+            let powerUpData = this.sceneData.powerUps[key];
+            let powerUpMesh = new MyPowerUp(powerUpData.id, powerUpData.type, powerUpData.xyz[0], powerUpData.xyz[1], powerUpData.xyz[2]);
+            this.powerUps.set(powerUpData.id, powerUpMesh);
         }
     }
 
