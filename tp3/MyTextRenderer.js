@@ -10,8 +10,9 @@ class MyTextRenderer {
         this.charHeight = 20;
     }
 
-    createText(text, position) {
-        let currentX = position.x;
+    createText(text,planeWidth, planeHeight) {
+        let currentX = 0;
+        const textGroup = new THREE.Group();
 
         for (let i = 0; i < text.length; i++) {
             const character = text.charAt(i);
@@ -20,7 +21,7 @@ class MyTextRenderer {
                 const texture = new THREE.TextureLoader().load(this.spriteSheet);
                 const material = new THREE.MeshBasicMaterial({ map: texture });
 
-                const geometry = new THREE.PlaneGeometry(this.charWidth, this.charHeight);
+                const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
                 const letterPlane = new THREE.Mesh(geometry, material);
 
                 const columns = Math.floor(this.spriteSheetWidth / this.charWidth);
@@ -35,13 +36,15 @@ class MyTextRenderer {
                 texture.repeat.set(1 / columns, 1 / rows);
                 texture.offset.set(offsetX, offsetY);
 
-                letterPlane.position.set(currentX, position.y, position.z);
+                letterPlane.position.set(currentX,0,0);
 
-                currentX += this.charWidth; // Increment for next character's position
+                currentX += planeWidth; // Increment for next character's position
 
-                this.app.scene.add(letterPlane);
+                textGroup.add(letterPlane);
             }
         }
+
+        return textGroup;
     }
 }
 

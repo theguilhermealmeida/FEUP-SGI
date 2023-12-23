@@ -38,29 +38,28 @@ class MyGuiInterface  {
 
         cameras.forEach((camera, index) => {
             this.app.cameras[camera.name] = camera
-            cameraFolder.open();
         });
 
 
 
         const lights = this.contents.graphBuilder.lights
         const lightsFolder = this.datgui.addFolder('Lights');
+        lightsFolder.close();
         lights.forEach((light, index) => {
             const lightFolder = lightsFolder.addFolder(`${lights[index].type} ${index}`);
             lightFolder.addColor(light, 'color').name('Color');
             lightFolder.add(light, 'intensity', 0, lights[index].intensity*2).name('Intensity');
-            lightFolder.open(); 
         });
 
 
         const videos = this.contents.graphBuilder.videos
         const videosFolder = this.datgui.addFolder('Videos');
+        videosFolder.close();
         videos.forEach((video, index) => {
             const videoFolder = videosFolder.addFolder(`video  ${index}`);
             videoFolder.add(video, 'play').name('Play');
             videoFolder.add(video, 'pause').name('Pause');
             videoFolder.add(video, 'playbackRate', 0, 2).name('Speed');
-            videoFolder.open(); 
         });
 
 

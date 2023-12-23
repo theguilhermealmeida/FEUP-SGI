@@ -108,7 +108,7 @@ class MyContents  {
     onAfterSceneLoadedAndBeforeRender(data) {
         
         // loop through data camaras and add them to the scene
-        this.graphBuilder = new MyGraphBuilder(data)
+        this.graphBuilder = new MyGraphBuilder(data, this.app)
 
 
         const group = this.graphBuilder.buildGraph(data);  
@@ -132,11 +132,6 @@ class MyContents  {
         //const textContainer = document.getElementById('textContainer');
 
         //textContainer.innerHTML = "FODA-SE"
-
-        const textRenderer = new MyTextRenderer(this.app);
-
-        textRenderer.createText("start", {x: 0, y: 50, z: 0});
-
     }
 
     printGroupInfo(group, ident = 0) {

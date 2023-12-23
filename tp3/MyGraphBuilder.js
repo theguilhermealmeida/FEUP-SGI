@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyGeometryBuilder } from './MyGeometryBuilder.js';
+import { MyTextRenderer } from './MyTextRenderer.js';
 
 
 class MyGraphBuilder {
-    constructor(sceneData) {
+    constructor(sceneData, app) {
         this.sceneData = sceneData
         this.group = new THREE.Group();
         this.nodes = new Map()
@@ -14,9 +15,12 @@ class MyGraphBuilder {
         this.transformations = new Map()
         this.lods = new Map()
         this.cameras = []
+        this.app = app
 
         this.no_materials = new Map()
         this.videos = [] 
+
+        this.textRenderer = new MyTextRenderer(this.app)
 
         this.initTextures()
         this.initMaterials()
@@ -190,6 +194,14 @@ class MyGraphBuilder {
                 nodeGroup.data = nodeData
                 return;
             }
+            if (nodeData.subtype === "text") {
+                const data = nodeData.representations[0]
+                const text = this.textRenderer.createText(data.text, data.width, data.height)
+                nodeGroup.add(text)
+                nodeGroup.data = nodeData
+                return;
+            }
+
 
             let geometry = new MyGeometryBuilder(nodeData, materialObject, textureObject, nodeGroup.castShadow, nodeGroup.receiveShadow);
             nodeGroup.data = nodeData
