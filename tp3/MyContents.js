@@ -3,6 +3,7 @@ import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
 import { MenuState } from './states/MenuState.js';
+import { MyTextRenderer } from './MyTextRenderer.js';
 
 /**
  *  This class contains the contents of out application
@@ -127,11 +128,15 @@ class MyContents  {
         //     this.app.scene.add(cube);
         // }
         // );
-    
-        // create target pointing to the origin
-        const targetObject = new THREE.Object3D();
-        targetObject.position.set(0, 0, 0);
-        this.app.scene.add(targetObject);
+
+        //const textContainer = document.getElementById('textContainer');
+
+        //textContainer.innerHTML = "FODA-SE"
+
+        const textRenderer = new MyTextRenderer(this.app);
+
+        textRenderer.createText("start", {x: 0, y: 50, z: 0});
+
     }
 
     printGroupInfo(group, ident = 0) {

@@ -16,7 +16,7 @@ class MyTrack {
         this.path,
         this.numSegments,
         8, // Width of the tube, adjust as needed
-        3, // Radius segments, adjust as needed
+        20, // Radius segments, adjust as needed
         false // Closed tube or not
         );
 
