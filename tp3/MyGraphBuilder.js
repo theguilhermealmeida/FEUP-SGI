@@ -132,6 +132,8 @@ class MyGraphBuilder {
             materialObject.texlength_t = material.texlength_t ?? 1.0;
             this.materials.set(material.id, materialObject);
         }
+
+        this.app.materials = this.materials
     }
 
 

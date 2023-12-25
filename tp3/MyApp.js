@@ -66,7 +66,14 @@ class MyApp  {
         this.gameState = new GameState(this)
 
         this.currentState = this.menuState
-        this.currentState.init()
+
+        this.raycaster = new THREE.Raycaster()
+        this.raycaster.near = 1
+        this.raycaster.far = 200
+
+        this.pointer = new THREE.Vector2()
+        this.intersectedObj = null
+        this.pickingColor = "0x00ff00"
     }
 
 
@@ -77,6 +84,10 @@ class MyApp  {
     setActiveCamera(cameraName) {   
         this.activeCameraName = cameraName
         this.activeCamera = this.cameras[this.activeCameraName]
+    }
+
+    getActiveCamera() {
+        return this.cameras[this.activeCameraName]
     }
 
     /**
@@ -126,6 +137,9 @@ class MyApp  {
      */
     setContents(contents) {
         this.contents = contents;
+
+        //get mouse position
+        //window.addEventListener('pointermove', this.onPointerMove)
     }
 
     /**

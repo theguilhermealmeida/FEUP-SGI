@@ -317,6 +317,7 @@
             <children>
                 <noderef id="menuTable" />
                 <noderef id="startText" />
+                <noderef id="startButton" />
             </children>
         </node>
 
@@ -339,6 +340,18 @@
             <children>
                 <primitive>
                     <text text="Start" width="5" height="5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="startButton">
+            <transforms>
+                <translate value3="0 8 2" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="10 5 3"/>
                 </primitive>
             </children>
         </node>

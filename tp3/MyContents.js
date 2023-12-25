@@ -47,7 +47,6 @@ class MyContents  {
         let defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
         data.addMaterial(defaultMaterial)
         data.getNode("scene").materialIds[0] = defaultMaterial.id
-        console.log(data.getNode("scene").cameras)
 
         // ambient light
         let red = data.options.ambient.r
@@ -112,10 +111,11 @@ class MyContents  {
 
 
         const group = this.graphBuilder.buildGraph(data);  
+    
         // add group to the scene
         this.app.scene.add(group);
 
-        
+        this.app.currentState.init()
 
         // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
 

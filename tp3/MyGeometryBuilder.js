@@ -117,6 +117,7 @@ class MyGeometryBuilder {
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         this.mesh.castShadow = this.castShadows;
         this.mesh.receiveShadow = this.receiveShadows;
+        this.mesh.name = geometryData.id;
         return this.mesh
     }
 
