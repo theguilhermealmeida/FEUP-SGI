@@ -23,13 +23,13 @@
 ************************************
 -->
 
-    <cameras initial="menu" > 
+    <cameras initial="game" > 
         <perspective id="game" 
             angle="75" 
             near="0.1" 
             far="10000" 
-            location="95 20 -36" 
-            target="100 0.0 100" /> 
+            location="0 150 0" 
+            target="0 0 0" /> 
         
         <perspective id="menu" 
             angle="75" 
@@ -295,11 +295,13 @@
                 <noderef id="cars" />
                 <noderef id="floor" />
                 <noderef id="trackNode" />
+                <noderef id="finish" />
+                <noderef id="gridboxes" />
                 <noderef id="trackWalls" />  
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
-                <!-- <noderef id="palmTrees" /> -->
-                <!-- <noderef id="statue"/> -->
+                <noderef id="palmTrees" />
+                <noderef id="statue"/>
                 <noderef id="menu" />
             </children>
         </node>
@@ -363,17 +365,20 @@
  -->
 
         <node id="cars">
+            <transforms>
+                <translate value3="100 0 -120" />
+            </transforms>
             <children>
                 <noderef id="redCar" />
-                <!-- <noderef id="blueCar" />
+                <noderef id="blueCar" />
                 <noderef id="greenCar" />
-                <noderef id="yellowCar" /> -->
+                <noderef id="yellowCar" />
             </children>
         </node>
 
         <node id="yellowCar">
             <transforms>
-                <translate value3="10 7 12.5" />
+                <translate value3="0 0 0" />
             </transforms>
             <materialref id="yellowApp" />
             <children>
@@ -383,8 +388,7 @@
 
         <node id="greenCar">
             <transforms>
-                <translate value3="-55 0 15" />
-                <rotate value3="0 1.5707 0" />
+                <translate value3="0 0 15" />
             </transforms>
             <materialref id="greenApp" />
             <children>
@@ -394,8 +398,7 @@
 
         <node id="blueCar">
             <transforms>
-                <translate value3="45 0 62.5" />
-                <rotate value3="0 3.1415 0" />
+                <translate value3="15 0 0" />
             </transforms>
             <materialref id="blueApp" />
             <children>
@@ -405,7 +408,7 @@
 
         <node id="redCar">
             <transforms>
-                <translate value3="50 0 -57.5" />
+                <translate value3="15 0 15" />
             </transforms>
             <materialref id="redApp" />
             <children>
@@ -991,13 +994,13 @@
 
         <node id="sand1">
             <transforms>
-                <translate value3="-85 0.1 16.5" />
+                <translate value3="-87 0.1 16.5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <materialref id="sandAppBump" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="49 109" />
+                    <rectangle xy1="0 0" xy2="45 109" />
                 </primitive>
             </children>
         </node>
@@ -1057,11 +1060,34 @@
             <children>
                 <primitive>
                     <track segments="300">
-                        <controlpoint xx="-50" yy="0" zz="50"/>
-                        <controlpoint xx="65" yy="0" zz="50"/>
-                        <controlpoint xx="65" yy="0" zz="-50"/>
-                        <controlpoint xx="20" yy="0" zz="-65"/>
-                        <controlpoint xx="0" yy="0" zz="-20"/>
+                        <controlpoint xx="-50" yy="0" zz="80"/>
+                        <controlpoint xx="-25" yy="0" zz="85"/>
+                        <controlpoint xx="0" yy="0" zz="85"/>
+                        <controlpoint xx="25" yy="0" zz="85"/>
+                        <controlpoint xx="50" yy="0" zz="85"/>
+                        <controlpoint xx="75" yy="0" zz="85"/>
+                        <controlpoint xx="85" yy="0" zz="70"/>
+                        <controlpoint xx="85" yy="0" zz="45"/>
+                        <controlpoint xx="85" yy="0" zz="20"/>
+                        <controlpoint xx="85" yy="0" zz="-5"/>
+                        <controlpoint xx="85" yy="0" zz="-30"/>
+                        <controlpoint xx="85" yy="0" zz="-55"/>
+                        <controlpoint xx="60" yy="0" zz="-60"/>
+                        <controlpoint xx="35" yy="0" zz="-55"/>
+                        <controlpoint xx="20" yy="0" zz="-45"/>
+                        <controlpoint xx="20" yy="0" zz="-25"/>
+                        <controlpoint xx="40" yy="0" zz="-5"/>
+                        <controlpoint xx="50" yy="0" zz="15"/>
+                        <controlpoint xx="40" yy="0" zz="35"/>
+                        <controlpoint xx="15" yy="0" zz="40"/>
+                        <controlpoint xx="0" yy="0" zz="30"/>
+                        <controlpoint xx="-7" yy="0" zz="10"/>
+                        <controlpoint xx="-15" yy="0" zz="-10"/>
+                        <controlpoint xx="-30" yy="0" zz="-25"/>
+                        <controlpoint xx="-50" yy="0" zz="-15"/>
+                        <controlpoint xx="-50" yy="0" zz="10"/>
+                        <controlpoint xx="-50" yy="0" zz="35"/>
+                        <controlpoint xx="-52" yy="0" zz="60"/>
                     </track>
                 </primitive>
             </children>
@@ -1075,7 +1101,7 @@
 
         <node id="finish">
             <transforms>
-                <translate value3="10 0 63" />
+                <translate value3="10 0 80" />
             </transforms>
             <children>
                 <noderef id="finishLine" />
@@ -1085,13 +1111,13 @@
 
         <node id="finishLine">
             <transforms>
-                <translate value3="0 0.3 0" />
+                <translate value3="0 0.6 5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <materialref id="finishApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="3 9.5" />
+                    <rectangle xy1="0 0" xy2="4 19.5" />
                 </primitive>
             </children>
         </node>
@@ -1268,7 +1294,7 @@
 
         <node id="gridboxes">
             <transforms>
-                <translate value3="15 0.18 63" />
+                <translate value3="15 0.5 85" />
             </transforms>
             <children>
                 <noderef id="gridbox1" />
@@ -1283,7 +1309,7 @@
 
         <node id="gridbox1">
             <transforms>
-                <translate value3="0 0 2.5" />
+                <translate value3="0 0 4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1292,7 +1318,7 @@
 
         <node id="gridbox2">
             <transforms>
-                <translate value3="5 0 -2.5" />
+                <translate value3="5 0 -4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1301,7 +1327,7 @@
 
         <node id="gridbox3">
             <transforms>
-                <translate value3="10 0 2.5" />
+                <translate value3="10 0 4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1310,7 +1336,7 @@
 
         <node id="gridbox4">
             <transforms>
-                <translate value3="15 0 -2.5" />
+                <translate value3="15 0 -4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1319,7 +1345,7 @@
 
         <node id="gridbox5">
             <transforms>
-                <translate value3="20 0 2.5" />
+                <translate value3="20 0 4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1328,7 +1354,7 @@
 
         <node id="gridbox6">
             <transforms>
-                <translate value3="25 0 -2.5" />
+                <translate value3="25 0 -4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1337,7 +1363,7 @@
 
         <node id="gridbox7">
             <transforms>
-                <translate value3="30 0 2.5" />
+                <translate value3="30 0 4" />
             </transforms>
             <children>
                 <noderef id="gridbox" />
@@ -1368,14 +1394,14 @@
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-0.15 -1.6" xy2="0.15 1.6" />
+                    <rectangle xy1="-0.15 -2.5" xy2="0.15 2.5" />
                 </primitive>
             </children>
         </node>
 
         <node id="gridboxLeft">
             <transforms>
-                <translate value3="2 0 1.5" />
+                <translate value3="2 0 2.5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <children>
@@ -1387,7 +1413,7 @@
 
         <node id="gridboxRight">
             <transforms>
-                <translate value3="2 0 -1.5" />
+                <translate value3="2 0 -2.5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <children>
@@ -1414,7 +1440,7 @@
 
         <node id="trackWallNorth">
             <transforms>
-                <translate value3="-14 0 70" />
+                <translate value3="-14 0 100" />
                 <scale value3="1.25 1 1" />
             </transforms>
             <children>
@@ -1424,9 +1450,9 @@
 
         <node id="trackWallWest">
             <transforms>
-                <translate value3="81 0 -10" />
+                <translate value3="101 0 10" />
                 <rotate value3="0 1.5707 0" />
-                <scale value3="1.05 1 1" />
+                <scale value3="1.25 1 1" />
             </transforms>
             <children>
                 <noderef id="trackWall2" />
@@ -1612,7 +1638,7 @@
 
         <node id="standNorth">
             <transforms>
-                <translate value3="-15 0 90" />
+                <translate value3="-15 0 120" />
                 <scale value3="1.3 1 1" />
             </transforms>
             <children>
@@ -1622,9 +1648,9 @@
 
         <node id="standWest">
             <transforms>
-                <translate value3="100 0 -8" />
+                <translate value3="120 0 10" />
                 <rotate value3="0 1.5707 0" />
-                <scale value3="1.07 1 1" />
+                <scale value3="1.3 1 1" />
             </transforms>
             <children>
                 <noderef id="stand" />
@@ -1897,6 +1923,7 @@
                 <noderef id="palmTree2" />
                 <noderef id="palmTree3" />
                 <noderef id="palmTree4" />
+                <noderef id="palmTree5" />
             </children>
         </node>
 
@@ -1911,7 +1938,7 @@
 
         <node id="palmTree2">
             <transforms>
-                <translate value3="15 0 25" />
+                <translate value3="17 0 20" />
             </transforms>
             <children>
                 <noderef id="palmTree" />
@@ -1920,7 +1947,7 @@
 
         <node id="palmTree3">
             <transforms>
-                <translate value3="48 0 -38" />
+                <translate value3="55 0 -30" />
             </transforms>
             <children>
                 <noderef id="palmTree" />
@@ -1929,7 +1956,16 @@
 
         <node id="palmTree4">
             <transforms>
-                <translate value3="-20 0 -5" />
+                <translate value3="-30 0 0" />
+            </transforms>
+            <children>
+                <noderef id="palmTree" />
+            </children>
+        </node>
+
+        <node id="palmTree5">
+            <transforms>
+                <translate value3="55 0 55" />
             </transforms>
             <children>
                 <noderef id="palmTree" />
@@ -2171,7 +2207,7 @@
 
         <node id="statue">
             <transforms>
-                <translate value3="-20 1.2 30" />
+                <translate value3="-25 1.2 50" />
             </transforms>
             <children>
                 <noderef id="statueBase" />

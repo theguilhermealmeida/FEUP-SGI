@@ -71,7 +71,7 @@ class MyGeometryBuilder {
                 let count_u = 0
                 let temp = []
                 for (const controlpoint of this.representations.controlpoints) {
-                    temp.push(Object.values(controlpoint).slice(0, -1))
+                    temp.push(Object.values(controlpoint).slice(0, -2))
                     count_v++
                     if (count_v == this.representations.degree_v + 1) {
                         points.push(temp)

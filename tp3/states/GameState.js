@@ -15,9 +15,9 @@ class GameState extends State {
   
     update() {
         if (this.mixer) {
-            this.mixer.update(this.clock.getDelta());
+            //this.mixer.update(this.clock.getDelta());
         }
-        this.app.controls.target = this.oppCar.position;
+        this.app.controls.target = new THREE.Vector3(0, 0,0);
     }
 
     handleKeyPress(event) {

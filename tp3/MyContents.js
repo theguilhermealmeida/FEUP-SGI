@@ -117,17 +117,19 @@ class MyContents  {
 
         this.app.currentState.init()
 
-        // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+        this.track = this.app.scene.getObjectByName("track");
+
+        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
 
         // at each track control point add a little box to the scene
-        // trackControlPoints.forEach(point => {
-        //     const geometry = new THREE.BoxGeometry(1, 1, 1);
-        //     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        //     const cube = new THREE.Mesh(geometry, material);
-        //     cube.position.set(point.x, point.y, point.z);
-        //     this.app.scene.add(cube);
-        // }
-        // );
+        trackControlPoints.forEach(point => {
+            const geometry = new THREE.BoxGeometry(2, 2, 2);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometry, material);
+            cube.position.set(point.x, point.y, point.z);
+            this.app.scene.add(cube);
+        }
+        );
 
         //const textContainer = document.getElementById('textContainer');
 
