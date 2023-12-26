@@ -4,33 +4,52 @@ import * as THREE from 'three';
 class GameState extends State {
     constructor(app) {
         super(app);
+        this.keyPressHandler = this.handleKeyPress.bind(this);
     }
 
     init() {
-        document.addEventListener('keydown', this.handleKeyPress.bind(this));
+        document.addEventListener('keydown', this.keyPressHandler);
         this.app.setActiveCamera("game");
+        this.app.game.init();
+    }
+
+    reload() {
+        document.addEventListener('keydown', this.keyPressHandler);
+        this.app.game.resume();
     }
   
     update() {
-        this.app.oppCar.update();
+        this.app.game.update();
+        this.checkIfGameEnded();
         this.app.controls.target = new THREE.Vector3(0, 0, 0);
+    }
+
+    checkIfGameEnded() {
+        if(this.app.game.winner !== null) {
+            console.log(this.app.game.winner + " won!");
+            this.app.cleanTextContainers();
+            this.app.currentState = this.app.menuState;
+            this.app.currentState.init();
+        }
     }
 
     handleKeyPress(event) {
         // if Esc key is pressed, go back to MenuState
         if (event.code === 'Escape') {
+            this.removeEventListeners();
             this.app.currentState = this.app.menuState;
             this.app.currentState.init();
-            document.removeEventListener('keydown', this.handleKeyPress.bind(this)); // Remove the listener after changing state
         }
         //if space key is pressed, stop the mixer of the car
         if (event.code === 'Space') {
-            this.app.oppCar.pauseCar();
+            this.removeEventListeners();
+            this.app.currentState = this.app.pauseState;
+            this.app.currentState.init();
         }
-        //if enter key is pressed, play the mixer of the car
-        if (event.code === 'Enter') {
-            this.app.oppCar.resumeCar();
-        }
+    }
+
+    removeEventListeners() {
+        document.removeEventListener('keydown', this.keyPressHandler);
     }
   }
 

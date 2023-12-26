@@ -14,13 +14,11 @@ class PickOppCarState extends State {
         document.addEventListener('click', this.clickHandler);
         this.app.setActiveCamera("carPark");
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
-        this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.ownCarName), 1);
+        this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.game.ownCarName), 1);
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
 
-        this.textContainer = document.getElementById('textContainer');
-
-        this.textContainer.innerHTML = "Pick your opponent car!"
+        this.app.textContainer.innerHTML = "Pick your opponent car!"
     }
 
     update() {
@@ -54,11 +52,11 @@ class PickOppCarState extends State {
                     this.cars.remove(car);
                     this.app.scene.add(carObject);
 
-                    this.app.oppCar = new OppCar(this.app, carObject, carRoute);
+                    this.app.game.oppCar = new OppCar(this.app, carObject, carRoute);
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
-                    this.textContainer.innerHTML = "";
+                    this.app.cleanTextContainers();
                     this.app.currentState = this.app.gameState;
                     this.app.currentState.init();
 

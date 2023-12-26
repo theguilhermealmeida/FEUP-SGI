@@ -7,6 +7,8 @@ import { MenuState } from './states/MenuState.js';
 import { PickOwnCarState } from './states/PickOwnCarState.js';
 import { PickOppCarState } from './states/PickOppCarState.js';
 import { GameState } from './states/GameState.js';
+import { PauseState } from './states/PauseState.js';
+import { Game } from './game/Game.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
 /**
@@ -68,8 +70,11 @@ class MyApp  {
         this.pickOwnCarState = new PickOwnCarState(this)
         this.pickOppCarState = new PickOppCarState(this)
         this.gameState = new GameState(this)
+        this.pauseState = new PauseState(this)
 
         this.currentState = this.menuState
+
+        this.game = new Game(this)
 
         this.raycaster = new THREE.Raycaster()
         this.raycaster.near = 1
@@ -79,6 +84,10 @@ class MyApp  {
         this.intersectedObj = null
 
         this.textContainer = document.getElementById('textContainer');
+        this.lapContainer = document.getElementById('lapContainer');
+        this.timeContainer = document.getElementById('timeContainer');
+        this.speedContainer = document.getElementById('speedContainer');
+        this.pauseContainer = document.getElementById('pauseContainer');
 
 
     }
@@ -180,6 +189,14 @@ class MyApp  {
 
         this.lastCameraName = this.activeCameraName
         this.stats.end()
+    }
+
+    cleanTextContainers() {
+        this.textContainer.innerHTML = "";
+        this.lapContainer.innerHTML = "";
+        this.timeContainer.innerHTML = "";
+        this.speedContainer.innerHTML = "";
+        this.pauseContainer.innerHTML = "";
     }
 }
 

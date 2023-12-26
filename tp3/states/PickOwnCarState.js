@@ -52,12 +52,12 @@ class PickOwnCarState extends State {
                     carObject.rotation.set(0,3.1415,0);
                     this.app.scene.add(carObject);
 
-                    this.app.ownCar = new OwnCar(this.app, carObject);
-                    this.app.ownCarName = objName;
+                    this.app.game.ownCar = new OwnCar(this.app, carObject);
+                    this.app.game.ownCarName = objName;
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
-                    this.app.textContainer.innerHTML = "";
+                    this.app.cleanTextContainers();
                     this.app.currentState = this.app.pickOppCarState;
                     this.app.currentState.init();
                     return; // Exit the loop if a pickable object is found
