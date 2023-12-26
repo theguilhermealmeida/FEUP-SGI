@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { MyContents } from './MyContents.js';
 import { MyGuiInterface } from './MyGuiInterface.js';
 import { MenuState } from './states/MenuState.js';
+import { PickOwnCarState } from './states/PickOwnCarState.js';
 import { GameState } from './states/GameState.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
@@ -63,6 +64,7 @@ class MyApp  {
 
         // create the states
         this.menuState = new MenuState(this)
+        this.pickOwnCarState = new PickOwnCarState(this)
         this.gameState = new GameState(this)
 
         this.currentState = this.menuState

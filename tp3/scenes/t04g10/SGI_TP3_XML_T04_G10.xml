@@ -23,12 +23,19 @@
 ************************************
 -->
 
-    <cameras initial="game" > 
+    <cameras initial="menu" > 
         <perspective id="game" 
             angle="75" 
             near="0.1" 
             far="10000" 
             location="0 150 0" 
+            target="0 0 0" /> 
+
+        <perspective id="carPark" 
+            angle="75" 
+            near="0.1" 
+            far="10000" 
+            location="110 20 -150" 
             target="0 0 0" /> 
         
         <perspective id="menu" 
@@ -366,7 +373,8 @@
 
         <node id="cars">
             <transforms>
-                <translate value3="100 0 -120" />
+                <translate value3="90 0 -100" />
+                <rotate value3="0 1.57 0" />
             </transforms>
             <children>
                 <noderef id="redCar" />
@@ -383,6 +391,8 @@
             <materialref id="yellowApp" />
             <children>
                 <noderef id="car" />
+                <noderef id="platform"/>
+                <noderef id="carRoute" />
             </children>
         </node>
 
@@ -393,6 +403,8 @@
             <materialref id="greenApp" />
             <children>
                 <noderef id="car" />
+                <noderef id="platform"/>
+                <noderef id="carRoute" />
             </children>
         </node>
 
@@ -403,6 +415,8 @@
             <materialref id="blueApp" />
             <children>
                 <noderef id="car" />
+                <noderef id="platform"/>
+                <noderef id="carRoute" />
             </children>
         </node>
 
@@ -413,20 +427,56 @@
             <materialref id="redApp" />
             <children>
                 <noderef id="car" />
-                <noderef id="redCarRoute" />
+                <noderef id="platform"/>
+                <noderef id="carRoute" />
             </children>
         </node>
 
-        <node id="redCarRoute">
+        <node id="carRoute">
             <children>
                 <primitive>
                     <route id="redCar">
-                        <controlpoint xx="-50" yy="0" zz="50" ry="300"/>
-                        <controlpoint xx="65" yy="0" zz="50" ry="60"/>
-                        <controlpoint xx="65" yy="0" zz="-50" ry="145"/>
-                        <controlpoint xx="20" yy="0" zz="-65" ry="220"/>
-                        <controlpoint xx="0" yy="0" zz="-20" ry="250"/>
+                        <controlpoint xx="25" yy="0" zz="85"/>
+                        <controlpoint xx="0" yy="0" zz="85"/>
+                        <controlpoint xx="-25" yy="0" zz="85"/>
+                        <controlpoint xx="-50" yy="0" zz="80"/>
+                        <controlpoint xx="-52" yy="0" zz="60"/>
+                        <controlpoint xx="-50" yy="0" zz="35"/>
+                        <controlpoint xx="-50" yy="0" zz="10"/>
+                        <controlpoint xx="-50" yy="0" zz="-15"/>
+                        <controlpoint xx="-30" yy="0" zz="-25"/>
+                        <controlpoint xx="-15" yy="0" zz="-10"/>
+                        <controlpoint xx="-7" yy="0" zz="10"/>
+                        <controlpoint xx="0" yy="0" zz="30"/>
+                        <controlpoint xx="15" yy="0" zz="40"/>
+                        <controlpoint xx="40" yy="0" zz="35"/>
+                        <controlpoint xx="50" yy="0" zz="15"/>
+                        <controlpoint xx="40" yy="0" zz="-5"/>
+                        <controlpoint xx="20" yy="0" zz="-25"/>
+                        <controlpoint xx="20" yy="0" zz="-45"/>
+                        <controlpoint xx="35" yy="0" zz="-55"/>
+                        <controlpoint xx="60" yy="0" zz="-60"/>
+                        <controlpoint xx="85" yy="0" zz="-55"/>
+                        <controlpoint xx="85" yy="0" zz="-30"/>
+                        <controlpoint xx="85" yy="0" zz="-5"/>
+                        <controlpoint xx="85" yy="0" zz="20"/>
+                        <controlpoint xx="85" yy="0" zz="45"/>
+                        <controlpoint xx="85" yy="0" zz="70"/>
+                        <controlpoint xx="75" yy="0" zz="85"/>
+                        <controlpoint xx="50" yy="0" zz="85"/>
                     </route>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="platform">
+            <transforms>
+                <translate value3="2 0.05 0" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="12 0.1 10"/>
                 </primitive>
             </children>
         </node>
@@ -1111,7 +1161,7 @@
 
         <node id="finishLine">
             <transforms>
-                <translate value3="0 0.6 5" />
+                <translate value3="0 0.65 5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <materialref id="finishApp" />

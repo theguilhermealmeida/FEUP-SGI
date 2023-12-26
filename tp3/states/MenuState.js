@@ -22,7 +22,6 @@ class MenuState extends State {
     }
 
     handleClick(event) {
-        console.log("click");
         this.app.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.app.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -41,7 +40,7 @@ class MenuState extends State {
             if (this.pickableObjNames.includes(objName)) {
                 this.removeEventListeners();
                 this.restoreColorOfFirstPickedObj();
-                this.app.currentState = this.app.gameState;
+                this.app.currentState = this.app.pickOwnCarState;
                 this.app.currentState.init();
             } else {
                 //console.log("Object cannot be picked!");
