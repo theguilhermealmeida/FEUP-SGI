@@ -94,10 +94,10 @@ class PickOppCarState extends State {
     changeColorOfFirstPickedObj(obj) {
         if (this.lastPickedObj != obj) {
             if (this.lastPickedObj)
-                this.lastPickedObj.material = this.app.materials.get("greenApp");
+                this.lastPickedObj.material = this.app.pickedMaterial;
             this.lastPickedObj = obj;
             this.lastPickedObjMaterial = obj.material;
-            this.lastPickedObj.material = this.app.materials.get("greenApp");
+            this.lastPickedObj.material = this.app.pickedMaterial;
         }
     }
 

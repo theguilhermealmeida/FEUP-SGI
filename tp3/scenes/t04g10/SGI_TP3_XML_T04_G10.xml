@@ -235,6 +235,13 @@
             specular="0 0 0 0" 
             shininess="0" />
 
+        <material id="violetApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.549 0.396 0.859 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" />
+
+
         <material id="yellowApp"
             emissive="0.0 0.0 0.0 1" 
             color="1 1 0 1.0" 
