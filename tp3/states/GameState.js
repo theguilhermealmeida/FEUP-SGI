@@ -12,7 +12,6 @@ class GameState extends State {
     }
   
     update() {
-        console.log("Game State");
         this.app.oppCar.update();
         this.app.controls.target = new THREE.Vector3(0, 0, 0);
     }

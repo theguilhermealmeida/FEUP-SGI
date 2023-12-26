@@ -5,6 +5,7 @@ import { MyContents } from './MyContents.js';
 import { MyGuiInterface } from './MyGuiInterface.js';
 import { MenuState } from './states/MenuState.js';
 import { PickOwnCarState } from './states/PickOwnCarState.js';
+import { PickOppCarState } from './states/PickOppCarState.js';
 import { GameState } from './states/GameState.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
@@ -65,6 +66,7 @@ class MyApp  {
         // create the states
         this.menuState = new MenuState(this)
         this.pickOwnCarState = new PickOwnCarState(this)
+        this.pickOppCarState = new PickOppCarState(this)
         this.gameState = new GameState(this)
 
         this.currentState = this.menuState
@@ -75,7 +77,10 @@ class MyApp  {
 
         this.pointer = new THREE.Vector2()
         this.intersectedObj = null
-        this.pickingColor = "0x00ff00"
+
+        this.textContainer = document.getElementById('textContainer');
+
+
     }
 
 

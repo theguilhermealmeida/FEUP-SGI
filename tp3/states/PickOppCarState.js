@@ -1,8 +1,8 @@
 import { State } from './State.js';
-import { OwnCar } from '../game/OwnCar.js';
+import { OppCar } from '../game/OppCar.js';
 import * as THREE from 'three';
 
-class PickOwnCarState extends State {
+class PickOppCarState extends State {
     constructor(app) {
         super(app);
         this.clickHandler = this.handleClick.bind(this);
@@ -14,10 +14,13 @@ class PickOwnCarState extends State {
         document.addEventListener('click', this.clickHandler);
         this.app.setActiveCamera("carPark");
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
+        this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.ownCarName), 1);
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
 
-        this.app.textContainer.innerHTML = "Pick your own car!"
+        this.textContainer = document.getElementById('textContainer');
+
+        this.textContainer.innerHTML = "Pick your opponent car!"
     }
 
     update() {
@@ -46,20 +49,19 @@ class PickOwnCarState extends State {
                 if (this.pickableObjNames.includes(objName)) {
                     let car = this.cars.getObjectByName(objName)
                     let carObject = car.getObjectByName("car");
+                    let carRoute = car.getObjectByName("carRoute");
 
                     this.cars.remove(car);
-                    carObject.position.set(10,0,80);
-                    carObject.rotation.set(0,3.1415,0);
                     this.app.scene.add(carObject);
 
-                    this.app.ownCar = new OwnCar(this.app, carObject);
-                    this.app.ownCarName = objName;
+                    this.app.oppCar = new OppCar(this.app, carObject, carRoute);
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
-                    this.app.textContainer.innerHTML = "";
-                    this.app.currentState = this.app.pickOppCarState;
+                    this.textContainer.innerHTML = "";
+                    this.app.currentState = this.app.gameState;
                     this.app.currentState.init();
+
                     return; // Exit the loop if a pickable object is found
                 }
     
@@ -142,4 +144,4 @@ class PickOwnCarState extends State {
 
   }
 
-export { PickOwnCarState };
+export { PickOppCarState };
