@@ -8,6 +8,8 @@ import { PickOwnCarState } from './states/PickOwnCarState.js';
 import { PickOppCarState } from './states/PickOppCarState.js';
 import { GameState } from './states/GameState.js';
 import { PauseState } from './states/PauseState.js';
+import { PickObstacleState } from './states/PickObstacleState.js';
+import { MoveObstacleState } from './states/MoveObstacleState.js';
 import { Game } from './game/Game.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
@@ -71,6 +73,8 @@ class MyApp  {
         this.pickOppCarState = new PickOppCarState(this)
         this.gameState = new GameState(this)
         this.pauseState = new PauseState(this)
+        this.pickObstacleState = new PickObstacleState(this)
+        this.moveObstacleState = new MoveObstacleState(this)
 
         this.currentState = this.menuState
 

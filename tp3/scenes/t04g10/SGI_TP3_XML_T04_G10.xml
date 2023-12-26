@@ -28,6 +28,13 @@
             angle="75" 
             near="0.1" 
             far="10000" 
+            location="120 80 120" 
+            target="0 0 0" /> 
+
+        <perspective id="placeObject" 
+            angle="75" 
+            near="0.1" 
+            far="10000" 
             location="0 150 0" 
             target="0 0 0" /> 
 
@@ -37,6 +44,13 @@
             far="10000" 
             location="110 20 -150" 
             target="0 0 0" /> 
+
+        <perspective id="obstaclePark"
+            angle="75" 
+            near="0.1" 
+            far="10000" 
+            location="-50 30 0" 
+            target="0 0 0" />
         
         <perspective id="menu" 
             angle="75" 
@@ -317,6 +331,76 @@
                 <noderef id="palmTrees" />
                 <noderef id="statue"/>
                 <noderef id="menu" />
+                <noderef id="obstacles" />
+            </children>
+        </node>
+
+<!--
+************************************
+            OBSTACLES
+************************************
+ -->
+
+        <node id="obstacles">
+            <transforms>
+                <translate value3="-100 0 0" />
+            </transforms>
+            <children>
+                <noderef id="obstacle1" />
+                <noderef id="obstacle2" />
+                <noderef id="obstacle3" />
+                <noderef id="obstacle4" />
+            </children>
+        </node>
+
+        <node id="obstacle1">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <materialref id="redApp" />
+            <children>
+                <noderef id="obstacle" />
+            </children>
+        </node>
+
+        <node id="obstacle2">
+            <transforms>
+                <translate value3="0 0 15" />
+            </transforms>
+            <materialref id="greenApp" />
+            <children>
+                <noderef id="obstacle" />
+            </children>
+        </node>
+
+        <node id="obstacle3">
+            <transforms>
+                <translate value3="15 0 0" />
+            </transforms>
+            <materialref id="yellowApp" />
+            <children>
+                <noderef id="obstacle" />
+            </children>
+        </node>
+
+        <node id="obstacle4">
+            <transforms>
+                <translate value3="15 0 15" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <noderef id="obstacle" />
+            </children>
+        </node>
+
+        <node id="obstacle">
+            <transforms>
+                <translate value3="0 3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="6 6 6"/>
+                </primitive>
             </children>
         </node>
 

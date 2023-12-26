@@ -15,6 +15,7 @@ class GameState extends State {
 
     reload() {
         document.addEventListener('keydown', this.keyPressHandler);
+        this.app.setActiveCamera("game");
         this.app.game.resume();
     }
   
@@ -34,18 +35,22 @@ class GameState extends State {
     }
 
     handleKeyPress(event) {
-        // if Esc key is pressed, go back to MenuState
         if (event.code === 'Escape') {
             this.removeEventListeners();
             this.app.currentState = this.app.menuState;
             this.app.currentState.init();
         }
-        //if space key is pressed, stop the mixer of the car
         if (event.code === 'Space') {
             this.removeEventListeners();
             this.app.currentState = this.app.pauseState;
             this.app.currentState.init();
         }
+        if (event.code === 'KeyP') {
+            this.removeEventListeners();
+            this.app.currentState = this.app.pickObstacleState;
+            this.app.currentState.init();
+        }
+
     }
 
     removeEventListeners() {

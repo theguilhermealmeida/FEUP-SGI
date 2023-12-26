@@ -12,6 +12,7 @@ class Game {
         this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];
+        this.pickedObstacle = null;
         this.clock = new THREE.Clock();
     }
 
@@ -65,6 +66,14 @@ class Game {
         this.clock.start();
         this.clock.elapsedTime = this.elapsedTime;
         this.oppCar.resumeCar();
+    }
+
+    addPowerup(powerup) {
+        this.activePowerups.push(powerup);
+    }
+
+    addObstacle(obstacle) {
+        this.activeObstacles.push(obstacle);
     }
 }
 
