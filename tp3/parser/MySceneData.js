@@ -255,9 +255,16 @@ class MySceneData  {
             {name: "filepath", type: "string"},
         ]
 
+        this.descriptors["text"] = [
+            {name: "text", type: "string"},
+            {name: "width", type: "float"},
+            {name: "height", type: "float"},
+        ]
+
         this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp"]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track",     "route","powerUp","text"]
+
     }
 
     createCustomAttributeIfNotExists(obj) {

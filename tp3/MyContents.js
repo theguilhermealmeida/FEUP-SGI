@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
+import { MenuState } from './states/MenuState.js';
+import { MyTextRenderer } from './MyTextRenderer.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -44,7 +47,6 @@ class MyContents  {
         let defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
         data.addMaterial(defaultMaterial)
         data.getNode("scene").materialIds[0] = defaultMaterial.id
-        console.log(data.getNode("scene").cameras)
 
         // ambient light
         let red = data.options.ambient.r
@@ -106,87 +108,31 @@ class MyContents  {
     onAfterSceneLoadedAndBeforeRender(data) {
         
         // loop through data camaras and add them to the scene
-        this.graphBuilder = new MyGraphBuilder(data)
+        this.graphBuilder = new MyGraphBuilder(data, this.app)
 
 
-        const group = this.graphBuilder.buildGraph(data);
+        const group = this.graphBuilder.buildGraph(data);  
+    
         // add group to the scene
         this.app.scene.add(group);
 
-        this.oppCar = group.getObjectByName("redCar");
+        this.app.currentState.init()
 
-        this.oppCarRoute = this.oppCar.getObjectByName("route");
+        this.app.pickedMaterial = this.app.materials.get("violetApp");
 
-        const oppCarRouteControlPoints = this.oppCarRoute.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+        // this.track = this.app.scene.getObjectByName("track");
 
-        //get the rotation at each control point
-        const oppCarRouteQuarterions = this.oppCarRoute.data.representations[0].controlpoints.map(point => new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(point.ry)));
+        // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
 
-        this.clock = new THREE.Clock();
-
-        this.track = group.getObjectByName("track");
-
-        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
-
-        // at each track control point add a little box to the scene
+        // // at each track control point add a little box to the scene
         // trackControlPoints.forEach(point => {
-        //     const geometry = new THREE.BoxGeometry(1, 1, 1);
+        //     const geometry = new THREE.BoxGeometry(2, 2, 2);
         //     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         //     const cube = new THREE.Mesh(geometry, material);
         //     cube.position.set(point.x, point.y, point.z);
         //     this.app.scene.add(cube);
         // }
         // );
-
-        //at each oppCarRoute control point add a little box to the scene
-        oppCarRouteControlPoints.forEach(point => {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-            const cube = new THREE.Mesh(geometry, material);
-            cube.position.set(point.x, point.y, point.z);
-            this.app.scene.add(cube);
-        }
-        );
-
-        //add the first point to the end to close the loop
-        oppCarRouteControlPoints.push(oppCarRouteControlPoints[0]);
-
-        //add the first point to the end to close the loop
-        oppCarRouteQuarterions.push(oppCarRouteQuarterions[0]);
-
-        const positionKF = new THREE.VectorKeyframeTrack(
-            '.position',
-            [...Array(oppCarRouteControlPoints.length).keys()],
-            [].concat(...oppCarRouteControlPoints.map(point => [...point.toArray()])),
-            THREE.InterpolateSmooth
-          );
-
-        const quaternionKF = new THREE.QuaternionKeyframeTrack(
-            '.quaternion',
-            [...Array(oppCarRouteQuarterions.length).keys()],
-            [].concat(...oppCarRouteQuarterions.map(point => [...point.toArray()]))
-          );
-
-        const positionClip = new THREE.AnimationClip('OpponentCar', -1, [positionKF]);
-        const rotationClip = new THREE.AnimationClip('OpponentCar', -1, [quaternionKF]);
-
-        this.mixer = new THREE.AnimationMixer(this.oppCar);
-
-        const positionAction = this.mixer.clipAction(positionClip);
-        const rotationAction = this.mixer.clipAction(rotationClip);
-
-        //change the speed of the animation
-        positionAction.timeScale = 0.5;
-        rotationAction.timeScale = 0.5;
-
-
-        positionAction.play();
-        rotationAction.play();
-    
-        // create target pointing to the origin
-        const targetObject = new THREE.Object3D();
-        targetObject.position.set(0, 0, 0);
-        this.app.scene.add(targetObject);
     }
 
     printGroupInfo(group, ident = 0) {
@@ -201,9 +147,7 @@ class MyContents  {
     }
 
     update() {
-        if (this.mixer) {
-            this.mixer.update(this.clock.getDelta());
-        }
+        this.app.currentState.update()
     }
 }
 
