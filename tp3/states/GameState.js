@@ -6,13 +6,13 @@ class GameState extends State {
         super(app);
         this.keyPressHandler = this.handleKeyPress.bind(this);
         this.keyReleaseHandler = this.handleKeyRelease.bind(this);
-        this.keys = { W: false, A: false, S: false, D: false };
     }
 
     init() {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
         this.app.setActiveCamera("game");
+        this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.init();
     }
 
@@ -20,6 +20,7 @@ class GameState extends State {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
         this.app.setActiveCamera("game");
+        this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.resume();
     }
   
