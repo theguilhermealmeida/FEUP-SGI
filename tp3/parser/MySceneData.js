@@ -137,6 +137,7 @@ class MySceneData  {
         this.descriptors["model3d"] = [
 			{name: "filepath", type: "string"},
             {name: "distance", type: "float", required: false, default: 0.0}, // The distance at which to display this level of detail. Default 0.0.  
+            {name: "primitiveId", type: "string"},
 		]
 
 		this.descriptors["sphere"] = [
@@ -251,13 +252,18 @@ class MySceneData  {
         this.descriptors["powerUp"] = [
             {name: "id", type: "string"},
             {name: "subtype", type: "string"},
-            {name: "xyz", type: "vector3"},
             {name: "filepath", type: "string"},
         ]
 
-        this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
+        this.descriptors["obstacle"] = [
+            {name: "id", type: "string"},
+            {name: "subtype", type: "string"},
+            {name: "filepath", type: "string"},
+        ]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp"]
+        this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph", "powerUps"]
+
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp","obstacle"]
     }
 
     createCustomAttributeIfNotExists(obj) {

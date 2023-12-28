@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MyGeometryBuilder } from './MyGeometryBuilder.js';
 import { MyPowerUp} from './MyPowerUp.js';
+import { MyObstacle} from './MyObstacle.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
 
 
 class MyGraphBuilder {
@@ -16,6 +20,8 @@ class MyGraphBuilder {
         this.lods = new Map()
         this.cameras = []
         this.powerUps = []
+        this.obstacles = []
+        this.models = new Map()
 
         this.no_materials = new Map()
         this.videos = [] 
@@ -146,6 +152,7 @@ class MyGraphBuilder {
         if (rootNode) {
             let group = new THREE.Group();
             this.processNode(rootNode, group);
+            console.log(group)
             return group
         } else {
             console.error("Root node not found.");
@@ -199,6 +206,40 @@ class MyGraphBuilder {
             if (nodeData.subtype === "route") {
                 nodeGroup.data = nodeData
                 return;
+            }
+            if (nodeData.subtype === "model3d") {
+                nodeGroup.data = nodeData
+                const loader = new OBJLoader();
+
+                loader.load(nodeData.representations[0].filepath, function (obj) {
+                    nodeGroup.add(obj)
+                },
+                function (xhr) {
+                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                },
+                function(error) {
+                    console.log("An error happened: " + error);
+                })
+                return
+            }
+            if (nodeData.subtype === "powerUp") {
+                nodeGroup.data = nodeData
+                const powerUp = new MyPowerUp(nodeData);
+                powerUp.objPromise.then((obj) => {
+                    nodeGroup.add(obj);
+                    this.powerUps.push(powerUp)
+                });
+                return
+            }
+            if (nodeData.subtype === "obstacle") {
+                console.log("PASSOU AQUI")
+                nodeGroup.data = nodeData
+                const obstacle = new MyObstacle(nodeData);
+                obstacle.objPromise.then((obj) => {
+                    nodeGroup.add(obj);
+                    this.obstacles.push(obstacle)
+                });
+                return
             }
 
             let geometry = new MyGeometryBuilder(nodeData, materialObject, textureObject, nodeGroup.castShadow, nodeGroup.receiveShadow);

@@ -110,6 +110,8 @@ class MyContents  {
 
 
         const group = this.graphBuilder.buildGraph(data);
+        console.log("aqui")
+        console.log(group)
         // add group to the scene
         this.app.scene.add(group);
 
@@ -180,8 +182,8 @@ class MyContents  {
         rotationAction.timeScale = 0.5;
 
 
-        positionAction.play();
-        rotationAction.play();
+        // positionAction.play();
+        // rotationAction.play();
     
         // create target pointing to the origin
         const targetObject = new THREE.Object3D();

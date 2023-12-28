@@ -275,6 +275,10 @@
             texlength_t="5"/>
     </materials> 
 
+    <powerUps>
+        <powerUp id="1" subtype="speed" />
+    </powerUps>
+
 <!--
 ************************************
             SCENE
@@ -292,6 +296,7 @@
                 <noderef id="stands" /> 
                 <noderef id="spotlights" />
                 <noderef id="powerUps" />
+                <noderef id="obstacles" />
                 <!-- <noderef id="palmTrees" /> -->
                 <!-- <noderef id="statue"/> -->
             </children>
@@ -306,12 +311,70 @@
 
         <node id="powerUps">
             <children>
+                <noderef id="powerUp1" />
+                <noderef id="powerUp2" />
+            </children>
+        </node>
+
+        <node id="powerUp1">
+            <transforms>
+                <translate value3="-15 2 0" />
+                <rotate value3="0 1.4 0" />
+            </transforms>
+            <children>
                 <primitive>
-                    <powerUp id="1" subtype="speed" xyz="0 0 0" filepath="public/scene.gltf"/>
+                    <powerUp id="powerUp1" subtype="speed" filepath="./public/Shine Sprite.obj"/>
                 </primitive>
-                <!-- <primitive>
-                    <powerUp id="2" subtype="speed" xyz="10 0 0" />
-                </primitive> -->
+            </children>
+        </node>
+
+        <node id="powerUp2">
+            <transforms>
+                <translate value3="0 2 60" />
+                <rotate value3="0 1.4 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <powerUp id="powerUp2" subtype="speed" filepath="./public/Shine Sprite.obj"/>
+                </primitive>
+            </children>
+       </node>
+ <!-- 
+************************************
+            OBSTACLES 
+************************************
+ -->
+
+        <node id="obstacles">
+            <children>
+                <noderef id="obstacle1" />
+                <noderef id="obstacle2" />
+            </children>
+        </node>
+
+        <node id="obstacle1">
+            <transforms>
+                <translate value3="15 0 -60" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="0.1 0.1 0.1" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle2">
+            <transforms>
+                <translate value3="75 0 15" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="0.1 0.1 0.1" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
+                </primitive>
             </children>
         </node>
 
