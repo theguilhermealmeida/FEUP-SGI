@@ -1,0 +1,8 @@
+Model Information:
+* title:	Lightning
+* source:	https://sketchfab.com/3d-models/lightning-7bd40f65087e41589e7caed3c9fbcbe8
+* author:	oswald.pfeiffer (https://sketchfab.com/oswald.pfeiffer)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

@@ -676,6 +676,16 @@ class MyFileReader  {
 		this.loadXmlItems(elem, 'material', this.data.descriptors["material"], [["type", "material"]], this.data.addMaterial)
 	}
 
+	// /**
+	//  * Load the powerUps element
+	//  * @param {*} rootElement 
+	//  */
+	// loadPowerUps(rootElement) {
+	
+	// 	let elem = this.getAndCheck(rootElement, 'powerUps')
+	// 	this.loadXmlItems(elem, 'powerUp', this.data.descriptors["powerUp"], [["type", "powerUp"]], this.data.addPowerUp)
+	// }
+
 	/**
 	 * Load the cameras element
 	 * @param {*} rootElement 
