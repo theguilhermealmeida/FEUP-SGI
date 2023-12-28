@@ -949,16 +949,34 @@
 
         <node id="carWheels">
             <children>
-                <noderef id="carWheel1" />
-                <noderef id="carWheel2" />
+                <noderef id="frontWheels" />
+                <noderef id="rearWheels" />
+            </children>
+        </node>
+
+        <node id="frontWheels">
+            <transforms>
+                <translate value3="7 0 0" />
+            </transforms>
+            <children>
                 <noderef id="carWheel3" />
                 <noderef id="carWheel4" />
             </children>
         </node>
 
+        <node id="rearWheels">
+            <transforms>
+                <translate value3="-2 0 0" />
+            </transforms>
+            <children>
+                <noderef id="carWheel1" />
+                <noderef id="carWheel2" />
+            </children>
+        </node>
+
         <node id="carWheel1">
             <transforms>
-                <translate value3="-2 0 3.6" />
+                <translate value3="0 0 3.6" />
                 <rotate value3="0 3.1415 0" />
             </transforms>
             <children>
@@ -969,7 +987,7 @@
 
         <node id="carWheel2">
             <transforms>
-                <translate value3="-2 0 -3.6" />
+                <translate value3="0 0 -3.6" />
             </transforms>
             <children>
                 <noderef id="carWheel" />
@@ -979,7 +997,7 @@
 
         <node id="carWheel3">
             <transforms>
-                <translate value3="7 0 3.6" />
+                <translate value3="0 0 3.6" />
                 <rotate value3="0 3.1415 0" />
             </transforms>   
             <children>
@@ -990,7 +1008,7 @@
 
         <node id="carWheel4">
             <transforms>
-                <translate value3="7 0 -3.6" />
+                <translate value3="0 0 -3.6" />
             </transforms>
             <children>
                 <noderef id="carWheel" />

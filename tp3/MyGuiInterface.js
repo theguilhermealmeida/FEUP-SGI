@@ -62,7 +62,7 @@ class MyGuiInterface  {
             videoFolder.add(video, 'playbackRate', 0, 2).name('Speed');
         });
 
-
+        this.datgui.close();
 
 
     }

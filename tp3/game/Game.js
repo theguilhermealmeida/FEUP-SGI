@@ -25,8 +25,8 @@ class Game {
 
     update() {
         this.updateTime();
-        //this.ownCar.update();
-        this.oppCar.update();
+        this.ownCar.update();
+        //this.oppCar.update();
         this.updateLaps();
         //this.checkPowerups();
         //this.checkObstacles();
