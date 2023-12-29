@@ -27,11 +27,14 @@ class GameState extends State {
     update() {
         this.handleKeys();
         this.app.game.update();
-        this.checkIfGameEnded();
         this.updateCamera();
+        this.checkIfGameEnded();
     }
 
     updateCamera() {
+
+        if (this.app.currentState !== this.app.gameState) return;
+
         let ownCar = this.app.game.ownCar;
         
         // Set the camera's position behind the car
@@ -69,11 +72,6 @@ class GameState extends State {
         if (event.code === 'Space') {
             this.removeEventListeners();
             this.app.currentState = this.app.pauseState;
-            this.app.currentState.init();
-        }
-        if (event.code === 'KeyP') {
-            this.removeEventListeners();
-            this.app.currentState = this.app.pickObstacleState;
             this.app.currentState.init();
         }
         if (event.code === 'KeyW') {

@@ -39,8 +39,8 @@ class Game {
         //this.oppCar.update();
         this.updateLaps();
         this.updateSpeed();
-        this.checkColisions();
         this.checkWinner();
+        this.checkColisions();
     }
 
     updateTime() {
@@ -107,6 +107,9 @@ class Game {
                 console.log(powerup.name + " picked");
                 this.ownCar.applyEffect(this.getEffect(powerup));
                 powerup.lastTimePicked = this.elapsedTime;
+                this.app.currentState.removeEventListeners();
+                this.app.currentState = this.app.pickObstacleState;
+                this.app.currentState.init();
             }
         }
     }
