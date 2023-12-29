@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
+import { MenuState } from './states/MenuState.js';
+import { MyTextRenderer } from './MyTextRenderer.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -44,7 +47,6 @@ class MyContents  {
         let defaultMaterial = {id: "default", color: 0x00ff00, specular: 0x000000, emissive: 0x00000, shininess: 0.0} 
         data.addMaterial(defaultMaterial)
         data.getNode("scene").materialIds[0] = defaultMaterial.id
-        console.log(data.getNode("scene").cameras)
 
         // ambient light
         let red = data.options.ambient.r
@@ -106,39 +108,38 @@ class MyContents  {
     onAfterSceneLoadedAndBeforeRender(data) {
         
         // loop through data camaras and add them to the scene
-        this.graphBuilder = new MyGraphBuilder(data)
+        this.graphBuilder = new MyGraphBuilder(data, this.app)
 
 
+<<<<<<< 97e4d7de576f600af2ded1f8510285571c21022e
         const group = this.graphBuilder.buildGraph(data);
         console.log("aqui")
         console.log(group)
+=======
+        const group = this.graphBuilder.buildGraph(data);  
+    
+>>>>>>> 414e0990e81c5d51877426efa3eaf8e709c8427c
         // add group to the scene
         this.app.scene.add(group);
 
-        this.oppCar = group.getObjectByName("redCar");
+        this.app.currentState.init()
 
-        this.oppCarRoute = this.oppCar.getObjectByName("route");
+        this.app.pickedMaterial = this.app.materials.get("violetApp");
 
-        const oppCarRouteControlPoints = this.oppCarRoute.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+        // this.track = this.app.scene.getObjectByName("track");
 
-        //get the rotation at each control point
-        const oppCarRouteQuarterions = this.oppCarRoute.data.representations[0].controlpoints.map(point => new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(point.ry)));
+        // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
 
-        this.clock = new THREE.Clock();
-
-        this.track = group.getObjectByName("track");
-
-        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
-
-        // at each track control point add a little box to the scene
+        // // at each track control point add a little box to the scene
         // trackControlPoints.forEach(point => {
-        //     const geometry = new THREE.BoxGeometry(1, 1, 1);
+        //     const geometry = new THREE.BoxGeometry(2, 2, 2);
         //     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         //     const cube = new THREE.Mesh(geometry, material);
         //     cube.position.set(point.x, point.y, point.z);
         //     this.app.scene.add(cube);
         // }
         // );
+<<<<<<< 97e4d7de576f600af2ded1f8510285571c21022e
 
         //at each oppCarRoute control point add a little box to the scene
         oppCarRouteControlPoints.forEach(point => {
@@ -189,6 +190,8 @@ class MyContents  {
         const targetObject = new THREE.Object3D();
         targetObject.position.set(0, 0, 0);
         this.app.scene.add(targetObject);
+=======
+>>>>>>> 414e0990e81c5d51877426efa3eaf8e709c8427c
     }
 
     printGroupInfo(group, ident = 0) {
@@ -203,9 +206,7 @@ class MyContents  {
     }
 
     update() {
-        if (this.mixer) {
-            this.mixer.update(this.clock.getDelta());
-        }
+        this.app.currentState.update()
     }
 }
 

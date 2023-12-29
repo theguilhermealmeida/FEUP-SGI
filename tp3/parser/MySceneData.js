@@ -1,3 +1,4 @@
+<<<<<<< tp3/parser/MySceneData.js
 
 
 /**
@@ -261,9 +262,15 @@ class MySceneData  {
             {name: "filepath", type: "string"},
         ]
 
+        this.descriptors["text"] = [
+            {name: "text", type: "string"},
+            {name: "width", type: "float"},
+            {name: "height", type: "float"},
+        ]
+
         this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph", "powerUps"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp","obstacle"]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp","obstacle","text"]
     }
 
     createCustomAttributeIfNotExists(obj) {
@@ -490,4 +497,3 @@ class MySceneData  {
     };
 }
 export { MySceneData };
-

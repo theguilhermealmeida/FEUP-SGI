@@ -3,6 +3,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { MyContents } from './MyContents.js';
 import { MyGuiInterface } from './MyGuiInterface.js';
+import { MenuState } from './states/MenuState.js';
+import { PickOwnCarState } from './states/PickOwnCarState.js';
+import { PickOppCarState } from './states/PickOppCarState.js';
+import { GameState } from './states/GameState.js';
+import { PauseState } from './states/PauseState.js';
+import { PickObstacleState } from './states/PickObstacleState.js';
+import { MoveObstacleState } from './states/MoveObstacleState.js';
+import { Game } from './game/Game.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
 /**
@@ -58,6 +66,34 @@ class MyApp  {
 
         // manage window resizes
         window.addEventListener('resize', this.onResize.bind(this), false );
+
+        // create the states
+        this.menuState = new MenuState(this)
+        this.pickOwnCarState = new PickOwnCarState(this)
+        this.pickOppCarState = new PickOppCarState(this)
+        this.gameState = new GameState(this)
+        this.pauseState = new PauseState(this)
+        this.pickObstacleState = new PickObstacleState(this)
+        this.moveObstacleState = new MoveObstacleState(this)
+
+        this.currentState = this.menuState
+
+        this.game = new Game(this)
+
+        this.raycaster = new THREE.Raycaster()
+        this.raycaster.near = 1
+        this.raycaster.far = 200
+
+        this.pointer = new THREE.Vector2()
+        this.intersectedObj = null
+
+        this.textContainer = document.getElementById('textContainer');
+        this.lapContainer = document.getElementById('lapContainer');
+        this.timeContainer = document.getElementById('timeContainer');
+        this.speedContainer = document.getElementById('speedContainer');
+        this.pauseContainer = document.getElementById('pauseContainer');
+
+
     }
 
 
@@ -68,6 +104,10 @@ class MyApp  {
     setActiveCamera(cameraName) {   
         this.activeCameraName = cameraName
         this.activeCamera = this.cameras[this.activeCameraName]
+    }
+
+    getActiveCamera() {
+        return this.cameras[this.activeCameraName]
     }
 
     /**
@@ -117,6 +157,9 @@ class MyApp  {
      */
     setContents(contents) {
         this.contents = contents;
+
+        //get mouse position
+        //window.addEventListener('pointermove', this.onPointerMove)
     }
 
     /**
@@ -150,6 +193,14 @@ class MyApp  {
 
         this.lastCameraName = this.activeCameraName
         this.stats.end()
+    }
+
+    cleanTextContainers() {
+        this.textContainer.innerHTML = "";
+        this.lapContainer.innerHTML = "";
+        this.timeContainer.innerHTML = "";
+        this.speedContainer.innerHTML = "";
+        this.pauseContainer.innerHTML = "";
     }
 }
 

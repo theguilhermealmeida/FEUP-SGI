@@ -6,10 +6,12 @@ import { MyObstacle} from './MyObstacle.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 
+import { MyTextRenderer } from './MyTextRenderer.js';
+
 
 
 class MyGraphBuilder {
-    constructor(sceneData) {
+    constructor(sceneData, app) {
         this.sceneData = sceneData
         this.group = new THREE.Group();
         this.nodes = new Map()
@@ -22,9 +24,12 @@ class MyGraphBuilder {
         this.powerUps = []
         this.obstacles = []
         this.models = new Map()
+        this.app = app
 
         this.no_materials = new Map()
         this.videos = [] 
+
+        this.textRenderer = new MyTextRenderer(this.app)
 
         this.initTextures()
         this.initMaterials()
@@ -136,6 +141,8 @@ class MyGraphBuilder {
             materialObject.texlength_t = material.texlength_t ?? 1.0;
             this.materials.set(material.id, materialObject);
         }
+
+        this.app.materials = this.materials
     }
 
     initPowerUps() {
@@ -240,6 +247,13 @@ class MyGraphBuilder {
                     this.obstacles.push(obstacle)
                 });
                 return
+            }
+            if (nodeData.subtype === "text") {
+                const data = nodeData.representations[0]
+                const text = this.textRenderer.createText(data.text, data.width, data.height)
+                nodeGroup.add(text)
+                nodeGroup.data = nodeData
+                return;
             }
 
             let geometry = new MyGeometryBuilder(nodeData, materialObject, textureObject, nodeGroup.castShadow, nodeGroup.receiveShadow);
@@ -367,7 +381,7 @@ class MyGraphBuilder {
             let camera = camerasData[key]
             if (camera.type === "perspective") {
                 const cameraObj = new THREE.PerspectiveCamera();
-                cameraObj.name = camera.type + " " + countP 
+                cameraObj.name = camera.id
                 countP++
                 cameraObj.fov = camera.angle
                 cameraObj.far = camera.far
@@ -379,7 +393,7 @@ class MyGraphBuilder {
             }
             if (camera.type === "orthogonal") {
                 const cameraObj = new THREE.OrthographicCamera();
-                cameraObj.name = camera.type + " " + countO 
+                cameraObj.name = camera.id
                 countO++
                 cameraObj.fov = camera.angle
                 cameraObj.left = camera.left
