@@ -8,8 +8,8 @@ class OwnCar {
         this.velocity = 0;
         this.steeringAngle = 0;
         this.maxSteeringAngle = 0.35;
-        this.turnSpeed = 0.05;
-        this.steeringSpeed = this.turnSpeed * 1.4;
+        this.turnSpeed = 0.03;
+        this.steeringSpeed = this.turnSpeed * 2;
         this.acceleration = 0.015;
         this.maxVelocity = 1;
         this.orientation = - Math.PI/2;
@@ -52,7 +52,7 @@ class OwnCar {
         }
     
         // Update steering angle
-        this.steeringAngle -= Math.sign(this.steeringAngle) * 0.05;
+        this.steeringAngle -= Math.sign(this.steeringAngle) * 0.03;
 
         if (this.steeringAngle > -0.01 && this.steeringAngle < 0.01) {
             this.steeringAngle = 0;

@@ -444,33 +444,39 @@
         <node id="powerUps">
             <children>
                 <noderef id="powerUp1" />
-                <noderef id="powerUp2" />
+                <!-- <noderef id="powerUp2" /> -->
             </children>
         </node>
 
         <node id="powerUp1">
             <transforms>
-                <translate value3="-15 2 0" />
-                <rotate value3="0 1.4 0" />
+                <translate value3="0 0 0" />
             </transforms>
             <children>
-                <primitive>
-                    <powerUp id="powerUp1" subtype="speed" filepath="./public/Shine Sprite.obj"/>
-                </primitive>
+                <noderef id="starPowerUp" />
             </children>
         </node>
 
         <node id="powerUp2">
             <transforms>
-                <translate value3="0 2 60" />
+                <translate value3="0 0 80" />
+            </transforms>
+            <children>
+                <noderef id="starPowerUp" />
+            </children>
+       </node>
+
+        <node id="starPowerUp">
+            <transforms>
+                <translate value3="0 2 0" />
                 <rotate value3="0 1.4 0" />
             </transforms>
             <children>
                 <primitive>
-                    <powerUp id="powerUp2" subtype="speed" filepath="./public/Shine Sprite.obj"/>
+                    <powerUp id="starPowerUp" subtype="speed" filepath="./public/Shine Sprite.obj"/>
                 </primitive>
             </children>
-       </node>
+        </node>
 
 <!-- 
 ************************************

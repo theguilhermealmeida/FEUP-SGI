@@ -15,7 +15,7 @@ class MyPowerUp {
 
             loader.load(this.filepath,
                 (obj) => {
-                    obj.name = this.id;
+                    obj.name = this.id + "_mesh"
                     obj.subtype = this.subtype;
                     resolve(obj);
                 },
