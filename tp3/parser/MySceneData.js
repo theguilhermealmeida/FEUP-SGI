@@ -1,3 +1,4 @@
+<<<<<<< tp3/parser/MySceneData.js
 
 
 /**
@@ -137,6 +138,7 @@ class MySceneData  {
         this.descriptors["model3d"] = [
 			{name: "filepath", type: "string"},
             {name: "distance", type: "float", required: false, default: 0.0}, // The distance at which to display this level of detail. Default 0.0.  
+            {name: "primitiveId", type: "string"},
 		]
 
 		this.descriptors["sphere"] = [
@@ -251,7 +253,12 @@ class MySceneData  {
         this.descriptors["powerUp"] = [
             {name: "id", type: "string"},
             {name: "subtype", type: "string"},
-            {name: "xyz", type: "vector3"},
+            {name: "filepath", type: "string"},
+        ]
+
+        this.descriptors["obstacle"] = [
+            {name: "id", type: "string"},
+            {name: "subtype", type: "string"},
             {name: "filepath", type: "string"},
         ]
 
@@ -261,10 +268,9 @@ class MySceneData  {
             {name: "height", type: "float"},
         ]
 
-        this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph"]
+        this.primaryNodeIds = ["globals", "fog", "skybox" ,"textures", "materials", "cameras", "graph", "powerUps"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track",     "route","powerUp","text"]
-
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod", "polygon","track", "route","powerUp","obstacle","text"]
     }
 
     createCustomAttributeIfNotExists(obj) {
@@ -491,4 +497,3 @@ class MySceneData  {
     };
 }
 export { MySceneData };
-

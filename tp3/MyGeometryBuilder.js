@@ -5,6 +5,7 @@ import { MyPolygon } from './MyPolygon.js';
 import { MyTriangle } from './MyTriangle.js';
 import { MyPowerUp } from './MyPowerUp.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 
 
 
@@ -53,7 +54,7 @@ class MyGeometryBuilder {
 
                     // const a = v1.distanceTo(v2);
                     // const b = v2.distanceTo(v3);
-                    // const c = v1.distanceTo(v3);
+                    // const c = v1.distanceTo(3);
 
                     // const v213 = Math.acos((a*a - b*b + c*c) / (2*a*c));
                     // const v132 = Math.acos((-(a*a) + b*b + c*c) / (2*c*b));
@@ -101,13 +102,6 @@ class MyGeometryBuilder {
                 geometry = new THREE.BoxGeometry(this.representations.xyz2[0] - this.representations.xyz1[0], this.representations.xyz2[1] - this.representations.xyz1[1], this.representations.xyz2[2] - this.representations.xyz1[2], this.representations.parts_x, this.representations.parts_y, this.representations.parts_z);
                 break;
             }
-            case "model3d": {
-                const loader = new GLTFLoader();
-
-                loader.load(this.representations.filepath)
-
-                break;
-            }
             case "polygon": {
                 geometry = new MyPolygon(geometryData)
 
@@ -115,10 +109,6 @@ class MyGeometryBuilder {
                 let primitive = new THREE.Mesh(geometry, material);
                 return primitive
             }   
-            // case "powerUp": {
-            //     geometry = new MyPowerUp(geometryData)
-            //     break;
-            // }
             default:
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;

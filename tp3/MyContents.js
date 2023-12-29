@@ -111,8 +111,14 @@ class MyContents  {
         this.graphBuilder = new MyGraphBuilder(data, this.app)
 
 
+<<<<<<< 97e4d7de576f600af2ded1f8510285571c21022e
+        const group = this.graphBuilder.buildGraph(data);
+        console.log("aqui")
+        console.log(group)
+=======
         const group = this.graphBuilder.buildGraph(data);  
     
+>>>>>>> 414e0990e81c5d51877426efa3eaf8e709c8427c
         // add group to the scene
         this.app.scene.add(group);
 
@@ -133,6 +139,59 @@ class MyContents  {
         //     this.app.scene.add(cube);
         // }
         // );
+<<<<<<< 97e4d7de576f600af2ded1f8510285571c21022e
+
+        //at each oppCarRoute control point add a little box to the scene
+        oppCarRouteControlPoints.forEach(point => {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const cube = new THREE.Mesh(geometry, material);
+            cube.position.set(point.x, point.y, point.z);
+            this.app.scene.add(cube);
+        }
+        );
+
+        //add the first point to the end to close the loop
+        oppCarRouteControlPoints.push(oppCarRouteControlPoints[0]);
+
+        //add the first point to the end to close the loop
+        oppCarRouteQuarterions.push(oppCarRouteQuarterions[0]);
+
+        const positionKF = new THREE.VectorKeyframeTrack(
+            '.position',
+            [...Array(oppCarRouteControlPoints.length).keys()],
+            [].concat(...oppCarRouteControlPoints.map(point => [...point.toArray()])),
+            THREE.InterpolateSmooth
+          );
+
+        const quaternionKF = new THREE.QuaternionKeyframeTrack(
+            '.quaternion',
+            [...Array(oppCarRouteQuarterions.length).keys()],
+            [].concat(...oppCarRouteQuarterions.map(point => [...point.toArray()]))
+          );
+
+        const positionClip = new THREE.AnimationClip('OpponentCar', -1, [positionKF]);
+        const rotationClip = new THREE.AnimationClip('OpponentCar', -1, [quaternionKF]);
+
+        this.mixer = new THREE.AnimationMixer(this.oppCar);
+
+        const positionAction = this.mixer.clipAction(positionClip);
+        const rotationAction = this.mixer.clipAction(rotationClip);
+
+        //change the speed of the animation
+        positionAction.timeScale = 0.5;
+        rotationAction.timeScale = 0.5;
+
+
+        // positionAction.play();
+        // rotationAction.play();
+    
+        // create target pointing to the origin
+        const targetObject = new THREE.Object3D();
+        targetObject.position.set(0, 0, 0);
+        this.app.scene.add(targetObject);
+=======
+>>>>>>> 414e0990e81c5d51877426efa3eaf8e709c8427c
     }
 
     printGroupInfo(group, ident = 0) {
