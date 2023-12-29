@@ -250,6 +250,8 @@ class MySceneData  {
         this.descriptors["powerUp"] = [
             {name: "id", type: "string"},
             {name: "subtype", type: "string"},
+            {name: "value" , type: "float" , required: false, default: 0},
+            {name: "duration" , type: "float" , required: false, default: 0},
             {name: "filepath", type: "string"},
         ]
 

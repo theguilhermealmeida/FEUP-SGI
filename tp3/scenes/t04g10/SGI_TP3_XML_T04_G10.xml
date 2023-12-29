@@ -473,7 +473,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <powerUp id="starPowerUp" subtype="speed" filepath="./public/Shine Sprite.obj"/>
+                    <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" filepath="./public/Shine Sprite.obj"/>
                 </primitive>
             </children>
         </node>

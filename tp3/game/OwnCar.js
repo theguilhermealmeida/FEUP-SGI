@@ -15,6 +15,9 @@ class OwnCar {
         this.orientation = - Math.PI/2;
         this.frontWheels = this.car.getObjectByName("frontWheels");
         this.rearWheels = this.car.getObjectByName("rearWheels");
+        this.effect = null;
+        this.endOfEffect = -10000;
+
     }
 
     accelerate() {
@@ -43,7 +46,38 @@ class OwnCar {
         this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
     }
 
+    applyEffect(effect) {
+        switch(effect.type) {
+            case "speed":
+                this.effect = effect;
+                this.maxVelocity = this.maxVelocity * effect.value;
+                this.endOfEffect = this.app.game.elapsedTime + effect.duration;
+                this.app.effectContainer.innerHTML = "Benefit: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Benefit time left: " + effect.duration + "s";
+                break;
+        }
+    }
+
+    updateEffect() {
+        if(this.effect === null) return;
+
+        switch(this.effect.type) {
+            case "speed":
+                if(this.app.game.elapsedTime > this.endOfEffect) {
+                    this.maxVelocity = 1;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                } else {
+                    this.app.effectTimeContainer.innerHTML = "Benefit time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                }
+                break;
+        }
+    }
+
     update() {
+
+        this.updateEffect();
+
         // Update velocity
         this.velocity -= Math.sign(this.velocity) * 0.005;
 

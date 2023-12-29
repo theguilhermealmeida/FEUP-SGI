@@ -91,6 +91,8 @@ class MyApp  {
         this.lapContainer = document.getElementById('lapContainer');
         this.timeContainer = document.getElementById('timeContainer');
         this.speedContainer = document.getElementById('speedContainer');
+        this.effectContainer = document.getElementById('effectContainer');
+        this.effectTimeContainer = document.getElementById('effectTimeContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
 
 

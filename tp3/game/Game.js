@@ -28,6 +28,7 @@ class Game {
         let powerups = this.app.scene.getObjectByName("powerUps");
         for (let powerup of powerups.children) {
             this.addPowerup(powerup);
+            powerup.lastTimePicked = -100;
         }
     }
 
@@ -38,8 +39,7 @@ class Game {
         //this.oppCar.update();
         this.updateLaps();
         this.updateSpeed();
-        this.checkPowerups();
-        //this.checkObstacles();
+        this.checkColisions();
         this.checkWinner();
     }
 
@@ -92,12 +92,21 @@ class Game {
         this.activeObstacles.push(obstacle);
     }
 
+    checkColisions() {
+        //this.checkObstacles();
+        this.checkPowerups();
+    }
+
     checkPowerups() {
         for (let powerup of this.activePowerups) {
             if (this.ownCar.car.position.distanceTo(powerup.position) < 4) {
-                console.log("Powerup" + powerup.name + " picked");
-                let effect = this.getEffect(powerup);
-                console.log(effect);
+                if(this.clock.elapsedTime - powerup.lastTimePicked < 2) {
+                    //if powerup was picked in the last 2 seconds, ignore it
+                    continue;
+                }
+                console.log(powerup.name + " picked");
+                this.ownCar.applyEffect(this.getEffect(powerup));
+                powerup.lastTimePicked = this.elapsedTime;
             }
         }
     }
@@ -109,7 +118,12 @@ class Game {
             powerup = powerup.children[0];
             data = powerup.data;
         }
-        return data;
+        let powerUpData = data.representations[0];
+        let effect = {};
+        effect.type = powerUpData.subtype;
+        effect.duration = powerUpData.duration;
+        effect.value = powerUpData.value;
+        return effect;
     }
 }
 
