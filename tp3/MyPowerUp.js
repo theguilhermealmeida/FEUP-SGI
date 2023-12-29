@@ -20,7 +20,6 @@ class MyPowerUp {
                     resolve(obj);
                 },
                 (xhr) => {
-                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
                 },
                 (error) => {
                     reject("An error happened: " + error);

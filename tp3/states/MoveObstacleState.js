@@ -51,7 +51,6 @@ class MoveObstacleState extends State {
             if(intersect.object.parent.parent.name !== "trackNode") continue;
             else {
                 this.obstacle.position.copy(intersect.point);
-                this.obstacle.position.y += 3; //it depends on the obstacle size
                 this.objectPlaced = true;
                 break;
             }

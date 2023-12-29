@@ -353,58 +353,31 @@
             <children>
                 <noderef id="obstacle1" />
                 <noderef id="obstacle2" />
-                <noderef id="obstacle3" />
-                <noderef id="obstacle4" />
             </children>
         </node>
 
         <node id="obstacle1">
             <transforms>
                 <translate value3="0 0 0" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="0.1 0.1 0.1" />
             </transforms>
-            <materialref id="redApp" />
             <children>
-                <noderef id="obstacle" />
+                <primitive>
+                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
+                </primitive>
             </children>
         </node>
 
         <node id="obstacle2">
             <transforms>
                 <translate value3="0 0 15" />
-            </transforms>
-            <materialref id="greenApp" />
-            <children>
-                <noderef id="obstacle" />
-            </children>
-        </node>
-
-        <node id="obstacle3">
-            <transforms>
-                <translate value3="15 0 0" />
-            </transforms>
-            <materialref id="yellowApp" />
-            <children>
-                <noderef id="obstacle" />
-            </children>
-        </node>
-
-        <node id="obstacle4">
-            <transforms>
-                <translate value3="15 0 15" />
-            </transforms>
-            <materialref id="blueApp" />
-            <children>
-                <noderef id="obstacle" />
-            </children>
-        </node>
-
-        <node id="obstacle">
-            <transforms>
-                <translate value3="0 3 0" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="0.1 0.1 0.1" />
             </transforms>
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="6 6 6"/>
+                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
                 </primitive>
             </children>
         </node>
@@ -498,44 +471,6 @@
                 </primitive>
             </children>
        </node>
- <!-- 
-************************************
-            OBSTACLES 
-************************************
- -->
-
-        <node id="obstacles">
-            <children>
-                <noderef id="obstacle1" />
-                <noderef id="obstacle2" />
-            </children>
-        </node>
-
-        <node id="obstacle1">
-            <transforms>
-                <translate value3="15 0 -60" />
-                <rotate value3="0 1.4 0" />
-                <scale value3="0.1 0.1 0.1" />
-            </transforms>
-            <children>
-                <primitive>
-                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
-                </primitive>
-            </children>
-        </node>
-
-        <node id="obstacle2">
-            <transforms>
-                <translate value3="75 0 15" />
-                <rotate value3="0 1.4 0" />
-                <scale value3="0.1 0.1 0.1" />
-            </transforms>
-            <children>
-                <primitive>
-                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
-                </primitive>
-            </children>
-        </node>
 
 <!-- 
 ************************************
@@ -1295,7 +1230,7 @@
         <node id="trackNode">
             <transforms>
                 <translate value3="0 0.1 0" />
-                <scale value3="1 0.05 1" />
+                <scale value3="1 0.01 1" />
             </transforms>
             <materialref id="asphaltApp" />
             <children>
@@ -1352,7 +1287,7 @@
 
         <node id="finishLine">
             <transforms>
-                <translate value3="0 0.65 5" />
+                <translate value3="0 0.2 5" />
                 <rotate value3="-1.5707 0 0" />
             </transforms>
             <materialref id="finishApp" />
@@ -1535,7 +1470,7 @@
 
         <node id="gridboxes">
             <transforms>
-                <translate value3="15 0.5 85" />
+                <translate value3="15 0.2 85" />
             </transforms>
             <children>
                 <noderef id="gridbox1" />

@@ -239,7 +239,6 @@ class MyGraphBuilder {
                 return
             }
             if (nodeData.subtype === "obstacle") {
-                console.log("PASSOU AQUI")
                 nodeGroup.data = nodeData
                 const obstacle = new MyObstacle(nodeData);
                 obstacle.objPromise.then((obj) => {

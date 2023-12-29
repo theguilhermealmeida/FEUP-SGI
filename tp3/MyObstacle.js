@@ -15,12 +15,11 @@ class MyObstacle {
 
             loader.load(this.filepath,
                 (obj) => {
-                    obj.name = this.id;
+                    obj.name = this.id + "_mesh"
                     obj.subtype = this.subtype;
                     resolve(obj);
                 },
                 (xhr) => {
-                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
                 },
                 (error) => {
                     reject("An error happened: " + error);

@@ -12,10 +12,9 @@ class PickObstacleState extends State {
     init() {
         document.addEventListener('click', this.clickHandler);
         this.app.setActiveCamera("obstaclePark");
-        this.pickableObjNames = ["obstacle1", "obstacle2", "obstacle3", "obstacle4"];
+        this.pickableObjNames = ["obstacle1", "obstacle2"];
         this.obstacles = this.app.scene.getObjectByName("obstacles");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.app.textContainer.innerHTML = "Pick your obstacle!"
     }
 
@@ -46,7 +45,13 @@ class PickObstacleState extends State {
                     let obstacle = this.obstacles.getObjectByName(objName)
                     let obstacleObject = obstacle.getObjectByName("obstacle");
 
+                    let rotation = obstacle.rotation;
+                    let scale = obstacle.scale;
+
                     this.obstacles.remove(obstacle);
+
+                    obstacleObject.rotation.set(rotation.x, rotation.y, rotation.z);
+                    obstacleObject.scale.set(scale.x, scale.y, scale.z);
 
                     this.app.game.addObstacle(obstacleObject);
                     this.app.game.pickedObstacle = obstacleObject;

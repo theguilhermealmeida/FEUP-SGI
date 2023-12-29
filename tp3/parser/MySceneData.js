@@ -1,6 +1,3 @@
-<<<<<<< tp3/parser/MySceneData.js
-
-
 /**
  *  Contains the content of a loaded scene
  *  Credits: Alexandre Valle (alexandre.valle@fe.up.pt)
