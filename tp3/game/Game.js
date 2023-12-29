@@ -22,6 +22,10 @@ class Game {
         this.app.speedContainer.innerHTML = "Speed: " + this.ownCar.velocity + "km/h";
         this.initPowerups();
         this.clock.start();
+        this.track = this.app.scene.getObjectByName("track");
+        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+        const trackSpline = new THREE.CatmullRomCurve3(trackControlPoints);
+        this.trackPoints = trackSpline.getPoints(100);
     }
 
     initPowerups() {
@@ -93,8 +97,28 @@ class Game {
     }
 
     checkColisions() {
+        this.checkOutOfTrack();
         //this.checkObstacles();
         this.checkPowerups();
+    }
+
+    checkOutOfTrack() {
+        const carPosition = this.ownCar.car.position;
+        const distanceThreshold = 10; // Adjust this threshold as needed
+    
+        for (let i = 0; i < this.trackPoints.length; i++) {
+            const trackPoint = this.trackPoints[i];
+            const distanceToTrackPoint = carPosition.distanceTo(trackPoint);
+            
+            if (distanceToTrackPoint < distanceThreshold) {
+                // Car is close to a track point, considered on the track
+                console.log("On the track");
+                return; // Exit the function, car is on the track
+            }
+        }
+    
+        // If the loop finishes without finding a nearby track point, car is off the track
+        console.log("Out of track");
     }
 
     checkPowerups() {
