@@ -13,7 +13,7 @@ class PickObstacleState extends State {
         console.log("PickObstacleState");
         document.addEventListener('click', this.clickHandler);
         this.pickableObjNames = ["obstacle1", "obstacle2"];
-        this.obstacles = this.app.scene.getObjectByName("obstacles");
+        this.obstacles = this.app.scene.getObjectByName("obstaclePark");
         document.addEventListener("pointermove",this.pointerMoveHandler);
         this.app.textContainer.innerHTML = "Pick your obstacle!"
         this.initCamera();

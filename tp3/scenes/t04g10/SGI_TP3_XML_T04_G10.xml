@@ -337,6 +337,7 @@
                 <noderef id="statue"/>
                 <noderef id="menu" />
                 <noderef id="obstacles" />
+                <noderef id="obstaclePark" />
             </children>
         </node>
 
@@ -347,6 +348,12 @@
  -->
 
         <node id="obstacles">
+            <children>
+                <noderef id="obstacle3" />
+            </children>
+        </node>
+
+        <node id="obstaclePark">
             <transforms>
                 <translate value3="-100 0 10" />
             </transforms>
@@ -364,7 +371,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
+                    <obstacle id="obstacle1" subtype="speed" value="0.5" duration="5" filepath="./public/obstacle.obj"/>
                 </primitive>
             </children>
         </node>
@@ -377,7 +384,21 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle1" subtype="stop" filepath="./public/obstacle.obj"/>
+                    <obstacle id="obstacle2" subtype="speed" value="0.5" duration="5" filepath="./public/obstacle.obj"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle3">
+            <transforms>
+                <translate value3="20 0 0" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="0.1 0.1 0.1" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle2" subtype="speed" value="0.5" duration="5" 
+                    active="true" filepath="./public/obstacle.obj"/>
                 </primitive>
             </children>
         </node>

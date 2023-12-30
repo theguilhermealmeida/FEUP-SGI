@@ -258,6 +258,9 @@ class MySceneData  {
         this.descriptors["obstacle"] = [
             {name: "id", type: "string"},
             {name: "subtype", type: "string"},
+            {name: "value" , type: "float" , required: false, default: 0},
+            {name: "duration" , type: "float" , required: false, default: 0},
+            {name: "active", type: "boolean", required: false, default: false},
             {name: "filepath", type: "string"},
         ]
 

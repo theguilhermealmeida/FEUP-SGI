@@ -21,6 +21,7 @@ class Game {
         this.app.timeContainer.innerHTML = "Time: " + this.time;
         this.app.speedContainer.innerHTML = "Speed: " + this.ownCar.velocity + "km/h";
         this.initPowerups();
+        this.initObstacles();
         this.clock.start();
         this.track = this.app.scene.getObjectByName("track");
         const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
@@ -33,6 +34,25 @@ class Game {
         for (let powerup of powerups.children) {
             this.addPowerup(powerup);
             powerup.lastTimePicked = -100;
+        }
+    }
+
+    initObstacles() {
+        let obstacles = this.app.scene.getObjectByName("obstacles");
+        for (let obstacle of obstacles.children) {
+            if(obstacle.children[0].data.representations[0].active) {
+                console.log(obstacle);
+                this.addObstacle(obstacle);
+                obstacle.lastTimePicked = -100;
+            }
+        }
+        let obstaclePark = this.app.scene.getObjectByName("obstaclePark");
+        for (let obstacle of obstaclePark.children) {
+            if(obstacle.children[0].data.representations[0].active) {
+                console.log(obstacle);
+                this.addObstacle(obstacle);
+                obstacle.lastTimePicked = -100;
+            }
         }
     }
 
@@ -98,7 +118,7 @@ class Game {
 
     checkColisions() {
         this.checkOutOfTrack();
-        //this.checkObstacles();
+        this.checkObstacles();
         this.checkPowerups();
     }
 
@@ -121,6 +141,20 @@ class Game {
         console.log("Out of track");
     }
 
+    checkObstacles() {
+        for (let obstacle of this.activeObstacles) {
+            if (this.ownCar.car.position.distanceTo(obstacle.position) < 4) {
+                if(this.clock.elapsedTime - obstacle.lastTimePicked < 2) {
+                    //if obstacle was picked in the last 2 seconds, ignore it
+                    continue;
+                }
+                console.log(obstacle.name + " picked");
+                obstacle.lastTimePicked = this.elapsedTime;
+                this.ownCar.applyEffect(this.getEffect(obstacle));
+            }
+        }
+    }
+
     checkPowerups() {
         for (let powerup of this.activePowerups) {
             if (this.ownCar.car.position.distanceTo(powerup.position) < 4) {
@@ -138,12 +172,12 @@ class Game {
         }
     }
 
-    getEffect(powerup) {
+    getEffect(object) {
         // loop until children[0] has data not undefined
-        let data = powerup.data;
+        let data = object.data;
         while (data === undefined) {
-            powerup = powerup.children[0];
-            data = powerup.data;
+            object = object.children[0];
+            data = object.data;
         }
         let powerUpData = data.representations[0];
         let effect = {};
