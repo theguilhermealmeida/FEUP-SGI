@@ -17,6 +17,7 @@ class OwnCar {
         this.rearWheels = this.car.getObjectByName("rearWheels");
         this.effect = null;
         this.endOfEffect = -10000;
+        this.offTrack = false;
 
     }
 
@@ -49,11 +50,16 @@ class OwnCar {
     applyEffect(effect) {
         switch(effect.type) {
             case "speed":
+                if(this.effect !== null){
+                    this.maxVelocity = this.maxVelocity / this.effect.value;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                }
                 this.effect = effect;
                 this.maxVelocity = this.maxVelocity * effect.value;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
-                this.app.effectContainer.innerHTML = "Benefit: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
-                this.app.effectTimeContainer.innerHTML = "Benefit time left: " + effect.duration + "s";
+                this.app.effectContainer.innerHTML = "Effect: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
                 break;
         }
     }
@@ -64,14 +70,31 @@ class OwnCar {
         switch(this.effect.type) {
             case "speed":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
-                    this.maxVelocity = 1;
+                    this.maxVelocity = this.maxVelocity / this.effect.value;
                     this.app.effectContainer.innerHTML = "";
                     this.app.effectTimeContainer.innerHTML = "";
+                    this.effect = null;
                 } else {
-                    this.app.effectTimeContainer.innerHTML = "Benefit time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
                 }
                 break;
         }
+    }
+
+    outOfTrack() {
+        if(this.offTrack) return;
+
+        this.offTrack = true;
+        this.maxVelocity = this.maxVelocity * 0.5;
+        this.app.outOfTrackContainer.innerHTML = "Out of track!";
+    }
+
+    inTrack() {
+        if(!this.offTrack) return;
+
+        this.offTrack = false;
+        this.maxVelocity = this.maxVelocity * 2;
+        this.app.outOfTrackContainer.innerHTML = "";
     }
 
     update() {

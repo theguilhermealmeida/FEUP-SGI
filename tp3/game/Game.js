@@ -132,13 +132,13 @@ class Game {
             
             if (distanceToTrackPoint < distanceThreshold) {
                 // Car is close to a track point, considered on the track
-                console.log("On the track");
+                this.ownCar.inTrack();
                 return; // Exit the function, car is on the track
             }
         }
     
         // If the loop finishes without finding a nearby track point, car is off the track
-        console.log("Out of track");
+        this.ownCar.outOfTrack();
     }
 
     checkObstacles() {

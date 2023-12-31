@@ -93,6 +93,7 @@ class MyApp  {
         this.speedContainer = document.getElementById('speedContainer');
         this.effectContainer = document.getElementById('effectContainer');
         this.effectTimeContainer = document.getElementById('effectTimeContainer');
+        this.outOfTrackContainer = document.getElementById('outOfTrackContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
 
 
