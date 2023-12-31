@@ -13,7 +13,7 @@ class OppCar {
         this.laps = 0;
         this.crossedFinishLine = false;
 
-        this.init();
+        this.boundingSpheres = [];
     }
 
     init() {
@@ -38,17 +38,55 @@ class OppCar {
             [].concat(...this.routeQuarterions.map(point => [...point.toArray()]))
         );
     
-        const positionClip = new THREE.AnimationClip('OpponentCar', -1, [positionKF]);
-        const rotationClip = new THREE.AnimationClip('OpponentCar', -1, [quaternionKF]);
+        const clip = new THREE.AnimationClip('OppCar', -1, [positionKF, quaternionKF]);
 
-        this.positionAction = this.mixer.clipAction(positionClip);
-        this.rotationAction = this.mixer.clipAction(rotationClip);
+        this.positionAction = this.mixer.clipAction(clip);
 
-        this.positionAction.timeScale = 5;
-        this.rotationAction.timeScale = 5;
+        this.positionAction.timeScale = 0.1;
 
         this.positionAction.play();
-        //this.rotationAction.play();
+
+        this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
+    }
+
+    computeBoundingSpheres(node) {
+        for (let i = 0; i < node.children.length; i++) {
+            const child = node.children[i];
+            
+            if (child instanceof THREE.Mesh && child.geometry !== undefined && child.geometry.boundingSphere) {
+                const sphere = new THREE.SphereGeometry(child.geometry.boundingSphere.radius, 32, 32);
+                const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true});
+                const sphereMesh = new THREE.Mesh(sphere, material);
+                sphereMesh.name = "BoundingSphere";
+                child.parent.add(sphereMesh);
+
+                // get the bounding sphere's center position in world space
+                const center = new THREE.Vector3();
+                sphereMesh.getWorldPosition(center);
+                this.boundingSpheres.push(new THREE.Sphere(center, child.geometry.boundingSphere.radius));
+            }
+    
+            if (child.children.length > 0) {
+                this.computeBoundingSpheres(child); // Recursively call the function for each child
+            }
+        }
+    }
+
+    updateBoundingSpheres(node) {
+        for (let i = 0; i < node.children.length; i++) {
+            const child = node.children[i];
+            
+            if (child instanceof THREE.Mesh && child.name === "BoundingSphere") {
+                // get the bounding sphere's center position in world space
+                const center = new THREE.Vector3();
+                child.getWorldPosition(center);
+                this.boundingSpheres.push(new THREE.Sphere(center, child.geometry.parameters.radius));
+            }
+    
+            if (child.children.length > 0) {
+                this.updateBoundingSpheres(child); // Recursively call the function for each child
+            }
+        }
     }
 
     pauseCar() {
@@ -63,6 +101,8 @@ class OppCar {
     }
 
     update() { 
+        this.boundingSpheres = [];
+        this.updateBoundingSpheres(this.car.getObjectByName("carComplex"));
         if (this.mixer) {
             this.mixer.update(this.clock.getDelta());
         }

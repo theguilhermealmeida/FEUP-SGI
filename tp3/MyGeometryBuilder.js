@@ -113,7 +113,8 @@ class MyGeometryBuilder {
                 console.warn("Unknown primitive: " + geometryData.subtype);
                 break;
         }
-
+        
+        geometry.computeBoundingSphere();
         this.mesh = new THREE.Mesh(geometry, this.materialObject);
         this.mesh.castShadow = this.castShadows;
         this.mesh.receiveShadow = this.receiveShadows;

@@ -18,8 +18,36 @@ class OwnCar {
         this.effect = null;
         this.endOfEffect = -10000;
         this.offTrack = false;
-
+        this.boundingSpheres = [];
     }
+
+    init() {
+        this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
+    }
+
+    computeBoundingSpheres(node) {
+        for (let i = 0; i < node.children.length; i++) {
+            const child = node.children[i];
+            
+            if (child instanceof THREE.Mesh && child.geometry !== undefined && child.geometry.boundingSphere) {
+                const sphere = new THREE.SphereGeometry(child.geometry.boundingSphere.radius, 32, 32);
+                const material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+                const sphereMesh = new THREE.Mesh(sphere, material);
+                sphereMesh.name = "BoundingSphere";
+                // get the bounding sphere's center position in world space
+                const center = new THREE.Vector3();
+                child.getWorldPosition(center);
+                this.boundingSpheres.push(new THREE.Sphere(center, child.geometry.boundingSphere.radius));
+                child.parent.add(sphereMesh);
+            }
+    
+            if (child.children.length > 0) {
+                this.computeBoundingSpheres(child); // Recursively call the function for each child
+            }
+        }
+    }
+
+
 
     accelerate() {
         this.velocity += this.acceleration;
@@ -97,7 +125,29 @@ class OwnCar {
         this.app.outOfTrackContainer.innerHTML = "";
     }
 
+    updateBoundingSpheres(node) {
+        for (let i = 0; i < node.children.length; i++) {
+            const child = node.children[i];
+            
+            if (child instanceof THREE.Mesh && child.name === "BoundingSphere") {
+                // get the bounding sphere's center position in world space
+                const center = new THREE.Vector3();
+                child.getWorldPosition(center);
+                this.boundingSpheres.push(new THREE.Sphere(center, child.geometry.parameters.radius));
+            }
+    
+            if (child.children.length > 0) {
+                this.updateBoundingSpheres(child); // Recursively call the function for each child
+            }
+        }
+    }
+
+
     update() {
+
+        this.boundingSpheres = [];
+
+        this.updateBoundingSpheres(this.car.getObjectByName("carComplex"));
 
         this.updateEffect();
 

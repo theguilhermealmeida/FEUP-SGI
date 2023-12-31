@@ -14,9 +14,12 @@ class Game {
         this.activeObstacles = [];
         this.pickedObstacle = null;
         this.clock = new THREE.Clock();
+        this.lastCarColision = -100;
     }
 
     init() {
+        this.ownCar.init();
+        this.oppCar.init();
         this.app.lapContainer.innerHTML = "Lap: " + this.laps + "/" + this.targetLaps;
         this.app.timeContainer.innerHTML = "Time: " + this.time;
         this.app.speedContainer.innerHTML = "Speed: " + this.ownCar.velocity + "km/h";
@@ -41,7 +44,6 @@ class Game {
         let obstacles = this.app.scene.getObjectByName("obstacles");
         for (let obstacle of obstacles.children) {
             if(obstacle.children[0].data.representations[0].active) {
-                console.log(obstacle);
                 this.addObstacle(obstacle);
                 obstacle.lastTimePicked = -100;
             }
@@ -117,10 +119,37 @@ class Game {
     }
 
     checkColisions() {
+        this.checkCars();
         this.checkOutOfTrack();
         this.checkObstacles();
         this.checkPowerups();
     }
+
+    checkCars() {
+        if(this.clock.elapsedTime - this.lastCarColision < 2) {
+            //if car was colided in the last 2 seconds, ignore it
+            return;
+        }
+        let ownCarSpheres = this.ownCar.boundingSpheres;
+        let oppCarSpheres = this.oppCar.boundingSpheres;
+        for (let i = 0; i < ownCarSpheres.length; i++) {
+            for (let j = 0; j < oppCarSpheres.length; j++) {
+                const sphere1 = ownCarSpheres[i];
+                const sphere2 = oppCarSpheres[j];
+    
+                let distance = sphere1.center.distanceTo(sphere2.center);
+                let radiusSum = sphere1.radius + sphere2.radius;
+
+                if (distance < radiusSum - 4) {
+                    console.log("colision");
+                    this.lastCarColision = this.clock.elapsedTime;
+                    this.ownCar.applyEffect({type: "speed", duration: 2, value: 0.5});
+                    return;
+                }
+            }
+        }
+    }
+
 
     checkOutOfTrack() {
         const carPosition = this.ownCar.car.position;
