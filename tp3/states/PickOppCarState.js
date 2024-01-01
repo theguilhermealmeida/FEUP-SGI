@@ -50,14 +50,18 @@ class PickOppCarState extends State {
                     let carRoute = car.getObjectByName("carRoute");
 
                     this.cars.remove(car);
-                    this.app.scene.add(carObject);
+                    carObject.rotation.y = -1.57;
+                    let oppCarPlatform = this.app.scene.getObjectByName("oppCarPlatform");
+                    oppCarPlatform.add(carObject);
 
                     this.app.game.oppCar = new OppCar(this.app, carObject, carRoute);
+
+                    this.app.carSelected = true;
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
                     this.app.cleanTextContainers();
-                    this.app.currentState = this.app.gameState;
+                    this.app.currentState = this.app.menuState;
                     this.app.currentState.init();
 
                     return; // Exit the loop if a pickable object is found

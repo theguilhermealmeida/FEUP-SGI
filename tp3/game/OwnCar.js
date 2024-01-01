@@ -19,9 +19,14 @@ class OwnCar {
         this.endOfEffect = -10000;
         this.offTrack = false;
         this.boundingSpheres = [];
+        this.crossedFinishLine = false;
     }
 
     init() {
+        this.app.scene.getObjectByName("ownCarPlatform").remove(this.car);
+        this.car.position.set(22, 0, 89);
+        this.car.rotation.y = Math.PI;
+        this.app.scene.add(this.car);
         this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
     }
 
@@ -31,7 +36,7 @@ class OwnCar {
             
             if (child instanceof THREE.Mesh && child.geometry !== undefined && child.geometry.boundingSphere) {
                 const sphere = new THREE.SphereGeometry(child.geometry.boundingSphere.radius, 32, 32);
-                const material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+                const material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true,visible: false });
                 const sphereMesh = new THREE.Mesh(sphere, material);
                 sphereMesh.name = "BoundingSphere";
                 // get the bounding sphere's center position in world space
@@ -142,8 +147,24 @@ class OwnCar {
         }
     }
 
+    checkLap() {
+        const carPosition = this.car.position;
+        const finishLine = new THREE.Vector3(10, 0, 85);
+        const distanceToFinish = carPosition.distanceTo(finishLine);
+
+        if (distanceToFinish < 5 && !this.crossedFinishLine) {
+            this.laps++;
+            this.crossedFinishLine = true;
+            this.app.lapContainer.innerHTML = "Laps: " + this.laps;
+        } else if (distanceToFinish > 5) {
+            this.crossedFinishLine = false;
+        }
+    }
+
 
     update() {
+
+        this.checkLap();
 
         this.boundingSpheres = [];
 

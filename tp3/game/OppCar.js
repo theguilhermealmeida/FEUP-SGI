@@ -17,6 +17,13 @@ class OppCar {
     }
 
     init() {
+        this.app.scene.getObjectByName("oppCarPlatform").remove(this.car);
+        this.app.scene.add(this.car);
+        this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
+        this.startMoving();
+    }
+
+    startMoving() {
         
         this.routeControlPoints = this.route.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
         this.routeQuarterions = this.route.data.representations[0].controlpoints.map(point => new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(point.ry)));
@@ -38,15 +45,15 @@ class OppCar {
             [].concat(...this.routeQuarterions.map(point => [...point.toArray()]))
         );
     
-        const clip = new THREE.AnimationClip('OppCar', -1, [positionKF, quaternionKF]);
+        const clip = new THREE.AnimationClip('OppCar', -1, [positionKF]);
 
         this.positionAction = this.mixer.clipAction(clip);
 
-        this.positionAction.timeScale = 0.1;
+        this.positionAction.timeScale = 1;
 
         this.positionAction.play();
 
-        this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
+        this.pauseCar();
     }
 
     computeBoundingSpheres(node) {
@@ -55,7 +62,7 @@ class OppCar {
             
             if (child instanceof THREE.Mesh && child.geometry !== undefined && child.geometry.boundingSphere) {
                 const sphere = new THREE.SphereGeometry(child.geometry.boundingSphere.radius, 32, 32);
-                const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true});
+                const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true, visible: false});
                 const sphereMesh = new THREE.Mesh(sphere, material);
                 sphereMesh.name = "BoundingSphere";
                 child.parent.add(sphereMesh);

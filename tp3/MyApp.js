@@ -78,6 +78,8 @@ class MyApp  {
 
         this.currentState = this.menuState
 
+        this.carSelected = false;
+
         this.game = new Game(this)
 
         this.raycaster = new THREE.Raycaster()

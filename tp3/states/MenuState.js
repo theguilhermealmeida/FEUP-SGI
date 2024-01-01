@@ -12,7 +12,7 @@ class MenuState extends State {
     init() {
         document.addEventListener('click', this.clickHandler);
         this.app.setActiveCamera("menu");
-        this.pickableObjNames = ["startButton"];
+        this.pickableObjNames = ["startButton","selectCarButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
     }
 
@@ -38,13 +38,32 @@ class MenuState extends State {
             const obj = intersects[0].object;
             const objName = obj.parent.parent.name;
             if (this.pickableObjNames.includes(objName)) {
-                this.removeEventListeners();
-                this.restoreColorOfFirstPickedObj();
-                this.app.currentState = this.app.pickOwnCarState;
-                this.app.currentState.init();
+                this.buttonClicked(objName);
             } else {
                 //console.log("Object cannot be picked!");
             }
+        }
+    }
+
+    buttonClicked(objName) {
+        if(objName === "startButton") {
+            if(this.app.carSelected) {
+                this.app.cleanTextContainers();
+                this.removeEventListeners();
+                this.restoreColorOfFirstPickedObj();
+                this.app.currentState = this.app.gameState;
+                this.app.currentState.init();
+            } else {
+                this.restoreColorOfFirstPickedObj();
+                this.app.textContainer.innerHTML = "You must select the cars first!"
+            }
+
+        } else if(objName === "selectCarButton") {
+            this.app.cleanTextContainers();
+            this.removeEventListeners();
+            this.restoreColorOfFirstPickedObj();
+            this.app.currentState = this.app.pickOwnCarState;
+            this.app.currentState.init();
         }
     }
 

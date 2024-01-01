@@ -48,9 +48,9 @@ class PickOwnCarState extends State {
                     let carObject = car.getObjectByName("car");
 
                     this.cars.remove(car);
-                    carObject.position.set(10,0,80);
-                    carObject.rotation.set(0,3.1415,0);
-                    this.app.scene.add(carObject);
+                    carObject.rotation.y = -1.57;
+                    let ownCarPlatform = this.app.scene.getObjectByName("ownCarPlatform");
+                    ownCarPlatform.add(carObject);
 
                     this.app.game.ownCar = new OwnCar(this.app, carObject);
                     this.app.game.ownCarName = objName;
