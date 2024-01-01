@@ -10,6 +10,7 @@ import { GameState } from './states/GameState.js';
 import { PauseState } from './states/PauseState.js';
 import { PickObstacleState } from './states/PickObstacleState.js';
 import { MoveObstacleState } from './states/MoveObstacleState.js';
+import { EndGameState } from './states/EndGameState.js';
 import { Game } from './game/Game.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
@@ -75,8 +76,9 @@ class MyApp  {
         this.pauseState = new PauseState(this)
         this.pickObstacleState = new PickObstacleState(this)
         this.moveObstacleState = new MoveObstacleState(this)
+        this.endGameState = new EndGameState(this)
 
-        this.currentState = this.menuState
+        this.currentState = this.endGameState
 
         this.carSelected = false;
 

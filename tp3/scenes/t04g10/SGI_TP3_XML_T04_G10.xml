@@ -59,6 +59,13 @@
             location="0 25 220" 
             target="0 0.0 0" />
 
+        <perspective id="endGame"
+            angle="75" 
+            near="0.1" 
+            far="10000" 
+            location="45 20 -200" 
+            target="0 0.0 0" />
+
         <orthogonal id="cam2" 
             near="0.1" 
             far="1000" 
@@ -346,6 +353,7 @@
                 <noderef id="palmTrees" />
                 <noderef id="statue"/>
                 <noderef id="menu" />
+                <noderef id="endGameMenu" />
                 <noderef id="obstacles" />
                 <noderef id="obstaclePark" />
             </children>
@@ -412,6 +420,186 @@
                 </primitive>
             </children>
         </node>
+
+<!--
+************************************
+            END GAME MENU
+************************************
+ -->
+
+        <node id="endGameMenu">
+            <transforms>
+                <translate value3="-10 0 -200" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="endGameTable" />
+                <noderef id="endGameText" />
+                <noderef id="winnerText" />
+                <noderef id="timeText" />
+                <noderef id="difficultyText" />
+                <noderef id="winnerCarPlatform" />
+                <noderef id="winnerCarText" />
+                <noderef id="looserCarPlatform" />
+                <noderef id="looserCarText" />
+                <noderef id="restartButton" />
+                <noderef id="restartText" />
+                <noderef id="menuButton" />
+                <noderef id="menuText" />
+            </children>
+        </node>
+
+        <node id="endGameTable">
+            <transforms>
+                <translate value3="0 15 0" />
+            </transforms>
+            <materialref id="woodApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="50 30 1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="endGameText">
+            <transforms>
+                <translate value3="-13 27 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Race ended" width="3" height="3" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="winnerText">
+            <transforms>
+                <translate value3="-23 23 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Winner:" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="timeText">
+            <transforms>
+                <translate value3="-23 19 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Time:" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="difficultyText">
+            <transforms>
+                <translate value3="-23 15 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="DifficultY:" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="winnerCarPlatform">
+            <transforms>
+                <translate value3="-8 0.55 23" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="12 1 20"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="winnerCarText">
+            <transforms>
+                <translate value3="-13 0.2 35" />
+                <rotate value3="-1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Winner" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="looserCarPlatform">
+            <transforms>
+                <translate value3="8 0.55 18" />
+            </transforms>
+            <materialref id="metalApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="12 1 20"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="looserCarText">
+            <transforms>
+                <translate value3="3 0.2 30" />
+                <rotate value3="-1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="looser" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="restartButton">
+            <transforms>
+                <translate value3="-10 5 2" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="8 4 3"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="restartText">
+            <transforms>
+                <translate value3="-16 9 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Restart" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="menuButton">
+            <transforms>
+                <translate value3="10 5 2" />
+            </transforms>
+            <materialref id="blueApp" />
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="8 4 3"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="menuText">
+            <transforms>
+                <translate value3="7 9 0.6" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Menu" width="2" height="2" />
+                </primitive>
+            </children>
+        </node>
+
+
 
 <!--
 ************************************
@@ -2166,6 +2354,17 @@
                     decay="0.5"
                     castshadow="true"
                     position="0 20 200"
+                />
+
+                <spotlight id="light2"  
+                    enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="10"
+                    target="-10 0 -200"
+                    angle="10"
+                    decay="0.5"
+                    castshadow="true"
+                    position="40 20 -200"
                 />
             </children>
         </node>

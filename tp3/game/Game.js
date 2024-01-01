@@ -9,7 +9,7 @@ class Game {
         this.elapsedTime = 0;
         this.laps = 0;
         this.targetLaps = 3;
-        this.winner = null;
+        this.winner = "You";
         this.activePowerups = [];
         this.activeObstacles = [];
         this.pickedObstacle = null;
@@ -17,6 +17,7 @@ class Game {
         this.clock.stop();
         this.lastCarColision = -100;
         this.countdownEnded = false;
+        this.difficulty = 1;
     }
 
     init() {
@@ -95,8 +96,8 @@ class Game {
     }
 
     updateTime() {
-        this.elapsedTime = this.clock.getElapsedTime();
-        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime.toFixed(3);
+        this.elapsedTime = this.clock.getElapsedTime().toFixed(3);
+        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime;
     }
 
 
