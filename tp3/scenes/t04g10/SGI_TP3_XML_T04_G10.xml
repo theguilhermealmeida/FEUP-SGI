@@ -338,6 +338,20 @@
                 <noderef id="menu" />
                 <noderef id="obstacles" />
                 <noderef id="obstaclePark" />
+                <noderef id="cylinderShader" />
+            </children>
+        </node>
+
+        <node id="cylinderShader">
+            <materialref id="blueApp" />
+            <transforms>
+                <translate value3="0 10 170" />
+                <scale value3="10 10 10" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder capsclose="true"  base="1" top="1" height="2" slices="20" stacks="20" />
+                </primitive>
             </children>
         </node>
 

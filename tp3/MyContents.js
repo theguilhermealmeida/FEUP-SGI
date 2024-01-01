@@ -4,6 +4,8 @@ import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
 import { MenuState } from './states/MenuState.js';
 import { MyTextRenderer } from './MyTextRenderer.js';
+import { MyShader } from './MyShader.js';
+import { MyShadersHandler } from './MyShadersHandler.js';
 
 /**
  *  This class contains the contents of out application
@@ -17,6 +19,10 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+
+        this.shaders = []
+        this.shadersReady = false
+
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);	
 		this.reader.open("scenes/t04g10/SGI_TP3_XML_T04_G10.xml");		
@@ -99,6 +105,30 @@ class MyContents  {
 
 
         this.onAfterSceneLoadedAndBeforeRender(data);
+
+        // // add a cylinder
+        // const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
+
+        // const vertShaderPath = 'shaders/scaled-normal.vert';  // Adjust the path to your shaders
+        // const fragShaderPath = 'shaders/normal.frag';
+
+        // // Define uniform values (you can adjust these as needed)
+        // const uniformValues = {
+        //     normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
+        //     normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
+        //     displacement: { type: 'f', value: 0.0 } // Example value, adjust as needed// Adjust the color as needed
+        // };
+
+        // // Create an instance of MyShader
+        // this.shader = new MyShader(this, 'YourShaderName', 'Shader description', vertShaderPath, fragShaderPath, uniformValues);
+
+        // // create a random material
+        // const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+        // const cylinder = new THREE.Mesh( geometry, this.shader.material );
+        // // change position
+        // cylinder.position.set(0, 10, 160)
+        // this.app.scene.add( cylinder );
+
     }
 
     output(obj, indent = 0) {
@@ -112,6 +142,9 @@ class MyContents  {
 
 
         const group = this.graphBuilder.buildGraph(data);  
+
+        this.createShaders()
+
     
         // add group to the scene
         this.app.scene.add(group);
@@ -146,8 +179,73 @@ class MyContents  {
         }
     }
 
+    createShaders() {
+        this.shaders.push(new MyShader(this.app, 'Cylinder Shader', "Test shader", 'shaders/scaled-normal.vert', 'shaders/normal.frag', {
+            normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
+            normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
+            displacement: { type: 'f', value: 0.0 } // Example value, adjust as needed// Adjust the color as needed
+        }))
+
+        this.waitShaders()
+    }
+
+    waitShaders() {
+        console.log(this.shaders)
+        for (let shader of this.shaders) {
+            if (!shader.ready) {
+                console.log("Waiting for shader " + shader.name)
+                setTimeout(this.waitShaders.bind(this), 100)
+                return
+            }
+        }
+        this.applyShaders()
+        this.shadersReady = true
+
+    }
+
+    applyShaders() {
+        let shader = this.shaders[0]
+
+        const material = shader.material 
+
+        let cylinder = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
+
+        cylinder.material = material;
+    }
+    
+    updateShaders() {
+        this.shaders.forEach(shader => {
+            if (shader.ready) {
+                const time = Date.now() * 0.001;
+                // console.log(shader.uniformValues.normScale.value)
+                shader.updateUniformsValue("normScale", Math.sin(time*3));
+                
+            }
+        })
+    }
+
     update() {
         this.app.currentState.update()
+
+        // this.app.scene.getObjectByName("cylinderShader")
+        // let cylinder = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
+        // console.log(cylinder)
+        // cylinder.rotation.y += 0.01;
+        // keep changing cylinder colors to test shader
+        // cylinder.material.color = new THREE.Color(Math.random(), Math.random(), Math.random());
+
+
+        if (this.shadersReady) {
+            this.updateShaders()
+        }
+
+        // let t = this.app.clock.getElapsedTime()
+        // console.log(t)
+        // let displacementValue = Math.sin(t); 
+        // this.shader.updateUniformsValue("displacement", displacementValue);
+        // const time = Date.now() * 0.001;
+        // this.shader.updateUniformsValue("normScale", Math.sin(time*3));
+
     }
 }
 
