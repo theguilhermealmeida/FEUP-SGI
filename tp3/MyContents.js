@@ -5,7 +5,6 @@ import { MyGraphBuilder } from './MyGraphBuilder.js';
 import { MenuState } from './states/MenuState.js';
 import { MyTextRenderer } from './MyTextRenderer.js';
 import { MyShader } from './MyShader.js';
-import { MyShadersHandler } from './MyShadersHandler.js';
 
 /**
  *  This class contains the contents of out application
