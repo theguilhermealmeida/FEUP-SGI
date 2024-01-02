@@ -1,5 +1,6 @@
 import { State } from './State.js';
 import { MyTextRenderer } from '../MyTextRenderer.js';
+import { MyFirework } from '../MyFirework.js';
 import * as THREE from 'three';
 
 class EndGameState extends State {
@@ -7,6 +8,7 @@ class EndGameState extends State {
         super(app);
         this.clickHandler = this.handleClick.bind(this);
         this.pointerMoveHandler = this.onPointerMove.bind(this);
+        this.fireworks = []
         
     }
 
@@ -46,6 +48,25 @@ class EndGameState extends State {
 
     update() {
         this.app.controls.target = this.endGameMenu.position;
+
+        // add new fireworks every 5% of the calls
+        if(Math.random()  < 0.05 ) {
+            this.fireworks.push(new MyFirework(this.app, this))
+            console.log("firework added")
+        }
+
+        // for each fireworks 
+        for( let i = 0; i < this.fireworks.length; i++ ) {
+            // is firework finished?
+            if (this.fireworks[i].done) {
+                // remove firework 
+                this.fireworks.splice(i,1) 
+                console.log("firework removed")
+                continue 
+            }
+            // otherwise upsdate  firework
+            this.fireworks[i].update()
+        }
     }
 
     handleClick(event) {
