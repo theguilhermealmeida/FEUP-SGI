@@ -63,8 +63,9 @@ class PickOppCarState extends State {
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
                     this.app.cleanTextContainers();
-                    this.app.currentState = this.app.menuState;
-                    this.app.currentState.init();
+                    this.app.currentState = this.app.transitionState;
+                    this.app.currentState.init(new THREE.Vector3(110, 20, -150), new THREE.Vector3(100, 0, -100),
+                        new THREE.Vector3(0, 35, 220), new THREE.Vector3(0, 0, 0), this.app.menuState);
 
                     return; // Exit the loop if a pickable object is found
                 }

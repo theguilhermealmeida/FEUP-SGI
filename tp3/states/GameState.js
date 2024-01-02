@@ -55,8 +55,9 @@ class GameState extends State {
     checkIfGameEnded() {
         if(this.app.game.winner !== null) {
             this.app.cleanTextContainers();
-            this.app.currentState = this.app.endGameState;
-            this.app.currentState.init();
+            this.app.currentState = this.app.transitionState;
+            this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
+                new THREE.Vector3(45, 20, -200), new THREE.Vector3(0, 0, -200), this.app.endGameState);
         }
     }
 

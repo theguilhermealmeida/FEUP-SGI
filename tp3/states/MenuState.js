@@ -93,8 +93,10 @@ class MenuState extends State {
                 this.app.cleanTextContainers();
                 this.removeEventListeners();
                 this.restoreColorOfFirstPickedObj();
-                this.app.currentState = this.app.gameState;
-                this.app.currentState.init();
+                this.app.currentState = this.app.transitionState;
+                this.app.currentState.init(new THREE.Vector3(0, 35, 220), new THREE.Vector3(0, 0, 0),
+                  new THREE.Vector3(32, 10, 89), new THREE.Vector3(22, 0, 89), 
+                  this.app.gameState);
             }
             else{
                 this.restoreColorOfFirstPickedObj();             
@@ -104,8 +106,10 @@ class MenuState extends State {
             this.app.cleanTextContainers();
             this.removeEventListeners();
             this.restoreColorOfFirstPickedObj();
-            this.app.currentState = this.app.pickOwnCarState;
-            this.app.currentState.init();
+            this.app.currentState = this.app.transitionState;
+            this.app.currentState.init(new THREE.Vector3(0, 35, 220), new THREE.Vector3(0, 0, 0),
+              new THREE.Vector3(110, 20, -150), new THREE.Vector3(100, 0, -100), 
+              this.app.pickOwnCarState);
         }
         else if(objName === "easyButton") {
             this.app.game.difficulty = "easY";

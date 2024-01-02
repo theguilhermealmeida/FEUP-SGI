@@ -220,8 +220,9 @@ class Game {
                 this.ownCar.applyEffect(this.getEffect(powerup));
                 powerup.lastTimePicked = this.elapsedTime;
                 this.app.currentState.removeEventListeners();
-                this.app.currentState = this.app.pickObstacleState;
-                this.app.currentState.init();
+                this.app.currentState = this.app.transitionState;
+                this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
+                    new THREE.Vector3(-60, 30, 10), new THREE.Vector3(-90, 0, 10), this.app.pickObstacleState);
             }
         }
     }
