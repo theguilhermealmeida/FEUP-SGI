@@ -113,13 +113,11 @@ class Game {
     }
 
     checkWinner() {
-        if (this.laps === this.targetLaps + 1) {
-            if (this.ownCar.laps > this.oppCar.laps) {
-                this.winner = "You";
-            }
-            else {
-                this.winner = "Opponent";
-            }
+        if (this.ownCar.laps === this.targetLaps + 1) {
+            this.winner = "You";
+        }
+        else if (this.oppCar.laps === this.targetLaps + 1) {
+            this.winner = "Opponent";
         }
     }
 

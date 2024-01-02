@@ -19,11 +19,35 @@ class EndGameState extends State {
         let cameraPosition = new THREE.Vector3(45,20,-200);
         const activeCamera = this.app.getActiveCamera();
         activeCamera.position.copy(cameraPosition);
+        this.getCars();
         this.endGameMenu = this.app.scene.getObjectByName("endGameMenu");
         this.app.controls.target = this.endGameMenu.position;
-        this.pickableObjNames = ["restartButton","menuButton"];
+        this.pickableObjNames = ["menuButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
     }
+
+    getCars() {
+        let winner = this.app.game.winner === "You" ? this.app.game.ownCar : this.app.game.oppCar;
+        let looser = this.app.game.winner === "You" ? this.app.game.oppCar : this.app.game.ownCar;
+        let winnerCar = winner.car;
+        let looserCar = looser.car;
+
+        let winnerCarObject = winnerCar.getObjectByName("car");
+        winnerCarObject.position.set(0,0,0);
+        winnerCarObject.rotation.set(0,-1.57,0);
+
+        let looserCarObject = looserCar.getObjectByName("car");
+        looserCarObject.position.set(0,0,0);
+        looserCarObject.rotation.set(0,-1.57,0);
+
+        let winnerCarPlatform = this.app.scene.getObjectByName("winnerCarPlatform");
+        winnerCarPlatform.add(winnerCarObject);
+
+        let looserCarPlatform = this.app.scene.getObjectByName("looserCarPlatform");
+        looserCarPlatform.add(looserCarObject);
+
+    }
+
 
     updateGameResults() {
         let winner = this.app.game.winner
@@ -52,7 +76,7 @@ class EndGameState extends State {
         // add new fireworks every 5% of the calls
         if(Math.random()  < 0.05 ) {
             this.fireworks.push(new MyFirework(this.app, this))
-            console.log("firework added")
+            //console.log("firework added")
         }
 
         // for each fireworks 
@@ -61,7 +85,7 @@ class EndGameState extends State {
             if (this.fireworks[i].done) {
                 // remove firework 
                 this.fireworks.splice(i,1) 
-                console.log("firework removed")
+                //console.log("firework removed")
                 continue 
             }
             // otherwise upsdate  firework
@@ -94,9 +118,7 @@ class EndGameState extends State {
     }
 
     buttonClicked(objName) {
-        if(objName === "restartButton") {
-            
-        } else if(objName === "menuButton") {
+        if(objName === "menuButton") {
             //refresh page
             window.location.reload();
         }

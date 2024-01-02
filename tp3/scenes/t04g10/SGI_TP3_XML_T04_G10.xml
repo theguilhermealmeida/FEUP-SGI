@@ -456,8 +456,6 @@
                 <noderef id="winnerCarText" />
                 <noderef id="looserCarPlatform" />
                 <noderef id="looserCarText" />
-                <noderef id="restartButton" />
-                <noderef id="restartText" />
                 <noderef id="menuButton" />
                 <noderef id="menuText" />
             </children>
@@ -562,37 +560,14 @@
             </transforms>
             <children>
                 <primitive>
-                    <text text="looser" width="2" height="2" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="restartButton">
-            <transforms>
-                <translate value3="-10 5 2" />
-            </transforms>
-            <materialref id="blueApp" />
-            <children>
-                <primitive>
-                    <box xyz1="0 0 0" xyz2="8 4 3"/>
-                </primitive>
-            </children>
-        </node>
-
-        <node id="restartText">
-            <transforms>
-                <translate value3="-16 9 0.6" />
-            </transforms>
-            <children>
-                <primitive>
-                    <text text="Restart" width="2" height="2" />
+                    <text text="loser" width="2" height="2" />
                 </primitive>
             </children>
         </node>
 
         <node id="menuButton">
             <transforms>
-                <translate value3="10 5 2" />
+                <translate value3="0 5 2" />
             </transforms>
             <materialref id="blueApp" />
             <children>
@@ -604,7 +579,7 @@
 
         <node id="menuText">
             <transforms>
-                <translate value3="7 9 0.6" />
+                <translate value3="-3 9 0.6" />
             </transforms>
             <children>
                 <primitive>

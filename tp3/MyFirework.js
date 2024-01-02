@@ -53,7 +53,7 @@ class MyFirework {
         this.points.castShadow = true;
         this.points.receiveShadow = true;
         this.app.scene.add( this.points )  
-        console.log("firework launched")
+        //console.log("firework launched")
     }
 
     /**
