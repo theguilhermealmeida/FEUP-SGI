@@ -49,7 +49,15 @@ class OppCar {
 
         this.positionAction = this.mixer.clipAction(clip);
 
-        this.positionAction.timeScale = 1;
+        if(this.app.game.difficulty === "easY") {
+            this.positionAction.timeScale = 1;
+        }
+        else if(this.app.game.difficulty === "medium") {
+            this.positionAction.timeScale = 1.5;
+        }
+        else if(this.app.game.difficulty === "hard") {
+            this.positionAction.timeScale = 2;
+        }
 
         this.positionAction.play();
 
