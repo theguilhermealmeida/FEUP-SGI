@@ -51,19 +51,19 @@
             far="10000" 
             location="-50 30 0" 
             target="0 0 0" />
-        
-        <perspective id="menu" 
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="0 25 220" 
-            target="0 0.0 0" />
 
         <perspective id="endGame"
             angle="75" 
             near="0.1" 
             far="10000" 
             location="45 20 -200" 
+            target="0 0.0 0" />
+        
+        <perspective id="menu" 
+            angle="75" 
+            near="0.1" 
+            far="10000" 
+            location="0 25 220" 
             target="0 0.0 0" />
 
         <orthogonal id="cam2" 

@@ -155,7 +155,6 @@ class OwnCar {
         if (distanceToFinish < 5 && !this.crossedFinishLine) {
             this.laps++;
             this.crossedFinishLine = true;
-            this.app.lapContainer.innerHTML = "Laps: " + this.laps;
         } else if (distanceToFinish > 5) {
             this.crossedFinishLine = false;
         }

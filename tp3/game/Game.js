@@ -9,7 +9,7 @@ class Game {
         this.elapsedTime = 0;
         this.laps = 0;
         this.targetLaps = 3;
-        this.winner = "You";
+        this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];
         this.pickedObstacle = null;
@@ -27,7 +27,7 @@ class Game {
         this.initObstacles();
         this.track = this.app.scene.getObjectByName("track");
         const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
-        const trackSpline = new THREE.CatmullRomCurve3(trackControlPoints);
+        const trackSpline = new THREE.CatmullRomCurve3(trackControlPoints,true);
         this.trackPoints = trackSpline.getPoints(200);
 
         this.raceCountdown(); // Await the countdown
@@ -124,13 +124,11 @@ class Game {
     }
 
     pause() {
-        console.log("Game paused");
         this.clock.stop();
         this.oppCar.pauseCar();
     }
 
     resume() {
-        console.log("Game resumed");
         this.clock.start();
         this.clock.elapsedTime = this.elapsedTime;
         this.oppCar.resumeCar();

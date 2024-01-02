@@ -78,7 +78,7 @@ class MyApp  {
         this.moveObstacleState = new MoveObstacleState(this)
         this.endGameState = new EndGameState(this)
 
-        this.currentState = this.endGameState
+        this.currentState = this.menuState
 
         this.carSelected = false;
 

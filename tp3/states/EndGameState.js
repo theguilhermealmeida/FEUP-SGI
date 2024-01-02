@@ -1,5 +1,6 @@
 import { State } from './State.js';
 import { MyTextRenderer } from '../MyTextRenderer.js';
+import * as THREE from 'three';
 
 class EndGameState extends State {
     constructor(app) {
@@ -13,7 +14,11 @@ class EndGameState extends State {
         this.textRenderer = new MyTextRenderer(this.app);
         this.updateGameResults();
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("endGame");
+        let cameraPosition = new THREE.Vector3(45,20,-200);
+        const activeCamera = this.app.getActiveCamera();
+        activeCamera.position.copy(cameraPosition);
+        this.endGameMenu = this.app.scene.getObjectByName("endGameMenu");
+        this.app.controls.target = this.endGameMenu.position;
         this.pickableObjNames = ["restartButton","menuButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
     }
@@ -39,11 +44,8 @@ class EndGameState extends State {
 
     }
 
-
-
     update() {
-        let endGameMenu = this.app.scene.getObjectByName("endGameMenu");
-        this.app.controls.target = endGameMenu.position;
+        this.app.controls.target = this.endGameMenu.position;
     }
 
     handleClick(event) {

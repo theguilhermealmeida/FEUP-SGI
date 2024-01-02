@@ -56,9 +56,8 @@ class GameState extends State {
 
     checkIfGameEnded() {
         if(this.app.game.winner !== null) {
-            console.log(this.app.game.winner + " won!");
             this.app.cleanTextContainers();
-            this.app.currentState = this.app.menuState;
+            this.app.currentState = this.app.endGameState;
             this.app.currentState.init();
         }
     }
