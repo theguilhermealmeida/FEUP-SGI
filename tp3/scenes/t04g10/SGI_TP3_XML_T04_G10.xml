@@ -983,7 +983,38 @@
             <children>
                 <noderef id="car" />
                 <noderef id="platform"/>
-                <noderef id="carRoute" />
+                <primitive>
+                    <route id="yellowCar">
+                        <controlpoint xx="28" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="0" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-25" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-50" yy="0" zz="81" ry="90"/>
+                        <controlpoint xx="-52" yy="0" zz="60" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="35" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="10" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="-15" ry="70"/>
+                        <controlpoint xx="-30" yy="0" zz="-25" ry="0"/>
+                        <controlpoint xx="-15" yy="0" zz="-10" ry="-55"/>
+                        <controlpoint xx="-7" yy="0" zz="10" ry="-55"/>
+                        <controlpoint xx="0" yy="0" zz="30" ry="-55"/>
+                        <controlpoint xx="15" yy="0" zz="40" ry="0"/>
+                        <controlpoint xx="40" yy="0" zz="35" ry="45"/>
+                        <controlpoint xx="50" yy="0" zz="15" ry="90" />
+                        <controlpoint xx="40" yy="0" zz="-5" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-25" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-45" ry="80"/>
+                        <controlpoint xx="35" yy="0" zz="-55" ry="10"/>
+                        <controlpoint xx="60" yy="0" zz="-60" ry="0"/>
+                        <controlpoint xx="85" yy="0" zz="-55" ry="-45"/>
+                        <controlpoint xx="85" yy="0" zz="-30" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="-5" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="20" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="45" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="70" ry="-120"/>
+                        <controlpoint xx="75" yy="0" zz="81" ry="-180"/>
+                        <controlpoint xx="50" yy="0" zz="81" ry="-180"/>
+                    </route>
+                </primitive>
             </children>
         </node>
 
@@ -995,7 +1026,38 @@
             <children>
                 <noderef id="car" />
                 <noderef id="platform"/>
-                <noderef id="carRoute" />
+                <primitive>
+                    <route id="greenCar">
+                        <controlpoint xx="28" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="0" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-25" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-50" yy="0" zz="81" ry="90"/>
+                        <controlpoint xx="-52" yy="0" zz="60" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="35" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="10" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="-15" ry="70"/>
+                        <controlpoint xx="-30" yy="0" zz="-25" ry="0"/>
+                        <controlpoint xx="-15" yy="0" zz="-10" ry="-55"/>
+                        <controlpoint xx="-7" yy="0" zz="10" ry="-55"/>
+                        <controlpoint xx="0" yy="0" zz="30" ry="-55"/>
+                        <controlpoint xx="15" yy="0" zz="40" ry="0"/>
+                        <controlpoint xx="40" yy="0" zz="35" ry="45"/>
+                        <controlpoint xx="50" yy="0" zz="15" ry="90" />
+                        <controlpoint xx="40" yy="0" zz="-5" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-25" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-45" ry="80"/>
+                        <controlpoint xx="35" yy="0" zz="-55" ry="10"/>
+                        <controlpoint xx="60" yy="0" zz="-60" ry="0"/>
+                        <controlpoint xx="85" yy="0" zz="-55" ry="-45"/>
+                        <controlpoint xx="85" yy="0" zz="-30" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="-5" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="20" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="45" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="70" ry="-120"/>
+                        <controlpoint xx="75" yy="0" zz="81" ry="-180"/>
+                        <controlpoint xx="50" yy="0" zz="81" ry="-180"/>
+                    </route>
+                </primitive>
             </children>
         </node>
 
@@ -1007,7 +1069,38 @@
             <children>
                 <noderef id="car" />
                 <noderef id="platform"/>
-                <noderef id="carRoute" />
+                <primitive>
+                    <route id="blueCar">
+                        <controlpoint xx="28" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="0" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-25" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-50" yy="0" zz="81" ry="90"/>
+                        <controlpoint xx="-52" yy="0" zz="60" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="35" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="10" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="-15" ry="70"/>
+                        <controlpoint xx="-30" yy="0" zz="-25" ry="0"/>
+                        <controlpoint xx="-15" yy="0" zz="-10" ry="-55"/>
+                        <controlpoint xx="-7" yy="0" zz="10" ry="-55"/>
+                        <controlpoint xx="0" yy="0" zz="30" ry="-55"/>
+                        <controlpoint xx="15" yy="0" zz="40" ry="0"/>
+                        <controlpoint xx="40" yy="0" zz="35" ry="45"/>
+                        <controlpoint xx="50" yy="0" zz="15" ry="90" />
+                        <controlpoint xx="40" yy="0" zz="-5" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-25" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-45" ry="80"/>
+                        <controlpoint xx="35" yy="0" zz="-55" ry="10"/>
+                        <controlpoint xx="60" yy="0" zz="-60" ry="0"/>
+                        <controlpoint xx="85" yy="0" zz="-55" ry="-45"/>
+                        <controlpoint xx="85" yy="0" zz="-30" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="-5" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="20" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="45" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="70" ry="-120"/>
+                        <controlpoint xx="75" yy="0" zz="81" ry="-180"/>
+                        <controlpoint xx="50" yy="0" zz="81" ry="-180"/>
+                    </route>
+                </primitive>
             </children>
         </node>
 
@@ -1019,42 +1112,36 @@
             <children>
                 <noderef id="car" />
                 <noderef id="platform"/>
-                <noderef id="carRoute" />
-            </children>
-        </node>
-
-        <node id="carRoute">
-            <children>
                 <primitive>
                     <route id="redCar">
                         <controlpoint xx="28" yy="0" zz="81" ry="180"/>
-                        <controlpoint xx="0" yy="0" zz="85"/>
-                        <controlpoint xx="-25" yy="0" zz="85"/>
-                        <controlpoint xx="-50" yy="0" zz="80"/>
-                        <controlpoint xx="-52" yy="0" zz="60"/>
-                        <controlpoint xx="-50" yy="0" zz="35"/>
-                        <controlpoint xx="-50" yy="0" zz="10"/>
-                        <controlpoint xx="-50" yy="0" zz="-15"/>
-                        <controlpoint xx="-30" yy="0" zz="-25"/>
-                        <controlpoint xx="-15" yy="0" zz="-10"/>
-                        <controlpoint xx="-7" yy="0" zz="10"/>
-                        <controlpoint xx="0" yy="0" zz="30"/>
-                        <controlpoint xx="15" yy="0" zz="40"/>
-                        <controlpoint xx="40" yy="0" zz="35"/>
-                        <controlpoint xx="50" yy="0" zz="15"/>
-                        <controlpoint xx="40" yy="0" zz="-5"/>
-                        <controlpoint xx="20" yy="0" zz="-25"/>
-                        <controlpoint xx="20" yy="0" zz="-45"/>
-                        <controlpoint xx="35" yy="0" zz="-55"/>
-                        <controlpoint xx="60" yy="0" zz="-60"/>
-                        <controlpoint xx="85" yy="0" zz="-55"/>
-                        <controlpoint xx="85" yy="0" zz="-30"/>
-                        <controlpoint xx="85" yy="0" zz="-5"/>
-                        <controlpoint xx="85" yy="0" zz="20"/>
-                        <controlpoint xx="85" yy="0" zz="45"/>
-                        <controlpoint xx="85" yy="0" zz="70"/>
-                        <controlpoint xx="75" yy="0" zz="85"/>
-                        <controlpoint xx="50" yy="0" zz="85"/>
+                        <controlpoint xx="0" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-25" yy="0" zz="81" ry="180"/>
+                        <controlpoint xx="-50" yy="0" zz="81" ry="90"/>
+                        <controlpoint xx="-52" yy="0" zz="60" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="35" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="10" ry="90"/>
+                        <controlpoint xx="-50" yy="0" zz="-15" ry="70"/>
+                        <controlpoint xx="-30" yy="0" zz="-25" ry="0"/>
+                        <controlpoint xx="-15" yy="0" zz="-10" ry="-55"/>
+                        <controlpoint xx="-7" yy="0" zz="10" ry="-55"/>
+                        <controlpoint xx="0" yy="0" zz="30" ry="-55"/>
+                        <controlpoint xx="15" yy="0" zz="40" ry="0"/>
+                        <controlpoint xx="40" yy="0" zz="35" ry="45"/>
+                        <controlpoint xx="50" yy="0" zz="15" ry="90" />
+                        <controlpoint xx="40" yy="0" zz="-5" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-25" ry="120"/>
+                        <controlpoint xx="20" yy="0" zz="-45" ry="80"/>
+                        <controlpoint xx="35" yy="0" zz="-55" ry="10"/>
+                        <controlpoint xx="60" yy="0" zz="-60" ry="0"/>
+                        <controlpoint xx="85" yy="0" zz="-55" ry="-45"/>
+                        <controlpoint xx="85" yy="0" zz="-30" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="-5" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="20" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="45" ry="-90"/>
+                        <controlpoint xx="85" yy="0" zz="70" ry="-120"/>
+                        <controlpoint xx="75" yy="0" zz="81" ry="-180"/>
+                        <controlpoint xx="50" yy="0" zz="81" ry="-180"/>
                     </route>
                 </primitive>
             </children>

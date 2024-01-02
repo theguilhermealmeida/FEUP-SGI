@@ -47,8 +47,9 @@ class PickOppCarState extends State {
                 if (this.pickableObjNames.includes(objName)) {
                     let car = this.cars.getObjectByName(objName)
                     let carObject = car.getObjectByName("car");
-                    let carRoute = car.getObjectByName("carRoute");
-
+                    let carRoute = car.getObjectByName("route");
+                    console.log(carRoute);
+                    
                     this.cars.remove(car);
                     carObject.rotation.y = -1.57;
                     let oppCarPlatform = this.app.scene.getObjectByName("oppCarPlatform");
