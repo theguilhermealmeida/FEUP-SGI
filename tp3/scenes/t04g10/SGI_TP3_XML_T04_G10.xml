@@ -622,6 +622,8 @@
                 <noderef id="easyText" />
                 <noderef id="mediumText" />
                 <noderef id="hardText" />
+                <noderef id="nameText" />
+                <noderef id="nameInput" />
             </children>
         </node>
 
@@ -871,6 +873,32 @@
                 </primitive>
             </children>
         </node>
+
+        <node id="nameText">
+            <transforms>
+                <translate value3="-20 1 15" />
+                <rotate value3="-1 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="Name" width="3" height="3" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="nameInput">
+            <transforms>
+                <translate value3="-5 1 15" />
+                <rotate value3="-1 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <text text="" width="3" height="3" />
+                </primitive>
+            </children>
+        </node>
+
+
 
 
 <!-- 

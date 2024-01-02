@@ -5,6 +5,7 @@ class Game {
         this.app = app;
         this.ownCar = null;
         this.ownCarName = null;
+        this.playerName = null;
         this.oppCar = null;
         this.elapsedTime = 0;
         this.laps = 0;

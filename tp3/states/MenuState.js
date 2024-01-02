@@ -1,4 +1,5 @@
 import { State } from './State.js';
+import { MyTextRenderer } from '../MyTextRenderer.js';
 import * as THREE from 'three';
 
 class MenuState extends State {
@@ -6,21 +7,53 @@ class MenuState extends State {
         super(app);
         this.clickHandler = this.handleClick.bind(this);
         this.pointerMoveHandler = this.onPointerMove.bind(this);
+        this.keyPressHandler = this.onKeyPress.bind(this);
         this.difficultyButton = null;
+        this.playerName = "";
         
     }
 
     init() {
+        this.textRenderer = new MyTextRenderer(this.app);
         document.addEventListener('click', this.clickHandler);
         this.app.setActiveCamera("menu")
         this.pickableObjNames = ["startButton","selectCarButton","easyButton","mediumButton","hardButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
+        document.addEventListener("keydown",this.keyPressHandler);
     }
 
     update() {
         let menu = this.app.scene.getObjectByName("menu");
         this.app.controls.target = menu.position;
     }
+
+    updatePlayerName() {
+        let menu = this.app.scene.getObjectByName("menu");
+        let playerNameInput = menu.getObjectByName("nameInput");
+
+        if(this.playerName.length > 10) {
+            this.playerName = this.playerName.substring(0,10);
+        }
+
+        let text = this.textRenderer.createText(this.playerName, 3, 3);
+        text.position.set(-5,1,15);
+        text.rotation.x = -1;
+        text.name = "nameInput";
+        menu.remove(playerNameInput)
+        menu.add(text);
+    }
+
+    onKeyPress(event) {
+        if(event.key === "Backspace") {
+            this.playerName = this.playerName.substring(0,this.playerName.length-1);
+            this.updatePlayerName();
+        }
+        else if(event.key.length === 1) {
+            this.playerName += event.key;
+            this.updatePlayerName();
+        }
+    }
+
 
     handleClick(event) {
         this.app.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -48,7 +81,8 @@ class MenuState extends State {
 
     buttonClicked(objName) {
         if(objName === "startButton") {
-            if(this.app.game.ownCar !== null && this.app.game.difficulty !== null) {
+            if(this.app.game.ownCar !== null && this.app.game.difficulty !== null && this.playerName !== "") {
+                this.app.game.playerName = this.playerName;
                 this.app.cleanTextContainers();
                 this.removeEventListeners();
                 this.restoreColorOfFirstPickedObj();
@@ -57,7 +91,7 @@ class MenuState extends State {
             }
             else{
                 this.restoreColorOfFirstPickedObj();             
-                this.app.textContainer.innerHTML = "Please select a car and a difficulty";
+                this.app.textContainer.innerHTML = "Please select a car, a difficulty and a name";
             }
         } else if(objName === "selectCarButton") {
             this.app.cleanTextContainers();

@@ -56,6 +56,10 @@ class EndGameState extends State {
         
         let endGameMenu = this.app.scene.getObjectByName("endGameMenu");
 
+        if(winner === "You") {
+            winner = this.app.game.playerName;
+        }
+
         let winnerText = this.textRenderer.createText(winner ,2,2);
         winnerText.position.set(0,23,0.6)
         endGameMenu.add(winnerText);
