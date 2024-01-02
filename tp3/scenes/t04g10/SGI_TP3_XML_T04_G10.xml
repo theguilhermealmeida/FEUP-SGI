@@ -916,7 +916,7 @@
                 <translate value3="85 0 40" />
             </transforms>
             <children>
-                <noderef id="starPowerUp" />
+                <noderef id="invenciblePowerUp" />
             </children>
         </node>
 
@@ -937,6 +937,18 @@
             <children>
                 <primitive>
                     <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" filepath="./public/Shine Sprite.obj"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="invenciblePowerUp">
+            <transforms>
+                <translate value3="0 2 0" />
+                <rotate value3="0 1.4 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <powerUp id="invenciblePowerUp" subtype="invencible" duration="5" filepath="./public/Shine Sprite.obj"/>
                 </primitive>
             </children>
         </node>

@@ -150,6 +150,8 @@ class Game {
     }
 
     checkCars() {
+        if(this.ownCar.invencible) return;
+
         if(this.clock.elapsedTime - this.lastCarColision < 2) {
             //if car was colided in the last 2 seconds, ignore it
             return;
@@ -176,6 +178,8 @@ class Game {
 
 
     checkOutOfTrack() {
+        if(this.ownCar.invencible) return;
+
         const carPosition = this.ownCar.car.position;
         const distanceThreshold = 11; // Adjust this threshold as needed
     
@@ -195,6 +199,8 @@ class Game {
     }
 
     checkObstacles() {
+        if(this.ownCar.invencible) return;
+
         for (let obstacle of this.activeObstacles) {
             if (this.ownCar.car.position.distanceTo(obstacle.position) < 4) {
                 if(this.clock.elapsedTime - obstacle.lastTimePicked < 2) {

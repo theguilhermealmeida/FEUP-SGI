@@ -21,6 +21,7 @@ class OwnCar {
         this.boundingSpheres = [];
         this.crossedFinishLine = false;
         this.invertedControls = false;
+        this.invencible = false;
     }
 
     init() {
@@ -56,7 +57,6 @@ class OwnCar {
 
 
     accelerate() {
-        console.log(this.invertedControls);
         if(this.invertedControls) {
             this.velocity -= this.acceleration;
         }
@@ -68,7 +68,6 @@ class OwnCar {
     }
 
     deaccelerate() {
-        console.log(this.invertedControls);
         if(this.invertedControls) {
             this.velocity += this.acceleration;
         }
@@ -128,6 +127,13 @@ class OwnCar {
                 this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
                 this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
                 break;
+            case "invencible":
+                this.effect = effect;
+                this.endOfEffect = this.app.game.elapsedTime + effect.duration;
+                this.invencible = true;
+                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
         }
     }
 
@@ -143,6 +149,9 @@ class OwnCar {
                 break;
             case "invert":
                 this.invertedControls = false;
+                break;
+            case "invencible":
+                this.invencible = false;
                 break;
         }
     }
@@ -164,6 +173,16 @@ class OwnCar {
             case "invert":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
                     this.invertedControls = false;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                    this.effect = null;
+                } else {
+                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                }
+                break;
+            case "invencible":
+                if(this.app.game.elapsedTime > this.endOfEffect) {
+                    this.invencible = false;
                     this.app.effectContainer.innerHTML = "";
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;
