@@ -16,10 +16,17 @@ class MenuState extends State {
     init() {
         this.textRenderer = new MyTextRenderer(this.app);
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("menu")
+        this.app.setActiveCamera("game");
+        this.updateCamera();
         this.pickableObjNames = ["startButton","selectCarButton","easyButton","mediumButton","hardButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
         document.addEventListener("keydown",this.keyPressHandler);
+    }
+
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(0, 35, 220));
+        this.app.controls.target = new THREE.Vector3(0, 0, 0);
     }
 
     update() {

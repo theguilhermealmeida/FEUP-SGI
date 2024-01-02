@@ -10,30 +10,21 @@ class PickObstacleState extends State {
     }
 
     init() {
-        console.log("PickObstacleState");
         document.addEventListener('click', this.clickHandler);
         this.pickableObjNames = ["obstacle1", "obstacle2"];
         this.obstacles = this.app.scene.getObjectByName("obstaclePark");
         document.addEventListener("pointermove",this.pointerMoveHandler);
         this.app.textContainer.innerHTML = "Pick your obstacle!"
-        this.initCamera();
     }
 
-    initCamera() {
-
-        let obstaclesPosition = this.obstacles.position;
-        
-        const offset = new THREE.Vector3(30, 20, 0); // Offset the camera's position
-        const cameraPosition = obstaclesPosition.clone().add(offset);
-        
-        // Set the camera's position and make it look at the car
-        const activeCamera = this.app.getActiveCamera();
-        activeCamera.position.copy(cameraPosition);
-        this.app.controls.target = obstaclesPosition;
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(-60, 30, 10));
+        this.app.controls.target = new THREE.Vector3(-90, 0, 10);
     }
 
     update() {
-        this.app.controls.target = this.obstacles.position;
+        this.updateCamera();
     }
 
     handleClick(event) {

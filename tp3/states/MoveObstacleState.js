@@ -12,17 +12,20 @@ class MoveObstacleState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("placeObject");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.obstacle = this.app.game.pickedObstacle;
         this.app.scene.add(this.obstacle);
-
         this.app.textContainer.innerHTML = "Place your obstacle!"
     }
 
-    update() {
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(0, 150, 0));
         this.app.controls.target = new THREE.Vector3(0, 0, 0);
+    }
+
+    update() {
+        this.updateCamera();
     }
 
     handleClick(event) {

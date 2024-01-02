@@ -38,6 +38,9 @@ class MyApp  {
         this.gui = null
         this.axis = null
         this.contents == null
+
+        // states
+        this.startingStateInit = false  
     }
     /**
      * initializes the application
@@ -50,7 +53,7 @@ class MyApp  {
 
         this.stats = new Stats()
         this.stats.showPanel(1) // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom)
+        //document.body.appendChild(this.stats.dom)
 
         // Create a renderer with Antialiasing
         this.renderer = new THREE.WebGLRenderer({antialias:true});
@@ -98,7 +101,6 @@ class MyApp  {
         this.outOfTrackContainer = document.getElementById('outOfTrackContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
 
-
     }
 
 
@@ -127,7 +129,7 @@ class MyApp  {
         if (this.lastCameraName !== this.activeCameraName) {
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName]
-            document.getElementById("camera").innerHTML = this.activeCameraName
+            //document.getElementById("camera").innerHTML = this.activeCameraName
            
             // call on resize to update the camera aspect ratio
             // among other things
@@ -188,8 +190,12 @@ class MyApp  {
 
         // required if controls.enableDamping or controls.autoRotate are set to true
         this.controls.update();
-        
 
+        if(this.startingStateInit === false) {
+            this.currentState.init();
+            this.startingStateInit = true;
+        }
+        
         // render the scene
         this.renderer.render(this.scene, this.activeCamera);
 

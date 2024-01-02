@@ -23,48 +23,14 @@
 ************************************
 -->
 
-    <cameras initial="menu" > 
+    <cameras initial="game" > 
+
         <perspective id="game" 
             angle="75" 
             near="0.1" 
             far="10000" 
             location="120 80 120" 
             target="0 0 0" /> 
-
-        <perspective id="placeObject" 
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="0 150 0" 
-            target="0 0 0" /> 
-
-        <perspective id="carPark" 
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="110 20 -150" 
-            target="0 0 0" /> 
-
-        <perspective id="obstaclePark"
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="-50 30 0" 
-            target="0 0 0" />
-
-        <perspective id="endGame"
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="45 20 -200" 
-            target="0 0.0 0" />
-        
-        <perspective id="menu" 
-            angle="75" 
-            near="0.1" 
-            far="10000" 
-            location="0 35 220" 
-            target="0 0.0 0" />
 
         <orthogonal id="cam2" 
             near="0.1" 
@@ -326,10 +292,6 @@
             texlength_s="5" 
             texlength_t="5"/>
     </materials> 
-
-    <powerUps>
-        <powerUp id="1" subtype="speed" />
-    </powerUps>
 
 <!--
 ************************************

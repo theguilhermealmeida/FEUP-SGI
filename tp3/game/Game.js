@@ -77,7 +77,6 @@ class Game {
         let obstaclePark = this.app.scene.getObjectByName("obstaclePark");
         for (let obstacle of obstaclePark.children) {
             if(obstacle.children[0].data.representations[0].active) {
-                console.log(obstacle);
                 this.addObstacle(obstacle);
                 obstacle.lastTimePicked = -100;
             }
@@ -166,7 +165,6 @@ class Game {
                 let radiusSum = sphere1.radius + sphere2.radius;
 
                 if (distance < radiusSum - 4) {
-                    console.log("colision");
                     this.lastCarColision = this.clock.elapsedTime;
                     this.ownCar.applyEffect({type: "speed", duration: 2, value: 0.5});
                     return;
@@ -206,7 +204,6 @@ class Game {
                     //if obstacle was picked in the last 2 seconds, ignore it
                     continue;
                 }
-                console.log(obstacle.name + " picked");
                 obstacle.lastTimePicked = this.elapsedTime;
                 this.ownCar.applyEffect(this.getEffect(obstacle));
             }
@@ -220,7 +217,6 @@ class Game {
                     //if powerup was picked in the last 2 seconds, ignore it
                     continue;
                 }
-                console.log(powerup.name + " picked");
                 this.ownCar.applyEffect(this.getEffect(powerup));
                 powerup.lastTimePicked = this.elapsedTime;
                 this.app.currentState.removeEventListeners();

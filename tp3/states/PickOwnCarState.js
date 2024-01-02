@@ -12,16 +12,20 @@ class PickOwnCarState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("carPark");
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.app.textContainer.innerHTML = "Pick your own car!"
     }
 
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(110, 20, -150));
+        this.app.controls.target = new THREE.Vector3(100, 0, -100);
+    }
+
     update() {
-        this.app.controls.target = this.cars.position;
+        this.updateCamera();
     }
 
     handleClick(event) {

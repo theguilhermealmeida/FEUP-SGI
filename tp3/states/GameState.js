@@ -11,7 +11,6 @@ class GameState extends State {
     init() {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
-        this.app.setActiveCamera("game");
         this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.init();
     }
@@ -19,7 +18,6 @@ class GameState extends State {
     reload() {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
-        this.app.setActiveCamera("game");
         this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.resume();
     }
@@ -45,14 +43,12 @@ class GameState extends State {
         rotationMatrix.makeRotationY(ownCar.orientation); // Assuming orientation is in radians
         
         offset.applyMatrix4(rotationMatrix); // Apply the car's orientation to the offset
-        //const cameraPosition = carPosition.clone().add(offset);
-        const cameraPosition = new THREE.Vector3(0, 150, 0);
+        const cameraPosition = carPosition.clone().add(offset);
         
         // Set the camera's position and make it look at the car
         const activeCamera = this.app.getActiveCamera();
         activeCamera.position.copy(cameraPosition);
-        //this.app.controls.target = carPosition;
-        this.app.controls.target = new THREE.Vector3(0, 0, 0);
+        this.app.controls.target = carPosition;
     }
     
 

@@ -16,14 +16,17 @@ class EndGameState extends State {
         this.textRenderer = new MyTextRenderer(this.app);
         this.updateGameResults();
         document.addEventListener('click', this.clickHandler);
-        let cameraPosition = new THREE.Vector3(45,20,-200);
-        const activeCamera = this.app.getActiveCamera();
-        activeCamera.position.copy(cameraPosition);
         this.getCars();
         this.endGameMenu = this.app.scene.getObjectByName("endGameMenu");
         this.app.controls.target = this.endGameMenu.position;
         this.pickableObjNames = ["menuButton"];
         document.addEventListener("pointermove",this.pointerMoveHandler);
+    }
+
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(45, 20, -200));
+        this.app.controls.target = new THREE.Vector3(0, 0, -200);
     }
 
     getCars() {
@@ -75,7 +78,7 @@ class EndGameState extends State {
     }
 
     update() {
-        this.app.controls.target = this.endGameMenu.position;
+        this.updateCamera();
 
         // add new fireworks every 5% of the calls
         if(Math.random()  < 0.05 ) {

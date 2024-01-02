@@ -12,17 +12,21 @@ class PickOppCarState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("carPark");
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
         this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.game.ownCarName), 1);
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.app.textContainer.innerHTML = "Pick your opponent car!"
     }
 
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(110, 20, -150));
+        this.app.controls.target = new THREE.Vector3(100, 0, -100);
+    }
+
     update() {
-        this.app.controls.target = this.cars.position;
+        this.updateCamera();
     }
 
     handleClick(event) {
@@ -48,7 +52,6 @@ class PickOppCarState extends State {
                     let car = this.cars.getObjectByName(objName)
                     let carObject = car.getObjectByName("car");
                     let carRoute = car.getObjectByName("route");
-                    console.log(carRoute);
                     
                     this.cars.remove(car);
                     carObject.rotation.y = -1.57;

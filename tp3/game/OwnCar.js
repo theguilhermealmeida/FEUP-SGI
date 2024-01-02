@@ -167,6 +167,7 @@ class OwnCar {
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;
                 } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.value * 100 + "% " + this.effect.type + " for " + this.effect.duration + "s";
                     this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
                 }
                 break;
@@ -177,6 +178,7 @@ class OwnCar {
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;
                 } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
                     this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
                 }
                 break;
@@ -187,6 +189,7 @@ class OwnCar {
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;
                 } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
                     this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
                 }
                 break;

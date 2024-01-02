@@ -32,16 +32,6 @@ class OppCar {
         this.routeControlPoints.push(this.routeControlPoints[0]);
         this.routeQuarterions.push(this.routeQuarterions[0]);
 
-        //add box to the route control points
-        this.routeControlPoints.forEach(point => {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-            const cube = new THREE.Mesh(geometry, material);
-            cube.position.copy(point);
-            this.app.scene.add(cube);
-        }
-        );
-
         const positionKF = new THREE.VectorKeyframeTrack(
             '.position',
             [...Array(this.routeControlPoints.length).keys()],
