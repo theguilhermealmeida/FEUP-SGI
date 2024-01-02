@@ -17,7 +17,7 @@ class Game {
         this.clock.stop();
         this.lastCarColision = -100;
         this.countdownEnded = false;
-        this.difficulty = 1;
+        this.difficulty = null;
     }
 
     init() {

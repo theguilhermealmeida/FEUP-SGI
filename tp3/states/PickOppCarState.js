@@ -55,8 +55,6 @@ class PickOppCarState extends State {
                     oppCarPlatform.add(carObject);
 
                     this.app.game.oppCar = new OppCar(this.app, carObject, carRoute);
-
-                    this.app.carSelected = true;
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();

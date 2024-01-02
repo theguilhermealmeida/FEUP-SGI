@@ -120,6 +120,10 @@ class MyContents  {
 
         this.app.pickedMaterial = this.app.materials.get("violetApp");
 
+        this.app.selectedMaterial = this.app.materials.get("redApp");
+
+        this.app.buttonMaterial = this.app.materials.get("blueApp");
+
         // this.track = this.app.scene.getObjectByName("track");
 
         // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));

@@ -80,8 +80,6 @@ class MyApp  {
 
         this.currentState = this.menuState
 
-        this.carSelected = false;
-
         this.game = new Game(this)
 
         this.raycaster = new THREE.Raycaster()
@@ -208,6 +206,9 @@ class MyApp  {
         this.timeContainer.innerHTML = "";
         this.speedContainer.innerHTML = "";
         this.pauseContainer.innerHTML = "";
+        this.effectContainer.innerHTML = "";
+        this.effectTimeContainer.innerHTML = "";
+        this.outOfTrackContainer.innerHTML = "";
     }
 }
 
