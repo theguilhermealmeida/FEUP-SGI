@@ -20,7 +20,6 @@ class MenuState extends State {
     update() {
         let menu = this.app.scene.getObjectByName("menu");
         this.app.controls.target = menu.position;
-        console.log(this.app.game.difficulty);
     }
 
     handleClick(event) {

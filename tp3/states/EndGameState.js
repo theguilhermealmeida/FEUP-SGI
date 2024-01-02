@@ -25,7 +25,7 @@ class EndGameState extends State {
 
     updateGameResults() {
         let winner = this.app.game.winner
-        let time = this.app.game.elapsedTime.toString();
+        let time = this.app.game.elapsedTime.toFixed(3).toString();
         let difficulty = this.app.game.difficulty.toString();
         
         let endGameMenu = this.app.scene.getObjectByName("endGameMenu");

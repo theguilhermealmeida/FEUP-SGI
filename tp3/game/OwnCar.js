@@ -20,6 +20,7 @@ class OwnCar {
         this.offTrack = false;
         this.boundingSpheres = [];
         this.crossedFinishLine = false;
+        this.invertedControls = false;
     }
 
     init() {
@@ -55,44 +56,93 @@ class OwnCar {
 
 
     accelerate() {
-        this.velocity += this.acceleration;
+        console.log(this.invertedControls);
+        if(this.invertedControls) {
+            this.velocity -= this.acceleration;
+        }
+        else {
+            this.velocity += this.acceleration;
+        }
         this.velocity = Math.min(this.velocity, this.maxVelocity);
         this.velocity = Math.max(this.velocity, -this.maxVelocity);
     }
 
     deaccelerate() {
-        this.velocity -= this.acceleration;
+        console.log(this.invertedControls);
+        if(this.invertedControls) {
+            this.velocity += this.acceleration;
+        }
+        else {
+            this.velocity -= this.acceleration;
+        }
         this.velocity = Math.min(this.velocity, this.maxVelocity);
         this.velocity = Math.max(this.velocity, -this.maxVelocity);
     }
 
-    turnRight() {
-        if(this.velocity !== 0){
-            this.orientation -= this.turnSpeed;
+    turnLeft() {
+        if(this.invertedControls){
+            if(this.velocity !== 0){
+                this.orientation -= this.turnSpeed;
+            }
+            this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
         }
-        this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
+        else {
+            if(this.velocity !== 0){
+                this.orientation += this.turnSpeed;
+            }
+            this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
+        }
+
     }
 
-    turnLeft() {
-        if(this.velocity !== 0){
-            this.orientation += this.turnSpeed;
+    turnRight() {
+        if(this.invertedControls){
+            if(this.velocity !== 0){
+                this.orientation += this.turnSpeed;
+            }
+            this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
         }
-        this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
+        else {
+            if(this.velocity !== 0){
+                this.orientation -= this.turnSpeed;
+            }
+            this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
+        }
     }
+
 
     applyEffect(effect) {
+        this.removeCurrentEffect();
         switch(effect.type) {
             case "speed":
-                if(this.effect !== null){
-                    this.maxVelocity = this.maxVelocity / this.effect.value;
-                    this.app.effectContainer.innerHTML = "";
-                    this.app.effectTimeContainer.innerHTML = "";
-                }
                 this.effect = effect;
                 this.maxVelocity = this.maxVelocity * effect.value;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
                 this.app.effectContainer.innerHTML = "Effect: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
                 this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
+            case "invert":
+                this.effect = effect;
+                this.endOfEffect = this.app.game.elapsedTime + effect.duration;
+                this.invertedControls = true;
+                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
+        }
+    }
+
+    removeCurrentEffect() {
+        if(this.effect === null) return;
+
+        this.app.effectContainer.innerHTML = "";
+        this.app.effectTimeContainer.innerHTML = "";
+
+        switch(this.effect.type) {
+            case "speed":
+                this.maxVelocity = this.maxVelocity / this.effect.value;
+                break;
+            case "invert":
+                this.invertedControls = false;
                 break;
         }
     }
@@ -104,6 +154,16 @@ class OwnCar {
             case "speed":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
                     this.maxVelocity = this.maxVelocity / this.effect.value;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                    this.effect = null;
+                } else {
+                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                }
+                break;
+            case "invert":
+                if(this.app.game.elapsedTime > this.endOfEffect) {
+                    this.invertedControls = false;
                     this.app.effectContainer.innerHTML = "";
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;

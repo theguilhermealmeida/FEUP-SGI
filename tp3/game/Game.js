@@ -8,7 +8,7 @@ class Game {
         this.oppCar = null;
         this.elapsedTime = 0;
         this.laps = 0;
-        this.targetLaps = 3;
+        this.targetLaps = 1;
         this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];
@@ -96,8 +96,8 @@ class Game {
     }
 
     updateTime() {
-        this.elapsedTime = this.clock.getElapsedTime().toFixed(3);
-        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime;
+        this.elapsedTime = this.clock.getElapsedTime()
+        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime.toFixed(3) + "s";
     }
 
 

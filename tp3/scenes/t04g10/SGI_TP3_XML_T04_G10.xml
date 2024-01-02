@@ -368,6 +368,7 @@
         <node id="obstacles">
             <children>
                 <noderef id="obstacle3" />
+                <noderef id="obstacle4" />
             </children>
         </node>
 
@@ -415,7 +416,20 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle2" subtype="speed" value="0.5" duration="5" 
+                    <obstacle id="obstacle3" subtype="speed" value="0.5" duration="5" 
+                    active="true" filepath="./public/obstacle.obj"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle4">
+            <transforms>
+                <translate value3="-18 0 0" />
+                <scale value3="0.1 0.1 0.1" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle4" subtype="invert" duration="5"
                     active="true" filepath="./public/obstacle.obj"/>
                 </primitive>
             </children>
