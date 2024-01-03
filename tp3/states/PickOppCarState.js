@@ -16,6 +16,7 @@ class PickOppCarState extends State {
         this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.game.ownCarName), 1);
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Pick your opponent car!"
     }
 

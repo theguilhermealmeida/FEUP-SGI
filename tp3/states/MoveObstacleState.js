@@ -15,6 +15,7 @@ class MoveObstacleState extends State {
         document.addEventListener("pointermove",this.pointerMoveHandler);
         this.obstacle = this.app.game.pickedObstacle;
         this.app.scene.add(this.obstacle);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Place your obstacle!"
     }
 

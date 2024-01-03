@@ -99,7 +99,8 @@ class MenuState extends State {
                   this.app.gameState);
             }
             else{
-                this.restoreColorOfFirstPickedObj();             
+                this.restoreColorOfFirstPickedObj();  
+                this.app.textContainer.style.display = "block";           
                 this.app.textContainer.innerHTML = "Please select a car, a difficulty and a name";
             }
         } else if(objName === "selectCarButton") {

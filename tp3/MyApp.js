@@ -209,7 +209,6 @@ class MyApp  {
     }
 
     cleanTextContainers() {
-        this.textContainer.innerHTML = "";
         this.lapContainer.innerHTML = "";
         this.timeContainer.innerHTML = "";
         this.speedContainer.innerHTML = "";
@@ -217,6 +216,7 @@ class MyApp  {
         this.effectTimeContainer.innerHTML = "";
         this.outOfTrackContainer.innerHTML = "";
         this.pauseContainer.style.display = "none";
+        this.textContainer.style.display = "none";
     }
 }
 

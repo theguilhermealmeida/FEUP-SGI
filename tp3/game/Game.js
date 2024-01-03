@@ -39,6 +39,7 @@ class Game {
     }
 
     raceCountdown() {
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "3";
         setTimeout(() => {
             this.app.textContainer.innerHTML = "2";

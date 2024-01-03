@@ -48,4 +48,21 @@ body {
     color: white;
     font-family: 'Chakra Petch', sans-serif; /* Google Font - Chakra Petch */
   }
+
+/* General styles for the message container */
+.message-container {
+    position: absolute;
+    top: 10px; /* Adjust this value to place the container at desired distance from the top */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    background-color: rgba(135, 206, 250, 0.8);
+    border-radius: 20px;
+    color: white;
+    font-size: 26px;
+    font-family: 'Chakra Petch', sans-serif; /* Google Font - Chakra Petch */
+    text-align: center;
+    display: none;
+  }
+  
   

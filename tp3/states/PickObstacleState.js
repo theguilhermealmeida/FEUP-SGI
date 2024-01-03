@@ -14,6 +14,7 @@ class PickObstacleState extends State {
         this.pickableObjNames = ["obstacle1", "obstacle2"];
         this.obstacles = this.app.scene.getObjectByName("obstaclePark");
         document.addEventListener("pointermove",this.pointerMoveHandler);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Pick your obstacle!"
     }
 
