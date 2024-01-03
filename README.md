@@ -36,6 +36,13 @@
 
 ----
 
-### [TP3 - ...](tp3)
-- (items briefly describing main strong points)
+### [TP3 - Formula SGI](tp3)
 
+### Strong Points
+
+Our project highlights several strong points:
+
+- Implementation of realistic physics for car movements.
+- Intuitive user interface design.
+- Effective collision detection and handling.
+- Outdoor display of the game scene.
