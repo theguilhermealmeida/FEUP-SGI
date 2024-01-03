@@ -488,7 +488,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle1" subtype="speed" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle1" subtype="speed" value="0.5" duration="5" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -590,7 +590,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle2" subtype="speed" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle2" subtype="speed" value="0.5" duration="5"  degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -794,7 +794,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle4" subtype="invert" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle4" subtype="invert" duration="5"  active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -897,7 +897,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle5" subtype="speed" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle5" subtype="speed" value="0.5" duration="5"  degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -1000,7 +1000,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle6" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle6" subtype="invert" value="0.5" duration="5" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -1103,7 +1103,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle7" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle7" subtype="invert" value="0.5" duration="5"  degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
@@ -1206,7 +1206,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <obstacle id="obstacle8" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                    <obstacle id="obstacle8" subtype="invert" value="0.5" duration="5"  degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />
