@@ -29,6 +29,17 @@ class MyGuiInterface  {
      * Initialize the gui interface
      */
     init() {
+
+        console.log("GUI")
+        // console.log(this.contents.shaders.uniformValues)
+        // this.gui.add(this.contents.shaders[0].uniformValues.normScale, 'value', 0, 10).name("normScale").onChange((value) => {
+        //     this.contents.shaders[0].updateUniformsValue("normScale", value);
+        // });
+
+        // this.gui.add(this.contents.shaders[0].uniformValues.displacement, 'value', 0, 10).name("displacement").onChange((value) => {
+        //     this.contents.shaders[0].updateUniformsValue("displacement", value);
+        // });
+
         const cameraFolder = this.datgui.addFolder('Cameras')
         const cameras = this.contents.graphBuilder.cameras
         let cameraDropDown = cameraFolder.add(this.app, 'activeCameraName', Object.values(cameras).map(camera => camera["name"])).name("active camera");

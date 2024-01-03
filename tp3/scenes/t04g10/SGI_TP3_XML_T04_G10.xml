@@ -101,6 +101,9 @@
         <texture id="flyEmiratesTex" filepath="scenes/t04g10/textures/flyEmirates.png" />
         <texture id="mscCruisesTex" filepath="scenes/t04g10/textures/mscCruises.png" />
         <texture id="justChangeTex" filepath="scenes/t04g10/textures/justChange.png" />
+        <texture id="billBoardTex" filepath="scenes/t04g10/textures/billboard.png" />
+        <texture id="billBoardGrayTex" filepath="scenes/t04g10/textures/billboard_gray.png" />
+        <texture id="pinTex" filepath="scenes/t04g10/textures/bowlingPin.jpg" />
         <!-- mipmap example -->
         <texture id="grassTex" filepath="scenes/t04g10/textures/grass.png" 
             mipmap0="scenes/t04g10/textures/grass.1024.png"
@@ -308,6 +311,33 @@
             textureref="woodTex" 
             texlength_s="5" 
             texlength_t="5"/>
+        
+        <material id="billBoardApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="billBoardTex" 
+            texlength_s="22.5" 
+            texlength_t="4"/>
+
+        <material id="billBoardGrayApp"
+            emissive="0 0 0 1" 
+            color="1 1 1 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="billBoardGrayTex" 
+            texlength_s="22.5" 
+            texlength_t="4"/>
+
+        <material id="pinApp"
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="pinTex" 
+            texlength_s="10" 
+            texlength_t="10"/>
     </materials> 
 
     <powerUps>
@@ -339,21 +369,201 @@
                 <noderef id="obstacles" />
                 <noderef id="obstaclePark" />
                 <noderef id="cylinderShader" />
+                <noderef id="billboard" />
             </children>
         </node>
 
         <node id="cylinderShader">
-            <materialref id="blueApp" />
+            <materialref id="pinApp" />
             <transforms>
                 <translate value3="0 10 170" />
-                <scale value3="10 10 10" />
+                <!-- <scale value3="10 10 10" /> -->
+                <!-- <scale value3="0.1 0.1 0.1" /> -->
             </transforms>
             <children>
                 <primitive>
-                    <cylinder capsclose="true"  base="1" top="1" height="2" slices="20" stacks="20" />
+                    <!-- <obstacle id="obstacle5" subtype="speed" value="0.5" duration="5" filepath="./public/obstacle.obj"/> -->
+                    <nurbs degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="-0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="-0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                    </nurbs>
                 </primitive>
             </children>
         </node>
+<!--
+************************************
+            BILLBOARD
+************************************
+ -->
+
+        <node id="billboard">
+            <transforms>
+                <translate value3="0 0 0" />
+                <!-- <rotate value3="0 1.57 0" /> -->
+            </transforms>
+            <children>
+                <noderef id="collumns" />
+                <noderef id="display" />
+            </children>
+        </node>
+
+        <node id="collumns">
+            <materialref id="metalApp" />
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="collumn1" />
+                <noderef id="collumn2" />
+            </children>
+        </node>
+
+        <node id="collumn1">
+            <transforms>
+                <translate value3="-180 10 0" />
+            </transforms>
+            <children>
+                <noderef id="collumn" />
+            </children>
+
+        </node>
+        <node id="collumn2">
+            <transforms>
+                <translate value3="-180 10 40" />
+            </transforms>
+            <children>
+                <noderef id="collumn" />
+            </children>
+        </node>
+        <node id="collumn">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder capsclose="true"  base="3" top="3" height="25" slices="20" stacks="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="display">
+            <transforms>
+                <translate value3="-180 42 20" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="displayBlock" />
+                <noderef id="displayImage" />
+            </children>
+        </node>
+
+        <node id="displayImage">
+            <transforms>
+                <translate value3="0 0 1" />
+            </transforms>
+            <materialref id="billBoardApp"/> 
+            <children>
+                <primitive>
+                    <rectangle xy1="0 0" xy2="60 30.4" parts_x="1000" parts_y="1000" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="displayBlock">
+            <materialref id="blackApp"/> 
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="70 40 3"/>
+                </primitive>
+            </children>
+        </node>
+
 
 <!--
 ************************************
@@ -508,7 +718,9 @@
             </transforms>
             <children>
                 <primitive>
-                    <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" filepath="./public/Shine Sprite.obj"/>
+                    <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" obj="./public/Shine Sprite.obj" mtl="./public/Shine Sprite.mtl"/>
+                    <!-- <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" filepath="./public/flower/Boomerang Flower.obj"/> -->
+                    <!-- <powerUp id="starPowerUp" subtype="speed" value="2" duration="5" filepath="./public/scene.gltf"/> -->
                 </primitive>
             </children>
         </node>

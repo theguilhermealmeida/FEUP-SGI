@@ -23,6 +23,7 @@ class MyGraphBuilder {
         this.cameras = []
         this.powerUps = []
         this.obstacles = []
+        this.obstaclesMesh = []
         this.models = new Map()
         this.app = app
 
@@ -233,6 +234,7 @@ class MyGraphBuilder {
                 nodeGroup.data = nodeData
                 const powerUp = new MyPowerUp(nodeData);
                 powerUp.objPromise.then((obj) => {
+                     
                     nodeGroup.add(obj);
                     this.powerUps.push(powerUp)
                 });
@@ -245,6 +247,7 @@ class MyGraphBuilder {
                     nodeGroup.add(obj);
                     this.obstacles.push(obstacle)
                 });
+                console.log(obstacle.objPromise)
                 return
             }
             if (nodeData.subtype === "text") {
@@ -411,6 +414,23 @@ class MyGraphBuilder {
 
         }
     }
+
+    waitObstacles() {
+        for (let obstacle of this.obstacles) {
+            // check if obstacle is loaded
+            if (!obstacle.loaded) {
+                console.log("Waiting for obstacle " + obstacle.name)
+                setTimeout(this.waitObstacles.bind(this), 100)
+                return
+            }
+        }
+        console.log("All obstacles loaded")
+
+
+
+    }
+
+
 }
 
 export { MyGraphBuilder }

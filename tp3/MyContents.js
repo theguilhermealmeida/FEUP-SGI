@@ -182,7 +182,16 @@ class MyContents  {
         this.shaders.push(new MyShader(this.app, 'Cylinder Shader', "Test shader", 'shaders/scaled-normal.vert', 'shaders/normal.frag', {
             normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
             normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
-            displacement: { type: 'f', value: 0.0 } // Example value, adjust as needed// Adjust the color as needed
+            displacement: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.graphBuilder.textures.get("pinTex")}, // Example value, adjust as needed// Adjust the color as needed
+        }, "dynamic"))
+
+        this.shaders.push(new MyShader(this.app, 'Billboard Shader', "Billboard shader", 'shaders/texture.vert', 'shaders/texture.frag', {
+            normScale: { type: 'f', value: 1.0 }, // Example value, adjust as needed
+            normalizationFactor: { type: 'f', value: 1.0 }, // Example value, adjust as needed
+            displacement: { type: 'f', value: 1.0 }, // Example value, adjust as needed// Adjust the color as needed
+            uSampler1: { type: 'sampler2D', value: this.graphBuilder.textures.get("billBoardTex")},
+            uSampler2: { type: 'sampler2D', value: this.graphBuilder.textures.get("billBoardGrayTex")},
         }))
 
         this.waitShaders()
@@ -197,30 +206,89 @@ class MyContents  {
                 return
             }
         }
+
         this.applyShaders()
         this.shadersReady = true
-
+        
     }
+    
 
     applyShaders() {
         let shader = this.shaders[0]
 
         const material = shader.material 
 
-        let cylinder = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
+        let obstacle = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
+        obstacle.material = material;
+        console.log("AQUI")
+        // let obstacle = this.app.scene.getObjectByName("obstacles").getObjectByName("obstacle").children[0];
+        console.log(obstacle)
+        let model = this.app.scene.getObjectByName("obstacle3").getObjectByName("obstacle").getObjectByName("obstacle2_mesh")
+        console.log(model)
 
-        cylinder.material = material;
+        let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
+        billboard.material = this.shaders[1].material
+
+        // let test = this.app.scene.getObjectByName("shaderTester").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
+        // rotate test
+        // test.rotation.x = - Math.PI / 2
+        
+        // test.material = this.shaders[1].material
+        // let meshes = []
+        // obstacle.children.forEach(obstacle => {
+        //     obstacle.children.forEach(mesh => {
+        //     })
+        // })
+
+
+        // const obstacles = this.graphBuilder.getObstacles();
+        // console.log(obstacles)
+
+        // // Now you can work with the fully loaded obstacles
+        // obstacles.forEach(async (obstacle) => {
+        //     const obj = await obstacle.objPromise;
+        //     console.log(obj)
+        //     // Do something with the fully loaded obj
+        //     // e.g., add it to the scene
+        // });
+        
+
+
+        // this.graphBuilder.getObstacles().then((obstacles) => {
+        //     // Now you can work with the resolved obstacles array
+        //     console.log(obstacles); // This should show the array with objects
+        
+        //     // Perform operations with the obstacles array here
+        //     // ...
+        // }).catch((error) => {
+        //     console.error('Error fetching obstacles:', error);
+        // });
+
+
+        // loop through obstacles
+            // loop through obstacle meshes
+            // obstacle.children.forEach(mesh => {
+            //     // if mesh is a mesh
+            //     if (mesh.type === "Mesh") {
+            //         // apply shader
+            //         mesh.material = material;
+            //     }
+            // })
+
+        // loop through obstacles in obstacles group
+
+
+
+        // cylinder.material = material;
     }
     
     updateShaders() {
         this.shaders.forEach(shader => {
-            if (shader.ready) {
+            if (shader.ready && shader.type === "dynamic") {
                 const time = Date.now() * 0.001;
-                // console.log(shader.uniformValues.normScale.value)
-                shader.updateUniformsValue("normScale", Math.sin(time*3));
-                
+                shader.updateUniformsValue("normScale", Math.sin(time * 5) / 25 + 0.065);
             }
-        })
+        });
     }
 
     update() {
