@@ -11,7 +11,6 @@ class GameState extends State {
     init() {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
-        this.app.setActiveCamera("game");
         this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.init();
     }
@@ -19,7 +18,6 @@ class GameState extends State {
     reload() {
         document.addEventListener('keydown', this.keyPressHandler);
         document.addEventListener('keyup', this.keyReleaseHandler);
-        this.app.setActiveCamera("game");
         this.keys = { W: false, A: false, S: false, D: false };
         this.app.game.resume();
     }
@@ -56,10 +54,10 @@ class GameState extends State {
 
     checkIfGameEnded() {
         if(this.app.game.winner !== null) {
-            console.log(this.app.game.winner + " won!");
             this.app.cleanTextContainers();
-            this.app.currentState = this.app.menuState;
-            this.app.currentState.init();
+            this.app.currentState = this.app.transitionState;
+            this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
+                new THREE.Vector3(45, 20, -200), new THREE.Vector3(0, 0, -200), this.app.endGameState);
         }
     }
 

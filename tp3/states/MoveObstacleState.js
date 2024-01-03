@@ -12,25 +12,41 @@ class MoveObstacleState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("placeObject");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.obstacle = this.app.game.pickedObstacle;
         this.app.scene.add(this.obstacle);
-
         this.app.textContainer.innerHTML = "Place your obstacle!"
     }
 
-    update() {
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(0, 150, 0));
         this.app.controls.target = new THREE.Vector3(0, 0, 0);
+    }
+
+    update() {
+        this.updateCamera();
     }
 
     handleClick(event) {
         if(this.objectPlaced) {
             this.removeEventListeners();
             this.app.cleanTextContainers();
-            this.app.currentState = this.app.gameState;
-            this.app.currentState.reload();
+            this.app.currentState = this.app.transitionState;
+
+            let ownCar = this.app.game.ownCar;
+        
+            // Set the camera's position behind the car
+            const distance = 20; // Adjust this value to change the distance of the camera from the car
+            const offset = new THREE.Vector3(0, 10, -distance); // Offset the camera's position
+            const carPosition = ownCar.car.position.clone();
+            const rotationMatrix = new THREE.Matrix4();
+            rotationMatrix.makeRotationY(ownCar.orientation); // Assuming orientation is in radians
+            
+            offset.applyMatrix4(rotationMatrix); // Apply the car's orientation to the offset
+            const cameraPosition = carPosition.clone().add(offset);
+            this.app.currentState.init(new THREE.Vector3(0, 150, 0), new THREE.Vector3(0, 0, 0),
+            cameraPosition, carPosition, this.app.gameState,true);
         }
     }
 

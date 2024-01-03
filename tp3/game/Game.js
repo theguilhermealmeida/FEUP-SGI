@@ -5,32 +5,58 @@ class Game {
         this.app = app;
         this.ownCar = null;
         this.ownCarName = null;
+        this.playerName = null;
         this.oppCar = null;
         this.elapsedTime = 0;
         this.laps = 0;
-        this.targetLaps = 3;
+        this.targetLaps = 1;
         this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];
         this.pickedObstacle = null;
         this.clock = new THREE.Clock();
+        this.clock.stop();
         this.lastCarColision = -100;
+        this.countdownEnded = false;
+        this.difficulty = null;
     }
 
     init() {
         this.ownCar.init();
         this.oppCar.init();
+        this.initPowerups();
+        this.initObstacles();
+        this.track = this.app.scene.getObjectByName("track");
+        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
+        const trackSpline = new THREE.CatmullRomCurve3(trackControlPoints,true);
+        this.trackPoints = trackSpline.getPoints(200);
+
+        this.raceCountdown(); // Await the countdown
+
         this.app.lapContainer.innerHTML = "Lap: " + this.laps + "/" + this.targetLaps;
         this.app.timeContainer.innerHTML = "Time: " + this.time;
         this.app.speedContainer.innerHTML = "Speed: " + this.ownCar.velocity + "km/h";
-        this.initPowerups();
-        this.initObstacles();
-        this.clock.start();
-        this.track = this.app.scene.getObjectByName("track");
-        const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
-        const trackSpline = new THREE.CatmullRomCurve3(trackControlPoints);
-        this.trackPoints = trackSpline.getPoints(100);
     }
+
+    raceCountdown() {
+        this.app.textContainer.innerHTML = "3";
+        setTimeout(() => {
+            this.app.textContainer.innerHTML = "2";
+            setTimeout(() => {
+                this.app.textContainer.innerHTML = "1";
+                setTimeout(() => {
+                    this.app.textContainer.innerHTML = "GO!";
+                    this.clock.start();
+                    this.countdownEnded = true;
+                    this.oppCar.resumeCar();
+                    setTimeout(() => {
+                        this.app.textContainer.innerHTML = "";
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }
+    
 
     initPowerups() {
         let powerups = this.app.scene.getObjectByName("powerUps");
@@ -51,7 +77,6 @@ class Game {
         let obstaclePark = this.app.scene.getObjectByName("obstaclePark");
         for (let obstacle of obstaclePark.children) {
             if(obstacle.children[0].data.representations[0].active) {
-                console.log(obstacle);
                 this.addObstacle(obstacle);
                 obstacle.lastTimePicked = -100;
             }
@@ -60,9 +85,10 @@ class Game {
 
 
     update() {
-        this.updateTime();
+        this.oppCar.update();
+        if(!this.countdownEnded) return;
         this.ownCar.update();
-        //this.oppCar.update();
+        this.updateTime();
         this.updateLaps();
         this.updateSpeed();
         this.checkWinner();
@@ -70,13 +96,13 @@ class Game {
     }
 
     updateTime() {
-        this.elapsedTime = this.clock.getElapsedTime();
-        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime.toFixed(3);
+        this.elapsedTime = this.clock.getElapsedTime()
+        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime.toFixed(3) + "s";
     }
 
 
     updateLaps() {
-        this.laps = Math.max(this.ownCar.laps, this.oppCar.laps);
+        this.laps = this.ownCar.laps;
         this.app.lapContainer.innerHTML = "Lap: " + this.laps + "/" + this.targetLaps;
     }
 
@@ -87,24 +113,20 @@ class Game {
     }
 
     checkWinner() {
-        if (this.laps === this.targetLaps + 1) {
-            if (this.ownCar.laps > this.oppCar.laps) {
-                this.winner = "You";
-            }
-            else {
-                this.winner = "Opponent";
-            }
+        if (this.ownCar.laps === this.targetLaps + 1) {
+            this.winner = "You";
+        }
+        else if (this.oppCar.laps === this.targetLaps + 1) {
+            this.winner = "Opponent";
         }
     }
 
     pause() {
-        console.log("Game paused");
         this.clock.stop();
         this.oppCar.pauseCar();
     }
 
     resume() {
-        console.log("Game resumed");
         this.clock.start();
         this.clock.elapsedTime = this.elapsedTime;
         this.oppCar.resumeCar();
@@ -126,6 +148,8 @@ class Game {
     }
 
     checkCars() {
+        if(this.ownCar.invencible) return;
+
         if(this.clock.elapsedTime - this.lastCarColision < 2) {
             //if car was colided in the last 2 seconds, ignore it
             return;
@@ -141,7 +165,6 @@ class Game {
                 let radiusSum = sphere1.radius + sphere2.radius;
 
                 if (distance < radiusSum - 4) {
-                    console.log("colision");
                     this.lastCarColision = this.clock.elapsedTime;
                     this.ownCar.applyEffect({type: "speed", duration: 2, value: 0.5});
                     return;
@@ -152,8 +175,10 @@ class Game {
 
 
     checkOutOfTrack() {
+        if(this.ownCar.invencible) return;
+
         const carPosition = this.ownCar.car.position;
-        const distanceThreshold = 10; // Adjust this threshold as needed
+        const distanceThreshold = 11; // Adjust this threshold as needed
     
         for (let i = 0; i < this.trackPoints.length; i++) {
             const trackPoint = this.trackPoints[i];
@@ -171,13 +196,14 @@ class Game {
     }
 
     checkObstacles() {
+        if(this.ownCar.invencible) return;
+
         for (let obstacle of this.activeObstacles) {
             if (this.ownCar.car.position.distanceTo(obstacle.position) < 4) {
                 if(this.clock.elapsedTime - obstacle.lastTimePicked < 2) {
                     //if obstacle was picked in the last 2 seconds, ignore it
                     continue;
                 }
-                console.log(obstacle.name + " picked");
                 obstacle.lastTimePicked = this.elapsedTime;
                 this.ownCar.applyEffect(this.getEffect(obstacle));
             }
@@ -191,12 +217,12 @@ class Game {
                     //if powerup was picked in the last 2 seconds, ignore it
                     continue;
                 }
-                console.log(powerup.name + " picked");
                 this.ownCar.applyEffect(this.getEffect(powerup));
                 powerup.lastTimePicked = this.elapsedTime;
                 this.app.currentState.removeEventListeners();
-                this.app.currentState = this.app.pickObstacleState;
-                this.app.currentState.init();
+                this.app.currentState = this.app.transitionState;
+                this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
+                    new THREE.Vector3(-60, 30, 10), new THREE.Vector3(-90, 0, 10), this.app.pickObstacleState);
             }
         }
     }

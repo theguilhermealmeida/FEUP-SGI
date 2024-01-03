@@ -19,9 +19,16 @@ class OwnCar {
         this.endOfEffect = -10000;
         this.offTrack = false;
         this.boundingSpheres = [];
+        this.crossedFinishLine = false;
+        this.invertedControls = false;
+        this.invencible = false;
     }
 
     init() {
+        this.app.scene.getObjectByName("ownCarPlatform").remove(this.car);
+        this.car.position.set(22, 0, 89);
+        this.car.rotation.y = Math.PI;
+        this.app.scene.add(this.car);
         this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
     }
 
@@ -31,7 +38,7 @@ class OwnCar {
             
             if (child instanceof THREE.Mesh && child.geometry !== undefined && child.geometry.boundingSphere) {
                 const sphere = new THREE.SphereGeometry(child.geometry.boundingSphere.radius, 32, 32);
-                const material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+                const material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true,visible: false });
                 const sphereMesh = new THREE.Mesh(sphere, material);
                 sphereMesh.name = "BoundingSphere";
                 // get the bounding sphere's center position in world space
@@ -50,44 +57,101 @@ class OwnCar {
 
 
     accelerate() {
-        this.velocity += this.acceleration;
+        if(this.invertedControls) {
+            this.velocity -= this.acceleration;
+        }
+        else {
+            this.velocity += this.acceleration;
+        }
         this.velocity = Math.min(this.velocity, this.maxVelocity);
         this.velocity = Math.max(this.velocity, -this.maxVelocity);
     }
 
     deaccelerate() {
-        this.velocity -= this.acceleration;
+        if(this.invertedControls) {
+            this.velocity += this.acceleration;
+        }
+        else {
+            this.velocity -= this.acceleration;
+        }
         this.velocity = Math.min(this.velocity, this.maxVelocity);
         this.velocity = Math.max(this.velocity, -this.maxVelocity);
     }
 
-    turnRight() {
-        if(this.velocity !== 0){
-            this.orientation -= this.turnSpeed;
+    turnLeft() {
+        if(this.invertedControls){
+            if(this.velocity !== 0){
+                this.orientation -= this.turnSpeed;
+            }
+            this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
         }
-        this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
+        else {
+            if(this.velocity !== 0){
+                this.orientation += this.turnSpeed;
+            }
+            this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
+        }
+
     }
 
-    turnLeft() {
-        if(this.velocity !== 0){
-            this.orientation += this.turnSpeed;
+    turnRight() {
+        if(this.invertedControls){
+            if(this.velocity !== 0){
+                this.orientation += this.turnSpeed;
+            }
+            this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
         }
-        this.steeringAngle = Math.min(this.steeringAngle + this.steeringSpeed, this.maxSteeringAngle);
+        else {
+            if(this.velocity !== 0){
+                this.orientation -= this.turnSpeed;
+            }
+            this.steeringAngle = Math.max(this.steeringAngle - this.steeringSpeed, -this.maxSteeringAngle);
+        }
     }
+
 
     applyEffect(effect) {
+        this.removeCurrentEffect();
         switch(effect.type) {
             case "speed":
-                if(this.effect !== null){
-                    this.maxVelocity = this.maxVelocity / this.effect.value;
-                    this.app.effectContainer.innerHTML = "";
-                    this.app.effectTimeContainer.innerHTML = "";
-                }
                 this.effect = effect;
                 this.maxVelocity = this.maxVelocity * effect.value;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
                 this.app.effectContainer.innerHTML = "Effect: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
                 this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
+            case "invert":
+                this.effect = effect;
+                this.endOfEffect = this.app.game.elapsedTime + effect.duration;
+                this.invertedControls = true;
+                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
+            case "invencible":
+                this.effect = effect;
+                this.endOfEffect = this.app.game.elapsedTime + effect.duration;
+                this.invencible = true;
+                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
+                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                break;
+        }
+    }
+
+    removeCurrentEffect() {
+        if(this.effect === null) return;
+
+        this.app.effectContainer.innerHTML = "";
+        this.app.effectTimeContainer.innerHTML = "";
+
+        switch(this.effect.type) {
+            case "speed":
+                this.maxVelocity = this.maxVelocity / this.effect.value;
+                break;
+            case "invert":
+                this.invertedControls = false;
+                break;
+            case "invencible":
+                this.invencible = false;
                 break;
         }
     }
@@ -103,6 +167,29 @@ class OwnCar {
                     this.app.effectTimeContainer.innerHTML = "";
                     this.effect = null;
                 } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.value * 100 + "% " + this.effect.type + " for " + this.effect.duration + "s";
+                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                }
+                break;
+            case "invert":
+                if(this.app.game.elapsedTime > this.endOfEffect) {
+                    this.invertedControls = false;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                    this.effect = null;
+                } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
+                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                }
+                break;
+            case "invencible":
+                if(this.app.game.elapsedTime > this.endOfEffect) {
+                    this.invencible = false;
+                    this.app.effectContainer.innerHTML = "";
+                    this.app.effectTimeContainer.innerHTML = "";
+                    this.effect = null;
+                } else {
+                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
                     this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
                 }
                 break;
@@ -142,8 +229,23 @@ class OwnCar {
         }
     }
 
+    checkLap() {
+        const carPosition = this.car.position;
+        const finishLine = new THREE.Vector3(10, 0, 85);
+        const distanceToFinish = carPosition.distanceTo(finishLine);
+
+        if (distanceToFinish < 5 && !this.crossedFinishLine) {
+            this.laps++;
+            this.crossedFinishLine = true;
+        } else if (distanceToFinish > 5) {
+            this.crossedFinishLine = false;
+        }
+    }
+
 
     update() {
+
+        this.checkLap();
 
         this.boundingSpheres = [];
 

@@ -12,17 +12,21 @@ class PickOppCarState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.app.setActiveCamera("carPark");
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
         this.pickableObjNames.splice(this.pickableObjNames.indexOf(this.app.game.ownCarName), 1);
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
-
         this.app.textContainer.innerHTML = "Pick your opponent car!"
     }
 
+    updateCamera() {
+        const camera = this.app.getActiveCamera();
+        camera.position.copy(new THREE.Vector3(110, 20, -150));
+        this.app.controls.target = new THREE.Vector3(100, 0, -100);
+    }
+
     update() {
-        this.app.controls.target = this.cars.position;
+        this.updateCamera();
     }
 
     handleClick(event) {
@@ -47,18 +51,21 @@ class PickOppCarState extends State {
                 if (this.pickableObjNames.includes(objName)) {
                     let car = this.cars.getObjectByName(objName)
                     let carObject = car.getObjectByName("car");
-                    let carRoute = car.getObjectByName("carRoute");
-
+                    let carRoute = car.getObjectByName("route");
+                    
                     this.cars.remove(car);
-                    this.app.scene.add(carObject);
+                    carObject.rotation.y = -1.57;
+                    let oppCarPlatform = this.app.scene.getObjectByName("oppCarPlatform");
+                    oppCarPlatform.add(carObject);
 
                     this.app.game.oppCar = new OppCar(this.app, carObject, carRoute);
                     
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
                     this.app.cleanTextContainers();
-                    this.app.currentState = this.app.gameState;
-                    this.app.currentState.init();
+                    this.app.currentState = this.app.transitionState;
+                    this.app.currentState.init(new THREE.Vector3(110, 20, -150), new THREE.Vector3(100, 0, -100),
+                        new THREE.Vector3(0, 35, 220), new THREE.Vector3(0, 0, 0), this.app.menuState);
 
                     return; // Exit the loop if a pickable object is found
                 }

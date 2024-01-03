@@ -10,6 +10,8 @@ import { GameState } from './states/GameState.js';
 import { PauseState } from './states/PauseState.js';
 import { PickObstacleState } from './states/PickObstacleState.js';
 import { MoveObstacleState } from './states/MoveObstacleState.js';
+import { EndGameState } from './states/EndGameState.js';
+import { TransitionState } from './states/TransitionState.js';
 import { Game } from './game/Game.js';
 import Stats from 'three/addons/libs/stats.module.js'
 
@@ -37,6 +39,9 @@ class MyApp  {
         this.gui = null
         this.axis = null
         this.contents == null
+
+        // states
+        this.startingStateInit = false  
     }
     /**
      * initializes the application
@@ -49,7 +54,7 @@ class MyApp  {
 
         this.stats = new Stats()
         this.stats.showPanel(1) // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom)
+        //document.body.appendChild(this.stats.dom)
 
         // Create a renderer with Antialiasing
         this.renderer = new THREE.WebGLRenderer({antialias:true});
@@ -75,6 +80,8 @@ class MyApp  {
         this.pauseState = new PauseState(this)
         this.pickObstacleState = new PickObstacleState(this)
         this.moveObstacleState = new MoveObstacleState(this)
+        this.endGameState = new EndGameState(this)
+        this.transitionState = new TransitionState(this)
 
         this.currentState = this.menuState
 
@@ -127,7 +134,7 @@ class MyApp  {
         if (this.lastCameraName !== this.activeCameraName) {
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName]
-            document.getElementById("camera").innerHTML = this.activeCameraName
+            //document.getElementById("camera").innerHTML = this.activeCameraName
            
             // call on resize to update the camera aspect ratio
             // among other things
@@ -188,8 +195,12 @@ class MyApp  {
 
         // required if controls.enableDamping or controls.autoRotate are set to true
         this.controls.update();
-        
 
+        if(this.startingStateInit === false) {
+            this.currentState.init();
+            this.startingStateInit = true;
+        }
+        
         // render the scene
         this.renderer.render(this.scene, this.activeCamera);
 
@@ -206,6 +217,9 @@ class MyApp  {
         this.timeContainer.innerHTML = "";
         this.speedContainer.innerHTML = "";
         this.pauseContainer.innerHTML = "";
+        this.effectContainer.innerHTML = "";
+        this.effectTimeContainer.innerHTML = "";
+        this.outOfTrackContainer.innerHTML = "";
     }
 
     getLiveImage() {

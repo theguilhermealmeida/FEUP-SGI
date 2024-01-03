@@ -104,8 +104,6 @@ class MyContents  {
         let skyboxMesh = new THREE.Mesh(skybox, skyBoxMaterialsArray)
         this.app.scene.add(skyboxMesh)
 
-
-
         this.onAfterSceneLoadedAndBeforeRender(data);
 
 
@@ -120,7 +118,6 @@ class MyContents  {
         // loop through data camaras and add them to the scene
         this.graphBuilder = new MyGraphBuilder(data, this.app)
 
-
         const group = this.graphBuilder.buildGraph(data);  
 
         this.createShaders()
@@ -128,9 +125,12 @@ class MyContents  {
         // add group to the scene
         this.app.scene.add(group);
 
-        this.app.currentState.init()
-
         this.app.pickedMaterial = this.app.materials.get("violetApp");
+
+        this.app.selectedMaterial = this.app.materials.get("redApp");
+
+        this.app.buttonMaterial = this.app.materials.get("blueApp");
+
     }
 
     printGroupInfo(group, ident = 0) {
