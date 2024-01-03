@@ -9,7 +9,7 @@ class Game {
         this.oppCar = null;
         this.elapsedTime = 0;
         this.laps = 0;
-        this.targetLaps = 1;
+        this.targetLaps = 2;
         this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];
@@ -33,9 +33,28 @@ class Game {
 
         this.raceCountdown(); // Await the countdown
 
-        this.app.lapContainer.innerHTML = "Lap: " + this.laps + "/" + this.targetLaps;
-        this.app.timeContainer.innerHTML = "Time: " + this.time;
-        this.app.speedContainer.innerHTML = "Speed: " + this.ownCar.velocity + "km/h";
+        // Update the lap number
+        this.lapNumberSpan = document.querySelector('#lapContainer .lap-number');
+        if (this.lapNumberSpan) {
+            this.lapNumberSpan.innerHTML = this.laps; // Update the lap number content
+        }
+
+        // Update the total laps
+        const lapTotalSpan = document.querySelector('#lapContainer .lap-total');
+        if (lapTotalSpan) {
+        lapTotalSpan.innerHTML = this.targetLaps; // Update the total laps content
+        }
+
+        // Update the speed
+        this.timeSpan = document.querySelector('#timeContainer .time-number');
+        if (this.timeSpan) {
+            this.timeSpan.innerHTML = this.elapsedTime.toFixed(3); // Update the time content
+        }
+
+        this.speedSpan = document.querySelector('#speedContainer .speed-number');
+        if (this.speedSpan) {
+            this.speedSpan.innerHTML = 0; // Update the speed content
+        }
     }
 
     raceCountdown() {
@@ -50,6 +69,9 @@ class Game {
                     this.clock.start();
                     this.countdownEnded = true;
                     this.oppCar.resumeCar();
+                    this.app.lapContainer.style.display = "block";
+                    this.app.timeContainer.style.display = "block";
+                    this.app.speedContainer.style.display = "block";
                     setTimeout(() => {
                         this.app.countdownContainer.style.display = "none";
                     }, 300);
@@ -97,20 +119,23 @@ class Game {
     }
 
     updateTime() {
+        this.app.timeContainer.style.display = "block";
         this.elapsedTime = this.clock.getElapsedTime()
-        this.app.timeContainer.innerHTML = "Time: " + this.elapsedTime.toFixed(3) + "s";
+        this.timeSpan.innerHTML = this.elapsedTime.toFixed(3);
     }
 
 
     updateLaps() {
+        this.app.lapContainer.style.display = "block";
         this.laps = this.ownCar.laps;
-        this.app.lapContainer.innerHTML = "Lap: " + this.laps + "/" + this.targetLaps;
+        this.lapNumberSpan.innerHTML = this.laps;
     }
 
     updateSpeed() {
+        this.app.speedContainer.style.display = "block";
         //multiply by 120 to simulate max speed of 120km/h and then round to integer
         let velocity = this.ownCar.velocity * 120;
-        this.app.speedContainer.innerHTML = "Speed: " + Math.round(velocity) + "km/h";
+        this.speedSpan.innerHTML = Math.round(velocity);
     }
 
     checkWinner() {

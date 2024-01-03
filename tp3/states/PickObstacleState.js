@@ -64,7 +64,6 @@ class PickObstacleState extends State {
 
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
-                    this.app.cleanTextContainers();
                     this.app.currentState = this.app.transitionState;
                     this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
                         new THREE.Vector3(0, 150, 0), new THREE.Vector3(0, 0, 0), this.app.moveObstacleState);

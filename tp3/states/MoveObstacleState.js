@@ -31,10 +31,9 @@ class MoveObstacleState extends State {
 
     handleClick(event) {
         if(this.objectPlaced) {
+            this.app.textContainer.style.display = "none";
             this.removeEventListeners();
-            this.app.cleanTextContainers();
             this.app.currentState = this.app.transitionState;
-
             let ownCar = this.app.game.ownCar;
         
             // Set the camera's position behind the car
