@@ -23,7 +23,6 @@ class MyGraphBuilder {
         this.cameras = []
         this.powerUps = []
         this.obstacles = []
-        this.obstaclesMesh = []
         this.models = new Map()
         this.app = app
 
@@ -234,7 +233,7 @@ class MyGraphBuilder {
                 nodeGroup.data = nodeData
                 const powerUp = new MyPowerUp(nodeData);
                 powerUp.objPromise.then((obj) => {
-                     
+
                     nodeGroup.add(obj);
                     this.powerUps.push(powerUp)
                 });
@@ -242,12 +241,14 @@ class MyGraphBuilder {
             }
             if (nodeData.subtype === "obstacle") {
                 nodeGroup.data = nodeData
-                const obstacle = new MyObstacle(nodeData);
-                obstacle.objPromise.then((obj) => {
-                    nodeGroup.add(obj);
-                    this.obstacles.push(obstacle)
-                });
-                console.log(obstacle.objPromise)
+                let obstacle = new MyObstacle(nodeData, this.materials.get("pinApp"));
+                console.log("obstacle", obstacle)
+                this.obstacles.push(obstacle)
+                nodeGroup.add(obstacle);
+                // obstacle.objPromise.then((obj) => {
+                //     nodeGroup.add(obj);
+                //     this.obstacles.push(obstacle)
+                // });
                 return
             }
             if (nodeData.subtype === "text") {

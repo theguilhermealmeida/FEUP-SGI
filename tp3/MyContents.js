@@ -105,28 +105,6 @@ class MyContents  {
 
         this.onAfterSceneLoadedAndBeforeRender(data);
 
-        // // add a cylinder
-        // const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
-
-        // const vertShaderPath = 'shaders/scaled-normal.vert';  // Adjust the path to your shaders
-        // const fragShaderPath = 'shaders/normal.frag';
-
-        // // Define uniform values (you can adjust these as needed)
-        // const uniformValues = {
-        //     normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
-        //     normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
-        //     displacement: { type: 'f', value: 0.0 } // Example value, adjust as needed// Adjust the color as needed
-        // };
-
-        // // Create an instance of MyShader
-        // this.shader = new MyShader(this, 'YourShaderName', 'Shader description', vertShaderPath, fragShaderPath, uniformValues);
-
-        // // create a random material
-        // const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        // const cylinder = new THREE.Mesh( geometry, this.shader.material );
-        // // change position
-        // cylinder.position.set(0, 10, 160)
-        // this.app.scene.add( cylinder );
 
     }
 
@@ -143,7 +121,6 @@ class MyContents  {
         const group = this.graphBuilder.buildGraph(data);  
 
         this.createShaders()
-
     
         // add group to the scene
         this.app.scene.add(group);
@@ -151,20 +128,6 @@ class MyContents  {
         this.app.currentState.init()
 
         this.app.pickedMaterial = this.app.materials.get("violetApp");
-
-        // this.track = this.app.scene.getObjectByName("track");
-
-        // const trackControlPoints = this.track.data.representations[0].controlpoints.map(point => new THREE.Vector3(point.xx, point.yy, point.zz));
-
-        // // at each track control point add a little box to the scene
-        // trackControlPoints.forEach(point => {
-        //     const geometry = new THREE.BoxGeometry(2, 2, 2);
-        //     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        //     const cube = new THREE.Mesh(geometry, material);
-        //     cube.position.set(point.x, point.y, point.z);
-        //     this.app.scene.add(cube);
-        // }
-        // );
     }
 
     printGroupInfo(group, ident = 0) {
@@ -179,7 +142,7 @@ class MyContents  {
     }
 
     createShaders() {
-        this.shaders.push(new MyShader(this.app, 'Cylinder Shader', "Test shader", 'shaders/scaled-normal.vert', 'shaders/normal.frag', {
+        this.shaders.push(new MyShader(this.app, 'Obstacle Shader', "Obstacle shader", 'shaders/scaled-normal.vert', 'shaders/normal.frag', {
             normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
             normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
             displacement: { type: 'f', value: 0.0 },
@@ -214,72 +177,21 @@ class MyContents  {
     
 
     applyShaders() {
-        let shader = this.shaders[0]
+        let shader0 = this.shaders[0]
+        let shader1 = this.shaders[1]
 
-        const material = shader.material 
+        const material0 = shader0.material 
+        const material1 = shader1.material 
 
-        let obstacle = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
-        obstacle.material = material;
-        console.log("AQUI")
-        // let obstacle = this.app.scene.getObjectByName("obstacles").getObjectByName("obstacle").children[0];
-        console.log(obstacle)
-        let model = this.app.scene.getObjectByName("obstacle3").getObjectByName("obstacle").getObjectByName("obstacle2_mesh")
-        console.log(model)
 
         let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
         billboard.material = this.shaders[1].material
 
-        // let test = this.app.scene.getObjectByName("shaderTester").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
-        // rotate test
-        // test.rotation.x = - Math.PI / 2
-        
-        // test.material = this.shaders[1].material
-        // let meshes = []
-        // obstacle.children.forEach(obstacle => {
-        //     obstacle.children.forEach(mesh => {
-        //     })
-        // })
+        // loop through obstacles in this.graphBUilder.obstacles
+        this.graphBuilder.obstacles.forEach(obstacle => {
+            obstacle.material = material0;
+        })
 
-
-        // const obstacles = this.graphBuilder.getObstacles();
-        // console.log(obstacles)
-
-        // // Now you can work with the fully loaded obstacles
-        // obstacles.forEach(async (obstacle) => {
-        //     const obj = await obstacle.objPromise;
-        //     console.log(obj)
-        //     // Do something with the fully loaded obj
-        //     // e.g., add it to the scene
-        // });
-        
-
-
-        // this.graphBuilder.getObstacles().then((obstacles) => {
-        //     // Now you can work with the resolved obstacles array
-        //     console.log(obstacles); // This should show the array with objects
-        
-        //     // Perform operations with the obstacles array here
-        //     // ...
-        // }).catch((error) => {
-        //     console.error('Error fetching obstacles:', error);
-        // });
-
-
-        // loop through obstacles
-            // loop through obstacle meshes
-            // obstacle.children.forEach(mesh => {
-            //     // if mesh is a mesh
-            //     if (mesh.type === "Mesh") {
-            //         // apply shader
-            //         mesh.material = material;
-            //     }
-            // })
-
-        // loop through obstacles in obstacles group
-
-
-
-        // cylinder.material = material;
     }
     
     updateShaders() {
@@ -294,25 +206,9 @@ class MyContents  {
     update() {
         this.app.currentState.update()
 
-        // this.app.scene.getObjectByName("cylinderShader")
-        // let cylinder = this.app.scene.getObjectByName("cylinderShader").getObjectByProperty("type", "Mesh");
-        // console.log(cylinder)
-        // cylinder.rotation.y += 0.01;
-        // keep changing cylinder colors to test shader
-        // cylinder.material.color = new THREE.Color(Math.random(), Math.random(), Math.random());
-
-
         if (this.shadersReady) {
             this.updateShaders()
         }
-
-        // let t = this.app.clock.getElapsedTime()
-        // console.log(t)
-        // let displacementValue = Math.sin(t); 
-        // this.shader.updateUniformsValue("displacement", displacementValue);
-        // const time = Date.now() * 0.001;
-        // this.shader.updateUniformsValue("normScale", Math.sin(time*3));
-
     }
 }
 

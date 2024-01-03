@@ -262,7 +262,10 @@ class MySceneData  {
             {name: "value" , type: "float" , required: false, default: 0},
             {name: "duration" , type: "float" , required: false, default: 0},
             {name: "active", type: "boolean", required: false, default: false},
-            {name: "filepath", type: "string"},
+			{name: "degree_u", type: "integer"},
+			{name: "degree_v", type: "integer"},
+            {name: "parts_u", type: "integer"},
+            {name: "parts_v", type: "integer"},
         ]
 
         this.descriptors["text"] = [
