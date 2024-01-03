@@ -162,7 +162,7 @@ class MyContents  {
         }))
 
         this.shaders.push(new MyShader(this.app, '3dEffectShader', "3dEffectShader", "shaders/live.vert", "shaders/live.frag", {
-            normScale: {type: 'f', value: 2.0},
+            normScale: {type: 'f', value: 1.5},
             displacement: {type: 'f', value: 1.0},
             normalizationFactor: {type: 'f', value: 1},
             timeFactor: {type: 'f', value: 0.0},

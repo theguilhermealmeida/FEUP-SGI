@@ -1,5 +1,6 @@
 import { State } from './State.js';
 import { MyTextRenderer } from '../MyTextRenderer.js';
+import { MyFirework } from '../MyFirework.js';
 import * as THREE from 'three';
 
 class MenuState extends State {
@@ -10,7 +11,6 @@ class MenuState extends State {
         this.keyPressHandler = this.onKeyPress.bind(this);
         this.difficultyButton = null;
         this.playerName = "";
-        
     }
 
     init() {

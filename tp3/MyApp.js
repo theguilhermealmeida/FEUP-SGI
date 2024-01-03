@@ -223,7 +223,6 @@ class MyApp  {
     }
 
     getLiveImage() {
-        console.log("ENTROU")
         // render the scene to the render target
         if (this.contents.shaders[2] === undefined) {
             return;
