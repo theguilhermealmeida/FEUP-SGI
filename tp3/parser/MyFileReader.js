@@ -921,7 +921,7 @@ class MyFileReader  {
 				const primitiveId = elem.tagName;
 				let descriptor = this.data.descriptors[primitiveId];
 				let reprObj = this.loadXmlItem({elem: elem, descriptor: descriptor, extras: [["type", primitiveId]]})
-				if (primitiveId === "nurbs" || primitiveId === "track" || primitiveId === "route") {
+				if (primitiveId === "nurbs" || primitiveId === "track" || primitiveId === "route" || primitiveId === "obstacle") {
 					this.loadChildElementsOfType(elem, reprObj, "controlpoints", "controlpoint")
 				}
 				primitiveObj.representations.push(reprObj)

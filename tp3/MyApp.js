@@ -99,9 +99,12 @@ class MyApp  {
         this.timeContainer = document.getElementById('timeContainer');
         this.speedContainer = document.getElementById('speedContainer');
         this.effectContainer = document.getElementById('effectContainer');
-        this.effectTimeContainer = document.getElementById('effectTimeContainer');
         this.outOfTrackContainer = document.getElementById('outOfTrackContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
+        this.countdownContainer = document.getElementById('countdownContainer');
+
+        
+
 
     }
 
@@ -209,14 +212,33 @@ class MyApp  {
     }
 
     cleanTextContainers() {
-        this.textContainer.innerHTML = "";
-        this.lapContainer.innerHTML = "";
-        this.timeContainer.innerHTML = "";
-        this.speedContainer.innerHTML = "";
-        this.pauseContainer.innerHTML = "";
-        this.effectContainer.innerHTML = "";
-        this.effectTimeContainer.innerHTML = "";
-        this.outOfTrackContainer.innerHTML = "";
+        this.pauseContainer.style.display = "none";
+        this.textContainer.style.display = "none";
+        this.countdownContainer.style.display = "none";
+        this.lapContainer.style.display = "none";
+        this.timeContainer.style.display = "none";
+        this.speedContainer.style.display = "none";
+        this.effectContainer.style.display = "none";
+        this.outOfTrackContainer.style.display = "none";
+    }
+
+    getLiveImage() {
+        // render the scene to the render target
+        if (this.contents.shaders[2] === undefined) {
+            return;
+        }
+        if (this.contents.shaders[2].ready === false) {
+            return;
+        }
+        // Create a separate render target and depth texture for grayscale representation
+        const grayscaleRenderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        grayscaleRenderTarget.depthTexture = new THREE.DepthTexture();
+        grayscaleRenderTarget.depthTexture.type = THREE.UnsignedShortType;
+        this.renderer.setRenderTarget(grayscaleRenderTarget)
+        this.renderer.render(this.scene, this.activeCamera);
+        this.contents.shaders[2].updateUniformsValue("rgbTexture", grayscaleRenderTarget.texture);
+        this.contents.shaders[2].updateUniformsValue("grayTexture", grayscaleRenderTarget.depthTexture);
+        this.renderer.setRenderTarget(null)
     }
 }
 

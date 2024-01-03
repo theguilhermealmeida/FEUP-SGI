@@ -145,15 +145,6 @@ class MyGraphBuilder {
         this.app.materials = this.materials
     }
 
-    initPowerUps() {
-        for (let key in this.sceneData.powerUps) {
-            let powerUpData = this.sceneData.powerUps[key];
-            let powerUpMesh = new MyPowerUp(powerUpData.id, powerUpData.type, powerUpData.xyz[0], powerUpData.xyz[1], powerUpData.xyz[2]);
-            this.powerUps.set(powerUpData.id, powerUpMesh);
-        }
-    }
-
-
     buildGraph() {
         const rootNode = this.sceneData.getNode(this.sceneData.rootId);
         if (rootNode) {
@@ -233,6 +224,7 @@ class MyGraphBuilder {
                 nodeGroup.data = nodeData
                 const powerUp = new MyPowerUp(nodeData);
                 powerUp.objPromise.then((obj) => {
+
                     nodeGroup.add(obj);
                     this.powerUps.push(powerUp)
                 });
@@ -240,11 +232,14 @@ class MyGraphBuilder {
             }
             if (nodeData.subtype === "obstacle") {
                 nodeGroup.data = nodeData
-                const obstacle = new MyObstacle(nodeData);
-                obstacle.objPromise.then((obj) => {
-                    nodeGroup.add(obj);
-                    this.obstacles.push(obstacle)
-                });
+                let obstacle = new MyObstacle(nodeData, materialObject);
+                console.log("obstacle", obstacle)
+                this.obstacles.push(obstacle)
+                nodeGroup.add(obstacle);
+                // obstacle.objPromise.then((obj) => {
+                //     nodeGroup.add(obj);
+                //     this.obstacles.push(obstacle)
+                // });
                 return
             }
             if (nodeData.subtype === "text") {
@@ -411,6 +406,23 @@ class MyGraphBuilder {
 
         }
     }
+
+    waitObstacles() {
+        for (let obstacle of this.obstacles) {
+            // check if obstacle is loaded
+            if (!obstacle.loaded) {
+                console.log("Waiting for obstacle " + obstacle.name)
+                setTimeout(this.waitObstacles.bind(this), 100)
+                return
+            }
+        }
+        console.log("All obstacles loaded")
+
+
+
+    }
+
+
 }
 
 export { MyGraphBuilder }

@@ -29,6 +29,9 @@ class MyGuiInterface  {
      * Initialize the gui interface
      */
     init() {
+
+        console.log("GUI")
+
         const cameraFolder = this.datgui.addFolder('Cameras')
         const cameras = this.contents.graphBuilder.cameras
         let cameraDropDown = cameraFolder.add(this.app, 'activeCameraName', Object.values(cameras).map(camera => camera["name"])).name("active camera");
@@ -61,6 +64,11 @@ class MyGuiInterface  {
             videoFolder.add(video, 'pause').name('Pause');
             videoFolder.add(video, 'playbackRate', 0, 2).name('Speed');
         });
+
+        const shadersFolder = this.datgui.addFolder('Shaders');
+        shadersFolder.add(this.contents, 'obstacleShaderSpeed', 0, 10, 0.10).name('Obstacle Speed').onChange(this.contents.updateObstacleShaderSpeed.bind(this.contents));
+        shadersFolder.add(this.contents.shaders[2].uniformValues.normScale, 'value', 0, 5, 0.01).name('Norm Scale').onChange((value) => {this.contents.shaders[2].updateUniformsValue("normScale", value)});
+
 
         this.datgui.close();
 

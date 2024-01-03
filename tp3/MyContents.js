@@ -4,6 +4,7 @@ import { MyFileReader } from './parser/MyFileReader.js';
 import { MyGraphBuilder } from './MyGraphBuilder.js';
 import { MenuState } from './states/MenuState.js';
 import { MyTextRenderer } from './MyTextRenderer.js';
+import { MyShader } from './MyShader.js';
 
 /**
  *  This class contains the contents of out application
@@ -17,6 +18,13 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        this.gui = null
+
+        this.shaders = []
+        this.shadersReady = false
+        this.obstacleShaderSpeed = 5.0
+        this.snapShotInterval = 6000
+
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);	
 		this.reader.open("scenes/t04g10/SGI_TP3_XML_T04_G10.xml");		
@@ -97,6 +105,8 @@ class MyContents  {
         this.app.scene.add(skyboxMesh)
 
         this.onAfterSceneLoadedAndBeforeRender(data);
+
+
     }
 
     output(obj, indent = 0) {
@@ -109,13 +119,19 @@ class MyContents  {
         this.graphBuilder = new MyGraphBuilder(data, this.app)
 
         const group = this.graphBuilder.buildGraph(data);  
+
+        this.createShaders()
     
         // add group to the scene
         this.app.scene.add(group);
 
         this.app.pickedMaterial = this.app.materials.get("violetApp");
 
-        this.app.selectedMaterial = this.app.materials.get("redApp");
+        this.app.easyMaterial = this.app.materials.get("greenApp");
+
+        this.app.mediumMaterial = this.app.materials.get("yellowApp");
+
+        this.app.hardMaterial = this.app.materials.get("redApp");
 
         this.app.buttonMaterial = this.app.materials.get("blueApp");
 
@@ -132,9 +148,105 @@ class MyContents  {
         }
     }
 
+    // SHADERS SECTION
+    createShaders() {
+        this.shaders.push(new MyShader(this.app, 'Obstacle Shader', "Obstacle shader", 'shaders/scaled-normal.vert', 'shaders/normal.frag', {
+            normScale: { type: 'f', value: 0.1 }, // Example value, adjust as needed
+            normalizationFactor: { type: 'f', value: 1 }, // Example value, adjust as needed
+            displacement: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.graphBuilder.textures.get("pinTex")}, // Example value, adjust as needed// Adjust the color as needed
+        }, "dynamic"))
+
+        this.shaders.push(new MyShader(this.app, 'Billboard Shader', "Billboard shader", 'shaders/texture.vert', 'shaders/texture.frag', {
+            normScale: { type: 'f', value: 1.0 }, // Example value, adjust as needed
+            normalizationFactor: { type: 'f', value: 1.0 }, // Example value, adjust as needed
+            displacement: { type: 'f', value: 1.0 }, // Example value, adjust as needed// Adjust the color as needed
+            uSampler1: { type: 'sampler2D', value: this.graphBuilder.textures.get("billBoardTex")},
+            uSampler2: { type: 'sampler2D', value: this.graphBuilder.textures.get("billBoardGrayTex")},
+        }))
+
+        this.shaders.push(new MyShader(this.app, '3dEffectShader', "3dEffectShader", "shaders/live.vert", "shaders/live.frag", {
+            normScale: {type: 'f', value: 1.5},
+            displacement: {type: 'f', value: 1.0},
+            normalizationFactor: {type: 'f', value: 1},
+            timeFactor: {type: 'f', value: 0.0},
+            rgbTexture: {type: 'sampler2D', value: ""},
+            grayTexture: {type: 'sampler2D', value: ""},
+            cameraNear: {type: 'f', value: "0.1"},
+            cameraFar: {type: 'f', value: "1000"},
+        }))
+
+        this.waitShaders()
+    }
+
+    waitShaders() {
+        console.log(this.shaders)
+        for (let shader of this.shaders) {
+            if (!shader.ready) {
+                console.log("Waiting for shader " + shader.name)
+                setTimeout(this.waitShaders.bind(this), 100)
+                return
+            }
+        }
+
+        this.applyShaders()
+        this.shadersReady = true
+        
+    }
+    
+
+    applyShaders() {
+        let shader0 = this.shaders[0]
+        let shader1 = this.shaders[1]
+        let shader2 = this.shaders[2]
+
+        const material0 = shader0.material 
+        const material1 = shader1.material 
+        const material2 = shader2.material
+
+        this.graphBuilder.obstacles.forEach(obstacle => {
+            if (obstacle.subtype === "speed") {
+                obstacle.material = material0;
+                obstacle.shader = this.shaders[0];
+            }
+        })
+
+        let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh") 
+        billboard.material = material2
+        
+        this.startLiveImageShader()
+    }
+
+    startLiveImageShader() {
+        let intervalId = setInterval(() => {
+            console.log("Getting live image")
+            this.app.getLiveImage();
+        }, this.snapShotInterval);
+    }
+    
+    updateShaders() {
+        this.shaders.forEach(shader => {
+            if (shader.ready && shader.type === "dynamic") {
+                const time = Date.now() * 0.001;
+                shader.updateUniformsValue("normScale", Math.sin(time * this.obstacleShaderSpeed) / 25 + 0.065);
+            }
+        });
+    }
+
+    updateObstacleShaderSpeed(value) {
+        this.obstacleShaderSpeed = value
+    }
+
+    // END SHADERS SECTION
+
     update() {
         this.app.currentState.update()
+
+        if (this.shadersReady) {
+            this.updateShaders()
+        }
     }
+
 }
 
 export { MyContents };

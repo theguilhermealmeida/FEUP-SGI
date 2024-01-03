@@ -64,6 +64,52 @@ class MyFirework {
 
         this.app.scene.remove( this.points )
         this.points.geometry.dispose()
+
+        const colors = [];
+        const vertices = [];
+        const velocities = [];
+
+        // Generate particles for explosion
+        for (let i = 0; i < n; i++) {
+            let theta = Math.random() * Math.PI * 2;
+            let phi = Math.acos(2 * Math.random() - 1);
+            let radius = THREE.MathUtils.randFloat(rangeBegin, rangeEnd);
+
+            let x = origin[0] + radius * Math.sin(phi) * Math.cos(theta);
+            let y = origin[1] + radius * Math.sin(phi) * Math.sin(theta);
+            let z = origin[2] + radius * Math.cos(phi);
+
+            vertices.push(x, y, z);
+
+            // Color for each particle
+            let color = new THREE.Color();
+            color.setHSL(THREE.MathUtils.randFloat(0.1, 0.9), 1, 0.9);
+            colors.push(color.r, color.g, color.b);
+
+            // Velocity for each particle
+            let vx = (Math.random() - 0.5) * 5; // Adjust the explosion velocity as needed
+            let vy = (Math.random() - 0.5) * 5;
+            let vz = (Math.random() - 0.5) * 5;
+            
+
+            velocities.push(vx, vy, vz);
+        }
+
+        this.geometry = new THREE.BufferGeometry();
+        this.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
+        this.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
+        this.points = new THREE.Points(this.geometry, this.material);
+        this.points.castShadow = true;
+        this.points.receiveShadow = true;
+        this.app.scene.add(this.points);
+
+        // Store velocities as an attribute
+        this.geometry.setAttribute('velocity', new THREE.BufferAttribute(new Float32Array(velocities), 3));
+
+        // Reset opacity
+        this.material.opacity = 1;
+        this.material.needsUpdate = true; 
+
     }
     
     /**

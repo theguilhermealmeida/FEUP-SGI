@@ -15,6 +15,7 @@ class PickOwnCarState extends State {
         this.pickableObjNames = ["redCar", "blueCar", "greenCar", "yellowCar"];
         this.cars = this.app.scene.getObjectByName("cars");
         document.addEventListener("pointermove",this.pointerMoveHandler);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Pick your own car!"
     }
 
