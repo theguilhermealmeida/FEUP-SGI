@@ -96,6 +96,8 @@ class MyApp  {
         this.outOfTrackContainer = document.getElementById('outOfTrackContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
 
+        
+
 
     }
 
@@ -204,6 +206,26 @@ class MyApp  {
         this.timeContainer.innerHTML = "";
         this.speedContainer.innerHTML = "";
         this.pauseContainer.innerHTML = "";
+    }
+
+    getLiveImage() {
+        console.log("ENTROU")
+        // render the scene to the render target
+        if (this.contents.shaders[2] === undefined) {
+            return;
+        }
+        if (this.contents.shaders[2].ready === false) {
+            return;
+        }
+        // Create a separate render target and depth texture for grayscale representation
+        const grayscaleRenderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        grayscaleRenderTarget.depthTexture = new THREE.DepthTexture();
+        grayscaleRenderTarget.depthTexture.type = THREE.UnsignedShortType;
+        this.renderer.setRenderTarget(grayscaleRenderTarget)
+        this.renderer.render(this.scene, this.activeCamera);
+        this.contents.shaders[2].updateUniformsValue("rgbTexture", grayscaleRenderTarget.texture);
+        this.contents.shaders[2].updateUniformsValue("grayTexture", grayscaleRenderTarget.depthTexture);
+        this.renderer.setRenderTarget(null)
     }
 }
 

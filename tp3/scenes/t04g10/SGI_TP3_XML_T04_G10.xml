@@ -442,7 +442,7 @@
 
         <node id="displayImage">
             <transforms>
-                <translate value3="0 0 1" />
+                <translate value3="0 0 2" />
             </transforms>
             <materialref id="billBoardApp"/> 
             <children>

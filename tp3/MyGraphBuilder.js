@@ -145,15 +145,6 @@ class MyGraphBuilder {
         this.app.materials = this.materials
     }
 
-    initPowerUps() {
-        for (let key in this.sceneData.powerUps) {
-            let powerUpData = this.sceneData.powerUps[key];
-            let powerUpMesh = new MyPowerUp(powerUpData.id, powerUpData.type, powerUpData.xyz[0], powerUpData.xyz[1], powerUpData.xyz[2]);
-            this.powerUps.set(powerUpData.id, powerUpMesh);
-        }
-    }
-
-
     buildGraph() {
         const rootNode = this.sceneData.getNode(this.sceneData.rootId);
         if (rootNode) {

@@ -18,6 +18,7 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        this.gui = null
 
         this.shaders = []
         this.shadersReady = false
@@ -157,6 +158,18 @@ class MyContents  {
             uSampler2: { type: 'sampler2D', value: this.graphBuilder.textures.get("billBoardGrayTex")},
         }))
 
+        // console.log(this.app.activeCamera)
+        this.shaders.push(new MyShader(this.app, '3dEffectShader', "3dEffectShader", "shaders/live.vert", "shaders/live.frag", {
+            normScale: {type: 'f', value: 2.0},
+            displacement: {type: 'f', value: 1.0},
+            normalizationFactor: {type: 'f', value: 1},
+            timeFactor: {type: 'f', value: 0.0},
+            rgbTexture: {type: 'sampler2D', value: ""},
+            grayTexture: {type: 'sampler2D', value: ""},
+            cameraNear: {type: 'f', value: "0.1"},
+            cameraFar: {type: 'f', value: "1000"},
+        }))
+
         this.waitShaders()
     }
 
@@ -179,19 +192,57 @@ class MyContents  {
     applyShaders() {
         let shader0 = this.shaders[0]
         let shader1 = this.shaders[1]
+        let shader2 = this.shaders[2]
 
         const material0 = shader0.material 
         const material1 = shader1.material 
+        const material2 = shader2.material
 
 
-        let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
-        billboard.material = this.shaders[1].material
+
 
         // loop through obstacles in this.graphBUilder.obstacles
         this.graphBuilder.obstacles.forEach(obstacle => {
             obstacle.material = material0;
         })
 
+        let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh")        // get meshes of obstacles
+        billboard.material = material2
+        this.startLiveImageShader()
+    }
+
+
+    startLiveImageShader() {
+        this.updateInterval = 6000
+        // Variable to store the interval ID
+        let intervalId;
+
+        // Add update interval folder to gui
+        // let updateIntervalFolder = this.gui.addFolder("Live Billboard Controls");
+        // Add update interval controller to gui
+        // updateIntervalFolder.add(this, 'updateInterval', 1, 60000, 1).name("Snapshot Interval").onChange(() => {
+        //     // Clear the current interval if it exists
+        //     if (intervalId) {
+        //         clearInterval(intervalId);
+        //     }
+
+        //     // Set up a new interval with the updated updateInterval value
+        //     intervalId = setInterval(() => {
+        //         this.app.getLiveImage();
+        //     }, this.updateInterval);
+        // });
+
+        // updateIntervalFolder.add(this.shaders[2].uniformValues.normScale, 'value', 0, 100, 0.01).name("Effect Intensity").onChange((value) => {
+        //     this.shaders[2].updateUniformsValue("normScale", value);
+        // });
+
+        // Initial setup of the interval
+        intervalId = setInterval(() => {
+            console.log("Getting live image")
+            this.app.getLiveImage();
+        }, this.updateInterval);
+        
+        // this.app.getLiveImage();
     }
     
     updateShaders() {
@@ -209,6 +260,10 @@ class MyContents  {
         if (this.shadersReady) {
             this.updateShaders()
         }
+    }
+
+    setGUI(gui) {
+        this.gui = gui
     }
 }
 
