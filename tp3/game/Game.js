@@ -10,7 +10,7 @@ class Game {
         this.oppCar = null;
         this.elapsedTime = 0;
         this.laps = 0;
-        this.targetLaps = 2;
+        this.targetLaps = 3;
         this.winner = null;
         this.activePowerups = [];
         this.activeObstacles = [];

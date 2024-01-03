@@ -66,6 +66,13 @@ class MoveObstacleState extends State {
         for (let intersect of intersects) {
             if(intersect.object.parent.parent.name !== "trackNode") continue;
             else {
+                if (this.obstacle.data.representations[0].subtype === "invert") {
+                    intersect.point.y = 2.5;
+                } 
+                else if (this.obstacle.data.representations[0].subtype === "speed") {
+                    intersect.point.y = 1.5;
+                }
+
                 this.obstacle.position.copy(intersect.point);
                 this.objectPlaced = true;
                 break;

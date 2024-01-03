@@ -473,12 +473,16 @@
             <children>
                 <noderef id="obstacle1" />
                 <noderef id="obstacle2" />
+                <noderef id="obstacle5" />
+                <noderef id="obstacle6" />
+                <noderef id="obstacle7" />
+                <noderef id="obstacle8" />
             </children>
         </node>
 
         <node id="obstacle1">
             <transforms>
-                <translate value3="0 2.5 7.5" />
+                <translate value3="0 1.5 7.5" />
                 <rotate value3="0 1.4 0" />
                 <scale value3="2.5 2.5 2.5" />
             </transforms>
@@ -580,7 +584,7 @@
 
         <node id="obstacle2">
             <transforms>
-                <translate value3="0 2.5 -7.5" />
+                <translate value3="0 1.5 -7.5" />
                 <rotate value3="0 1.4 0" />
                 <scale value3="2.5 2.5 2.5" />
             </transforms>
@@ -682,7 +686,7 @@
 
         <node id="obstacle3">
             <transforms>
-                <translate value3="20 2.5 0" />
+                <translate value3="40 1.5 0" />
                 <rotate value3="0 1.4 0" />
                 <scale value3="2.5 2.5 2.5" />
             </transforms>
@@ -791,6 +795,418 @@
             <children>
                 <primitive>
                     <obstacle id="obstacle4" subtype="invert" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="-0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="-0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                    </obstacle>                
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle5">
+            <materialref id="coneApp"/>
+            <transforms>
+                <translate value3="8 1.5 7.5" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="2.5 2.5 2.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle5" subtype="speed" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="-0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="-0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                    </obstacle>                
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle6">
+            <materialref id="coneApp"/>
+            <transforms>
+                <translate value3="8 2.5 -7.5" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="2.5 2.5 2.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle6" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="-0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="-0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                    </obstacle>                
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle7">
+            <materialref id="coneApp"/>
+            <transforms>
+                <translate value3="8 2.5 0" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="2.5 2.5 2.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle7" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.3" yy="0" zz="0" />
+                        <controlpoint xx="0.05" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0.5" zz="0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="0" yy="0.666666" zz="0" />
+
+                        <controlpoint xx="0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="0" yy="0.5" zz="-0" />
+                        <controlpoint xx="0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="-0.22" />
+                        <controlpoint xx="-0.3" yy="0" zz="-0.4" />
+                        <controlpoint xx="-0.05" yy="0" zz="-0.0666666" />
+                        <controlpoint xx="-0" yy="0.5" zz="-0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="-0.0333333" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="-0.2666666" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="-0.1" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="-0.0666666" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="-0.0333333" />
+                        <controlpoint xx="-0" yy="0.666666" zz="-0" />
+
+                        <controlpoint xx="-0.15" yy="-0.5" zz="0" />
+                        <controlpoint xx="-0.3" yy="0" zz="0" />
+                        <controlpoint xx="-0.05" yy="0" zz="0" />
+                        <controlpoint xx="-0" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.5" zz="0" />
+                        <controlpoint xx="-0.2" yy="0.61666666" zz="0" />
+                        <controlpoint xx="-0.075" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.05" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0.025" yy="0.666666" zz="0" />
+                        <controlpoint xx="-0" yy="0.666666" zz="0" />
+
+                    </obstacle>                
+                </primitive>
+            </children>
+        </node>
+
+        <node id="obstacle8">
+            <materialref id="coneApp"/>
+            <transforms>
+                <translate value3="0 2.5 0" />
+                <rotate value3="0 1.4 0" />
+                <scale value3="2.5 2.5 2.5" />
+            </transforms>
+            <children>
+                <primitive>
+                    <obstacle id="obstacle8" subtype="invert" value="0.5" duration="5" active="true" degree_u="7" degree_v="9" parts_u="50" parts_v="50">
                         <controlpoint xx="-0.15" yy="-0.5" zz="0" />
                         <controlpoint xx="-0.3" yy="0" zz="0" />
                         <controlpoint xx="-0.05" yy="0" zz="0" />

@@ -62,11 +62,6 @@ class GameState extends State {
     }
 
     handleKeyPress(event) {
-        if (event.code === 'Escape') {
-            this.removeEventListeners();
-            this.app.currentState = this.app.menuState;
-            this.app.currentState.init();
-        }
         if (event.code === 'Space') {
             this.removeEventListeners();
             this.app.currentState = this.app.pauseState;

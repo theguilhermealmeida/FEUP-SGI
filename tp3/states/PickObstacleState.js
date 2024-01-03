@@ -11,7 +11,7 @@ class PickObstacleState extends State {
 
     init() {
         document.addEventListener('click', this.clickHandler);
-        this.pickableObjNames = ["obstacle1", "obstacle2"];
+        this.pickableObjNames = ["obstacle1", "obstacle2", "obstacle5", "obstacle6", "obstacle7", "obstacle8"];
         this.obstacles = this.app.scene.getObjectByName("obstaclePark");
         document.addEventListener("pointermove",this.pointerMoveHandler);
         this.app.textContainer.style.display = "block";
