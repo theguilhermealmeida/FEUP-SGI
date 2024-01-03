@@ -40,25 +40,22 @@ Throughout the development process, we encountered a few challenges:
 ## Screenshots
 
 Main Menu
-[<img src="./tp3/../docs/screenshots/1.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/1.png" width="3360" heigth="1904">]()
 Car Park
-[<img src="./tp3/../docs/screenshots/2.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/2.png" width="3360" heigth="1904">]()
 Ready To Start the Race
-[<img src="./tp3/../docs/screenshots/3.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/3.png" width="3360" heigth="1904">]()
 Race Countdown
-[<img src="./tp3/../docs/screenshots/4.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/4.png" width="3360" heigth="1904">]()
 Race View
-[<img src="./tp3/../docs/screenshots/5.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/5.png" width="3360" heigth="1904">]()
 Obstacles Park
-[<img src="./tp3/../docs/screenshots/6.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/6.png" width="3360" heigth="1904">]()
 Obstacle Placement
-[<img src="./tp3/../docs/screenshots/7.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/7.png" width="3360" heigth="1904">]()
 Obstacle effect and Out of Track Warning
-[<img src="./tp3/../docs/screenshots/8.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/8.png" width="3360" heigth="1904">]()
 End of Race w/Results and FireWorks
-[<img src="./tp3/../docs/screenshots/9.png" width="3360" heigth="1904">]()
+[<img src="./docs/screenshots/9.png" width="3360" heigth="1904">]()
 Billboard with Live Image with bumps
-[<img src="./tp3/../docs/screenshots/10.png" width="3360" heigth="1904">]()
-
-
-
+[<img src="./docs/screenshots/10.png" width="3360" heigth="1904">]()
