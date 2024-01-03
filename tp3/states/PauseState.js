@@ -9,14 +9,14 @@ class PauseState extends State{
     init() {
         document.addEventListener('keydown', this.keyPressHandler);
         this.app.game.pause();
-        this.app.pauseContainer.innerHTML = "Paused!\nPress Space to continue";
+        this.app.pauseContainer.style.display = 'block';
     }
 
     handleKeyPress(event) {
-        this.removeEventListeners();
-        this.app.cleanTextContainers();
         //if space key is pressed, go back to GameState
         if (event.code === 'Space') {
+            this.removeEventListeners();
+            this.app.cleanTextContainers();
             this.app.currentState = this.app.gameState;
             this.app.currentState.reload();
         }

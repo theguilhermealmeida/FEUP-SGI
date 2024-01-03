@@ -213,10 +213,10 @@ class MyApp  {
         this.lapContainer.innerHTML = "";
         this.timeContainer.innerHTML = "";
         this.speedContainer.innerHTML = "";
-        this.pauseContainer.innerHTML = "";
         this.effectContainer.innerHTML = "";
         this.effectTimeContainer.innerHTML = "";
         this.outOfTrackContainer.innerHTML = "";
+        this.pauseContainer.style.display = "none";
     }
 }
 
