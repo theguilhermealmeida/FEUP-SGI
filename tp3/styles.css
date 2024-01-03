@@ -64,5 +64,18 @@ body {
     text-align: center;
     display: none;
   }
+
+  /* Styles for the countdown container */
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bungee Spice', sans-serif; /* Use Rubik Doodle Shadow font */
+    font-size: 250px; /* Adjust font size as desired */
+    text-align: center;
+    display: none;
+  }
+  
   
   

@@ -102,6 +102,7 @@ class MyApp  {
         this.effectTimeContainer = document.getElementById('effectTimeContainer');
         this.outOfTrackContainer = document.getElementById('outOfTrackContainer');
         this.pauseContainer = document.getElementById('pauseContainer');
+        this.countdownContainer = document.getElementById('countdownContainer');
 
     }
 
@@ -217,6 +218,7 @@ class MyApp  {
         this.outOfTrackContainer.innerHTML = "";
         this.pauseContainer.style.display = "none";
         this.textContainer.style.display = "none";
+        this.countdownContainer.style.display = "none";
     }
 }
 

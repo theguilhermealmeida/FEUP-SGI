@@ -39,20 +39,20 @@ class Game {
     }
 
     raceCountdown() {
-        this.app.textContainer.style.display = "block";
-        this.app.textContainer.innerHTML = "3";
+        this.app.countdownContainer.style.display = "block";
+        this.app.countdownContainer.innerHTML = "3";
         setTimeout(() => {
-            this.app.textContainer.innerHTML = "2";
+            this.app.countdownContainer.innerHTML = "2";
             setTimeout(() => {
-                this.app.textContainer.innerHTML = "1";
+                this.app.countdownContainer.innerHTML = "1";
                 setTimeout(() => {
-                    this.app.textContainer.innerHTML = "GO!";
+                    this.app.countdownContainer.innerHTML = "GO!";
                     this.clock.start();
                     this.countdownEnded = true;
                     this.oppCar.resumeCar();
                     setTimeout(() => {
-                        this.app.textContainer.innerHTML = "";
-                    }, 1000);
+                        this.app.countdownContainer.style.display = "none";
+                    }, 300);
                 }, 1000);
             }, 1000);
         }, 1000);
