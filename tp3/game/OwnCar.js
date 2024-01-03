@@ -30,6 +30,8 @@ class OwnCar {
         this.car.rotation.y = Math.PI;
         this.app.scene.add(this.car);
         this.computeBoundingSpheres(this.car.getObjectByName("carComplex"));
+        this.effectDescriptionContainer = document.querySelector('#effectContainer .effect-description');
+        this.effectTimeContainer = document.querySelector('#effectContainer .time-number');
     }
 
     computeBoundingSpheres(node) {
@@ -117,22 +119,25 @@ class OwnCar {
                 this.effect = effect;
                 this.maxVelocity = this.maxVelocity * effect.value;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
-                this.app.effectContainer.innerHTML = "Effect: " + effect.value * 100 + "% " + effect.type + " for " + effect.duration + "s";
-                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                this.app.effectContainer.style.display = "block";
+                this.effectDescriptionContainer.innerHTML = effect.value * 100 + "% " + effect.type;
+                this.effectTimeContainer.innerHTML = effect.duration;
                 break;
             case "invert":
                 this.effect = effect;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
                 this.invertedControls = true;
-                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
-                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                this.app.effectContainer.style.display = "block";
+                this.effectDescriptionContainer.innerHTML = effect.type;
+                this.effectTimeContainer.innerHTML = effect.duration;
                 break;
             case "invencible":
                 this.effect = effect;
                 this.endOfEffect = this.app.game.elapsedTime + effect.duration;
                 this.invencible = true;
-                this.app.effectContainer.innerHTML = "Effect: " + effect.type + " for " + effect.duration + "s";
-                this.app.effectTimeContainer.innerHTML = "Effect time left: " + effect.duration + "s";
+                this.app.effectContainer.style.display = "block";
+                this.effectDescriptionContainer.innerHTML = effect.type;
+                this.effectTimeContainer.innerHTML = effect.duration;
                 break;
         }
     }
@@ -140,8 +145,7 @@ class OwnCar {
     removeCurrentEffect() {
         if(this.effect === null) return;
 
-        this.app.effectContainer.innerHTML = "";
-        this.app.effectTimeContainer.innerHTML = "";
+        this.app.effectContainer.style.display = "none";
 
         switch(this.effect.type) {
             case "speed":
@@ -163,34 +167,28 @@ class OwnCar {
             case "speed":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
                     this.maxVelocity = this.maxVelocity / this.effect.value;
-                    this.app.effectContainer.innerHTML = "";
-                    this.app.effectTimeContainer.innerHTML = "";
+                    this.app.effectContainer.style.display = "none";
                     this.effect = null;
                 } else {
-                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.value * 100 + "% " + this.effect.type + " for " + this.effect.duration + "s";
-                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                    this.effectTimeContainer.innerHTML = Math.round(this.endOfEffect - this.app.game.elapsedTime);
                 }
                 break;
             case "invert":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
                     this.invertedControls = false;
-                    this.app.effectContainer.innerHTML = "";
-                    this.app.effectTimeContainer.innerHTML = "";
+                    this.app.effectContainer.style.display = "none";
                     this.effect = null;
                 } else {
-                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
-                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                    this.effectTimeContainer.innerHTML = Math.round(this.endOfEffect - this.app.game.elapsedTime);
                 }
                 break;
             case "invencible":
                 if(this.app.game.elapsedTime > this.endOfEffect) {
                     this.invencible = false;
-                    this.app.effectContainer.innerHTML = "";
-                    this.app.effectTimeContainer.innerHTML = "";
+                    this.app.effectContainer.style.display = "none";
                     this.effect = null;
                 } else {
-                    this.app.effectContainer.innerHTML = "Effect: " + this.effect.type + " for " + this.effect.duration + "s";
-                    this.app.effectTimeContainer.innerHTML = "Effect time left: " + Math.round(this.endOfEffect - this.app.game.elapsedTime) + "s";
+                    this.effectTimeContainer.innerHTML = Math.round(this.endOfEffect - this.app.game.elapsedTime);
                 }
                 break;
         }
@@ -201,7 +199,7 @@ class OwnCar {
 
         this.offTrack = true;
         this.maxVelocity = this.maxVelocity * 0.5;
-        this.app.outOfTrackContainer.innerHTML = "Out of track!";
+        this.app.outOfTrackContainer.style.display = "block";
     }
 
     inTrack() {
@@ -209,7 +207,7 @@ class OwnCar {
 
         this.offTrack = false;
         this.maxVelocity = this.maxVelocity * 2;
-        this.app.outOfTrackContainer.innerHTML = "";
+        this.app.outOfTrackContainer.style.display = "none";
     }
 
     updateBoundingSpheres(node) {

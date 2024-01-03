@@ -99,7 +99,8 @@ class MenuState extends State {
                   this.app.gameState);
             }
             else{
-                this.restoreColorOfFirstPickedObj();             
+                this.restoreColorOfFirstPickedObj();  
+                this.app.textContainer.style.display = "block";           
                 this.app.textContainer.innerHTML = "Please select a car, a difficulty and a name";
             }
         } else if(objName === "selectCarButton") {
@@ -143,21 +144,21 @@ class MenuState extends State {
         if(objName === "easyButton") {
             this.restoreDifficultyButtonColor(this.difficultyButton);
             this.difficultyButton = easyButton;
-            easyButton.children[0].children[0].material = this.app.selectedMaterial;
+            easyButton.children[0].children[0].material = this.app.easyMaterial;
             this.lastPickedObjMaterial = easyButton.children[0].children[0].material;
             easyButton.position.z -=1.5
         }
         else if(objName === "mediumButton") {
             this.restoreDifficultyButtonColor(this.difficultyButton);
             this.difficultyButton = mediumButton;
-            mediumButton.children[0].children[0].material = this.app.selectedMaterial;
+            mediumButton.children[0].children[0].material = this.app.mediumMaterial;
             this.lastPickedObjMaterial = mediumButton.children[0].children[0].material;
             mediumButton.position.z -=1.5
         }
         else if(objName === "hardButton") {
             this.restoreDifficultyButtonColor(this.difficultyButton);
             this.difficultyButton = hardButton;
-            hardButton.children[0].children[0].material = this.app.selectedMaterial;
+            hardButton.children[0].children[0].material = this.app.hardMaterial;
             this.lastPickedObjMaterial = hardButton.children[0].children[0].material;
             hardButton.position.z -=1.5
         }

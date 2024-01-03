@@ -14,6 +14,7 @@ class PickObstacleState extends State {
         this.pickableObjNames = ["obstacle1", "obstacle2"];
         this.obstacles = this.app.scene.getObjectByName("obstaclePark");
         document.addEventListener("pointermove",this.pointerMoveHandler);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Pick your obstacle!"
     }
 
@@ -63,7 +64,6 @@ class PickObstacleState extends State {
 
                     this.removeEventListeners();
                     this.restoreColorOfFirstPickedObj();
-                    this.app.cleanTextContainers();
                     this.app.currentState = this.app.transitionState;
                     this.app.currentState.init(this.app.getActiveCamera().position, this.app.controls.target,
                         new THREE.Vector3(0, 150, 0), new THREE.Vector3(0, 0, 0), this.app.moveObstacleState);

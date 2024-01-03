@@ -6,6 +6,13 @@
 
     <link rel="shortcut icon" href="image/favicon/3d.png" />
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Seymour+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+
 
     <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
     <script type="importmap">
@@ -23,16 +30,47 @@
     <div id="canvas"></div>
     <div id="camera"></div>
     <script type="module" src="main.js"></script>
-    <div id="textContainer" style="position: absolute; top: 30px; left: 50%; color: purple; font-size: 40px; text-align: center;"></div>
-    <div id="lapContainer" style="position: absolute; top: 10%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="timeContainer" style="position: absolute; top: 15%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="speedContainer" style="position: absolute; top: 20%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="effectContainer" style="position: absolute; top: 25%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="effectTimeContainer" style="position: absolute; top: 30%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="outOfTrackContainer" style="position: absolute; top: 35%; left: 1%; color: white; font-size: 40px; text-align: center;"></div>
-    <div id="pauseContainer" style="position: absolute; top: 40%; left: 40%; color: red; font-size: 60px; text-align: center;"></div>
 
+    <div id="pauseContainer" class="pause">
+      <div class="pause-text">PAUSE</div>
+      <div class="press-text">Press Space to Continue</div>
+    </div>
 
+    <div id="textContainer" class="message-container">
+      <!-- Text content will be dynamically changed here -->
+    </div>
+
+    <div id="countdownContainer" class="countdown">
+      <!-- Countdown content will be dynamically changed here -->
+    </div>
+    
+    <div id="lapContainer" class="lap">
+      Lap: <span class="lap-number"></span> / <span class="lap-total"></span>
+    </div>
+
+    <div id="timeContainer" class="time">
+      Time: <span class="time-number"></span>
+    </div>
+
+    <div id="speedContainer" class="speed">
+      <span class="speed-number">100</span>
+      <span class="speed-unit">km/h</span>
+    </div>
+
+    <div id="effectContainer" class="effect">
+      <p class="effect-label">Effect:</p>
+      <p class="effect-description">200% speed</p>
+      <p class="effect-time"><span class="time-number">5</span>s</p>
+    </div>
+
+    <div id="outOfTrackContainer" class="out-of-track">
+      <p class="out-of-track-text">You are out of track!</p>
+    </div>
+    
+    
+    
+
+    
 </body>
 
 </html>

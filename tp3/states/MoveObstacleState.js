@@ -15,6 +15,7 @@ class MoveObstacleState extends State {
         document.addEventListener("pointermove",this.pointerMoveHandler);
         this.obstacle = this.app.game.pickedObstacle;
         this.app.scene.add(this.obstacle);
+        this.app.textContainer.style.display = "block";
         this.app.textContainer.innerHTML = "Place your obstacle!"
     }
 
@@ -30,10 +31,9 @@ class MoveObstacleState extends State {
 
     handleClick(event) {
         if(this.objectPlaced) {
+            this.app.textContainer.style.display = "none";
             this.removeEventListeners();
-            this.app.cleanTextContainers();
             this.app.currentState = this.app.transitionState;
-
             let ownCar = this.app.game.ownCar;
         
             // Set the camera's position behind the car

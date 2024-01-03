@@ -127,7 +127,11 @@ class MyContents  {
 
         this.app.pickedMaterial = this.app.materials.get("violetApp");
 
-        this.app.selectedMaterial = this.app.materials.get("redApp");
+        this.app.easyMaterial = this.app.materials.get("greenApp");
+
+        this.app.mediumMaterial = this.app.materials.get("yellowApp");
+
+        this.app.hardMaterial = this.app.materials.get("redApp");
 
         this.app.buttonMaterial = this.app.materials.get("blueApp");
 
