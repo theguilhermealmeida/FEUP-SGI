@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { MyShader } from '../MyShader.js';
 
 class Game {
     constructor(app) {
@@ -93,6 +94,9 @@ class Game {
         this.updateSpeed();
         this.checkWinner();
         this.checkColisions();
+        for (let powerup of this.activePowerups) {
+            powerup.children[0].rotation.y += 0.05;
+        }
     }
 
     updateTime() {

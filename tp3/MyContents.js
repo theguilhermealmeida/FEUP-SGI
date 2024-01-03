@@ -201,11 +201,15 @@ class MyContents  {
         const material2 = shader2.material
 
         this.graphBuilder.obstacles.forEach(obstacle => {
-            obstacle.material = material0;
+            if (obstacle.subtype === "speed") {
+                obstacle.material = material0;
+                obstacle.shader = this.shaders[0];
+            }
         })
 
         let billboard = this.app.scene.getObjectByName("displayImage").getObjectByProperty("type", "Mesh") 
         billboard.material = material2
+        
         this.startLiveImageShader()
     }
 

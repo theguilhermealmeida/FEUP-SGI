@@ -232,7 +232,7 @@ class MyGraphBuilder {
             }
             if (nodeData.subtype === "obstacle") {
                 nodeGroup.data = nodeData
-                let obstacle = new MyObstacle(nodeData, this.materials.get("pinApp"));
+                let obstacle = new MyObstacle(nodeData, materialObject);
                 console.log("obstacle", obstacle)
                 this.obstacles.push(obstacle)
                 nodeGroup.add(obstacle);
